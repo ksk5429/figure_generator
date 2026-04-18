@@ -29,6 +29,7 @@ and commit yourself.
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import shutil
 import subprocess
@@ -41,6 +42,7 @@ import yaml
 
 from figgen import CONFIGS_DIR
 from figgen.io import research_notes_path
+from figgen.optimize import shrink_png_dir
 
 
 FIG_DIR_NAMES = ("figures", "figures1", "figures_final2")
@@ -81,27 +83,49 @@ def _resolve_manuscript(paper: str) -> Path:
 
 
 def _stage(qmd: Path) -> Path:
-    """Copy the manuscript + its dependencies into a clean temp directory."""
+    """Copy the manuscript + its dependencies into a clean temp directory.
+
+    Also rewrites raw ``{=latex}`` table blocks in the staged .qmd into
+    cross-ref-resolvable Pandoc divs so @tbl-X citations work in gfm output.
+    """
     stage = Path(tempfile.mkdtemp(prefix="figgen_paper_"))
     src_dir = qmd.parent
 
-    shutil.copy2(qmd, stage / qmd.name)
+    qmd_text = qmd.read_text(encoding="utf-8")
+    patched, fixed_labels = _fix_latex_tables_in_qmd(qmd_text)
+    (stage / qmd.name).write_text(patched, encoding="utf-8")
+    if fixed_labels:
+        print(f"[ok]rewrote {len(fixed_labels)} LaTeX table block(s) with pandoc: {fixed_labels}")
 
     bib = src_dir / "references.bib"
     if bib.exists():
         shutil.copy2(bib, stage / "references.bib")
 
+    # Copy ALL CSL files present — the .qmd may reference a specific one.
     csl_files = list(src_dir.glob("*.csl"))
-    csl_line = ""
-    if csl_files:
-        # Use the first CSL (conventionally the journal style)
-        shutil.copy2(csl_files[0], stage / csl_files[0].name)
-        csl_line = f"csl: {csl_files[0].name}"
+    for csl in csl_files:
+        shutil.copy2(csl, stage / csl.name)
+    # The minimal _quarto.yml falls back to the first CSL; Quarto's own
+    # resolver will use whatever the .qmd explicitly declares.
+    csl_line = f"csl: {csl_files[0].name}" if csl_files else ""
+
+    # Only ship image/vector/doc formats from figure directories. Users
+    # sometimes drop raw CSVs / parquet / npy next to figures for the
+    # generator script's convenience — those don't belong in the site.
+    _allowed_exts = {".png", ".svg", ".pdf", ".jpg", ".jpeg", ".webp", ".gif", ".eps"}
+
+    def _ignore_non_images(dirpath: str, names: list[str]) -> list[str]:
+        ignored: list[str] = []
+        for n in names:
+            p = Path(dirpath) / n
+            if p.is_file() and p.suffix.lower() not in _allowed_exts:
+                ignored.append(n)
+        return ignored
 
     for fig_name in FIG_DIR_NAMES:
         fig_dir = src_dir / fig_name
         if fig_dir.is_dir():
-            shutil.copytree(fig_dir, stage / fig_name)
+            shutil.copytree(fig_dir, stage / fig_name, ignore=_ignore_non_images)
 
     ext_dir = src_dir / "_extensions"
     if ext_dir.is_dir():
@@ -210,6 +234,87 @@ def _fix_relative_links(md: str) -> str:
     return md
 
 
+# MathJax is configured in research-notes/docs/javascripts/mathjax.js to pick
+# up inlineMath = [["\\(", "\\)"]] and displayMath = [["\\[", "\\]"]]. Quarto's
+# gfm output uses dollar-sign delimiters which pymdownx.arithmatex normally
+# converts, BUT arithmatex's preprocessor fails on math inside Markdown tables
+# and raw HTML blocks. Converting to the bracket form at publish time makes
+# MathJax pick every equation regardless of surrounding context.
+_DISPLAY_MATH_RE = re.compile(r"\$\$(.+?)\$\$", re.DOTALL)
+_INLINE_MATH_RE = re.compile(r"(?<![\\$])\$([^\n$]+?)\$(?!\$)")
+
+
+def _normalize_math_delimiters(md: str) -> str:
+    md = _DISPLAY_MATH_RE.sub(lambda m: r"\[" + m.group(1) + r"\]", md)
+    md = _INLINE_MATH_RE.sub(lambda m: r"\(" + m.group(1) + r"\)", md)
+    return md
+
+
+# The ch5 .qmd (and similar manuscripts) defines some tables as raw LaTeX
+# blocks via ```{=latex} ... ```. Those labels (\\label{tbl-X}) are invisible
+# to Quarto's cross-ref engine, so ``@tbl-X`` citations fail with
+# "Unable to resolve crossref" warnings and render as ``?@tbl-X?`` placeholders.
+# Fix at stage time by converting each such LaTeX table block to a Pandoc
+# markdown table wrapped in :::{#tbl-X} ... ::: so Quarto can both render
+# the table and resolve the cross-reference.
+_LATEX_TABLE_BLOCK_RE = re.compile(
+    r"```\s*\{=latex\}\s*\n(.*?)\n```", re.DOTALL
+)
+_LATEX_LABEL_RE = re.compile(r"\\label\{(tbl-[A-Za-z0-9_\-]+)\}")
+
+
+def _pandoc_cmd() -> list[str]:
+    """Return the preferred pandoc invocation. Uses the Quarto-bundled pandoc
+    when no system pandoc is on PATH (Quarto ships with a recent pandoc as
+    `quarto pandoc`)."""
+    if shutil.which("pandoc"):
+        return ["pandoc"]
+    return ["quarto", "pandoc"]
+
+
+def _convert_latex_table_block(latex_body: str) -> str | None:
+    """Pipe a LaTeX table block through pandoc -> gfm. Returns None on failure."""
+    if r"\begin{table}" not in latex_body:
+        return None
+    try:
+        result = subprocess.run(
+            _pandoc_cmd() + ["-f", "latex", "-t", "gfm"],
+            input=latex_body,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+    except FileNotFoundError:
+        return None
+    if result.returncode != 0:
+        return None
+    return result.stdout.strip()
+
+
+def _fix_latex_tables_in_qmd(qmd_text: str) -> tuple[str, list[str]]:
+    """Rewrite raw ``{=latex}`` table blocks carrying ``\\label{tbl-...}`` into
+    Pandoc markdown tables wrapped in ``:::{#tbl-X} ... :::``.
+
+    Returns (patched_text, list_of_labels_fixed).
+    """
+    fixed: list[str] = []
+
+    def _repl(m: re.Match) -> str:
+        body = m.group(1)
+        lm = _LATEX_LABEL_RE.search(body)
+        if not lm:
+            return m.group(0)  # not a cross-ref-bearing block; leave alone
+        label = lm.group(1)
+        converted = _convert_latex_table_block(body)
+        if not converted:
+            return m.group(0)
+        fixed.append(label)
+        return f"::: {{#{label}}}\n\n{converted}\n\n:::"
+
+    patched = _LATEX_TABLE_BLOCK_RE.sub(_repl, qmd_text)
+    return patched, fixed
+
+
 # --- mkdocs.yml nav surgery -----------------------------------------------
 
 def _patch_mkdocs_nav(mkdocs_yml: Path, paper: str) -> bool:
@@ -244,9 +349,46 @@ def _patch_papers_index(papers_index: Path, paper: str) -> bool:
     return False
 
 
+def _patch_cross_doc_links(docs_root: Path, paper: str) -> int:
+    """Rewrite `](papers/<P>.md)` or `](../papers/<P>.md)` in every .md under
+    docs/ so links continue to resolve after the paper was nested.
+
+    Returns the count of files patched.
+    """
+    if not docs_root.is_dir():
+        return 0
+    patched = 0
+    pat = re.compile(
+        r"\]\(((?:\.\./|\./)*papers/)" + re.escape(paper) + r"\.md([^)]*)\)"
+    )
+    for md in docs_root.rglob("*.md"):
+        # Skip the paper's own pages; those were already patched.
+        try:
+            rel = md.relative_to(docs_root)
+        except ValueError:
+            continue
+        if rel.parts[:2] == ("papers", paper):
+            continue
+        text = md.read_text(encoding="utf-8")
+        new = pat.sub(rf"](\1{paper}/\2)", text)
+        if new != text:
+            md.write_text(new, encoding="utf-8")
+            patched += 1
+    return patched
+
+
 # --- main -----------------------------------------------------------------
 
-def publish(paper: str, dry: bool = False) -> dict[str, Any]:
+def _fmt_bytes(n: int) -> str:
+    for unit in ("B", "KB", "MB", "GB"):
+        if n < 1024 or unit == "GB":
+            return f"{n:.1f} {unit}" if unit != "B" else f"{n} B"
+        n /= 1024
+    return f"{n} GB"
+
+
+def publish(paper: str, dry: bool = False, optimize: bool = True,
+            optimize_max_dim: int = 1600) -> dict[str, Any]:
     qmd = _resolve_manuscript(paper)
     notes_root = research_notes_path()
     if not notes_root.exists():
@@ -289,6 +431,7 @@ def publish(paper: str, dry: bool = False) -> dict[str, Any]:
 
     full_md = frontmatter + outline_section + body.rstrip() + "\n"
     full_md = _fix_relative_links(full_md)
+    full_md = _normalize_math_delimiters(full_md)
 
     if dry:
         print(f"(dry run) would write {paper_dir}/index.md  ({len(full_md)} chars)")
@@ -304,6 +447,7 @@ def publish(paper: str, dry: bool = False) -> dict[str, Any]:
     print(f"[ok] wrote {paper_dir/'index.md'}  ({len(full_md)} chars, {body.count(chr(10))+1} lines)")
 
     # Copy figure assets (relative paths in the .md must resolve).
+    copied_dirs: list[Path] = []
     for fig_name in FIG_DIR_NAMES:
         src = stage / fig_name
         dst = paper_dir / fig_name
@@ -313,6 +457,23 @@ def publish(paper: str, dry: bool = False) -> dict[str, Any]:
             shutil.copytree(src, dst)
             n = sum(1 for _ in dst.rglob("*") if _.is_file())
             print(f"[ok]copied {fig_name}/ ({n} files)")
+            copied_dirs.append(dst)
+
+    if optimize and copied_dirs:
+        agg_before = 0
+        agg_after = 0
+        agg_files = 0
+        for dst in copied_dirs:
+            r = shrink_png_dir(dst, max_dim=optimize_max_dim)
+            agg_before += r["total_before"]
+            agg_after += r["total_after"]
+            agg_files += r["n_files"]
+        if agg_files:
+            saved = agg_before - agg_after
+            pct = (100.0 * saved / agg_before) if agg_before else 0.0
+            print(f"[ok]optimized {agg_files} PNG(s): "
+                  f"{_fmt_bytes(agg_before)} -> {_fmt_bytes(agg_after)} "
+                  f"(saved {_fmt_bytes(saved)}, {pct:.1f}%)")
 
     if archived_outline:
         archived_outline.parent.mkdir(parents=True, exist_ok=True)
@@ -333,6 +494,10 @@ def publish(paper: str, dry: bool = False) -> dict[str, Any]:
     if _patch_papers_index(papers_index, paper):
         print(f"[ok]patched links in docs/papers/index.md: {paper}.md -> {paper}/")
 
+    n_patched = _patch_cross_doc_links(notes_root / "docs", paper)
+    if n_patched:
+        print(f"[ok]patched {n_patched} cross-doc link(s) to papers/{paper}.md -> papers/{paper}/")
+
     # Clean up staging dir only on success
     shutil.rmtree(stage, ignore_errors=True)
     return {"paper": paper, "dry": False, "target": str(paper_dir / "index.md")}
@@ -344,9 +509,14 @@ def main(argv: list[str] | None = None) -> int:
                         help="Paper code (e.g., J3). Must be registered in configs/paths.yaml.manuscripts.")
     parser.add_argument("--dry-run", action="store_true",
                         help="Render + preview without writing to research-notes.")
+    parser.add_argument("--no-optimize", action="store_true",
+                        help="Skip PNG optimization (pngquant / Pillow). Keeps originals at full size.")
+    parser.add_argument("--max-dim", type=int, default=1600,
+                        help="Resize PNGs so neither side exceeds this many pixels (default: 1600).")
     args = parser.parse_args(argv)
     try:
-        publish(paper=args.paper, dry=args.dry_run)
+        publish(paper=args.paper, dry=args.dry_run,
+                optimize=not args.no_optimize, optimize_max_dim=args.max_dim)
     except (FileNotFoundError, KeyError, RuntimeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

@@ -29,8 +29,12 @@ manuscripts:
     qmd: F:/GITHUB3/docs/manuscripts/current/ch4_geotechnical_modeling_optumgx_opensees/MANUSCRIPT/manuscript_v16.qmd
   J3:
     qmd: F:/GITHUB3/docs/manuscripts/current/ch5_centrifuge_testing_year2/manuscript_v8.qmd
-  # Add more as you confirm the canonical version per chapter.
-  # O2:
-  #   qmd: F:/GITHUB3/docs/manuscripts/current/ch4_1_optumgx_opensees_revised/5_manuscript/manuscript_vXX.qmd
-  # MSSP:
-  #   qmd: F:/GITHUB3/docs/manuscripts/current/ch6_field_monitoring_oma/manuscript16.qmd
+  V:
+    # MSSP26-1185 — Double-Filter Framework for Physics-Informed Vibration-
+    # Based Scour Detection. The internal paper code "V" (per the research-
+    # notes portfolio outline papers/V.md) maps to this manuscript.
+    qmd: F:/GITHUB3/docs/manuscripts/current/ch6_field_monitoring_oma/manuscript16.qmd
+  B:
+    qmd: F:/GITHUB3/docs/manuscripts/current/ch7_pca_based_method/manuscript.qmd
+  # Papers without active .qmd (portfolio-only for now): A, Op3, E, J5, J11.
+  # Add them as their manuscripts come online.
