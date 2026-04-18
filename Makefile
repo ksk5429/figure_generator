@@ -15,7 +15,7 @@ TEMPLATE    := scripts/_template_figure.py
 
 FIG_IDS     := $(notdir $(patsubst %/,%,$(wildcard $(FIG_DIR)/*/)))
 
-.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry
+.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry publish-paper publish-paper-dry
 
 help:
 	@echo "figure_generator targets:"
@@ -28,6 +28,8 @@ help:
 	@echo "  make serve              Live-preview gallery at http://localhost:8000"
 	@echo "  make publish [PAPER=<code>]    Copy figures into research-notes/docs/figures/"
 	@echo "  make publish-dry [PAPER=<code>] Preview publish without writing"
+	@echo "  make publish-paper PAPER=<code>     Render manuscript .qmd into research-notes/docs/papers/"
+	@echo "  make publish-paper-dry PAPER=<code> Preview manuscript publish without writing"
 	@echo "  make test               Run pytest (+ pytest-mpl)"
 	@echo "  make metadata FIG=<id>  Print embedded metadata from outputs"
 	@echo "  make new-figure FIG=<id>  Scaffold a new figure folder from template"
@@ -88,6 +90,18 @@ ifdef PAPER
 else
 	$(PY) scripts/publish_to_notes.py --dry-run
 endif
+
+publish-paper:
+ifndef PAPER
+	$(error PAPER is not set. Usage: make publish-paper PAPER=<code>)
+endif
+	$(PY) scripts/publish_paper.py --paper $(PAPER)
+
+publish-paper-dry:
+ifndef PAPER
+	$(error PAPER is not set. Usage: make publish-paper-dry PAPER=<code>)
+endif
+	$(PY) scripts/publish_paper.py --paper $(PAPER) --dry-run
 
 test:
 	$(PY) -m pytest tests/

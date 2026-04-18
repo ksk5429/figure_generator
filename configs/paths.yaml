@@ -20,3 +20,17 @@ external_data_roots:
   field: F:/TREE_OF_THOUGHT/PHD/papers/field_data
   centrifuge: F:/TREE_OF_THOUGHT/PHD/papers/centrifuge_data
   numerical: F:/TREE_OF_THOUGHT/PHD/papers/numerical_data
+
+# Per-paper manuscript sources. `publish_paper.py PAPER=<code>` reads this
+# block to find the canonical .qmd for each paper. Paths are absolute
+# because the manuscripts live outside this repo.
+manuscripts:
+  J2:
+    qmd: F:/GITHUB3/docs/manuscripts/current/ch4_geotechnical_modeling_optumgx_opensees/MANUSCRIPT/manuscript_v16.qmd
+  J3:
+    qmd: F:/GITHUB3/docs/manuscripts/current/ch5_centrifuge_testing_year2/manuscript_v8.qmd
+  # Add more as you confirm the canonical version per chapter.
+  # O2:
+  #   qmd: F:/GITHUB3/docs/manuscripts/current/ch4_1_optumgx_opensees_revised/5_manuscript/manuscript_vXX.qmd
+  # MSSP:
+  #   qmd: F:/GITHUB3/docs/manuscripts/current/ch6_field_monitoring_oma/manuscript16.qmd
