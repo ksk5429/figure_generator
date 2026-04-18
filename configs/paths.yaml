@@ -36,5 +36,16 @@ manuscripts:
     qmd: F:/GITHUB3/docs/manuscripts/current/ch6_field_monitoring_oma/manuscript16.qmd
   B:
     qmd: F:/GITHUB3/docs/manuscripts/current/ch7_pca_based_method/manuscript.qmd
-  # Papers without active .qmd (portfolio-only for now): A, Op3, E, J5, J11.
-  # Add them as their manuscripts come online.
+  A:
+    qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperA_dt_decision/manuscript.qmd
+  E:
+    qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperE_encoder/manuscript.qmd
+  Op3:
+    qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperOp3_aes/manuscript.qmd
+  J5:
+    qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperJ5_mc_optumgx/manuscript.qmd
+  J11:
+    qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperJ11_vesic_dissipation/manuscript.qmd
+  # J1 is closed-publication (Ocean Engineering 342, 123084, 2025); no editable
+  # .qmd source is retained. Its /papers/J1/ page stays as the portfolio
+  # outline that already exists in research-notes.
