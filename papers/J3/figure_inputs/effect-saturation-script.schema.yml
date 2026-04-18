@@ -1,0 +1,60 @@
+# Tier-2 schema for the frozen-from-script fig14 parquet.
+#
+# Path A of the J3 saturation migration. The arrays here are a 1:1 copy of
+# the hardcoded numpy arrays in
+#   F:\GITHUB3\docs\manuscripts\current\ch5_centrifuge_testing_year2\fig14_effect_saturation.py
+# (last modified 2025-02-19). They are the arrays that produced the published
+# PNG+SVG and that carry the F-02 corrected headline ratios.
+
+fig_slug: effect-saturation-script
+paper: J3
+claim_id: j3-saturation-gain
+
+description: >
+  Script-frozen frequency vs scour depth ratio for the four centrifuge
+  test series used to quantify the saturation effect on scour sensitivity
+  (T1 dense dry, T2 loose dry, T4 dense saturated, T5 loose saturated).
+  These numbers are what the current fig14 annotations read; they are
+  the "ground truth" for Path A (preserve the figure as-published).
+
+columns:
+  - name: series
+    dtype: category
+    unit: dimensionless
+    nullable: false
+    allowed: [T1, T2, T4, T5]
+    description: Centrifuge test identifier.
+
+  - name: density
+    dtype: category
+    unit: dimensionless
+    nullable: false
+    allowed: [dense, loose]
+
+  - name: saturation
+    dtype: category
+    unit: dimensionless
+    nullable: false
+    allowed: [dry, saturated]
+
+  - name: sd
+    dtype: float
+    unit: dimensionless
+    nullable: false
+    range: [0.0, 1.0]
+    description: Scour depth ratio S / D. For T4/T5 these values originate
+      from the test plan, not the measurement CSV (the CSV's SD column is
+      empty for saturated tests).
+
+  - name: f1_model_hz
+    dtype: float
+    unit: hertz
+    nullable: false
+    range: [8.0, 14.0]
+    description: First natural frequency at centrifuge (model) scale.
+
+row_rules:
+  - name: four_rows_per_series
+    type: group_count
+    group_by: series
+    expected: 4

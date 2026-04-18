@@ -1,56 +1,109 @@
 # Claim witness — j3-saturation-gain
 #
-# Encodes the F-02 correction from 2026-04-17's critical review. Any J3
-# figure tagged claim_id: j3-saturation-gain is cross-checked against the
-# assertions below before its outputs ship.
+# Encodes the F-02 correction from the 2026-04-17 critical-review pass.
+# Any J3 figure tagged claim_id: j3-saturation-gain is cross-checked
+# against the assertions below before its outputs ship.
 
 claim_id: j3-saturation-gain
 paper: J3
 status: corrected
 source: critical_review_fixes_20260417
 origin_note: |
-  R0 abstract reported a "25% saturation effect" that was a normalization
-  artifact (−3.23% on the original signed scale). The physically correct
-  statement is a 1.7–1.9× gain on bearing capacity relative to the dry
-  baseline; equivalently, a 70–90% reduction in allowable load when the
-  seabed desaturates.
+  R0 abstract reported a "25% reduction in scour sensitivity" for the
+  saturated loose pair. A recomputation from the matched-pair sensitivity
+  slopes (|Δf/f₀| per S/D) in fig14_effect_saturation.py gives a 1.7–1.9×
+  dry/saturated sensitivity ratio for the loose pair (T2/T5), the
+  physically-correct amplification statement. The "25%" phrasing is the
+  retracted headline; the manuscript prose still carries it as of
+  manuscript_v8.qmd (2026-04-16) because the user elected not to churn the
+  revision text — the figure annotations already show the corrected 1.9×.
 
 headline: >
-  Saturation increases bearing capacity by a factor of 1.7–1.9 relative
-  to the dry baseline (70–90% capacity reduction when desaturated).
+  Dry/saturated sensitivity ratio is 1.7–1.9× for the loose pair (T2/T5).
 
-# Machine-checkable assertions. The `parquet` field names the Tier-2 file
-# each assertion operates on; `column` / `op` / `lo` / `hi` / `value` /
-# `tolerance` describe the check. The builder runs these only when a
-# figure claiming this id is rebuilt (see B2 in the upgrade roadmap).
+# Primary witness figure — the one currently rendered in the paper.
+primary_figure: figures/j3-effect-saturation
+# Audit figure — re-derives the ratio from the canonical CSV where possible.
+audit_figure: figures/j3-effect-saturation-verified
+
+# Machine-checkable assertions. Each assertion names the Tier-2 parquet it
+# operates on (relative to papers/J3/figure_inputs/) and how to compute
+# the witnessed quantity. A future claim-witness runner will enforce
+# these during figure build; for now they are documentation.
 assertions:
-  - name: saturation_gain_range
-    parquet: null                          # TODO: fill once Tier-2 parquet exists
-    column: saturation_gain_ratio          # ratio = wet_capacity / dry_capacity
+
+  # ----- Loose pair (T2 dry vs T5 saturated) -----
+  - name: loose_ratio_in_band
+    parquet: effect-saturation-script.parquet
+    compute: &loose_ratio_compute
+      op: slope_ratio
+      # slope(series) = abs( polyfit(sd, (f - f[0])/f[0] * 100, 1)[0] )
+      numerator: {filter: {series: T2}, x: sd, y: f1_model_hz, kind: nf_slope}
+      denominator: {filter: {series: T5}, x: sd, y: f1_model_hz, kind: nf_slope}
     op: between
     lo: 1.70
     hi: 1.90
-    tolerance: 0.02
+    tolerance: 0.03
     unit: dimensionless
+    rationale: >
+      This is the headline. The loose pair's dry/saturated sensitivity
+      ratio (T2/T5) must fall in 1.70–1.90 for the F-02 correction to
+      hold. The script's current numbers give 1.904.
 
-  - name: saturation_gain_is_not_25pct
-    parquet: null
-    column: saturation_gain_ratio
+  - name: loose_ratio_is_not_1_25
+    parquet: effect-saturation-script.parquet
+    compute: *loose_ratio_compute
     op: not_near
-    value: 1.25                            # the retracted 25% value
+    value: 1.25          # the retracted 25% ≙ 1.25× value
     tolerance: 0.05
     unit: dimensionless
+    rationale: >
+      Explicit refutation of the retracted 25% headline.
 
-  - name: capacity_reduction_on_desaturation
-    parquet: null
-    column: desaturation_reduction_fraction
-    op: between
-    lo: 0.70
-    hi: 0.90
-    tolerance: 0.02
+  # ----- Dense pair (T1 dry vs T4 saturated) — context, not headline -----
+  - name: dense_ratio_is_large
+    parquet: effect-saturation-script.parquet
+    compute:
+      op: slope_ratio
+      numerator: {filter: {series: T1}, x: sd, y: f1_model_hz, kind: nf_slope}
+      denominator: {filter: {series: T4}, x: sd, y: f1_model_hz, kind: nf_slope}
+    op: greater
+    value: 4.0
     unit: dimensionless
+    rationale: >
+      The dense pair's amplification is much larger than the loose pair's
+      (script reports 7.0×). This assertion is deliberately loose — 4.0×
+      is a weak lower bound — because the dense-pair interpretation is
+      confounded by different processing methods between T1 (free-decay)
+      and T4 (Welch PSD) per the manuscript.
 
-# Documentation pointers.
+  # ----- CSV parity check -----
+  - name: csv_slot_layout
+    parquet: effect-saturation-measured.parquet
+    compute:
+      op: row_counts
+      group_by: series
+    op: equal
+    value: {T1: 4, T2: 4, T4: 4, T5: 4}
+    rationale: >
+      Guards against the CSV changing shape (e.g., backfill rows sneaking
+      back in). If this fires, effect-saturation-measured.parquet needs to
+      be rebuilt from the updated natural_frequencies.csv.
+
+# Expected witness-runner outcome, documenting what each figure's status
+# should be when the runner is implemented (B2 in the upgrade roadmap).
+expected_outcomes:
+  figures/j3-effect-saturation:
+    loose_ratio_in_band: pass
+    loose_ratio_is_not_1_25: pass
+    dense_ratio_is_large: pass
+  figures/j3-effect-saturation-verified:
+    loose_ratio_in_band: inconclusive  # CSV lacks SD for T4/T5
+    loose_ratio_is_not_1_25: inconclusive
+    dense_ratio_is_large: inconclusive
+    csv_slot_layout: pass
+
 see_also:
-  - ../../../critical_review_fixes_20260417 (memory)
-  - ../../planning/methodology_claims.md
+  - ../../../../figures/j3-effect-saturation (primary)
+  - ../../../../figures/j3-effect-saturation-verified (audit)
+  - ../../../../CLAUDE.md

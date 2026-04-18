@@ -1,0 +1,34 @@
+{
+  "fig_slug": "effect-saturation-script",
+  "paper": "J3",
+  "built_utc": "2026-04-18T08:15:00Z",
+  "built_by": "scripts/build_j3_tier2_effect_saturation.py",
+  "source_chain": [
+    {
+      "tier": 0,
+      "role": "raw_measurement",
+      "path": "F:/GITHUB3/data/centrifuge/T1-T5 campaigns (2024-2025)",
+      "hash": null,
+      "note": "Time-domain accelerometer records from the centrifuge tests."
+    },
+    {
+      "tier": 1,
+      "role": "processed",
+      "path": "F:/GITHUB3/docs/manuscripts/current/ch5_centrifuge_testing_year2/analysis1/results/natural_frequencies.csv",
+      "hash": null,
+      "note": "Canonical frequency table produced by the analysis1 pipeline. Note: T1 values in this CSV differ from the values embedded in fig14_effect_saturation.py; the script uses earlier-iteration reprocessed values per the manuscript note 'T1–T3 reprocessed using the same Welch method'. See also effect-saturation-measured.parquet for a parquet derived directly from this CSV."
+    },
+    {
+      "tier": 2,
+      "role": "figure_input",
+      "path": "./effect-saturation-script.parquet",
+      "hash": null,
+      "note": "This file. Transcribed verbatim from the numpy arrays at lines 47-55 of fig14_effect_saturation.py (mtime 2025-02-19 21:05). It is the 'path A' source for the J3 saturation migration — preserves exactly the numbers that the currently-published figure annotates."
+    }
+  ],
+  "processing_script": "fig14_effect_saturation.py (original script, hardcoded arrays)",
+  "notes": [
+    "This parquet is a forensic snapshot, not a re-derivation. Any downstream figure built from it will reproduce the published fig14 numbers exactly.",
+    "For a CSV-derived counterpart, see effect-saturation-measured.parquet."
+  ]
+}

@@ -1,0 +1,26 @@
+figure_id: j3-effect-saturation-verified
+journal: ocean_engineering
+
+# Path B of the J3 saturation migration: audit figure built from the
+# canonical natural_frequencies.csv (Tier-2 slice
+# effect-saturation-measured). The intent is to check whether the 1.7-1.9x
+# corrected headline survives when slopes are re-derived from the current
+# CSV instead of the script's hardcoded arrays.
+paper: J3
+claim_id: j3-saturation-gain
+tier: 2
+
+width: double
+
+description: >
+  CSV-derived audit counterpart to j3-effect-saturation. Plots frequency
+  decline |Δf₁/f₁,0| vs S/D for the dry series (T1, T2) using the
+  canonical Welch/free-decay frequencies recorded in
+  analysis1/results/natural_frequencies.csv. Saturated series (T4, T5) are
+  included on panel (b) as baseline-only bars because the source CSV does
+  not carry SD values for those tests, so their slopes are not computable
+  without auxiliary test-plan data.
+
+tier2_slug: effect-saturation-measured
+
+formats: [png, svg, pdf]

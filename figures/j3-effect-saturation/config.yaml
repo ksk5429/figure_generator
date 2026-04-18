@@ -1,0 +1,23 @@
+figure_id: j3-effect-saturation
+journal: ocean_engineering
+
+# Path A of the J3 saturation migration: faithful reproduction of
+# fig14_effect_saturation.png/svg from ch5. Tier-2 source is the frozen
+# script-array parquet.
+paper: J3
+claim_id: j3-saturation-gain
+tier: 2
+
+width: double
+
+description: >
+  Effect of saturation on scour sensitivity. (a) Matched-pair frequency
+  decline |Δf₁/f₁,0| vs S/D with shaded regions indicating the saturation
+  reduction. (b) Scour sensitivity (|Δf/f₀| per S/D) bar chart with dry/sat
+  amplification ratio annotated. This is Path A of the Tier-2 migration:
+  a faithful reproduction of the currently-published fig14 using the
+  hardcoded arrays preserved in effect-saturation-script.parquet.
+
+tier2_slug: effect-saturation-script
+
+formats: [png, svg, pdf]

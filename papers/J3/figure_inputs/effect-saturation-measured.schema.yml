@@ -1,0 +1,84 @@
+# Tier-2 schema for the CSV-derived counterpart to effect-saturation-script.
+#
+# Path B of the J3 saturation migration. Data is sliced from the canonical
+# analysis1 output natural_frequencies.csv and reflects whatever that
+# pipeline currently produces.
+
+fig_slug: effect-saturation-measured
+paper: J3
+claim_id: j3-saturation-gain
+
+description: >
+  Canonical measurement slice for T1/T2/T4/T5 (baseline + scour stages,
+  backfill excluded) straight from analysis1/results/natural_frequencies.csv.
+  Use this for an honest claim-witness check: does the 1.7–1.9× corrected
+  ratio survive when the slope is re-derived from the CSV?
+  NB: the CSV's SD column is empty for saturated tests (T4, T5); the
+  slope for those series cannot be computed without additional test-plan
+  inputs.
+
+columns:
+  - name: test_id
+    dtype: str
+    unit: dimensionless
+    nullable: false
+
+  - name: series
+    dtype: category
+    unit: dimensionless
+    allowed: [T1, T2, T4, T5]
+    nullable: false
+
+  - name: density
+    dtype: category
+    unit: dimensionless
+    allowed: [dense, loose]
+    nullable: false
+
+  - name: saturation
+    dtype: category
+    unit: dimensionless
+    allowed: [dry, saturated]
+    nullable: false
+
+  - name: scour_stage
+    dtype: str
+    unit: dimensionless
+    nullable: false
+    description: Free-text stage label as recorded in the CSV.
+
+  - name: SD
+    dtype: float
+    unit: dimensionless
+    nullable: true
+    range: [0.0, 1.0]
+    description: Scour depth ratio. NULL for T4/T5 in the source CSV.
+
+  - name: f1_model_hz
+    dtype: float
+    unit: hertz
+    nullable: false
+    range: [8.0, 14.0]
+
+  - name: f1_proto_hz
+    dtype: float
+    unit: hertz
+    nullable: true
+    range: [0.05, 0.25]
+    description: First natural frequency at prototype scale (preferred for
+      headline reporting per user convention; model-scale is retained for
+      parity with the published fig14).
+
+  - name: damping_ratio
+    dtype: float
+    unit: dimensionless
+    nullable: true
+    range: [0.0, 0.2]
+    description: Mostly NaN in the source CSV; retained for future use.
+
+row_rules:
+  - name: four_dry_rows_per_series
+    type: group_count
+    group_by: series
+    when: {saturation: dry}
+    expected: 4

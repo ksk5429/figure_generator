@@ -1,0 +1,36 @@
+{
+  "fig_slug": "effect-saturation-measured",
+  "paper": "J3",
+  "built_utc": "2026-04-18T08:16:00Z",
+  "built_by": "scripts/build_j3_tier2_effect_saturation.py",
+  "source_chain": [
+    {
+      "tier": 0,
+      "role": "raw_measurement",
+      "path": "F:/GITHUB3/data/centrifuge/T1-T5 campaigns (2024-2025)",
+      "hash": null,
+      "note": "Time-domain accelerometer records from the centrifuge tests."
+    },
+    {
+      "tier": 1,
+      "role": "processed",
+      "path": "F:/GITHUB3/docs/manuscripts/current/ch5_centrifuge_testing_year2/analysis1/results/natural_frequencies.csv",
+      "hash": "63f07796",
+      "bytes": 3342,
+      "mtime_epoch": 1771082986.7458673,
+      "note": "Canonical frequency table produced by the analysis1 Welch-PSD pipeline (T1 uses free-decay; T2-T5 use Welch). Filtered to series T1/T2/T4/T5 and baseline+scour stages (backfill rows dropped) for parity with the fig14 presentation."
+    },
+    {
+      "tier": 2,
+      "role": "figure_input",
+      "path": "./effect-saturation-measured.parquet",
+      "hash": null,
+      "note": "This file. 16 rows (4 per series). Backfill stages dropped. SD column is NaN for saturated series (not present in source CSV)."
+    }
+  ],
+  "processing_script": "inline extractor (see repo git log for the build commit)",
+  "notes": [
+    "Known discrepancy between this file and effect-saturation-script.parquet: T1's f1_model_hz differs by ~0.2 Hz at baseline (10.960 vs 11.200). The script's values predate the analysis1 pipeline; the CSV's values are the current canonical. Do not attempt to reconcile without explicit user direction — see CLAUDE.md 'no invent data'.",
+    "SD missing for T4/T5 is a structural gap in the CSV. Use this parquet only for dry-pair (T1, T2) slope computation; saturated-pair slopes require an auxiliary SD source."
+  ]
+}
