@@ -426,6 +426,69 @@ def _clean_doi_rendering(md: str) -> str:
     )
 
 
+# Quarto gfm can emit image references whose target file does not exist in
+# the source (e.g., the author planned 16 figures but only 3 have been
+# rendered). The live site then shows broken-image icons. Two fallbacks:
+#   1) If the referenced extension is ``.png`` and a sibling ``.svg``
+#      exists, auto-substitute — the author's Inkscape workflow often
+#      produces SVGs first and the manuscript gets written against the
+#      eventual PNG name.
+#   2) Otherwise replace the image with a "Figure pending" admonition that
+#      surfaces the expected filename for the author to act on.
+_IMG_HTML_RE = re.compile(r'<img\s+src="([^"]+)"[^>]*/?>')
+_IMG_MD_RE = re.compile(r'!\[[^\]]*\]\(([^)\s]+)\)')
+_FALLBACK_EXTS = (".svg", ".jpg", ".jpeg", ".pdf", ".webp")
+
+
+def _patch_missing_images(md: str, base_dir: Path) -> tuple[str, list[dict]]:
+    """Scan every image reference; rewrite or placeholder any that are missing.
+
+    Returns (md, report) where report is a list of per-image outcomes so the
+    caller can print a summary and (later) bubble it into CI.
+    """
+    report: list[dict] = []
+
+    def _resolve(path_str: str) -> Path | None:
+        if path_str.startswith(("http://", "https://", "#", "data:")):
+            return None
+        return (base_dir / path_str).resolve()
+
+    def _find_fallback(p: Path) -> Path | None:
+        for ext in _FALLBACK_EXTS:
+            cand = p.with_suffix(ext)
+            if cand.exists():
+                return cand
+        return None
+
+    def _placeholder(path_str: str) -> str:
+        return (
+            '\n<div class="admonition warning" markdown="1">\n'
+            '<p class="admonition-title">Figure pending</p>\n'
+            f'<p>The referenced file <code>{path_str}</code> is not yet '
+            'rendered; the figure-generation pipeline for this paper is in '
+            'progress. The caption below describes the intended content.</p>\n'
+            '</div>\n'
+        )
+
+    def _process_match(path_str: str, full_match: str) -> str:
+        resolved = _resolve(path_str)
+        if resolved is None:
+            return full_match  # external / anchor / data URL, skip
+        if resolved.exists():
+            return full_match  # all good
+        fallback = _find_fallback(resolved)
+        if fallback is not None:
+            rel = fallback.relative_to(base_dir).as_posix()
+            report.append({"path": path_str, "action": "fallback", "to": rel})
+            return full_match.replace(path_str, rel)
+        report.append({"path": path_str, "action": "placeholder"})
+        return _placeholder(path_str)
+
+    md = _IMG_HTML_RE.sub(lambda m: _process_match(m.group(1), m.group(0)), md)
+    md = _IMG_MD_RE.sub(lambda m: _process_match(m.group(1), m.group(0)), md)
+    return md, report
+
+
 # The ch5 .qmd (and similar manuscripts) defines some tables as raw LaTeX
 # blocks via ```{=latex} ... ```. Those labels (\\label{tbl-X}) are invisible
 # to Quarto's cross-ref engine, so ``@tbl-X`` citations fail with
@@ -638,6 +701,27 @@ def publish(paper: str, dry: bool = False, optimize: bool = True,
             n = sum(1 for _ in dst.rglob("*") if _.is_file())
             print(f"[ok]copied {fig_name}/ ({n} files)")
             copied_dirs.append(dst)
+
+    # Patch any broken image references (auto-fallback to sibling formats,
+    # or "Figure pending" placeholder). Runs AFTER copying figures because
+    # the resolver checks the destination tree for existence.
+    index_md = paper_dir / "index.md"
+    if index_md.exists():
+        md_text = index_md.read_text(encoding="utf-8")
+        md_text, img_report = _patch_missing_images(md_text, paper_dir)
+        if img_report:
+            index_md.write_text(md_text, encoding="utf-8")
+            fallbacks = sum(1 for r in img_report if r["action"] == "fallback")
+            placeholders = sum(1 for r in img_report if r["action"] == "placeholder")
+            print(f"[ok]image refs patched: {fallbacks} auto-fallback(s), "
+                  f"{placeholders} placeholder(s)")
+            for r in img_report[:5]:
+                if r["action"] == "fallback":
+                    print(f"    fallback: {r['path']} -> {r['to']}")
+                else:
+                    print(f"    placeholder: {r['path']}")
+            if len(img_report) > 5:
+                print(f"    ...and {len(img_report) - 5} more")
 
     if optimize and copied_dirs:
         agg_before = 0
