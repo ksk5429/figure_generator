@@ -311,6 +311,78 @@ def _normalize_math_delimiters(md: str) -> str:
     return md
 
 
+# Quarto emits caption lines such as "Figure\u00a01: …" and "Table\u00a01: …"
+# (non-breaking space between the label and the number). Bolding the "Figure N"
+# / "Table N" token gives each caption a clear visual anchor.
+# [\s\u00a0] is explicit because the default \s in some regex flavours doesn't
+# cover NBSP.
+_CAPTION_LABEL_RE = re.compile(
+    r"^(Figure|Table)[ \u00a0]+(\d+[a-z]?)\s*:\s",
+    re.MULTILINE,
+)
+
+
+def _bold_caption_labels(md: str) -> str:
+    return _CAPTION_LABEL_RE.sub(r"**\1 \2**: ", md)
+
+
+# Numeric citations in text look like `\[18\]` (pandoc escapes brackets in gfm);
+# the reference list anchors have the form `<div id="ref-CITEKEY" class="csl-entry">`
+# with `<span class="csl-left-margin">\[N\]`. Map N -> citekey, then replace
+# each in-text `\[N\]` with a clickable link to the corresponding anchor.
+# In-text patterns may carry one number (`\[18\]`), a comma-separated list
+# (`\[1, 5\]`), or a hyphenated range (`\[2-4\]`).
+
+_REF_ANCHOR_RE = re.compile(
+    r'<div id="(ref-[^"]+)"[^>]*>\s*\n\s*\n\s*<span class="csl-left-margin">\\\[(\d+)\\\]',
+    re.DOTALL,
+)
+_CITE_PROTECT_RE = re.compile(
+    r'<span class="csl-left-margin">\\\[\d+\\\]</span>'
+)
+_CITE_IN_TEXT_RE = re.compile(r"\\\[([\d,\s\-]+)\\\]")
+
+
+def _link_bracketed_citations(md: str) -> str:
+    ref_map: dict[str, str] = {}
+    for m in _REF_ANCHOR_RE.finditer(md):
+        ref_map[m.group(2)] = m.group(1)
+    if not ref_map:
+        return md
+
+    # Protect the csl-left-margin labels so we don't link them to themselves.
+    protected: list[str] = []
+
+    def _protect(m: re.Match) -> str:
+        protected.append(m.group())
+        return f"\x00PRT{len(protected) - 1}\x00"
+
+    md_protected = _CITE_PROTECT_RE.sub(_protect, md)
+
+    def _link_number(nm: re.Match) -> str:
+        num = nm.group()
+        if num in ref_map:
+            return f"[{num}](#{ref_map[num]})"
+        return num
+
+    def _link_bracket(bm: re.Match) -> str:
+        content = bm.group(1)
+        # Single simple number: link the whole \[N\] as a unit.
+        stripped = content.strip()
+        if stripped.isdigit() and stripped in ref_map:
+            return f"[\\[{stripped}\\]](#{ref_map[stripped]})"
+        # Multi-ref or range: link each number individually, keep brackets literal.
+        linked = re.sub(r"\d+", _link_number, content)
+        return r"\[" + linked + r"\]"
+
+    md_linked = _CITE_IN_TEXT_RE.sub(_link_bracket, md_protected)
+
+    def _restore(m: re.Match) -> str:
+        return protected[int(m.group(1))]
+
+    return re.sub(r"\x00PRT(\d+)\x00", _restore, md_linked)
+
+
 # The ch5 .qmd (and similar manuscripts) defines some tables as raw LaTeX
 # blocks via ```{=latex} ... ```. Those labels (\\label{tbl-X}) are invisible
 # to Quarto's cross-ref engine, so ``@tbl-X`` citations fail with
@@ -494,6 +566,8 @@ def publish(paper: str, dry: bool = False, optimize: bool = True,
     full_md = frontmatter + banner + outline_section + body.rstrip() + "\n"
     full_md = _fix_relative_links(full_md)
     full_md = _normalize_math_delimiters(full_md)
+    full_md = _bold_caption_labels(full_md)
+    full_md = _link_bracketed_citations(full_md)
 
     if dry:
         print(f"(dry run) would write {paper_dir}/index.md  ({len(full_md)} chars)")
