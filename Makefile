@@ -13,8 +13,7 @@ MKDOCS_CFG  := $(GALLERY_DIR)/mkdocs.yml
 SITE_DIR    := $(GALLERY_DIR)/site
 TEMPLATE    := scripts/_template_figure.py
 
-FIG_IDS     := $(notdir $(wildcard $(FIG_DIR)/*))
-FIG_STAMPS  := $(foreach id,$(FIG_IDS),$(FIG_DIR)/$(id)/.stamp)
+FIG_IDS     := $(notdir $(patsubst %/,%,$(wildcard $(FIG_DIR)/*/)))
 
 .PHONY: help setup figure figures gallery gallery-pages serve test clean metadata lint format new-figure
 
@@ -42,13 +41,12 @@ ifndef FIG
 endif
 	@test -d $(FIG_DIR)/$(FIG) || (echo "No such figure folder: $(FIG_DIR)/$(FIG)" && exit 1)
 	$(PY) $(FIG_DIR)/$(FIG)/$(FIG).py
-	@touch $(FIG_DIR)/$(FIG)/.stamp
 
-figures: $(FIG_STAMPS)
-
-$(FIG_DIR)/%/.stamp: $(FIG_DIR)/%/%.py $(FIG_DIR)/%/config.yaml
-	$(PY) $<
-	@touch $@
+figures:
+	@for id in $(FIG_IDS); do \
+	    echo ">> building $$id"; \
+	    $(PY) $(FIG_DIR)/$$id/$$id.py || { echo "FAILED: $$id"; exit 1; }; \
+	done
 
 gallery-pages:
 	$(PY) $(GALLERY_DIR)/build_gallery.py
@@ -81,10 +79,10 @@ endif
 	@echo "Scaffolded $(FIG_DIR)/$(FIG). Edit $(FIG).py and config.yaml, then run: make figure FIG=$(FIG)"
 
 clean:
-	@find $(FIG_DIR) -type f \( -name '*.png' -o -name '*.svg' -o -name '*.pdf' -o -name '.stamp' \) -delete
+	@find $(FIG_DIR) -type f \( -name '*.png' -o -name '*.svg' -o -name '*.pdf' \) -delete
 	@rm -rf $(SITE_DIR)
-	@rm -rf $(GALLERY_DIR)/docs/figures/*/ $(GALLERY_DIR)/docs/figures/index.md
-	@find $(GALLERY_DIR)/docs/figures -maxdepth 1 -name '*.md' ! -name 'index.md' -delete 2>/dev/null || true
+	@rm -rf $(GALLERY_DIR)/docs/figures/*/
+	@find $(GALLERY_DIR)/docs/figures -maxdepth 1 -name '*.md' -delete 2>/dev/null || true
 	@echo "Cleaned generated figure outputs and gallery site/."
 
 lint:
