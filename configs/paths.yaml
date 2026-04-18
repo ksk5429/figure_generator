@@ -24,28 +24,77 @@ external_data_roots:
 # Per-paper manuscript sources. `publish_paper.py PAPER=<code>` reads this
 # block to find the canonical .qmd for each paper. Paths are absolute
 # because the manuscripts live outside this repo.
+#
+# Per-paper fields:
+#   qmd:       absolute path to the canonical Quarto source
+#   journal:   target journal (used in the AAM banner)
+#   status:    under-review | accepted | published | draft
+#   reference: journal's manuscript ID (e.g., "OE-D-26-02685")
+#   doi:       DOI once assigned; null otherwise (banner shows a placeholder)
 manuscripts:
   J2:
     qmd: F:/GITHUB3/docs/manuscripts/current/ch4_geotechnical_modeling_optumgx_opensees/MANUSCRIPT/manuscript_v16.qmd
+    journal: Marine Structures
+    status: under-review
+    reference: submitted-R2
+    doi: null
   J3:
     qmd: F:/GITHUB3/docs/manuscripts/current/ch5_centrifuge_testing_year2/manuscript_v8.qmd
+    journal: Ocean Engineering
+    status: under-review
+    reference: OE-D-26-02685
+    doi: null
   V:
     # MSSP26-1185 — Double-Filter Framework for Physics-Informed Vibration-
     # Based Scour Detection. The internal paper code "V" (per the research-
     # notes portfolio outline papers/V.md) maps to this manuscript.
     qmd: F:/GITHUB3/docs/manuscripts/current/ch6_field_monitoring_oma/manuscript16.qmd
+    journal: Mechanical Systems and Signal Processing
+    status: under-review
+    reference: MSSP26-1185
+    doi: null
   B:
     qmd: F:/GITHUB3/docs/manuscripts/current/ch7_pca_based_method/manuscript.qmd
+    journal: Computers and Geotechnics
+    status: draft
+    reference: null
+    doi: null
   A:
     qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperA_dt_decision/manuscript.qmd
+    journal: Reliability Engineering & System Safety
+    status: draft
+    reference: null
+    doi: null
   E:
     qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperE_encoder/manuscript.qmd
+    journal: (methods paper, archived into A)
+    status: draft
+    reference: null
+    doi: null
   Op3:
     qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperOp3_aes/manuscript.qmd
+    journal: Advances in Engineering Software
+    status: draft
+    reference: null
+    doi: null
   J5:
     qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperJ5_mc_optumgx/manuscript.qmd
+    journal: (target TBD)
+    status: draft
+    reference: null
+    doi: null
   J11:
     qmd: F:/TREE_OF_THOUGHT/PHD/papers/paperJ11_vesic_dissipation/manuscript.qmd
-  # J1 is closed-publication (Ocean Engineering 342, 123084, 2025); no editable
-  # .qmd source is retained. Its /papers/J1/ page stays as the portfolio
-  # outline that already exists in research-notes.
+    journal: (target TBD)
+    status: draft
+    reference: null
+    doi: null
+  # J1 is a published paper with no editable .qmd source retained; its
+  # /papers/J1/ banner is maintained by hand in research-notes (not via
+  # publish_paper.py). Metadata kept here for completeness:
+  J1:
+    qmd: null
+    journal: Ocean Engineering, 342 (2025), article 123084
+    status: published
+    reference: null
+    doi: 10.1016/j.oceaneng.2025.123084

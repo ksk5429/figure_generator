@@ -45,7 +45,7 @@ from figgen.io import research_notes_path
 from figgen.optimize import shrink_png_dir
 
 
-FIG_DIR_NAMES = ("figures", "figures1", "figures_final2")
+FIG_DIR_NAMES = ("figures", "figures1", "figures_final2", "3_figures")
 MIN_QUARTO_YML = """\
 # Auto-generated minimal project config for offline GFM render.
 # See figure_generator/scripts/publish_paper.py.
@@ -76,10 +76,71 @@ def _resolve_manuscript(paper: str) -> Path:
             f"Add it to configs/paths.yaml > manuscripts > {paper}.qmd. "
             f"Known: {sorted(m)}"
         )
-    qmd = Path(m[paper]["qmd"])
+    entry = m[paper]
+    if not entry.get("qmd"):
+        raise KeyError(
+            f"Paper '{paper}' has no .qmd source (field 'qmd' is null). "
+            f"Its page must be maintained by hand in research-notes."
+        )
+    qmd = Path(entry["qmd"])
     if not qmd.exists():
         raise FileNotFoundError(f"Manuscript not found: {qmd}")
     return qmd
+
+
+def _paper_metadata(paper: str) -> dict[str, Any]:
+    cfg = _load_paths_cfg()
+    m = cfg.get("manuscripts", {})
+    return dict(m.get(paper, {}) or {})
+
+
+def _aam_banner(paper: str, meta: dict[str, Any]) -> str:
+    """Emit a Material admonition disclosing AAM status and linking to the DOI
+    (or a placeholder if no DOI has been assigned yet).
+
+    The banner is rendered once per paper at the top of index.md, right
+    after the frontmatter. It is deterministic per (paper, metadata) so
+    reruns are idempotent.
+    """
+    journal = (meta.get("journal") or "target journal TBD").strip()
+    status = (meta.get("status") or "draft").strip()
+    reference = (meta.get("reference") or "").strip()
+    doi = (meta.get("doi") or "").strip() if meta.get("doi") else ""
+
+    ref_bits: list[str] = [f"*{journal}*"]
+    if reference:
+        ref_bits.append(f"(manuscript ref. `{reference}`)")
+    journal_line = " ".join(ref_bits)
+
+    status_copy = {
+        "under-review": "currently under peer review",
+        "accepted": "accepted; typesetting pending",
+        "published": "published (peer-review completed)",
+        "draft": "in preparation; not yet submitted",
+    }.get(status, status)
+
+    if doi:
+        link_line = (
+            f"Version of record: "
+            f"[https://doi.org/{doi}](https://doi.org/{doi})"
+        )
+    else:
+        link_line = (
+            "Version of record: *DOI will be added here once the publisher "
+            "posts the typeset version.*"
+        )
+
+    body = (
+        "    This page is the **author's accepted manuscript** (AAM) of a paper "
+        f"to appear in {journal_line}. Status: {status_copy}. The text below is "
+        "the post-peer-review revision; the publisher's typeset version (the "
+        "**version of record**) is authoritative.\n\n"
+        f"    {link_line}\n\n"
+        "    Shared under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/), "
+        "in accordance with the publisher's author-sharing policy."
+    )
+
+    return '!!! note "Author\'s accepted manuscript"\n\n' + body + "\n\n"
 
 
 def _stage(qmd: Path) -> Path:
@@ -429,7 +490,8 @@ def publish(paper: str, dry: bool = False, optimize: bool = True,
             outline_section = _wrap_outline(outline_text)
             archived_outline = paper_dir / "outline.md"
 
-    full_md = frontmatter + outline_section + body.rstrip() + "\n"
+    banner = _aam_banner(paper, _paper_metadata(paper))
+    full_md = frontmatter + banner + outline_section + body.rstrip() + "\n"
     full_md = _fix_relative_links(full_md)
     full_md = _normalize_math_delimiters(full_md)
 
