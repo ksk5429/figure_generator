@@ -1,0 +1,21 @@
+# ISFOG proceedings (International Symposium on Frontiers in Offshore Geotechnics)
+# Source: ISFOG 2025 author guidelines (verify per submission cycle).
+name: ISFOG
+mplstyle: styles/isfog.mplstyle
+widths_in:
+  single: 3.54   # ~90 mm
+  double: 7.28   # ~185 mm
+default_width: single
+aspect_default: 0.75
+font_size: 8
+tick_font_size: 7
+line_width: 0.8
+dpi:
+  raster: 600
+formats: [png, svg, pdf]
+palette:
+  continuous: cmocean.deep
+  categorical: palettable.colorbrewer.qualitative.Dark2_8
+notes: |
+  ISFOG follows the ISSMGE conference style. Use serif fonts.
+  Keep annotations inside axes. Vector SVG required for editorial changes.

@@ -1,0 +1,17 @@
+figure_id: example_scour
+journal: thesis
+width: double
+description: >
+  Synthetic demonstration of the figure_generator pipeline. Shows scour
+  profiles for a monopile and two tripod foundation locations.
+
+data_sources:
+  - data/raw/example_scour.csv
+
+required_columns: [r_m, z_m, test_id]
+
+radial_col: r_m
+depth_col: z_m
+series_col: test_id
+
+formats: [png, svg, pdf]

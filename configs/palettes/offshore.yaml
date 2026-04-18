@@ -1,0 +1,19 @@
+# Offshore / geotechnical continuous palettes (cmocean-backed).
+# Each entry resolves to `cmocean.cm.<name>`.
+continuous:
+  depth: deep        # seabed, scour hole depth
+  density: dense     # soil density, stratigraphy
+  salinity: haline   # salinity, concentration
+  phase: phase       # cyclic quantities, phase plots
+  topography: topo   # bathymetry / topo-bathy
+  amp: amp           # amplitude-like positive signals
+  speed: speed       # current/wave speed
+  oxy: oxy           # oxygen / pore pressure gradients
+  turbid: turbid     # suspended sediment
+diverging:
+  balance: balance   # signed anomalies (e.g. bed elevation change)
+  delta: delta       # temperature / stress anomaly
+  curl: curl         # rotational fields
+
+default_continuous: deep
+default_diverging: balance

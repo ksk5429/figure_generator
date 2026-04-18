@@ -1,0 +1,21 @@
+# Géotechnique (ICE Publishing)
+# Source: ICE Publishing author guidelines — confirm current mm column widths on submission.
+name: Geotechnique
+mplstyle: styles/geotechnique.mplstyle
+widths_in:
+  single: 3.35   # ~85 mm
+  double: 6.89   # ~175 mm
+default_width: single
+aspect_default: 0.72
+font_size: 8
+tick_font_size: 7
+line_width: 0.7
+dpi:
+  raster: 600
+formats: [png, svg, pdf]
+palette:
+  continuous: cmocean.deep
+  categorical: palettable.colorbrewer.qualitative.Set1_8
+notes: |
+  Géotechnique figures are frequently monochrome-safe; prefer linestyle +
+  marker redundancy. Captions go beneath the figure in the manuscript.

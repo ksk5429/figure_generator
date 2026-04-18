@@ -1,0 +1,10 @@
+# Dissertation style (A4 body, 150 mm live width). Inherits base.mplstyle.
+
+figure.figsize: 5.91, 4.02
+font.size: 9
+axes.titlesize: 10
+axes.labelsize: 9
+xtick.labelsize: 8
+ytick.labelsize: 8
+legend.fontsize: 8
+lines.linewidth: 0.9

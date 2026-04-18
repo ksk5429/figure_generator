@@ -1,0 +1,46 @@
+Read CLAUDE.md first and strictly follow its per-figure workflow. We are producing ONE figure this session.
+
+## Figure request
+
+- **Figure ID**: <e.g., fig03_scour_depth_vs_natural_freq>
+- **Target journal**: <isfog | geotechnique | ocean_engineering | marine_structures | thesis | poster>
+- **Panel count and layout**: <e.g., 1×2 side-by-side; or single panel; or 2×2 grid with shared x-axis>
+- **Domain plotter(s) to use**: <e.g., figgen.domain.scour + figgen.domain.frf>
+
+## Data
+
+- **Input file(s)**: <relative path(s) under data/raw/ or data/processed/>
+- **Relevant columns / variables**: <list them with units, e.g., scour_depth_m, natural_freq_hz, test_id>
+- **Any filtering / grouping**: <e.g., only dry-sand tests; group by foundation type>
+- **Units**: <confirm — metric, model-scale or prototype-scale, any conversions needed>
+
+## Figure content
+
+- **Panel (a)**: <description — what's plotted, which axes, which series, any annotations>
+- **Panel (b)**: <description>
+- **Legend / labels**: <series names, what should appear in legend>
+- **Axis limits / scales**: <linear or log, any fixed limits, tick intervals>
+- **Colors / markers**: <if specific — otherwise default to palette>
+- **Annotations / callouts**: <e.g., "mark the natural frequency peak at 0.34 Hz"; "annotate 1P and 3P lines on Campbell diagram">
+
+## Caption
+
+- **Key observation the caption should highlight**: <one sentence — the finding the figure supports>
+- **Draft caption language I prefer**: <optional — leave blank to let Claude draft>
+
+## Quality checks before finishing
+
+1. Run `figgen.validate` — show me the output
+2. Confirm the rendered PNG preview by saving it and telling me its location
+3. Verify embedded metadata with `make metadata FIG=<figure_id>` and show me the output
+4. Update the gallery with `make gallery`
+5. Propose a commit message following `figure(<id>): <description>` convention — but do not commit automatically; I'll review first
+
+## What I will do manually afterward in Inkscape
+
+Final annotations (dimension lines, arrows, schematic overlays, any figure-embedded formulas). So:
+- Keep SVG clean and Inkscape-friendly (text-as-text, logical groups)
+- Do not pre-add decorative annotations I'll want to control manually
+- Leave ~5% whitespace margin so I have room to annotate
+
+Proceed. If any requirement above conflicts with CLAUDE.md, flag it and ask before continuing.

@@ -1,0 +1,14 @@
+# ColorBrewer qualitative palettes (via `palettable.colorbrewer.qualitative`).
+# Each entry resolves to `palettable.colorbrewer.qualitative.<name>.mpl_colors`.
+categorical:
+  primary: Dark2_8       # up to 8 series, colorblind-friendly
+  accent: Set1_9         # higher saturation for emphasis
+  soft: Set2_8           # low-saturation companion
+  paired: Paired_12      # pairs (e.g. measured vs predicted)
+  sequential_categorical: Set3_12
+
+default: Dark2_8
+
+# Linestyle / marker cycles paired with color for monochrome robustness.
+linestyles: [ "-", "--", "-.", ":", (0, (3, 1, 1, 1)), (0, (5, 1)), (0, (1, 1)), (0, (3, 1, 1, 1, 1, 1)) ]
+markers: ["o", "s", "^", "D", "v", "P", "X", "*"]

@@ -1,0 +1,82 @@
+# figure_generator — DAG build system
+#
+# Conventions:
+#   Each figure lives in figures/<id>/ and is built by running figures/<id>/<id>.py.
+#   Sources: the .py script + config.yaml + any referenced files under data/.
+#   Outputs: <id>.png, <id>.svg, <id>.pdf.
+
+PY          ?= python
+PIP         ?= pip
+FIG_DIR     := figures
+GALLERY     := gallery/index.html
+TEMPLATE    := scripts/_template_figure.py
+
+FIG_IDS     := $(notdir $(wildcard $(FIG_DIR)/*))
+FIG_STAMPS  := $(foreach id,$(FIG_IDS),$(FIG_DIR)/$(id)/.stamp)
+
+.PHONY: help setup figure figures gallery test clean metadata lint format new-figure
+
+help:
+	@echo "figure_generator targets:"
+	@echo "  make setup              Install package in editable mode"
+	@echo "  make figure FIG=<id>    Build a single figure"
+	@echo "  make figures            Build all figures"
+	@echo "  make gallery            Regenerate gallery/index.html"
+	@echo "  make test               Run pytest (+ pytest-mpl)"
+	@echo "  make metadata FIG=<id>  Print embedded metadata from outputs"
+	@echo "  make new-figure FIG=<id>  Scaffold a new figure folder from template"
+	@echo "  make clean              Remove generated figure outputs"
+	@echo "  make lint               Run ruff"
+	@echo "  make format             Run ruff format"
+
+setup:
+	$(PIP) install -e .[dev]
+
+figure:
+ifndef FIG
+	$(error FIG is not set. Usage: make figure FIG=<figure_id>)
+endif
+	@test -d $(FIG_DIR)/$(FIG) || (echo "No such figure folder: $(FIG_DIR)/$(FIG)" && exit 1)
+	$(PY) $(FIG_DIR)/$(FIG)/$(FIG).py
+	@touch $(FIG_DIR)/$(FIG)/.stamp
+
+figures: $(FIG_STAMPS)
+
+$(FIG_DIR)/%/.stamp: $(FIG_DIR)/%/%.py $(FIG_DIR)/%/config.yaml
+	$(PY) $<
+	@touch $@
+
+gallery:
+	$(PY) gallery/build_gallery.py
+
+test:
+	$(PY) -m pytest tests/
+
+metadata:
+ifndef FIG
+	$(error FIG is not set. Usage: make metadata FIG=<figure_id>)
+endif
+	$(PY) -c "from figgen.metadata import print_metadata; print_metadata('$(FIG_DIR)/$(FIG)')"
+
+new-figure:
+ifndef FIG
+	$(error FIG is not set. Usage: make new-figure FIG=<figure_id>)
+endif
+	@test -d $(FIG_DIR)/$(FIG) && (echo "Figure $(FIG) already exists." && exit 1) || true
+	@mkdir -p $(FIG_DIR)/$(FIG)
+	@cp $(TEMPLATE) $(FIG_DIR)/$(FIG)/$(FIG).py
+	@echo "figure_id: $(FIG)" > $(FIG_DIR)/$(FIG)/config.yaml
+	@echo "journal: thesis" >> $(FIG_DIR)/$(FIG)/config.yaml
+	@echo "# $(FIG)" > $(FIG_DIR)/$(FIG)/CAPTION.md
+	@echo "Scaffolded $(FIG_DIR)/$(FIG). Edit $(FIG).py and config.yaml, then run: make figure FIG=$(FIG)"
+
+clean:
+	@find $(FIG_DIR) -type f \( -name '*.png' -o -name '*.svg' -o -name '*.pdf' -o -name '.stamp' \) -delete
+	@rm -f $(GALLERY)
+	@echo "Cleaned generated figure outputs."
+
+lint:
+	ruff check src tests scripts gallery
+
+format:
+	ruff format src tests scripts gallery

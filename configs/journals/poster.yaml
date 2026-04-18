@@ -1,0 +1,20 @@
+# Conference poster (A0 portrait typical).
+name: Poster
+mplstyle: styles/poster.mplstyle
+widths_in:
+  single: 7.0
+  double: 14.0
+default_width: single
+aspect_default: 0.62
+font_size: 14
+tick_font_size: 12
+line_width: 1.6
+dpi:
+  raster: 300
+formats: [png, svg, pdf]
+palette:
+  continuous: cmocean.deep
+  categorical: palettable.colorbrewer.qualitative.Dark2_8
+notes: |
+  Larger type and thicker lines for viewing at ~1 m distance.
+  Still respect colorblind-friendly palettes.

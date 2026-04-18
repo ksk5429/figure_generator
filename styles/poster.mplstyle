@@ -1,0 +1,11 @@
+# Conference poster style (A0 portrait). Inherits base.mplstyle.
+
+figure.figsize: 7.0, 4.33
+font.size: 14
+axes.titlesize: 16
+axes.labelsize: 14
+xtick.labelsize: 12
+ytick.labelsize: 12
+legend.fontsize: 12
+lines.linewidth: 1.6
+axes.linewidth: 1.0

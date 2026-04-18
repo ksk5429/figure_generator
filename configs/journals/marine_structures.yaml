@@ -1,0 +1,21 @@
+# Marine Structures (Elsevier) — same global widths as other Elsevier titles.
+name: MarineStructures
+mplstyle: styles/ocean_engineering.mplstyle
+widths_in:
+  single: 3.54
+  one_half: 5.51
+  double: 7.48
+default_width: single
+aspect_default: 0.72
+font_size: 8
+tick_font_size: 7
+line_width: 0.8
+dpi:
+  raster: 600
+formats: [png, svg, pdf]
+palette:
+  continuous: cmocean.dense
+  categorical: palettable.colorbrewer.qualitative.Set2_8
+notes: |
+  Reuses the Ocean Engineering stylesheet; override the palette if a
+  submission calls for a different look.

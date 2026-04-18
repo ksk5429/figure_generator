@@ -1,0 +1,22 @@
+# Ocean Engineering (Elsevier)
+# Source: Elsevier author guidelines + Ocean Engineering-specific instructions.
+name: OceanEngineering
+mplstyle: styles/ocean_engineering.mplstyle
+widths_in:
+  single: 3.54   # 90 mm
+  one_half: 5.51 # 140 mm
+  double: 7.48   # 190 mm
+default_width: single
+aspect_default: 0.72
+font_size: 8
+tick_font_size: 7
+line_width: 0.8
+dpi:
+  raster: 600
+formats: [png, svg, pdf]
+palette:
+  continuous: cmocean.deep
+  categorical: palettable.colorbrewer.qualitative.Dark2_8
+notes: |
+  Elsevier standard widths are 90 mm (single), 140 mm (1.5), 190 mm (double).
+  Use TIF or EPS at submission; SVG/PDF are intermediate vector formats.

@@ -1,0 +1,21 @@
+# Thesis (KSK dissertation — A4 body, ~150 mm live width)
+name: Thesis
+mplstyle: styles/thesis.mplstyle
+widths_in:
+  single: 3.15   # ~80 mm
+  double: 5.91   # ~150 mm
+  full: 5.91
+default_width: double
+aspect_default: 0.68
+font_size: 9
+tick_font_size: 8
+line_width: 0.9
+dpi:
+  raster: 600
+formats: [png, svg, pdf]
+palette:
+  continuous: cmocean.deep
+  categorical: palettable.colorbrewer.qualitative.Dark2_8
+notes: |
+  Targeted at the university A4 two-sided template. 150 mm live width
+  corresponds to the body block; use 80 mm for inline figures in lists.
