@@ -337,13 +337,40 @@ _REF_ANCHOR_RE = re.compile(
     r'<div id="(ref-[^"]+)"[^>]*>\s*\n\s*\n\s*<span class="csl-left-margin">\\\[(\d+)\\\]',
     re.DOTALL,
 )
+# Match the csl-left-margin span with arbitrary whitespace (including
+# newlines) between the bracketed label and the closing </span>. Previously
+# the regex required them to be adjacent, which meant the label was not
+# protected and the citation linker linkified the reference list itself.
 _CITE_PROTECT_RE = re.compile(
-    r'<span class="csl-left-margin">\\\[\d+\\\]</span>'
+    r'<span class="csl-left-margin">\s*\\\[\d+\\\]\s*</span>',
+    re.DOTALL,
 )
 _CITE_IN_TEXT_RE = re.compile(r"\\\[([\d,\s\-]+)\\\]")
 
+# Undo patterns for idempotency: strip any prior citation linking before
+# re-processing so double-runs don't double-wrap.
+_UNDO_SINGLE_RE = re.compile(r"\[(\\\[\d+\\\])\]\(#ref-[^)]+\)")
+_UNDO_NUMBER_RE = re.compile(r"\[(\d+)\]\(#ref-[^)]+\)")
+# Undo the bad csl-left-margin linkification specifically, so repairs land
+# cleanly even when a span got partially transformed before the regex fix.
+_UNDO_BROKEN_MARGIN_RE = re.compile(
+    r'(<span class="csl-left-margin">\s*)\[\\\[(\d+)\\\]\]\(#ref-[^)]+\)(\s*</span>)',
+    re.DOTALL,
+)
+
 
 def _link_bracketed_citations(md: str) -> str:
+    # Idempotency: undo any prior linking so the transform can be re-run
+    # safely on markdown that already contains [\[N\]](#ref-X) constructs.
+    # Order matters: repair the broken margin spans first so they look
+    # like pandoc's original output before we start linking again.
+    md = _UNDO_BROKEN_MARGIN_RE.sub(
+        lambda m: m.group(1) + r"\[" + m.group(2) + r"\]" + m.group(3),
+        md,
+    )
+    md = _UNDO_SINGLE_RE.sub(r"\1", md)
+    md = _UNDO_NUMBER_RE.sub(r"\1", md)
+
     ref_map: dict[str, str] = {}
     for m in _REF_ANCHOR_RE.finditer(md):
         ref_map[m.group(2)] = m.group(1)
@@ -381,6 +408,22 @@ def _link_bracketed_citations(md: str) -> str:
         return protected[int(m.group(1))]
 
     return re.sub(r"\x00PRT(\d+)\x00", _restore, md_linked)
+
+
+# Pandoc citeproc emits DOI links in a verbose form:
+#     https://doi.org/[10.xxxx/yyy](https://doi.org/10.xxxx/yyy)
+# which renders as "https://doi.org/10.xxxx/yyy" with only the second half
+# clickable. Collapse to a single clean "doi.org/10.xxxx/yyy" link.
+_VERBOSE_DOI_RE = re.compile(
+    r"https://doi\.org/\[([^]\s]+)\]\(https://doi\.org/\1\)"
+)
+
+
+def _clean_doi_rendering(md: str) -> str:
+    return _VERBOSE_DOI_RE.sub(
+        lambda m: f"[doi.org/{m.group(1)}](https://doi.org/{m.group(1)})",
+        md,
+    )
 
 
 # The ch5 .qmd (and similar manuscripts) defines some tables as raw LaTeX
@@ -568,6 +611,7 @@ def publish(paper: str, dry: bool = False, optimize: bool = True,
     full_md = _normalize_math_delimiters(full_md)
     full_md = _bold_caption_labels(full_md)
     full_md = _link_bracketed_citations(full_md)
+    full_md = _clean_doi_rendering(full_md)
 
     if dry:
         print(f"(dry run) would write {paper_dir}/index.md  ({len(full_md)} chars)")
