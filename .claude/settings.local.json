@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -c user.name=\"ksk5429\" -c user.email=\"15989422+ksk5429@users.noreply.github.com\" commit -q -F /f/tmp/figgen_commit_msg.txt)",
+      "Read(//f/TREE_OF_THOUGHT/figure_generator/**)",
+      "Bash(git -c user.name=ksk5429 -c user.email=15989422+ksk5429@users.noreply.github.com commit -q -m 'feat\\(publish\\): register A, E, Op3, J5, J11 manuscripts *)",
+      "Bash(pngquant --version)",
+      "Bash(oxipng --version)",
+      "Bash(git -c user.name=\"ksk5429\" -c user.email=\"15989422+ksk5429@users.noreply.github.com\" commit -q -F /f/tmp/figgen_commit3.txt)"
+    ],
+    "additionalDirectories": [
+      "F:\\TREE_OF_THOUGHT\\mkdocs_material\\docs\\papers\\MSSP",
+      "F:\\TREE_OF_THOUGHT\\mkdocs_material\\docs\\papers\\B\\figures",
+      "F:\\TREE_OF_THOUGHT\\mkdocs_material\\docs\\papers\\V\\",
+      "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ1_oe2025_published\\OE-D-25-03025R1_250929"
+    ]
+  }
+}

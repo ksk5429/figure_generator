@@ -49,6 +49,20 @@ figures:
     status: built
     migrated: false
 
+  # ─────────── Fig. 9 — dry vs saturated evolution (matched-density pairs) ─────
+  - n: 9
+    slug: effect-saturation-script    # reuses the fig14 parquet
+    claim_id: j3-saturation-gain
+    description: >
+      Frequency evolution vs S/D for dry vs saturated pairs at matched
+      density — dense (T1 vs T4) and loose (T2 vs T5). Companion to fig14:
+      same data, polyfit + dry/saturated amplification annotation. In the
+      submitted manuscript as fig9_compare_evolution.
+    figure_ref: figures/j3-compare-evolution
+    panels: 2
+    status: built
+    migrated: true
+
   # ─────────── Remaining J3 figures (to be migrated) ───────────
   # The real slugs / claim_ids / descriptions will be populated as each figure
   # is pulled from manuscript_v8.qmd's @fig-* references. Do not invent here.
@@ -60,7 +74,7 @@ figures:
   - { n:  6, slug: null, claim_id: null, description: null, status: planned }
   - { n:  7, slug: null, claim_id: null, description: null, status: planned }
   - { n:  8, slug: null, claim_id: null, description: null, status: planned }
-  - { n:  9, slug: null, claim_id: null, description: null, status: planned }
+  # n=9 is built above (effect-saturation-script / j3-compare-evolution)
   - { n: 10, slug: null, claim_id: null, description: null, status: planned }
   - { n: 11, slug: null, claim_id: null, description: null, status: planned }
   - { n: 12, slug: null, claim_id: null, description: null, status: planned }

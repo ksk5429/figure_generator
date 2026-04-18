@@ -18,6 +18,30 @@ def _pngquant_available() -> bool:
     return shutil.which("pngquant") is not None
 
 
+def _oxipng_available() -> bool:
+    try:
+        import oxipng  # noqa: F401
+        return True
+    except Exception:
+        return False
+
+
+def _oxipng(path: Path) -> bool:
+    """Lossless optimization via pyoxipng (pip package). Best-effort."""
+    try:
+        import oxipng
+
+        oxipng.optimize(
+            str(path),
+            level=4,               # 0-6, higher = slower + marginally smaller
+            strip=oxipng.StripChunks.safe(),
+            deflate=oxipng.Deflaters.libdeflater(12),
+        )
+        return True
+    except Exception:
+        return False
+
+
 def _resize_pillow(path: Path, max_dim: int) -> bool:
     """Resize in-place if either dimension exceeds max_dim. Returns True if changed."""
     from PIL import Image
@@ -99,6 +123,12 @@ def shrink_png(path: Path, *, max_dim: int | None = 1600,
                 tool = "pillow"
         except Exception:
             tool = "none"
+
+    # Lossless second-pass polish via oxipng (if installed). Safe to run
+    # after pngquant/pillow — only removes redundant bytes, no visual change.
+    if _oxipng_available():
+        if _oxipng(path):
+            tool = f"{tool}+oxipng" if tool != "none" else "oxipng"
 
     after = path.stat().st_size
     # Rollback if the "optimized" file is bigger than the source. This can

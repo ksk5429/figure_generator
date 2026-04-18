@@ -1,0 +1,24 @@
+figure_id: j3-compare-evolution
+journal: ocean_engineering
+
+# Second Tier-2 migration for J3. Reuses the same frozen-script parquet
+# as j3-effect-saturation — same T1/T2/T4/T5 centrifuge pairs, different
+# presentation. Panel (a) shows the dense pair (T1 dry vs T4 saturated);
+# panel (b) the loose pair (T2 dry vs T5 saturated). Linear fits are
+# drawn through each series and the saturation gap at max S/D is
+# annotated.
+paper: J3
+claim_id: j3-saturation-gain
+tier: 2
+
+width: double
+
+description: >
+  Frequency evolution |Δf₁/f₁,0| vs S/D for dense (T1 vs T4) and loose
+  (T2 vs T5) pairs, with linear fits and dry–saturated gap annotations.
+  Companion to j3-effect-saturation: same data, different framing. In
+  the submitted manuscript as fig9_compare_evolution.
+
+tier2_slug: effect-saturation-script
+
+formats: [png, svg, pdf]

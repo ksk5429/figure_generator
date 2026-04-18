@@ -15,7 +15,7 @@ TEMPLATE    := scripts/_template_figure.py
 
 FIG_IDS     := $(notdir $(patsubst %/,%,$(wildcard $(FIG_DIR)/*/)))
 
-.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry publish-paper publish-paper-dry
+.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry publish-paper publish-paper-dry witness witness-all refresh-all
 
 help:
 	@echo "figure_generator targets:"
@@ -30,6 +30,9 @@ help:
 	@echo "  make publish-dry [PAPER=<code>] Preview publish without writing"
 	@echo "  make publish-paper PAPER=<code>     Render manuscript .qmd into research-notes/docs/papers/"
 	@echo "  make publish-paper-dry PAPER=<code> Preview manuscript publish without writing"
+	@echo "  make refresh-all                     Republish every registered paper"
+	@echo "  make witness PAPER=<code>           Evaluate claim witnesses for a paper"
+	@echo "  make witness-all                     Evaluate claim witnesses for every paper"
 	@echo "  make test               Run pytest (+ pytest-mpl)"
 	@echo "  make metadata FIG=<id>  Print embedded metadata from outputs"
 	@echo "  make new-figure FIG=<id>  Scaffold a new figure folder from template"
@@ -102,6 +105,29 @@ ifndef PAPER
 	$(error PAPER is not set. Usage: make publish-paper-dry PAPER=<code>)
 endif
 	$(PY) scripts/publish_paper.py --paper $(PAPER) --dry-run
+
+refresh-all:
+	@$(PY) -c "import yaml; \
+cfg = yaml.safe_load(open('configs/paths.yaml', encoding='utf-8')) or {}; \
+print('\n'.join(sorted((cfg.get('manuscripts') or {}).keys())))" | while read p; do \
+	    [ -z "$$p" ] && continue; \
+	    echo '>> republishing ' $$p; \
+	    $(PY) scripts/publish_paper.py --paper $$p || { echo 'FAILED: ' $$p; exit 1; }; \
+	done
+
+witness:
+ifndef PAPER
+	$(error PAPER is not set. Usage: make witness PAPER=<code>)
+endif
+	$(PY) -m figgen.witness --paper $(PAPER)
+
+witness-all:
+	@for d in papers/*/; do \
+	    p=$$(basename $$d); \
+	    [ -d papers/$$p/figure_inputs/claims ] || continue; \
+	    echo '>> witness ' $$p; \
+	    $(PY) -m figgen.witness --paper $$p; \
+	done
 
 test:
 	$(PY) -m pytest tests/
