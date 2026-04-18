@@ -41,15 +41,26 @@ make figure FIG=example_scour
 
 ```
 figure_generator/
-├── CLAUDE.md              # Full instructions for Claude Code sessions
-├── configs/journals/      # One YAML per target journal
-├── styles/                # Matplotlib stylesheets (base + per-journal)
-├── src/figgen/            # Core package (utils, io, metadata, validate, domain.*)
-├── scripts/_template_figure.py
-├── figures/<id>/          # One folder per figure
-├── data/raw/ · data/processed/
-├── gallery/               # Static HTML gallery (auto-generated)
-└── tests/                 # pytest + pytest-mpl visual regression
+├── CLAUDE.md                 # Full instructions for Claude Code sessions
+├── configs/
+│   ├── journals/             # One YAML per target journal
+│   ├── palettes/             # Continuous + categorical palette registry
+│   └── paths.yaml            # Where papers/ and research-notes live
+├── styles/                   # Matplotlib stylesheets (base + per-journal)
+├── src/figgen/               # Core package (utils, io, metadata, validate, domain.*)
+├── scripts/
+│   ├── _template_figure.py
+│   └── publish_to_notes.py   # Copy outputs into research-notes/docs/figures/
+├── papers/<PAPER>/           # Tier-2 per-paper assets (figure_inputs + claims)
+│   ├── planning/methodology_claims.md
+│   └── figure_inputs/
+│       ├── MANIFEST.yml
+│       ├── <slug>.parquet + .schema.yml + .provenance.json
+│       └── claims/<claim_id>.yml
+├── figures/<id>/             # One folder per figure (outputs + config + caption)
+├── data/raw/ · data/processed/   # Tier-0/Tier-1 working data
+├── gallery/                  # MkDocs Material site (auto-generated)
+└── tests/                    # pytest + pytest-mpl visual regression
 ```
 
 ## Journals
@@ -65,6 +76,38 @@ figure_generator/
 
 Confirm journal guidelines each submission cycle and update the corresponding
 YAML + `.mplstyle` pair before generating figures.
+
+## Paper integration (Tier-2)
+
+Figures that belong to a manuscript live under a paper subtree:
+
+```
+papers/J3/
+├── README.md                                   # paper context + status
+├── planning/methodology_claims.md              # the claims this paper argues
+└── figure_inputs/
+    ├── MANIFEST.yml                            # canonical figure list
+    ├── claims/
+    │   ├── j3-saturation-gain.yml              # 1.7–1.9× (corrected F-02)
+    │   └── j3-phi-prime.yml                    # T4=39.3°, T5=37.3° (F-03)
+    └── _template/                              # schema / provenance / claim templates
+```
+
+A figure script reads its input via `figgen.io.load_tier2("J3", "fig05")`
+instead of `load_csv("data/raw/...")`. Its `config.yaml` carries
+`paper: J3` and `claim_id: j3-saturation-gain`, which are embedded in
+every PNG/SVG/PDF and routed automatically by `make publish`.
+
+## Publishing to research-notes
+
+```bash
+make publish-dry PAPER=J3      # preview
+make publish PAPER=J3          # copy figures into ../mkdocs_material/docs/figures/J3/
+```
+
+Research-notes path comes from `FIGGEN_RESEARCH_NOTES` (env var) or
+`configs/paths.yaml`. Figures without a `paper` tag are ignored by the
+publisher (gallery is the standalone QA view).
 
 ## Gallery (MkDocs Material)
 

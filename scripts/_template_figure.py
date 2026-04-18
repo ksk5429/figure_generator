@@ -62,6 +62,9 @@ def main() -> None:
         formats=tuple(cfg.get("formats", ("png", "svg", "pdf"))),
         journal=journal,
         data_sources=data_paths,
+        paper=cfg.get("paper"),
+        claim_id=cfg.get("claim_id"),
+        tier=cfg.get("tier"),
         extra_metadata={"description": cfg.get("description", "")},
     )
     for p in written:

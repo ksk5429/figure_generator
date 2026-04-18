@@ -72,8 +72,7 @@ def _read_metadata(fig_dir: Path, fig_id: str) -> dict[str, str]:
 _PAGE_TEMPLATE = """\
 # {fig_id}
 
-<span class="chip">{journal}</span>
-<span class="chip {freshness}">{freshness}</span>
+{chips}
 
 {caption}
 
@@ -146,16 +145,39 @@ def _meta_table(meta: dict[str, str]) -> str:
     return "\n".join(rows)
 
 
+def _chip(label: str, value: str, cls: str = "") -> str:
+    if not value:
+        return ""
+    cls_attr = f' class="chip {cls}"'.rstrip() if cls else ' class="chip"'
+    return f'<span{cls_attr}>{label}: {value}</span>'
+
+
+def _build_chips(meta: dict[str, str], freshness: str) -> str:
+    chips: list[str] = []
+    journal = meta.get("journal", "")
+    if journal:
+        chips.append(f'<span class="chip">{journal}</span>')
+    paper = meta.get("paper", "")
+    if paper:
+        chips.append(_chip("paper", paper, cls="paper"))
+    claim = meta.get("claim_id", "")
+    if claim:
+        chips.append(_chip("claim", claim, cls="claim"))
+    tier = meta.get("tier", "")
+    if tier:
+        chips.append(_chip("tier", tier, cls="tier"))
+    chips.append(f'<span class="chip {freshness}">{freshness}</span>')
+    return " ".join(chips)
+
+
 def _write_figure_page(fig_dir: Path, fig_id: str) -> Path:
     meta = _read_metadata(fig_dir, fig_id)
     caption = _load_caption(fig_dir)
     freshness = "fresh" if _is_fresh(fig_dir, fig_id) else "stale"
-    journal = meta.get("journal", "—")
 
     page = _PAGE_TEMPLATE.format(
         fig_id=fig_id,
-        journal=journal,
-        freshness=freshness,
+        chips=_build_chips(meta, freshness),
         caption=caption or "_No caption yet — edit `figures/{fig_id}/CAPTION.md`._".format(
             fig_id=fig_id
         ),
@@ -198,7 +220,7 @@ _Last built: {now}_
 _CARD_TEMPLATE = """\
 - :material-image-outline:{{ .lg }} __[{fig_id}]({fig_id}.md)__
 
-    <span class="chip">{journal}</span> <span class="chip {freshness}">{freshness}</span>
+    {chips}
 
     ---
 
@@ -216,8 +238,7 @@ def _build_index(entries: list[dict]) -> Path:
         cards.append(
             _CARD_TEMPLATE.format(
                 fig_id=e["figure_id"],
-                journal=e["journal"],
-                freshness="fresh" if e["fresh"] else "stale",
+                chips=_build_chips(e["meta"], "fresh" if e["fresh"] else "stale"),
                 caption=e["caption"] or "_(no caption)_",
                 git_hash=e["git_hash"] or "n/a",
                 data_sources=e["data_sources"] or "n/a",
@@ -247,7 +268,11 @@ def scan_figures() -> list[dict]:
             {
                 "figure_id": fig_id,
                 "dir": d,
+                "meta": meta,
                 "journal": meta.get("journal", "—"),
+                "paper": meta.get("paper", ""),
+                "claim_id": meta.get("claim_id", ""),
+                "tier": meta.get("tier", ""),
                 "caption": _caption_excerpt(_load_caption(d)),
                 "git_hash": meta.get("git_hash", ""),
                 "data_sources": meta.get("data_sources", ""),

@@ -162,6 +162,9 @@ def save_figure(
     formats: Sequence[str] = ("png", "svg", "pdf"),
     journal: str = "thesis",
     data_sources: Sequence[str | Path] = (),
+    paper: str | None = None,
+    claim_id: str | None = None,
+    tier: int | None = None,
     extra_metadata: Mapping[str, str] | None = None,
 ) -> list[Path]:
     """Save a figure in the requested formats and embed reproducibility metadata.
@@ -178,8 +181,10 @@ def save_figure(
         Journal config used to build the figure (recorded in metadata).
     data_sources : sequence of path-like
         Files that contributed to the figure. Each gets an MD5 truncated to 8 chars.
+    paper, claim_id, tier : optional
+        Pipeline-integration metadata; see ``figgen.metadata.gather_metadata``.
     extra_metadata : mapping
-        Additional key/value pairs to embed (e.g. {'author': 'KSK'}).
+        Additional key/value pairs to embed (e.g. ``{'author': 'KSK'}``).
 
     Returns
     -------
@@ -188,7 +193,13 @@ def save_figure(
     """
     out_dir = _figure_dir(figure_id)
     meta = gather_metadata(
-        figure_id=figure_id, journal=journal, data_sources=data_sources, extra=extra_metadata
+        figure_id=figure_id,
+        journal=journal,
+        data_sources=data_sources,
+        paper=paper,
+        claim_id=claim_id,
+        tier=tier,
+        extra=extra_metadata,
     )
     written: list[Path] = []
     for ext in formats:

@@ -41,7 +41,13 @@ Follow these steps, in order, in every session:
    failure — do not proceed with bad data.
 
 3. **Confirm with the user** before writing code:
-   - figure ID (lowercase, hyphenated, e.g. `ch3-scour-profile`)
+   - figure ID (lowercase, hyphenated, e.g. `j3-saturation-sensitivity`; if
+     the figure belongs to a paper, prefix with the paper code)
+   - **paper** code (one of the subdirectories under `papers/`, e.g. `J3`,
+     `V1`, `Op3`). Omit only for standalone / exploratory figures.
+   - **claim_id** — the slug of the thesis/methodology claim this figure
+     witnesses, as listed in `papers/<paper>/planning/methodology_claims.md`
+     and `papers/<paper>/figure_inputs/claims/<claim_id>.yml`.
    - journal target (one of `configs/journals/*.yaml`)
    - panel layout (single vs. multi-panel, a/b/c labels)
    - which `figgen.domain.*` plotters to compose
@@ -51,10 +57,12 @@ Follow these steps, in order, in every session:
    minimal `config.yaml` and `CAPTION.md`.
 
 5. **Edit the script and config:**
-   - `figures/<id>/<id>.py` — the plot script, using `figgen.domain.*` plotters
-   - `figures/<id>/config.yaml` — `journal`, `data_sources`, `required_columns`,
-     `width` (which width key in the journal YAML to use), and any per-figure
-     parameters consumed by the script
+   - `figures/<id>/<id>.py` — the plot script, using `figgen.domain.*` plotters.
+     Prefer `figgen.io.load_tier2(paper, fig_slug)` over loading a CSV by path.
+   - `figures/<id>/config.yaml` — required keys: `figure_id`, `journal`,
+     `data_sources`, `required_columns`, plus pipeline keys `paper`,
+     `claim_id`, `tier` (1 or 2). Use `width` to pick a column width from the
+     journal YAML. Any per-figure parameters go here too.
 
 6. **Build once** with `make figure FIG=<id>`. This must produce PNG + SVG +
    PDF in the figure folder, with metadata embedded.
@@ -69,6 +77,17 @@ Follow these steps, in order, in every session:
 8. **Regenerate the gallery** with `make gallery` (scans `figures/*/`, emits
    MkDocs Material pages under `gallery/docs/figures/`, then runs
    `mkdocs build` into `gallery/site/`). Preview locally with `make serve`.
+
+8b. **Publish to research-notes** (only for figures tagged with a real
+    `paper` code):
+    ```bash
+    make publish-dry PAPER=<code>    # preview
+    make publish PAPER=<code>        # copy figures + write paper index
+    ```
+    This routes outputs into `<research_notes>/docs/figures/<paper>/<id>/`
+    and regenerates `<research_notes>/docs/figures/<paper>/index.md`. The
+    research-notes path is resolved from `FIGGEN_RESEARCH_NOTES` (env var)
+    or `configs/paths.yaml`.
 
 9. **Propose a commit message** in Conventional Commits form:
    ```
@@ -143,14 +162,33 @@ Do not run `git commit` without user confirmation.
 
 ## 5. Data handling rules
 
+The data layer is **tiered**:
+
+- **Tier 0** — raw data, outside the repo (centrifuge, field, numerical).
+- **Tier 1** — processed canonical CSV/parquet (e.g. `data/processed/`,
+  or external paths listed in `configs/paths.yaml`).
+- **Tier 2** — per-paper, claim-aligned parquets under
+  `papers/<PAPER>/figure_inputs/<slug>.parquet` with `schema.yml` +
+  `provenance.json` + an optional `claims/<claim_id>.yml` witness.
+
+Rules:
+
+- **Paper figures read from Tier 2 only.** Use
+  `figgen.io.load_tier2("J3", "fig05")` — do not reach into Tier 0/1 from
+  a figure script. If the data isn't in Tier 2, stop and write the parquet
+  + schema + provenance first.
+- **Exploratory / standalone figures** may read directly from `data/raw/`
+  or `data/processed/`, and should set `tier: 1` in their config.yaml.
 - **Never modify `data/raw/`.** If cleaning is needed, write the cleaned
-  version to `data/processed/` and update `data/README.md`.
+  version to `data/processed/` (Tier 1) and update `data/README.md`.
 - Units are declared via (a) column-name suffix (`_m`, `_hz`, `_kpa`,
   `_mpa`, `_kn`, `_deg`, `_rpm`, `_g`, `_s`, `_ms`, …) or (b) a
-  `<filename>.units.yaml` sidecar, whichever is less ambiguous.
-- Unit conversions go through `pint` — never hardcode factors like `1e-3` for
-  mm→m conversion.
-- Record every dataset in `data/README.md`.
+  `<filename>.units.yaml` sidecar or (c) the Tier-2 `schema.yml`, whichever
+  is less ambiguous for the reader.
+- Unit conversions go through `pint` — never hardcode factors like `1e-3`
+  for mm→m conversion.
+- Record every dataset in `data/README.md` (Tier 1) or in the paper's
+  `figure_inputs/MANIFEST.yml` (Tier 2).
 
 ---
 
@@ -221,9 +259,12 @@ make setup               # pip install -e .[dev]
 make new-figure FIG=<id> # scaffold figures/<id>/ from template
 make figure FIG=<id>     # build one figure
 make figures             # build all
+make figures-for PAPER=<code>   # rebuild every figure tagged paper: <code>
 make gallery             # regenerate docs pages + mkdocs build -> gallery/site/
 make gallery-pages       # regenerate docs pages only (no mkdocs build)
 make serve               # preview MkDocs site on http://localhost:8000
+make publish [PAPER=<code>]      # copy figures into research-notes/docs/figures/
+make publish-dry [PAPER=<code>]  # preview publish without writing
 make test                # pytest + pytest-mpl
 make metadata FIG=<id>   # print embedded metadata
 make clean               # remove generated outputs and gallery/site/

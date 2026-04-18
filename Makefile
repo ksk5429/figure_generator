@@ -15,16 +15,19 @@ TEMPLATE    := scripts/_template_figure.py
 
 FIG_IDS     := $(notdir $(patsubst %/,%,$(wildcard $(FIG_DIR)/*/)))
 
-.PHONY: help setup figure figures gallery gallery-pages serve test clean metadata lint format new-figure
+.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry
 
 help:
 	@echo "figure_generator targets:"
 	@echo "  make setup              Install package in editable mode"
 	@echo "  make figure FIG=<id>    Build a single figure"
 	@echo "  make figures            Build all figures"
+	@echo "  make figures-for PAPER=<code>  Rebuild every figure tagged paper: <code>"
 	@echo "  make gallery            Regenerate docs pages + build MkDocs Material site"
 	@echo "  make gallery-pages      Regenerate docs pages only (no mkdocs build)"
 	@echo "  make serve              Live-preview gallery at http://localhost:8000"
+	@echo "  make publish [PAPER=<code>]    Copy figures into research-notes/docs/figures/"
+	@echo "  make publish-dry [PAPER=<code>] Preview publish without writing"
 	@echo "  make test               Run pytest (+ pytest-mpl)"
 	@echo "  make metadata FIG=<id>  Print embedded metadata from outputs"
 	@echo "  make new-figure FIG=<id>  Scaffold a new figure folder from template"
@@ -48,6 +51,21 @@ figures:
 	    $(PY) $(FIG_DIR)/$$id/$$id.py || { echo "FAILED: $$id"; exit 1; }; \
 	done
 
+figures-for:
+ifndef PAPER
+	$(error PAPER is not set. Usage: make figures-for PAPER=<code>)
+endif
+	@$(PY) -c "import sys, yaml; \
+from pathlib import Path; \
+ids = [d.name for d in Path('$(FIG_DIR)').iterdir() if d.is_dir() and not d.name.startswith('.') \
+       and (d / 'config.yaml').exists() \
+       and (yaml.safe_load((d / 'config.yaml').read_text(encoding='utf-8')) or {}).get('paper') == '$(PAPER)']; \
+print('\n'.join(ids))" | while read id; do \
+	    [ -z "$$id" ] && continue; \
+	    echo ">> building $$id"; \
+	    $(PY) $(FIG_DIR)/$$id/$$id.py || { echo "FAILED: $$id"; exit 1; }; \
+	done
+
 gallery-pages:
 	$(PY) $(GALLERY_DIR)/build_gallery.py
 
@@ -56,6 +74,20 @@ gallery: gallery-pages
 
 serve: gallery-pages
 	mkdocs serve -f $(MKDOCS_CFG) -a 127.0.0.1:8000
+
+publish:
+ifdef PAPER
+	$(PY) scripts/publish_to_notes.py --paper $(PAPER)
+else
+	$(PY) scripts/publish_to_notes.py
+endif
+
+publish-dry:
+ifdef PAPER
+	$(PY) scripts/publish_to_notes.py --paper $(PAPER) --dry-run
+else
+	$(PY) scripts/publish_to_notes.py --dry-run
+endif
 
 test:
 	$(PY) -m pytest tests/

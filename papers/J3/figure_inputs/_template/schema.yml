@@ -1,0 +1,36 @@
+# Schema template for a Tier-2 figure parquet.
+#
+# Copy to   papers/<PAPER>/figure_inputs/<fig_slug>.schema.yml
+# and fill in real columns, units, and ranges.
+
+fig_slug: TODO_slug
+paper: TODO_paper_code
+claim_id: null              # set if this figure witnesses a claim in ../claims/
+
+description: >
+  One sentence describing what this parquet contains and why it exists
+  as a separate Tier-2 file (vs. reading a processed CSV inline).
+
+# Columns in the parquet.  dtype ∈ {int, float, str, bool, datetime, category}.
+# unit is a pint-parseable string ("meter", "kilopascal", "degree",
+# "dimensionless", …).  range is optional; if present, builds fail when
+# values escape it.
+columns:
+  # - name: z_m
+  #   dtype: float
+  #   unit: meter
+  #   nullable: false
+  #   range: [0.0, 60.0]
+  #   description: Depth below seabed.
+  #
+  # - name: test_id
+  #   dtype: category
+  #   unit: dimensionless
+  #   nullable: false
+  #   allowed: [T1, T2, T3, T4, T5]
+
+# Optional row-level rules applied after column checks.
+row_rules: []
+  # - name: monotonic_depth
+  #   type: monotonic_increasing
+  #   column: z_m

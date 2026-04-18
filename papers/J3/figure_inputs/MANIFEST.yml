@@ -1,0 +1,107 @@
+# J3 — canonical figure inventory.
+#
+# One entry per *manuscript-referenced* figure (not per PNG variant on disk).
+# The entries below are placeholders: fill in each with the slug, claim_id,
+# panel count, and a one-line description as the manuscript stabilises.
+#
+# Rules:
+#   - `slug` must match <slug>.parquet / <slug>.schema.yml / <slug>.provenance.json.
+#   - `claim_id` must exist in figure_inputs/claims/ or be null.
+#   - `status` is one of: planned, drafted, built, publication-ready, migrated.
+#   - `migrated: true` means the figure came from an existing PNG (F:/GITHUB3) and
+#     its Tier-2 parquet was reconstructed post-hoc; mark the output accordingly.
+#
+# Do not invent data here. When a figure's data is not yet in Tier-2, leave
+# `status: planned` and the parquet/schema fields empty.
+
+paper: J3
+journal: ocean_engineering
+last_updated: 2026-04-18
+
+figures:
+  - n: 1
+    slug: null         # TODO: assign slug
+    claim_id: null
+    description: null
+    panels: 1
+    status: planned
+
+  - n: 2
+    slug: null
+    claim_id: null
+    description: null
+    panels: 1
+    status: planned
+
+  # Placeholders 3..16. Replace each with real entries as figures migrate
+  # from F:/GITHUB3/data/fem_results/figures/ or are generated fresh.
+  - n: 3
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 4
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 5
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 6
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 7
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 8
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 9
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 10
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 11
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 12
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 13
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 14
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 15
+    slug: null
+    claim_id: null
+    description: null
+    status: planned
+  - n: 16
+    slug: null
+    claim_id: null
+    description: null
+    status: planned

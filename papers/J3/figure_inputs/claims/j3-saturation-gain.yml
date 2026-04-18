@@ -1,0 +1,56 @@
+# Claim witness — j3-saturation-gain
+#
+# Encodes the F-02 correction from 2026-04-17's critical review. Any J3
+# figure tagged claim_id: j3-saturation-gain is cross-checked against the
+# assertions below before its outputs ship.
+
+claim_id: j3-saturation-gain
+paper: J3
+status: corrected
+source: critical_review_fixes_20260417
+origin_note: |
+  R0 abstract reported a "25% saturation effect" that was a normalization
+  artifact (−3.23% on the original signed scale). The physically correct
+  statement is a 1.7–1.9× gain on bearing capacity relative to the dry
+  baseline; equivalently, a 70–90% reduction in allowable load when the
+  seabed desaturates.
+
+headline: >
+  Saturation increases bearing capacity by a factor of 1.7–1.9 relative
+  to the dry baseline (70–90% capacity reduction when desaturated).
+
+# Machine-checkable assertions. The `parquet` field names the Tier-2 file
+# each assertion operates on; `column` / `op` / `lo` / `hi` / `value` /
+# `tolerance` describe the check. The builder runs these only when a
+# figure claiming this id is rebuilt (see B2 in the upgrade roadmap).
+assertions:
+  - name: saturation_gain_range
+    parquet: null                          # TODO: fill once Tier-2 parquet exists
+    column: saturation_gain_ratio          # ratio = wet_capacity / dry_capacity
+    op: between
+    lo: 1.70
+    hi: 1.90
+    tolerance: 0.02
+    unit: dimensionless
+
+  - name: saturation_gain_is_not_25pct
+    parquet: null
+    column: saturation_gain_ratio
+    op: not_near
+    value: 1.25                            # the retracted 25% value
+    tolerance: 0.05
+    unit: dimensionless
+
+  - name: capacity_reduction_on_desaturation
+    parquet: null
+    column: desaturation_reduction_fraction
+    op: between
+    lo: 0.70
+    hi: 0.90
+    tolerance: 0.02
+    unit: dimensionless
+
+# Documentation pointers.
+see_also:
+  - ../../../critical_review_fixes_20260417 (memory)
+  - ../../planning/methodology_claims.md

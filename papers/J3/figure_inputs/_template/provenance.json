@@ -1,0 +1,32 @@
+{
+  "$note": "Template — copy to <fig_slug>.provenance.json and fill in before publishing. All hashes are short MD5 (first 8 hex chars) of the file as read.",
+  "fig_slug": "TODO_slug",
+  "paper": "TODO_paper_code",
+  "built_utc": null,
+  "built_by": "figgen.scripts.build_tier2",
+  "source_chain": [
+    {
+      "tier": 0,
+      "role": "raw",
+      "path": "TODO_raw_path",
+      "hash": null,
+      "note": "Original raw dataset (outside the repo)."
+    },
+    {
+      "tier": 1,
+      "role": "processed",
+      "path": "TODO_processed_path",
+      "hash": null,
+      "note": "Canonical processed CSV/parquet."
+    },
+    {
+      "tier": 2,
+      "role": "figure_input",
+      "path": "./<fig_slug>.parquet",
+      "hash": null,
+      "note": "This file."
+    }
+  ],
+  "processing_script": "TODO path to the Tier-1→Tier-2 extraction script",
+  "notes": []
+}

@@ -1,0 +1,29 @@
+# Template for a new claim witness. Copy to
+#   papers/<PAPER>/figure_inputs/claims/<claim_id>.yml
+# and fill in the real headline and assertions.
+
+claim_id: TODO_slug
+paper: TODO_paper_code
+status: drafted           # drafted | confirmed | corrected
+
+headline: >
+  One-sentence quantitative statement the figure(s) must support.
+
+# Machine-checkable assertions.
+#   op: between  → expects `lo` and `hi`
+#   op: near     → expects `value` and `tolerance`
+#   op: not_near → expects `value` and `tolerance` (refutation check)
+#   op: equal    → expects `value`
+#   op: greater / less → expects `value`
+#   `filter` applies a dataframe filter before the check.
+assertions: []
+  # - name: example_check
+  #   parquet: ./<fig_slug>.parquet
+  #   filter: {test_id: T4}
+  #   column: phi_prime_deg
+  #   op: near
+  #   value: 39.3
+  #   tolerance: 0.1
+  #   unit: degree
+
+see_also: []

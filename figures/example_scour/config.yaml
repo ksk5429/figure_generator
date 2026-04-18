@@ -1,6 +1,16 @@
 figure_id: example_scour
 journal: thesis
 width: double
+
+# Pipeline-integration metadata (A1).
+# For real figures these tie the artifact to a paper and a thesis claim.
+# `example_scour` is synthetic, so `paper: example` is a marker — it is
+# intentionally excluded from `make publish` (the publisher only routes
+# figures whose paper code exists under papers/).
+paper: example
+claim_id: null
+tier: 1
+
 description: >
   Synthetic demonstration of the figure_generator pipeline. Shows scour
   profiles for a monopile and two tripod foundation locations.

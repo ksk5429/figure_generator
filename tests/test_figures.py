@@ -79,3 +79,47 @@ def test_frf_plot_renders():
     mag = 1 / np.sqrt((1 - (f / 3.0) ** 2) ** 2 + (0.05 * f / 3.0) ** 2)
     fig, _ = frf.plot(f, mag, modal_peaks=[3.0], journal="thesis")
     return fig
+
+
+def test_tier2_loader_rejects_missing(tmp_path, monkeypatch):
+    """load_tier2 must fail loudly when the parquet is absent."""
+    from figgen import io
+
+    monkeypatch.setenv("FIGGEN_PAPERS_ROOT", str(tmp_path))
+    with pytest.raises(FileNotFoundError, match="Tier-2 parquet not found"):
+        io.load_tier2("J3", "does-not-exist")
+
+
+def test_tier2_loader_round_trip(tmp_path, monkeypatch):
+    """load_tier2 reads a parquet + schema and exposes them as an asset."""
+    from figgen import io
+
+    paper_root = tmp_path / "J3" / "figure_inputs"
+    paper_root.mkdir(parents=True)
+    df = pd.DataFrame({"z_m": [0.0, 1.0, 2.0], "p_kpa": [0.0, 10.0, 40.0]})
+    parquet = paper_root / "fig01.parquet"
+    df.to_parquet(parquet)
+    schema = paper_root / "fig01.schema.yml"
+    schema.write_text("fig_slug: fig01\npaper: J3\nclaim_id: null\ncolumns: []\n", encoding="utf-8")
+
+    monkeypatch.setenv("FIGGEN_PAPERS_ROOT", str(tmp_path))
+    asset = io.load_tier2("J3", "fig01")
+    assert asset.parquet == parquet
+    assert asset.schema == schema
+    assert asset.df is not None
+    assert list(asset.df.columns) == ["z_m", "p_kpa"]
+
+
+def test_gather_metadata_includes_pipeline_fields():
+    from figgen.metadata import gather_metadata
+
+    meta = gather_metadata(
+        figure_id="j3-saturation",
+        journal="ocean_engineering",
+        paper="J3",
+        claim_id="j3-saturation-gain",
+        tier=2,
+    )
+    assert meta["paper"] == "J3"
+    assert meta["claim_id"] == "j3-saturation-gain"
+    assert meta["tier"] == "2"

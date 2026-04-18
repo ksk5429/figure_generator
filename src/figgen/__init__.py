@@ -20,6 +20,7 @@ CONFIGS_DIR = REPO_ROOT / "configs"
 STYLES_DIR = REPO_ROOT / "styles"
 FIGURES_DIR = REPO_ROOT / "figures"
 DATA_DIR = REPO_ROOT / "data"
+PAPERS_DIR = REPO_ROOT / "papers"  # Tier-2 per-paper assets (symlink or copy)
 
 __all__ = [
     "__version__",
@@ -28,4 +29,5 @@ __all__ = [
     "STYLES_DIR",
     "FIGURES_DIR",
     "DATA_DIR",
+    "PAPERS_DIR",
 ]

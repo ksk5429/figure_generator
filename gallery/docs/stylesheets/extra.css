@@ -37,3 +37,6 @@
 
 .chip.fresh { background: #2a8a3f; color: #fff; }
 .chip.stale { background: #c23b22; color: #fff; }
+.chip.paper { background: #6750a4; color: #fff; }
+.chip.claim { background: #0b6ea0; color: #fff; font-family: var(--md-code-font-family); }
+.chip.tier  { background: #555; color: #fff; font-family: var(--md-code-font-family); }

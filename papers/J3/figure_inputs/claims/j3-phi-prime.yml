@@ -1,0 +1,53 @@
+# Claim witness — j3-phi-prime
+#
+# Encodes the F-03 correction from 2026-04-17. T4 and T5's internal
+# friction angles were mislabeled in R0; the values below are authoritative.
+
+claim_id: j3-phi-prime
+paper: J3
+status: corrected
+source: critical_review_fixes_20260417
+origin_note: |
+  In R0, T5 had phi' = 35.5° copied from T3 by mistake, and T4 was labeled
+  37.5° instead of 39.3°. Bearing-capacity curves using phi'(T4) or
+  phi'(T5) in R0 are therefore biased low.
+
+headline: >
+  Corrected internal friction angles: T4 = 39.3°, T5 = 37.3°.
+
+# Reference values — exact, not a range. Anything inside ±tolerance is
+# accepted; anything outside fails the claim witness.
+reference_values:
+  T4:
+    value: 39.3
+    unit: degree
+    tolerance: 0.1
+    was: 37.5
+  T5:
+    value: 37.3
+    unit: degree
+    tolerance: 0.1
+    was: 35.5
+
+assertions:
+  - name: T4_phi_prime
+    parquet: null                          # TODO
+    filter: {test_id: T4}
+    column: phi_prime_deg
+    op: near
+    value: 39.3
+    tolerance: 0.1
+    unit: degree
+
+  - name: T5_phi_prime
+    parquet: null
+    filter: {test_id: T5}
+    column: phi_prime_deg
+    op: near
+    value: 37.3
+    tolerance: 0.1
+    unit: degree
+
+see_also:
+  - ../../../critical_review_fixes_20260417 (memory)
+  - ../../planning/methodology_claims.md

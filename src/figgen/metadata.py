@@ -47,9 +47,36 @@ def gather_metadata(
     figure_id: str,
     journal: str,
     data_sources: Sequence[str | Path] = (),
+    paper: str | None = None,
+    claim_id: str | None = None,
+    tier: int | None = None,
     extra: Mapping[str, Any] | None = None,
 ) -> dict[str, str]:
-    """Collect the canonical reproducibility metadata dict."""
+    """Collect the canonical reproducibility metadata dict.
+
+    Parameters
+    ----------
+    figure_id : str
+        Canonical figure identifier.
+    journal : str
+        Journal config name (must match a file under ``configs/journals/``).
+    data_sources : sequence of path-like
+        Files contributing to the figure. Each gets an MD5 truncated to 8 chars.
+    paper : str, optional
+        Paper code (``J3``, ``V1``, ``Op3`` …). Links the figure into the
+        paper pipeline so a downstream ``publish-to-notes`` step can route
+        outputs to the correct manuscript subtree.
+    claim_id : str, optional
+        Slug of the thesis / methodology claim this figure supports, as
+        listed in the paper's ``planning/methodology_claims.md`` /
+        ``figure_inputs/claims/<slug>.yml``.
+    tier : int, optional
+        Data tier for the primary input. ``2`` means the figure reads from
+        a locked Tier-2 parquet (recommended); ``1`` means processed but
+        not yet claim-aligned.
+    extra : mapping, optional
+        Additional string metadata (e.g. ``{"description": "..."}``).
+    """
     sources = []
     for src in data_sources:
         p = Path(src)
@@ -58,6 +85,9 @@ def gather_metadata(
     meta = {
         "figure_id": figure_id,
         "journal": journal,
+        "paper": paper or "",
+        "claim_id": claim_id or "",
+        "tier": str(tier) if tier is not None else "",
         "git_hash": _git_hash_short(),
         "generated_utc": _utc_now_iso(),
         "data_sources": "; ".join(sources) if sources else "none",

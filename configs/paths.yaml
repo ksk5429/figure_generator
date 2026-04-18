@@ -1,0 +1,22 @@
+# figure_generator path configuration.
+#
+# Override per-user by setting environment variables:
+#   FIGGEN_PAPERS_ROOT
+#   FIGGEN_RESEARCH_NOTES
+#
+# Values below are defaults used when those env vars are unset.
+
+# Root for per-paper Tier-2 assets (figure_inputs/, planning/, etc.).
+# Relative paths are resolved from the figure_generator repo root.
+papers_root: papers
+
+# Local clone of ksk5429/research-notes (the publication site).
+# Used by scripts/publish_to_notes.py. Can be overridden via FIGGEN_RESEARCH_NOTES.
+research_notes: ../mkdocs_material
+
+# Optional external data roots. Figures that reference these via an absolute
+# path will succeed locally but be flagged as non-portable in metadata.
+external_data_roots:
+  field: F:/TREE_OF_THOUGHT/PHD/papers/field_data
+  centrifuge: F:/TREE_OF_THOUGHT/PHD/papers/centrifuge_data
+  numerical: F:/TREE_OF_THOUGHT/PHD/papers/numerical_data
