@@ -1,0 +1,39 @@
+/* Tighter default spacing for figure cards. */
+.md-typeset .grid.cards > ul > li {
+  border-radius: 8px;
+}
+
+/* Metadata table — monospace for hash/timestamp columns. */
+.figure-meta table {
+  font-family: var(--md-code-font-family);
+  font-size: 0.8rem;
+}
+
+.figure-meta th {
+  white-space: nowrap;
+}
+
+/* Figure images should not exceed container width. */
+.md-typeset .figure-preview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  background: white;
+  padding: 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* Journal chip styling. */
+.chip {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  margin-right: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 999px;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+.chip.fresh { background: #2a8a3f; color: #fff; }
+.chip.stale { background: #c23b22; color: #fff; }

@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # required for git-revision-date-localized plugin
 
       - uses: actions/setup-python@v5
         with:
@@ -44,7 +44,7 @@ jobs:
       - name: Run tests (visual regression)
         run: make test
 
-      - name: Build gallery
+      - name: Build MkDocs Material gallery
         run: make gallery
 
       - name: Upload figure artifacts
@@ -57,11 +57,11 @@ jobs:
             figures/*/*.pdf
           retention-days: 30
 
-      - name: Upload gallery as Pages artifact
+      - name: Upload MkDocs site as Pages artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: gallery
+          path: gallery/site
 
   deploy-pages:
     if: github.ref == 'refs/heads/main'

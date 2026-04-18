@@ -66,12 +66,30 @@ figure_generator/
 Confirm journal guidelines each submission cycle and update the corresponding
 YAML + `.mplstyle` pair before generating figures.
 
+## Gallery (MkDocs Material)
+
+The gallery is an MkDocs Material site under [`gallery/`](gallery/).
+
+```bash
+make gallery   # generate docs pages + build static site into gallery/site/
+make serve     # live preview on http://localhost:8000
+```
+
+`gallery/build_gallery.py` scans `figures/*/`, copies each figure's
+PNG / SVG / PDF into `gallery/docs/figures/<id>/`, and emits:
+
+- `gallery/docs/figures/index.md` — grid-cards gallery
+- `gallery/docs/figures/<id>.md` — per-figure page (tabs: PNG / SVG / PDF / Metadata)
+
+Static pages (`index.md`, `conventions.md`, stylesheets, `mkdocs.yml`) are
+tracked in git; generated per-figure pages and copied assets are ignored.
+
 ## CI
 
 `.github/workflows/build-figures.yml` builds every figure on push, runs the
-`pytest-mpl` regression suite, regenerates the gallery, and deploys it to
-GitHub Pages on `main`. Enable Pages in the repository settings
-(**Settings → Pages → Source: GitHub Actions**).
+`pytest-mpl` regression suite, builds the MkDocs Material gallery, and
+deploys `gallery/site/` to GitHub Pages on `main`. Enable Pages in the
+repository settings (**Settings → Pages → Source: GitHub Actions**).
 
 ## See also
 

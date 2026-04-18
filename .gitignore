@@ -27,8 +27,12 @@ data/raw/*.mat
 data/raw/large/
 
 tests/baseline_images/generated/
-gallery/index.html
-!gallery/templates/
+
+# MkDocs Material gallery — generated artifacts
+gallery/site/
+gallery/docs/figures/*/
+gallery/docs/figures/*.md
+!gallery/docs/figures/.gitkeep
 
 *.log
 .cache/

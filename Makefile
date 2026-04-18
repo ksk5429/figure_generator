@@ -8,24 +8,28 @@
 PY          ?= python
 PIP         ?= pip
 FIG_DIR     := figures
-GALLERY     := gallery/index.html
+GALLERY_DIR := gallery
+MKDOCS_CFG  := $(GALLERY_DIR)/mkdocs.yml
+SITE_DIR    := $(GALLERY_DIR)/site
 TEMPLATE    := scripts/_template_figure.py
 
 FIG_IDS     := $(notdir $(wildcard $(FIG_DIR)/*))
 FIG_STAMPS  := $(foreach id,$(FIG_IDS),$(FIG_DIR)/$(id)/.stamp)
 
-.PHONY: help setup figure figures gallery test clean metadata lint format new-figure
+.PHONY: help setup figure figures gallery gallery-pages serve test clean metadata lint format new-figure
 
 help:
 	@echo "figure_generator targets:"
 	@echo "  make setup              Install package in editable mode"
 	@echo "  make figure FIG=<id>    Build a single figure"
 	@echo "  make figures            Build all figures"
-	@echo "  make gallery            Regenerate gallery/index.html"
+	@echo "  make gallery            Regenerate docs pages + build MkDocs Material site"
+	@echo "  make gallery-pages      Regenerate docs pages only (no mkdocs build)"
+	@echo "  make serve              Live-preview gallery at http://localhost:8000"
 	@echo "  make test               Run pytest (+ pytest-mpl)"
 	@echo "  make metadata FIG=<id>  Print embedded metadata from outputs"
 	@echo "  make new-figure FIG=<id>  Scaffold a new figure folder from template"
-	@echo "  make clean              Remove generated figure outputs"
+	@echo "  make clean              Remove generated figure outputs and site/"
 	@echo "  make lint               Run ruff"
 	@echo "  make format             Run ruff format"
 
@@ -46,8 +50,14 @@ $(FIG_DIR)/%/.stamp: $(FIG_DIR)/%/%.py $(FIG_DIR)/%/config.yaml
 	$(PY) $<
 	@touch $@
 
-gallery:
-	$(PY) gallery/build_gallery.py
+gallery-pages:
+	$(PY) $(GALLERY_DIR)/build_gallery.py
+
+gallery: gallery-pages
+	mkdocs build -f $(MKDOCS_CFG)
+
+serve: gallery-pages
+	mkdocs serve -f $(MKDOCS_CFG) -a 127.0.0.1:8000
 
 test:
 	$(PY) -m pytest tests/
@@ -72,8 +82,10 @@ endif
 
 clean:
 	@find $(FIG_DIR) -type f \( -name '*.png' -o -name '*.svg' -o -name '*.pdf' -o -name '.stamp' \) -delete
-	@rm -f $(GALLERY)
-	@echo "Cleaned generated figure outputs."
+	@rm -rf $(SITE_DIR)
+	@rm -rf $(GALLERY_DIR)/docs/figures/*/ $(GALLERY_DIR)/docs/figures/index.md
+	@find $(GALLERY_DIR)/docs/figures -maxdepth 1 -name '*.md' ! -name 'index.md' -delete 2>/dev/null || true
+	@echo "Cleaned generated figure outputs and gallery site/."
 
 lint:
 	ruff check src tests scripts gallery

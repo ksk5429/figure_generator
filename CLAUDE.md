@@ -66,7 +66,9 @@ Follow these steps, in order, in every session:
    - notes the key observation (what the viewer should see)
    - **does not** interpret — interpretation belongs in the manuscript text
 
-8. **Regenerate the gallery** with `make gallery`.
+8. **Regenerate the gallery** with `make gallery` (scans `figures/*/`, emits
+   MkDocs Material pages under `gallery/docs/figures/`, then runs
+   `mkdocs build` into `gallery/site/`). Preview locally with `make serve`.
 
 9. **Propose a commit message** in Conventional Commits form:
    ```
@@ -219,10 +221,12 @@ make setup               # pip install -e .[dev]
 make new-figure FIG=<id> # scaffold figures/<id>/ from template
 make figure FIG=<id>     # build one figure
 make figures             # build all
-make gallery             # regenerate gallery/index.html
+make gallery             # regenerate docs pages + mkdocs build -> gallery/site/
+make gallery-pages       # regenerate docs pages only (no mkdocs build)
+make serve               # preview MkDocs site on http://localhost:8000
 make test                # pytest + pytest-mpl
 make metadata FIG=<id>   # print embedded metadata
-make clean               # remove generated outputs (keeps .py + config)
+make clean               # remove generated outputs and gallery/site/
 ```
 
 ---

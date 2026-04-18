@@ -1,0 +1,108 @@
+site_name: figure_generator — gallery
+site_description: Publication-grade figures for offshore, geotechnical, and structural engineering research.
+site_author: KSK
+site_url: https://ksk5429.github.io/figure_generator/
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - content.tabs.link
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+    - search.share
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.critic
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+
+plugins:
+  - search
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+      enable_git_follow: false
+      type: iso_datetime
+      fallback_to_build_date: true
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ksk5429/figure_generator
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
+
+# Nav is intentionally shallow; individual figure pages are reachable via the
+# Gallery page's grid cards and via Material's search. If you want them listed
+# in the sidebar, the generator can emit a `figures.yml` include — not enabled
+# by default because the figure set grows unpredictably.
+nav:
+  - Home: index.md
+  - Gallery: figures/index.md
+  - Conventions: conventions.md
+
+not_in_nav: |
+  /figures/*.md
+  !/figures/index.md

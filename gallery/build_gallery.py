@@ -1,76 +1,254 @@
-"""Scan figures/*/ and emit gallery/index.html via Jinja2."""
+"""Emit MkDocs Material pages for every figure in ``figures/``.
+
+Generates:
+    gallery/docs/figures/index.md                — grid of Material cards
+    gallery/docs/figures/<id>.md                  — per-figure page (tabs)
+    gallery/docs/figures/<id>/<id>.{png,svg,pdf}  — copied artifacts
+
+The landing page (``gallery/docs/index.md``) and ``conventions.md`` are
+static — not overwritten by this script.
+"""
 
 from __future__ import annotations
 
 import datetime as _dt
+import shutil
 from pathlib import Path
-
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from figgen import FIGURES_DIR
 from figgen.metadata import read_png_metadata, read_svg_metadata
 
 HERE = Path(__file__).resolve().parent
-TEMPLATE = HERE / "templates" / "index.html.j2"
-OUTPUT = HERE / "index.html"
+DOCS = HERE / "docs"
+FIG_PAGES = DOCS / "figures"
 
+
+# --- helpers ---------------------------------------------------------------
 
 def _load_caption(fig_dir: Path) -> str:
+    """Return caption text with any leading H1 stripped (the page already has one)."""
     cap = fig_dir / "CAPTION.md"
     if not cap.exists():
         return ""
-    lines = [ln.rstrip() for ln in cap.read_text(encoding="utf-8").splitlines() if ln.strip()]
-    # Drop leading markdown header (# ...) for the excerpt.
-    lines = [ln for ln in lines if not ln.startswith("#")]
+    text = cap.read_text(encoding="utf-8")
+    lines = text.splitlines()
+    # Drop a single leading H1 and any blank lines immediately after it.
+    if lines and lines[0].startswith("# "):
+        lines = lines[1:]
+        while lines and not lines[0].strip():
+            lines = lines[1:]
+    return "\n".join(lines).strip()
+
+
+def _caption_excerpt(caption: str, limit: int = 200) -> str:
+    lines = [ln for ln in caption.splitlines() if ln.strip() and not ln.startswith("#")]
     text = " ".join(lines)
-    return (text[:220] + "…") if len(text) > 220 else text
+    return (text[: limit - 1] + "…") if len(text) > limit else text
 
 
 def _is_fresh(fig_dir: Path, fig_id: str) -> bool:
     png = fig_dir / f"{fig_id}.png"
-    script = fig_dir / f"{fig_id}.py"
-    config = fig_dir / "config.yaml"
     if not png.exists():
         return False
     out_mtime = png.stat().st_mtime
-    for src in (script, config):
+    for src in (fig_dir / f"{fig_id}.py", fig_dir / "config.yaml"):
         if src.exists() and src.stat().st_mtime > out_mtime:
             return False
     return True
 
 
-def _relative_to_gallery(path: Path) -> str:
-    try:
-        return str(path.relative_to(HERE)).replace("\\", "/")
-    except ValueError:
-        # figures/ lives outside gallery/, so walk up
-        import os
-        return os.path.relpath(path, HERE).replace("\\", "/")
+def _read_metadata(fig_dir: Path, fig_id: str) -> dict[str, str]:
+    png = fig_dir / f"{fig_id}.png"
+    svg = fig_dir / f"{fig_id}.svg"
+    if png.exists():
+        return read_png_metadata(png)
+    if svg.exists():
+        return read_svg_metadata(svg)
+    return {}
 
 
-def scan_figures(figures_dir: Path = FIGURES_DIR) -> list[dict]:
+# --- per-figure page -------------------------------------------------------
+
+_PAGE_TEMPLATE = """\
+# {fig_id}
+
+<span class="chip">{journal}</span>
+<span class="chip {freshness}">{freshness}</span>
+
+{caption}
+
+## Preview
+
+=== "PNG"
+
+    <div class="figure-preview" markdown>
+    ![{fig_id}]({fig_id}/{fig_id}.png){{ loading=lazy }}
+    </div>
+
+    [:material-download: Download PNG]({fig_id}/{fig_id}.png){{ .md-button download="{fig_id}.png" }}
+
+=== "SVG"
+
+    <div class="figure-preview" markdown>
+    ![{fig_id}]({fig_id}/{fig_id}.svg){{ loading=lazy }}
+    </div>
+
+    [:material-download: Download SVG]({fig_id}/{fig_id}.svg){{ .md-button download="{fig_id}.svg" }}
+
+=== "PDF"
+
+    <iframe src="{fig_id}/{fig_id}.pdf" width="100%" height="540" style="border:1px solid var(--md-default-fg-color--lightest); border-radius:4px;"></iframe>
+
+    [:material-download: Download PDF]({fig_id}/{fig_id}.pdf){{ .md-button download="{fig_id}.pdf" }}
+
+=== "Metadata"
+
+    <div class="figure-meta" markdown>
+
+{meta_table}
+
+    </div>
+
+## Reproduce
+
+```bash
+make figure FIG={fig_id}
+```
+
+Source: [`figures/{fig_id}/{fig_id}.py`](https://github.com/ksk5429/figure_generator/blob/main/figures/{fig_id}/{fig_id}.py)
+· [`config.yaml`](https://github.com/ksk5429/figure_generator/blob/main/figures/{fig_id}/config.yaml)
+· [`CAPTION.md`](https://github.com/ksk5429/figure_generator/blob/main/figures/{fig_id}/CAPTION.md)
+"""
+
+
+def _meta_table(meta: dict[str, str]) -> str:
+    if not meta:
+        return "    _No metadata available. Rebuild the figure with `make figure FIG=<id>`._"
+    keys = [
+        "figure_id",
+        "journal",
+        "git_hash",
+        "generated_utc",
+        "data_sources",
+        "description",
+        "generator",
+    ]
+    rows = ["    | key | value |", "    |-----|-------|"]
+    seen = set()
+    for k in keys:
+        if k in meta:
+            rows.append(f"    | `{k}` | {meta[k].strip()} |")
+            seen.add(k)
+    for k, v in sorted(meta.items()):
+        if k in seen:
+            continue
+        rows.append(f"    | `{k}` | {str(v).strip()} |")
+    return "\n".join(rows)
+
+
+def _write_figure_page(fig_dir: Path, fig_id: str) -> Path:
+    meta = _read_metadata(fig_dir, fig_id)
+    caption = _load_caption(fig_dir)
+    freshness = "fresh" if _is_fresh(fig_dir, fig_id) else "stale"
+    journal = meta.get("journal", "—")
+
+    page = _PAGE_TEMPLATE.format(
+        fig_id=fig_id,
+        journal=journal,
+        freshness=freshness,
+        caption=caption or "_No caption yet — edit `figures/{fig_id}/CAPTION.md`._".format(
+            fig_id=fig_id
+        ),
+        meta_table=_meta_table(meta),
+    )
+
+    out = FIG_PAGES / f"{fig_id}.md"
+    out.write_text(page, encoding="utf-8")
+    return out
+
+
+def _copy_artifacts(fig_dir: Path, fig_id: str) -> None:
+    dest = FIG_PAGES / fig_id
+    dest.mkdir(parents=True, exist_ok=True)
+    for ext in ("png", "svg", "pdf"):
+        src = fig_dir / f"{fig_id}.{ext}"
+        if src.exists():
+            shutil.copy2(src, dest / src.name)
+
+
+# --- gallery index ---------------------------------------------------------
+
+_INDEX_TEMPLATE = """\
+# Gallery
+
+Every figure below is regenerated by `make gallery` from the artifacts in
+[`figures/`](https://github.com/ksk5429/figure_generator/tree/main/figures).
+Freshness reflects whether the PNG output is newer than the `.py` / `config.yaml`
+that produced it.
+
+_Last built: {now}_
+
+<div class="grid cards" markdown>
+
+{cards}
+
+</div>
+"""
+
+_CARD_TEMPLATE = """\
+- :material-image-outline:{{ .lg }} __[{fig_id}]({fig_id}.md)__
+
+    <span class="chip">{journal}</span> <span class="chip {freshness}">{freshness}</span>
+
+    ---
+
+    ![{fig_id}]({fig_id}/{fig_id}.png){{ loading=lazy }}
+
+    {caption}
+
+    `git:{git_hash}` · `data:{data_sources}`
+"""
+
+
+def _build_index(entries: list[dict]) -> Path:
+    cards: list[str] = []
+    for e in entries:
+        cards.append(
+            _CARD_TEMPLATE.format(
+                fig_id=e["figure_id"],
+                journal=e["journal"],
+                freshness="fresh" if e["fresh"] else "stale",
+                caption=e["caption"] or "_(no caption)_",
+                git_hash=e["git_hash"] or "n/a",
+                data_sources=e["data_sources"] or "n/a",
+            )
+        )
+    now = _dt.datetime.now(tz=_dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    out = FIG_PAGES / "index.md"
+    out.write_text(
+        _INDEX_TEMPLATE.format(now=now, cards="\n".join(cards) if cards else "_No figures yet._"),
+        encoding="utf-8",
+    )
+    return out
+
+
+# --- main ------------------------------------------------------------------
+
+def scan_figures() -> list[dict]:
     entries: list[dict] = []
-    if not figures_dir.exists():
+    if not FIGURES_DIR.exists():
         return entries
-    for d in sorted(figures_dir.iterdir()):
+    for d in sorted(FIGURES_DIR.iterdir()):
         if not d.is_dir() or d.name.startswith("."):
             continue
         fig_id = d.name
-        png = d / f"{fig_id}.png"
-        svg = d / f"{fig_id}.svg"
-        meta: dict[str, str] = {}
-        if png.exists():
-            meta = read_png_metadata(png)
-        elif svg.exists():
-            meta = read_svg_metadata(svg)
-
+        meta = _read_metadata(d, fig_id)
         entries.append(
             {
                 "figure_id": fig_id,
+                "dir": d,
                 "journal": meta.get("journal", "—"),
-                "png": _relative_to_gallery(png) if png.exists() else "",
-                "svg": _relative_to_gallery(svg) if svg.exists() else "",
-                "caption": _load_caption(d),
+                "caption": _caption_excerpt(_load_caption(d)),
                 "git_hash": meta.get("git_hash", ""),
                 "data_sources": meta.get("data_sources", ""),
                 "generated_utc": meta.get("generated_utc", ""),
@@ -80,21 +258,15 @@ def scan_figures(figures_dir: Path = FIGURES_DIR) -> list[dict]:
     return entries
 
 
-def render_gallery() -> Path:
-    env = Environment(
-        loader=FileSystemLoader(str(TEMPLATE.parent)),
-        autoescape=select_autoescape(["html", "xml"]),
-        keep_trailing_newline=True,
-    )
-    tmpl = env.get_template(TEMPLATE.name)
-    html = tmpl.render(
-        figures=scan_figures(),
-        generated_at=_dt.datetime.now(tz=_dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-    )
-    OUTPUT.write_text(html, encoding="utf-8")
-    return OUTPUT
+def render() -> None:
+    FIG_PAGES.mkdir(parents=True, exist_ok=True)
+    entries = scan_figures()
+    for e in entries:
+        _copy_artifacts(e["dir"], e["figure_id"])
+        _write_figure_page(e["dir"], e["figure_id"])
+    _build_index(entries)
+    print(f"wrote {len(entries)} figure pages into {FIG_PAGES}")
 
 
 if __name__ == "__main__":
-    out = render_gallery()
-    print(f"wrote {out}")
+    render()
