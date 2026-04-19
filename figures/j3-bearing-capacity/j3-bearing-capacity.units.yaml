@@ -1,0 +1,12 @@
+test_id:          category        # {T4, T5}
+density:          category        # {dense, loose}
+label:            label
+phi_prime_deg:    degree
+n_q:              dimensionless
+n_gamma:          dimensionless
+scour_m:          meter
+s_over_d:         dimensionless
+qu_kpa:           kilopascal
+qu_intact_kpa:    kilopascal
+qu_norm:          dimensionless
+ratio_t4_t5:      dimensionless

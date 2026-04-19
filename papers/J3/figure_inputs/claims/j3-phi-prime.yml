@@ -30,23 +30,142 @@ reference_values:
     was: 35.5
 
 assertions:
-  - name: T4_phi_prime
-    parquet: null                          # TODO
-    filter: {test_id: T4}
-    column: phi_prime_deg
+
+  # ----- Corrected friction angles (the headline of this claim) -----
+  - name: T4_phi_prime_at_39_3_deg
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T4"}
+      column: phi_prime_deg
     op: near
     value: 39.3
     tolerance: 0.1
-    unit: degree
 
-  - name: T5_phi_prime
-    parquet: null
-    filter: {test_id: T5}
-    column: phi_prime_deg
+  - name: T5_phi_prime_at_37_3_deg
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T5"}
+      column: phi_prime_deg
     op: near
     value: 37.3
     tolerance: 0.1
-    unit: degree
+
+  # ----- Retract the R0-era mislabelled values -----
+  - name: T4_phi_prime_not_old_37_5_deg
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T4"}
+      column: phi_prime_deg
+    op: not_near
+    value: 37.5
+    tolerance: 0.5
+
+  - name: T5_phi_prime_not_old_35_5_deg
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T5"}
+      column: phi_prime_deg
+    op: not_near
+    value: 35.5
+    tolerance: 0.5
+
+  # ----- Associated bearing-capacity factors (derived from phi') -----
+  - name: T4_nq_at_56
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T4"}
+      column: n_q
+    op: near
+    value: 56.0
+    tolerance: 0.5
+
+  - name: T5_nq_at_43
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T5"}
+      column: n_q
+    op: near
+    value: 43.0
+    tolerance: 0.5
+
+  - name: T4_ngamma_at_92
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T4"}
+      column: n_gamma
+    op: near
+    value: 92.0
+    tolerance: 1.0
+
+  - name: T5_ngamma_at_64
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T5"}
+      column: n_gamma
+    op: near
+    value: 64.0
+    tolerance: 1.0
+
+  # ----- Scour reduces qu to ~58-60% of intact at S/D = 0.58 -----
+  - name: qu_norm_at_max_scour_T4
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T4", scour_m: 4.7}
+      column: qu_norm
+    op: between
+    lo: 0.55
+    hi: 0.65
+
+  - name: qu_norm_at_max_scour_T5
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T5", scour_m: 4.7}
+      column: qu_norm
+    op: between
+    lo: 0.55
+    hi: 0.65
+
+  # ----- Density gap: T4 qu is ~1.3-1.4x T5 qu across all scour levels -----
+  - name: ratio_t4_t5_at_intact
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T4", scour_m: 0.0}
+      column: ratio_t4_t5
+    op: between
+    lo: 1.30
+    hi: 1.45
+
+  - name: ratio_t4_t5_at_max_scour
+    parquet: bearing-capacity.parquet
+    compute:
+      op: mean
+      filter: {test_id: "T4", scour_m: 4.7}
+      column: ratio_t4_t5
+    op: between
+    lo: 1.30
+    hi: 1.45
+
+  # ----- Row inventory: 2 tests x 6 scour stages -----
+  - name: row_inventory_two_tests
+    parquet: bearing-capacity.parquet
+    compute:
+      op: row_counts
+      group_by: test_id
+    op: equal
+    value:
+      T4: 6
+      T5: 6
 
 see_also:
   - ../../../critical_review_fixes_20260417 (memory)

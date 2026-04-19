@@ -1,0 +1,55 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "bearing-capacity",
+  "generated_utc": "2026-04-19T10:48:43Z",
+  "primary_source": {
+    "kind": "manuscript",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd Section 4 + @tbl-cpt-results + @tbl-bearing-factors",
+    "formula": "q_u(S) = N_q \u00b7 \u03b3' \u00b7 (L \u2212 S) + 0.4 \u00b7 \u03b3' \u00b7 R \u00b7 N_\u03b3 (Villalobos 2009)"
+  },
+  "constants": {
+    "D_m": 8.0,
+    "L_m": 9.3,
+    "gamma_sub_kn_m3": 9.4
+  },
+  "series": {
+    "T4": {
+      "label": "T4 (dense sat.)",
+      "phi_prime": 39.3,
+      "n_q": 56.0,
+      "n_gamma": 92.0,
+      "density": "dense"
+    },
+    "T5": {
+      "label": "T5 (loose sat.)",
+      "phi_prime": 37.3,
+      "n_q": 43.0,
+      "n_gamma": 64.0,
+      "density": "loose"
+    }
+  },
+  "scour_stages_m": [
+    0.0,
+    1.0,
+    2.0,
+    3.0,
+    4.0,
+    4.7
+  ],
+  "rows": 12,
+  "columns": [
+    "test_id",
+    "density",
+    "label",
+    "phi_prime_deg",
+    "n_q",
+    "n_gamma",
+    "scour_m",
+    "s_over_d",
+    "qu_kpa",
+    "qu_intact_kpa",
+    "qu_norm",
+    "ratio_t4_t5"
+  ]
+}

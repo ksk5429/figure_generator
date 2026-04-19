@@ -1,0 +1,31 @@
+figure_id: j3-bearing-capacity
+journal: ocean_engineering
+width: double
+
+paper: J3
+claim_id: j3-phi-prime
+tier: 2
+tier2_slug: bearing-capacity
+
+description: >
+  Bearing-capacity degradation under scour for the T4 (dense saturated)
+  and T5 (loose saturated) series. Panel (a) absolute qu vs S/D; panel
+  (b) qu/qu_intact vs S/D with the 50-70% nonlinear-onset band shaded.
+  Uses corrected phi' values (T4 = 39.3 deg, T5 = 37.3 deg) — withdraws
+  the R0 figures that used the mislabelled 37.5/35.5 values.
+
+data_sources:
+  - papers/J3/figure_inputs/bearing-capacity.parquet
+
+required_columns:
+  - test_id
+  - scour_m
+  - s_over_d
+  - phi_prime_deg
+  - n_q
+  - n_gamma
+  - qu_kpa
+  - qu_norm
+  - ratio_t4_t5
+
+formats: [png, svg, pdf]

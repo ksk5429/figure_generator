@@ -1,0 +1,43 @@
+claim_id: j3-phi-prime
+columns:
+- name: test_id
+  dtype: category
+  allowed:
+  - T4
+  - T5
+- name: density
+  dtype: category
+  allowed:
+  - dense
+  - loose
+- name: label
+  dtype: label
+- name: phi_prime_deg
+  dtype: float64
+  unit: degree
+- name: n_q
+  dtype: float64
+  unit: dimensionless
+- name: n_gamma
+  dtype: float64
+  unit: dimensionless
+- name: scour_m
+  dtype: float64
+  unit: meter
+- name: s_over_d
+  dtype: float64
+  unit: dimensionless
+- name: qu_kpa
+  dtype: float64
+  unit: kilopascal
+- name: qu_intact_kpa
+  dtype: float64
+  unit: kilopascal
+- name: qu_norm
+  dtype: float64
+  unit: dimensionless
+  note: qu / qu_intact
+- name: ratio_t4_t5
+  dtype: float64
+  unit: dimensionless
+  note: T4 qu divided by T5 qu at the same scour level (broadcast)
