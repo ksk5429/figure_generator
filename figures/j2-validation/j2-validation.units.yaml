@@ -1,0 +1,12 @@
+dataset:             category         # {centrifuge, field}
+scour_m:             meter
+s_over_d:            dimensionless
+n_points:            count
+measured_ff0:        dimensionless    # f/f0 at this S/D
+measured_ff0_std:    dimensionless    # ±1σ of measured
+model_ff0:           dimensionless
+relative_error_pct:  percent
+abs_error_ff0:       dimensionless
+measured_f_hz:       hertz            # null for centrifuge rows
+model_f_hz:          hertz
+series_note:         label

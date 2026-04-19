@@ -1,0 +1,90 @@
+# Claim witness — j2-validation
+#
+# Two-part validation per manuscript Section 3:
+#   * centrifuge: pattern (power-law exponent b ≈ 1.5); model within
+#                 ~7 % of measured f/f0 over full centrifuge range.
+#   * field:      magnitude; model baseline within -3.9 % of 32-month
+#                 Gunsan parked-state mean (CoV 1.53 %, 95 % CI ±0.6 %).
+
+claim_id: j2-validation
+paper: J2
+status: submitted
+source: manuscript.qmd Section 3.1 + centrifuge_vs_model_errors.csv
+origin_note: |
+  Centrifuge T2+T3 dry-sand bins aggregated per S/D; field from 32 months
+  of parked accelerometer data on the 4.2 MW Gunsan OWT. The -3.9 %
+  baseline bias is conservative by design (Tresca undrained clay with
+  α = 0.67 interface factor).
+
+headline: >
+  Centrifuge f/f0 match within ±7 % across 0 ≤ S/D ≤ 0.6;
+  field f0 within -3.9 % of the 32-month mean (-4.5 % to -3.3 % 95 % CI).
+
+primary_figure: figures/j2-validation
+
+assertions:
+
+  # ----- Field baseline: model is systematically below field within CI -----
+  - name: field_relative_error_near_3_9pct
+    parquet: validation.parquet
+    compute:
+      op: mean
+      filter: {dataset: "field"}
+      column: relative_error_pct
+    op: between
+    lo: -4.5
+    hi: -3.3       # 95 % CI around the -3.9 % point estimate
+
+  - name: field_model_f0_match
+    parquet: validation.parquet
+    compute:
+      op: mean
+      filter: {dataset: "field"}
+      column: model_f_hz
+    op: between
+    lo: 0.228
+    hi: 0.233
+
+  - name: field_measured_f0_near_0_24
+    parquet: validation.parquet
+    compute:
+      op: mean
+      filter: {dataset: "field"}
+      column: measured_f_hz
+    op: near
+    value: 0.24
+    tolerance: 0.002
+
+  # ----- Centrifuge: model must stay within reasonable gap -----
+  # Max-S/D centrifuge absolute error is -6.95 %; keep it inside a
+  # ±8 % envelope.
+  - name: centrifuge_max_scour_error_within_8pct
+    parquet: validation.parquet
+    compute:
+      op: mean
+      filter: {dataset: "centrifuge", s_over_d: 0.6}
+      column: relative_error_pct
+    op: between
+    lo: -8.0
+    hi: 0.0
+
+  - name: centrifuge_baseline_error_is_zero
+    parquet: validation.parquet
+    compute:
+      op: mean
+      filter: {dataset: "centrifuge", s_over_d: 0.0}
+      column: relative_error_pct
+    op: near
+    value: 0.0
+    tolerance: 0.01
+
+  # ----- Row inventory: 5 centrifuge bins + 1 field row -----
+  - name: row_inventory
+    parquet: validation.parquet
+    compute:
+      op: row_counts
+      group_by: dataset
+    op: equal
+    value:
+      centrifuge: 5
+      field: 1

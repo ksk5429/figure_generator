@@ -1,0 +1,42 @@
+claim_id: j2-validation
+columns:
+- name: dataset
+  dtype: category
+  allowed:
+  - centrifuge
+  - field
+- name: scour_m
+  dtype: float64
+  unit: meter
+- name: s_over_d
+  dtype: float64
+  unit: dimensionless
+- name: n_points
+  dtype: int64
+  note: 'centrifuge: samples per bin; field: months of data'
+- name: measured_ff0
+  dtype: float64
+  unit: dimensionless
+- name: measured_ff0_std
+  dtype: float64
+  unit: dimensionless
+- name: model_ff0
+  dtype: float64
+  unit: dimensionless
+- name: relative_error_pct
+  dtype: float64
+  unit: percent
+- name: abs_error_ff0
+  dtype: float64
+  unit: dimensionless
+- name: measured_f_hz
+  dtype: float64
+  unit: hertz
+  nullable: true
+  note: null for centrifuge rows
+- name: model_f_hz
+  dtype: float64
+  unit: hertz
+  nullable: true
+- name: series_note
+  dtype: str

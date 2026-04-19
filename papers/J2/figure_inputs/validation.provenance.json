@@ -1,0 +1,38 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "validation",
+  "generated_utc": "2026-04-19T05:40:49Z",
+  "primary_source": {
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\centrifuge_vs_model_errors.csv",
+    "md5_8": "01b356bb",
+    "kind": "csv",
+    "note": "T2+T3 dry-sand mean (Kim2025Sand companion)"
+  },
+  "field_baseline_source": {
+    "description": "Gunsan 4.2 MW OWT accelerometer data",
+    "manuscript_ref": "paperJ2_oe00984/manuscript.qmd Section 3.1",
+    "monitoring_months": 32,
+    "f0_hz": 0.24,
+    "cov_pct": 1.53,
+    "model_f0_hz": 0.2307,
+    "relative_error_pct": -3.9,
+    "ci95_plusminus_pct": 0.6
+  },
+  "bucket_diameter_m": 8.0,
+  "rows": 6,
+  "columns": [
+    "dataset",
+    "scour_m",
+    "s_over_d",
+    "n_points",
+    "measured_ff0",
+    "measured_ff0_std",
+    "model_ff0",
+    "relative_error_pct",
+    "abs_error_ff0",
+    "measured_f_hz",
+    "model_f_hz",
+    "series_note"
+  ]
+}

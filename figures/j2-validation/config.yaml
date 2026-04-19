@@ -1,0 +1,31 @@
+figure_id: j2-validation
+journal: ocean_engineering
+width: one_half
+
+paper: J2
+claim_id: j2-validation
+tier: 2
+tier2_slug: validation
+
+description: >
+  Two-part validation of the distributed BNWF model. (a) Centrifuge
+  pattern check — T2+T3 dry-sand f/f0 bins with ±1σ error bars, model
+  values at the same bins, and the fitted power-law curve
+  f/f0 = 1 + a·(S/D)^b overlaid. (b) Field magnitude check — 32-month
+  Gunsan parked mean f₀ = 0.2400 Hz (±CoV band) vs the model baseline
+  0.2307 Hz, with the -3.9 % gap annotated.
+
+data_sources:
+  - papers/J2/figure_inputs/validation.parquet
+
+required_columns:
+  - dataset
+  - s_over_d
+  - measured_ff0
+  - measured_ff0_std
+  - model_ff0
+  - relative_error_pct
+  - measured_f_hz
+  - model_f_hz
+
+formats: [png, svg, pdf]
