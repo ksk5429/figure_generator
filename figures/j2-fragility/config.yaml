@@ -1,0 +1,28 @@
+figure_id: j2-fragility
+journal: ocean_engineering
+width: one_half
+
+paper: J2
+claim_id: j2-fragility
+tier: 2
+tier2_slug: fragility
+
+description: >
+  SHM alert framework: GREEN/YELLOW/ORANGE/RED zones derived from the
+  1P resonance boundary (0.22 Hz for the 4.2 MW Gunsan turbine at
+  13.2 RPM). Zones span vertical scour strips; the power-law curve
+  f/f0 = 1 - 0.167·(S/D)^1.47 passes through each zone's frequency
+  shift interval. Secondary y-axis in Hz for operational readability.
+
+data_sources:
+  - papers/J2/figure_inputs/fragility.parquet
+
+required_columns:
+  - alert_level
+  - freq_shift_lo_pct
+  - freq_shift_hi_pct
+  - scour_lo_m
+  - scour_hi_m
+  - color_hex
+
+formats: [png, svg, pdf]

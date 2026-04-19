@@ -1,0 +1,38 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "fragility",
+  "generated_utc": "2026-04-19T07:23:28Z",
+  "primary_source": {
+    "kind": "manuscript",
+    "manuscript_ref": "paperJ2_oe00984/manuscript.qmd @tbl-shm (Section 4.3)",
+    "note": "Four-zone alert table derived from 1P resonance boundary for the Gunsan turbine (rated 13.2 RPM \u2192 1P at 0.22 Hz)."
+  },
+  "power_law": {
+    "a": -0.167,
+    "b": 1.47,
+    "eqn": "f/f0 = 1 + a * (S/D)^b",
+    "source": "paperJ2_oe00984/manuscript.qmd Section 4.3"
+  },
+  "reference_values": {
+    "field_f0_hz": 0.24,
+    "p1_freq_hz": 0.22,
+    "p1_cross_s_m": 3.4,
+    "bucket_diameter_m": 8.0
+  },
+  "rows": 4,
+  "columns": [
+    "alert_level",
+    "freq_shift_lo_pct",
+    "freq_shift_hi_pct",
+    "scour_lo_m",
+    "scour_hi_m",
+    "p1_margin_lo_pct",
+    "p1_margin_hi_pct",
+    "color_hex",
+    "hatch",
+    "rationale",
+    "s_over_d_lo",
+    "s_over_d_hi"
+  ]
+}

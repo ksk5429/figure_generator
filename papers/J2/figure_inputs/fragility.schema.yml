@@ -1,0 +1,39 @@
+claim_id: j2-fragility
+columns:
+- name: alert_level
+  dtype: category
+  allowed:
+  - GREEN
+  - YELLOW
+  - ORANGE
+  - RED
+- name: freq_shift_lo_pct
+  dtype: float64
+  unit: percent
+- name: freq_shift_hi_pct
+  dtype: float64
+  unit: percent
+- name: scour_lo_m
+  dtype: float64
+  unit: meter
+- name: scour_hi_m
+  dtype: float64
+  unit: meter
+- name: p1_margin_lo_pct
+  dtype: float64
+  unit: percent
+- name: p1_margin_hi_pct
+  dtype: float64
+  unit: percent
+- name: color_hex
+  dtype: label
+- name: hatch
+  dtype: label
+- name: rationale
+  dtype: label
+- name: s_over_d_lo
+  dtype: float64
+  unit: dimensionless
+- name: s_over_d_hi
+  dtype: float64
+  unit: dimensionless

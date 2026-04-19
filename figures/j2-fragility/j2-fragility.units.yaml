@@ -1,0 +1,12 @@
+alert_level:         category         # {GREEN, YELLOW, ORANGE, RED}
+freq_shift_lo_pct:   percent
+freq_shift_hi_pct:   percent
+scour_lo_m:          meter
+scour_hi_m:          meter
+p1_margin_lo_pct:    percent
+p1_margin_hi_pct:    percent
+color_hex:           label
+hatch:               label
+rationale:           label
+s_over_d_lo:         dimensionless
+s_over_d_hi:         dimensionless

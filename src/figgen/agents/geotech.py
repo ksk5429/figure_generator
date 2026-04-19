@@ -53,6 +53,10 @@ class GeotechAgent:
                 # whose data is evaluated AT fixed S/D points, e.g.
                 # "f1_at_sd_050_hz". Treat "at_sd_" as a valid witness.
                 "at_sd_", "at_sd",
+                # Range-parameterised scour columns (`scour_lo_m`,
+                # `scour_hi_m`, `scour_min_m`) used by threshold / zone
+                # tables.
+                "scour_lo", "scour_hi", "scour_min", "scour_max",
             )
             _flag(msgs, "scour",
                   any(tok in col_str for tok in scour_tokens),
@@ -62,7 +66,20 @@ class GeotechAgent:
                   "depth" in purpose.lower() or "seabed" in purpose.lower() or True,
                   "Scour convention: z=0 at seabed, positive downward; always invert the depth axis.")
 
-        if _hits(purpose, _CAMPBELL_HINTS):
+        # Campbell-diagram hints are fragile because "1P" and "RPM" also
+        # appear legitimately in SHM / fragility / 1P-resonance contexts.
+        # Only flag as a Campbell diagram when the purpose contains
+        # "campbell" explicitly, OR when "rotor speed" appears in the
+        # purpose AND no SHM / fragility / 1P-resonance vocabulary does.
+        _is_campbell = (
+            "campbell" in purpose.lower()
+            or "rotor speed" in purpose.lower()
+        )
+        _is_shm_fragility = any(kw in purpose.lower() for kw in (
+            "shm", "alert", "fragility", "resonance boundary",
+            "1p boundary", "threshold",
+        ))
+        if _is_campbell and not _is_shm_fragility:
             _flag(msgs, "campbell",
                   any("rpm" in c or "omega" in c or "speed" in c for c in cols),
                   "Campbell diagram: x-axis must be rotor speed (RPM), not time.")

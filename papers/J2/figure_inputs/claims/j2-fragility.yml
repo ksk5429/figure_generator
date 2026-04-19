@@ -1,0 +1,102 @@
+# Claim witness — j2-fragility
+#
+# Four-zone SHM alert framework derived from the 1P resonance boundary
+# for the Gunsan turbine (rated 13.2 RPM → 1P at 0.22 Hz). The zone
+# boundaries are not arbitrary safety factors but are computed from the
+# frequency shift at each scour depth via the paper's power-law fit.
+
+claim_id: j2-fragility
+paper: J2
+status: submitted
+source: manuscript.qmd @tbl-shm Section 4.3
+origin_note: |
+  Zone boundaries (GREEN / YELLOW / ORANGE / RED) at 2 %, 3 %, 4.5 %
+  frequency shift correspond to scour depths 1.5, 2.5, 3.4 m via the
+  model power-law f/f0 = 1 - 0.167·(S/D)^1.47. The RED threshold
+  coincides with the 1P resonance boundary crossing at S = 3.4 m
+  (S/D ≈ 0.43).
+
+headline: >
+  Four-zone SHM alert framework: GREEN (<2 % f shift, S<1.5 m),
+  YELLOW (2–3 %, 1.5–2.5 m), ORANGE (3–4.5 %, 2.5–3.4 m),
+  RED (>4.5 %, S>3.4 m = 1P boundary crossed).
+
+primary_figure: figures/j2-fragility
+
+assertions:
+
+  # ----- Zone boundaries at published values -----
+  - name: green_upper_at_2_pct
+    parquet: fragility.parquet
+    compute:
+      op: mean
+      filter: {alert_level: "GREEN"}
+      column: freq_shift_hi_pct
+    op: near
+    value: 2.0
+    tolerance: 0.01
+
+  - name: yellow_range_2_to_3_pct
+    parquet: fragility.parquet
+    compute:
+      op: mean
+      filter: {alert_level: "YELLOW"}
+      column: freq_shift_lo_pct
+    op: near
+    value: 2.0
+    tolerance: 0.01
+
+  - name: orange_upper_at_4_5_pct
+    parquet: fragility.parquet
+    compute:
+      op: mean
+      filter: {alert_level: "ORANGE"}
+      column: freq_shift_hi_pct
+    op: near
+    value: 4.5
+    tolerance: 0.01
+
+  - name: red_lower_at_4_5_pct
+    parquet: fragility.parquet
+    compute:
+      op: mean
+      filter: {alert_level: "RED"}
+      column: freq_shift_lo_pct
+    op: near
+    value: 4.5
+    tolerance: 0.01
+
+  # ----- 1P boundary crossing at S = 3.4 m (ORANGE upper / RED lower) -----
+  - name: p1_crossing_scour_depth_3_4_m
+    parquet: fragility.parquet
+    compute:
+      op: mean
+      filter: {alert_level: "ORANGE"}
+      column: scour_hi_m
+    op: near
+    value: 3.4
+    tolerance: 0.01
+
+  # ----- GREEN resilience regime must end at 1.5 m of scour -----
+  - name: green_upper_scour_1_5_m
+    parquet: fragility.parquet
+    compute:
+      op: mean
+      filter: {alert_level: "GREEN"}
+      column: scour_hi_m
+    op: near
+    value: 1.5
+    tolerance: 0.01
+
+  # ----- Row inventory: 4 alert levels -----
+  - name: row_inventory_four_alerts
+    parquet: fragility.parquet
+    compute:
+      op: row_counts
+      group_by: alert_level
+    op: equal
+    value:
+      GREEN:  1
+      YELLOW: 1
+      ORANGE: 1
+      RED:    1
