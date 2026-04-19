@@ -1,0 +1,10 @@
+test_id:     label
+label:       label
+density:     label
+saturation:   label
+s_over_d_max: dimensionless
+power_a:      percent
+power_b:     dimensionless
+mean_b:      dimensionless
+std_b:       dimensionless
+b_clay:      dimensionless

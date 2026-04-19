@@ -45,6 +45,22 @@ phi' for T4 or T5.
 **Machine-checkable assertion:** see
 [`figure_inputs/claims/j3-phi-prime.yml`](../figure_inputs/claims/j3-phi-prime.yml).
 
+### `j3-powerlaw-exponent` — confirmed (2026-04-19)
+
+**Headline:** Cross-material power-law agreement: least-squares fits to
+_|Δf/f_0|_ = _a_(_S_/_D_)^_b_ across five centrifuge sand series give a
+mean exponent **_b_ = 1.41 ± 0.40**, which brackets the clay-calibrated
+reference **_b_ = 1.47** from the companion numerical paper to within
+1σ. Individual exponents span 0.80 (T4 dense saturated) to 1.96 (T2
+loose dry) — soil condition modulates the exponent but not the power-law
+form.
+
+**Witness:** the J3-08 horizontal bar chart of per-series _b_ values
+with mean, ±1σ band, and clay reference line annotated.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-powerlaw-exponent.yml`](../figure_inputs/claims/j3-powerlaw-exponent.yml).
+
 ### `j3-saturation-factor` — confirmed (2026-04-19)
 
 **Headline:** Dry-to-saturated scour-sensitivity slope ratio is **×6.96

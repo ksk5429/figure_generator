@@ -1,0 +1,32 @@
+claim_id: j3-powerlaw-exponent
+columns:
+- name: test_id
+  dtype: string
+  unit: label
+- name: label
+  dtype: string
+  unit: label
+- name: density
+  dtype: string
+  unit: label
+- name: saturation
+  dtype: string
+  unit: label
+- name: s_over_d_max
+  dtype: float64
+  unit: dimensionless
+- name: power_a
+  dtype: float64
+  unit: percent
+- name: power_b
+  dtype: float64
+  unit: dimensionless
+- name: mean_b
+  dtype: float64
+  unit: dimensionless
+- name: std_b
+  dtype: float64
+  unit: dimensionless
+- name: b_clay
+  dtype: float64
+  unit: dimensionless

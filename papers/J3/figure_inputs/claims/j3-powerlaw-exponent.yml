@@ -1,0 +1,117 @@
+# Claim witness — j3-powerlaw-exponent
+#
+# Cross-material agreement on the scour-frequency power-law exponent:
+# the centrifuge sand tests (mean b ≈ 1.41 ± 0.40) are consistent with
+# the companion numerical clay calibration (b = 1.47) to within 1σ.
+
+claim_id: j3-powerlaw-exponent
+paper: J3
+status: confirmed
+source: manuscript.qmd §5 + @fig-powerlaw-exponent
+origin_note: |
+  Exponents b from least-squares fits of |Δf/f_0|% = a (S/D)^b to each
+  of the five centrifuge series (T1–T5). The cross-series mean is 1.41
+  with σ = 0.40, bracketing the clay-calibrated reference b = 1.47 of
+  the companion numerical paper to within 1σ. Individual exponents
+  range from 0.80 (T4 dense saturated) to 1.96 (T2 loose dry),
+  indicating that soil density and saturation modulate the exponent
+  but not the underlying power-law form.
+
+headline: >
+  Scour-frequency power-law exponent is b ≈ 1.41 ± 0.40 across five
+  sand-series centrifuge tests, consistent within 1σ with the clay
+  calibration b = 1.47 reported in the companion numerical paper.
+
+primary_figure: figures/j3-powerlaw-exponent
+
+assertions:
+
+  # ----- Individual fitted exponents -----
+  - name: b_t1_dense_dry
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: power_b
+      filter: {test_id: T1}
+    op: near
+    value: 1.14
+    tolerance: 0.02
+
+  - name: b_t2_loose_dry
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: power_b
+      filter: {test_id: T2}
+    op: near
+    value: 1.96
+    tolerance: 0.02
+
+  - name: b_t3_sand_silt
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: power_b
+      filter: {test_id: T3}
+    op: near
+    value: 1.52
+    tolerance: 0.02
+
+  - name: b_t4_dense_sat
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: power_b
+      filter: {test_id: T4}
+    op: near
+    value: 0.80
+    tolerance: 0.02
+
+  - name: b_t5_loose_sat
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: power_b
+      filter: {test_id: T5}
+    op: near
+    value: 1.63
+    tolerance: 0.02
+
+  # ----- Summary statistics -----
+  - name: mean_b_near_1_41
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: mean_b
+    op: near
+    value: 1.41
+    tolerance: 0.01
+
+  - name: std_b_near_0_40
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: std_b
+    op: near
+    value: 0.40
+    tolerance: 0.01
+
+  # ----- Clay reference embedded -----
+  - name: b_clay_is_1_47
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: b_clay
+    op: near
+    value: 1.47
+    tolerance: 0.001
+
+  # ----- Cross-material agreement: clay b sits within 1σ of sand mean -----
+  - name: clay_within_1sigma_of_sand_mean
+    parquet: powerlaw-exponent.parquet
+    compute:
+      op: mean
+      column: b_clay
+    op: between
+    lo: 1.01    # 1.41 - 0.40
+    hi: 1.82    # 1.41 + 0.40 (+ 0.01 slack)
