@@ -122,13 +122,34 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
     scores = {k: 2 for k in "abcdefghij"}  # start at 2/3, drop on evidence
     issues: list[dict[str, Any]] = []
 
-    # (c) units declared in required_columns
-    unit_suffixes = ("_m", "_mm", "_cm", "_hz", "_kpa", "_mpa", "_kn", "_deg", "_rpm", "_s", "_g")
-    unit_cols = [c for c in spec.required_columns if any(c.lower().endswith(s) for s in unit_suffixes)]
-    if spec.required_columns and len(unit_cols) < len(spec.required_columns) - 1:
+    # (c) units declared in required_columns. Accept:
+    #       - physical-unit suffixes (_m/_mm/_hz/_kpa/_kn/_deg/_rpm/_s/_ms/_g/...)
+    #       - dimensionless forms (_ratio/_fraction/_percent/_count)
+    #       - label/key/category columns that are not numeric
+    unit_suffixes = (
+        "_m", "_mm", "_cm", "_km", "_hz", "_khz", "_s", "_ms", "_us",
+        "_kpa", "_mpa", "_pa", "_kn", "_kn_m", "_n", "_nm", "_n_m",
+        "_deg", "_rad", "_rpm", "_g", "_kg_m3",
+    )
+    dimensionless_suffixes = (
+        "_ratio", "_fraction", "_percent", "_count", "_index", "_reps",
+    )
+    label_suffixes = ("_code", "_label", "_key", "_id", "_name", "_kind", "_source", "_status")
+    accepted = unit_suffixes + dimensionless_suffixes + label_suffixes
+
+    unit_cols = [c for c in spec.required_columns
+                 if any(c.lower().endswith(s) for s in accepted)]
+    sidecar_path = folder / f"{spec.figure_id}.units.yaml"
+    has_sidecar = sidecar_path.exists()
+    if (not has_sidecar and spec.required_columns
+            and len(unit_cols) < len(spec.required_columns) - 1):
         scores["c"] = 1
-        issues.append({"severity": "med", "axis": "c", "where": "required_columns",
-                       "fix": "Add unit suffix (_m, _hz, ...) or a .units.yaml sidecar to every column."})
+        issues.append({
+            "severity": "med", "axis": "c", "where": "required_columns",
+            "fix": ("Add a physical-unit / dimensionless / label suffix to "
+                    "every column (_m, _hz, _ratio, _code, ...) or ship a "
+                    f"{spec.figure_id}.units.yaml sidecar."),
+        })
 
     # (e, f, j) matplotlib source check
     script = folder / f"{spec.figure_id}.py"
@@ -266,7 +287,12 @@ class CriticAgent:
 
         total = sum(scores.values())
         high = [i for i in issues if str(i.get("severity", "")).lower() == "high"]
-        verdict = Verdict.APPROVED if (total >= 26 and not high) else Verdict.REVISE
+        # Mode-dependent threshold: rubric-only axes each start at 2/3 and
+        # can only reach 3/3 via perceptual review, so the rubric ceiling
+        # is effectively 20/30. The 26/30 bar is reserved for hybrid mode
+        # (vision-enriched) where each axis can realistically score 3/3.
+        min_total = 26 if mode == "hybrid" else 18
+        verdict = Verdict.APPROVED if (total >= min_total and not high) else Verdict.REVISE
 
         report = CriticReport(total_score=total, scores=scores,
                               issues=issues, verdict=verdict, mode=mode)

@@ -86,7 +86,13 @@ def _compare_to_previous(figure_id: str,
 def _embed_measured_into_outputs(figure_id: str,
                                  claim_id: str,
                                  measured: dict[str, float | int | str]) -> None:
-    """Embed the current measurement dict into every emitted output format."""
+    """Embed the current measurement dict into every emitted output format.
+
+    Merges with existing metadata — never overwrites figure_id / paper /
+    claim_id / git_hash etc. that ``save_figure`` wrote during compile.
+    """
+    from ..metadata import read_svg_metadata
+
     folder = FIGURES_DIR / figure_id
     if not folder.exists():
         return
@@ -94,13 +100,20 @@ def _embed_measured_into_outputs(figure_id: str,
         "claim_measured": json.dumps(measured, sort_keys=True),
         "claim_id_measured": claim_id,
     }
-    for ext in ("png", "svg"):
+    readers = {"png": read_png_metadata, "svg": read_svg_metadata}
+    for ext, reader in readers.items():
         p = folder / f"{figure_id}.{ext}"
-        if p.exists():
-            try:
-                embed_metadata(p, payload)
-            except Exception:  # noqa: BLE001 — never block on embed failure
-                continue
+        if not p.exists():
+            continue
+        try:
+            existing = reader(p)
+        except Exception:  # noqa: BLE001
+            existing = {}
+        merged = {**existing, **payload}
+        try:
+            embed_metadata(p, merged)
+        except Exception:  # noqa: BLE001 — never block on embed failure
+            continue
 
 
 def _report_to_markdown(report: ClaimReport) -> str:

@@ -18,7 +18,10 @@
       "Bash(git -c user.name=ksk5429 -c user.email=15989422+ksk5429@users.noreply.github.com commit -q -m ' *)",
       "Bash(git push *)",
       "Bash([ -d \"$base/$fd\" ])",
-      "Bash(uniq -c echo \"---\")"
+      "Bash(uniq -c echo \"---\")",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)"
     ],
     "additionalDirectories": [
       "F:\\TREE_OF_THOUGHT\\mkdocs_material\\docs\\papers\\MSSP",

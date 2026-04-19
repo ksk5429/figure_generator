@@ -1,0 +1,42 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "runtime-bar",
+  "generated_utc": "2026-04-19T03:06:27Z",
+  "primary_source": {
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\wall_clock_results.csv",
+    "md5_8": "0d532b1b",
+    "kind": "csv",
+    "note": "wall_clock_benchmark.py output; 3 modes x 3 reps"
+  },
+  "secondary_sources": [
+    {
+      "description": "OptumGX 3D FE reference time",
+      "manuscript_ref": "paperJ2_oe00984/manuscript.qmd @tbl-walltime",
+      "values_s": {
+        "low": 1200.0,
+        "high": 2400.0
+      },
+      "archive": "paperJ2_oe00984/1_optumgx_data/ (not mirrored)"
+    },
+    {
+      "description": "Mode D timing",
+      "note": "not re-measured in this session; documented as same order as Mode C in manuscript caption"
+    }
+  ],
+  "rows": 5,
+  "columns": [
+    "mode_code",
+    "mode_label",
+    "mode_key",
+    "t_total_s",
+    "t_total_ms",
+    "t_eigen_s",
+    "reps",
+    "status",
+    "speedup_ratio_low",
+    "speedup_ratio_nominal",
+    "speedup_ratio_high",
+    "source"
+  ]
+}

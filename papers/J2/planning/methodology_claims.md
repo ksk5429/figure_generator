@@ -12,11 +12,14 @@ with ⚠ and get a narrative-only witness until a parquet is prepared.
 
 ## Headline claim
 
-**C1 — 120,000× speed-up of VH-envelope evaluation.**
-The response-surface / Modal-load-sharing method evaluates a full VH
-envelope in ~O(ms), compared to O(minutes) for a full 3D-FE run, giving a
-speed-up ≥ 1.2 × 10⁵. Witnessed by `j2-speedup-120000x` and expressed in
-`fig02_runtime_bar_chart` (or equivalent filename in the final manuscript).
+**C1 — Five orders of magnitude speedup over 3D FE.**
+The distributed BNWF foundation model (Mode C) runs a full
+eigenvalue analysis in under 10 ms per scenario. The reference OptumGX
+3D-FE limit analysis takes 20–40 min per scenario (1.2×10⁶–2.4×10⁶ ms).
+Mode C is therefore approximately **5 orders of magnitude** faster than
+3D FE, directly enabling the near-real-time scour-monitoring use case
+declared in the abstract. Witnessed by `j2-speedup-five-orders` and
+expressed in `j2-runtime-bar` (corresponds to manuscript `@tbl-walltime`).
 
 ## Supporting claims
 

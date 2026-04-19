@@ -107,10 +107,33 @@ def _extract_palette(png_path: Path, n_colors: int = 8,
         return np.array(keep, dtype=np.uint8)
 
 
+def _cluster_luma(luma: np.ndarray, merge_delta: float = 8.0) -> np.ndarray:
+    """Collapse luminance values closer than ``merge_delta`` into one cluster.
+
+    Adaptive palette quantizers always return several near-duplicate shades
+    around each "real" color (antialiasing, JPEG-like dithering, hatch
+    shading). Without clustering, the pairwise ΔL check reports
+    single-digit values every time, firing on figures that a human reader
+    cannot tell apart from a legible one.
+    """
+    if luma.size == 0:
+        return luma
+    sorted_luma = np.sort(luma)
+    clusters: list[float] = [float(sorted_luma[0])]
+    for val in sorted_luma[1:]:
+        if val - clusters[-1] < merge_delta:
+            # Merge: move the cluster centroid to the running mean.
+            clusters[-1] = 0.5 * (clusters[-1] + float(val))
+        else:
+            clusters.append(float(val))
+    return np.array(clusters)
+
+
 def _pairwise_min_delta(luma: np.ndarray) -> float:
-    if luma.size < 2:
-        return 100.0  # trivially "legible"
-    diffs = np.abs(luma[:, None] - luma[None, :])
+    clusters = _cluster_luma(luma)
+    if clusters.size < 2:
+        return 100.0  # trivially "legible" — effectively one color
+    diffs = np.abs(clusters[:, None] - clusters[None, :])
     np.fill_diagonal(diffs, np.inf)
     return float(diffs.min())
 

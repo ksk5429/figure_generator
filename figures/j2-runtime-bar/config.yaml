@@ -1,0 +1,25 @@
+figure_id: j2-runtime-bar
+journal: ocean_engineering
+width: one_half
+
+# Pipeline-integration metadata
+paper: J2
+claim_id: j2-speedup-five-orders
+tier: 2
+tier2_slug: runtime-bar
+
+description: >
+  Per-scenario wall-clock time for the four Op³ foundation modes (A fixed,
+  B 6×6 stiffness, C distributed BNWF, D dissipation-weighted BNWF) and
+  the OptumGX 3D FE reference, on a log-scale horizontal bar chart.
+  Reproduces manuscript @tbl-walltime visually; witnesses the abstract's
+  "five orders of magnitude" speedup claim.
+
+data_sources:
+  - papers/J2/figure_inputs/runtime-bar.parquet
+
+# Validation driven by the schema+parquet; no Tier-1 required_columns list
+# because the plotter reads fixed Tier-2 column names.
+required_columns: [mode_code, mode_label, t_total_ms, speedup_ratio_nominal, source]
+
+formats: [png, svg, pdf]

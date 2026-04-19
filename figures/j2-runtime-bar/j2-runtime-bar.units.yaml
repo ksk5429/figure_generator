@@ -1,0 +1,15 @@
+# Unit / semantic declaration for every column consumed by j2-runtime-bar.py.
+# Columns with "dimensionless"/"label"/"category" are intentionally unitless.
+
+mode_code:             category       # {REF, A, B, C, D}
+mode_label:            label          # human-readable mode name
+mode_key:              label          # machine-readable key from the CSV
+t_total_s:             second
+t_total_ms:            millisecond
+t_eigen_s:             second
+reps:                  count          # dimensionless integer
+status:                label
+speedup_ratio_low:     dimensionless  # speedup vs 1.2e6 ms 3D FE reference
+speedup_ratio_nominal: dimensionless  # speedup vs 1.8e6 ms midpoint
+speedup_ratio_high:    dimensionless  # speedup vs 2.4e6 ms 3D FE reference
+source:                category       # {measured, documented}

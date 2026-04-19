@@ -27,7 +27,7 @@ papers/J2/
 
 | Claim ID | Headline |
 |---|---|
-| `j2-speedup-120000x`  | Response-surface VH evaluation is ≥120,000× faster than 3D-FE |
+| `j2-speedup-five-orders` | Mode C runs in <10 ms; ≥5 orders of magnitude faster than 3D-FE |
 | `j2-load-sharing`     | Modal load-sharing predicts hub-level VH within ±X% of 3D-FE |
 | `j2-vh-envelope`      | VH envelope evolution over 4 stages matches monotonic scour |
 | `j2-backbone-match`   | Calibrated p-y backbones match bucket-level load–displacement |

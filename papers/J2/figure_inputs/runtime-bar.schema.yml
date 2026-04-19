@@ -1,0 +1,47 @@
+claim_id: j2-speedup-five-orders
+columns:
+- name: mode_code
+  dtype: category
+  allowed:
+  - REF
+  - A
+  - B
+  - C
+  - D
+- name: mode_label
+  dtype: str
+- name: mode_key
+  dtype: str
+- name: t_total_s
+  dtype: float64
+  unit: second
+- name: t_total_ms
+  dtype: float64
+  unit: millisecond
+- name: t_eigen_s
+  dtype: float64
+  unit: second
+  nullable: true
+  note: nan for OptumGX reference
+- name: reps
+  dtype: int64
+  note: 0 for documented (non-measured) rows
+- name: status
+  dtype: str
+- name: speedup_ratio_low
+  dtype: float64
+  unit: dimensionless
+  note: vs 1.2e6 ms 3D FE reference
+- name: speedup_ratio_nominal
+  dtype: float64
+  unit: dimensionless
+  note: vs 1.8e6 ms midpoint
+- name: speedup_ratio_high
+  dtype: float64
+  unit: dimensionless
+  note: vs 2.4e6 ms 3D FE reference
+- name: source
+  dtype: category
+  allowed:
+  - measured
+  - documented

@@ -1,0 +1,86 @@
+# Claim witness — j2-speedup-five-orders
+#
+# The headline "five orders of magnitude speedup" claim from the manuscript
+# abstract is specifically about Mode C (distributed BNWF), which runs a
+# full eigenvalue analysis in under 10 ms per scenario versus a reference
+# 3D-FE limit analysis time of 20-40 minutes per case.
+
+claim_id: j2-speedup-five-orders
+paper: J2
+status: submitted  # R2 due 2026-04-29
+source: manuscript.qmd @tbl-walltime
+origin_note: |
+  Abstract: "The 1D model achieves a computational speedup of five orders
+  of magnitude relative to direct 3D analysis, enabling real-time
+  condition assessment."
+
+  Section "Computational Cost": "The distributed BNWF model runs in under
+  10 milliseconds per scenario, approximately five orders of magnitude
+  faster than the 3D finite element analysis."
+
+headline: >
+  Mode C (distributed BNWF) runs <10 ms per scenario — >=1e5x faster
+  than the 3D FE reference (1.2e6 ms minimum).
+
+primary_figure: figures/j2-runtime-bar
+
+assertions:
+
+  # ----- Mode C must actually be under 10 ms -----
+  - name: mode_c_total_ms_under_10
+    parquet: runtime-bar.parquet
+    compute:
+      op: mean
+      filter:
+        mode_code: "C"
+      column: t_total_ms
+    op: less
+    value: 10.0
+    tolerance: 0.0
+
+  # ----- Mode C speedup, even at the slowest 3D-FE reference (1.2e6 ms),
+  #       must be at least 5 orders of magnitude -----
+  - name: mode_c_speedup_at_least_1e5
+    parquet: runtime-bar.parquet
+    compute:
+      op: mean
+      filter:
+        mode_code: "C"
+      column: speedup_ratio_low
+    op: greater
+    value: 1.0e5
+
+  # ----- Mode C nominal speedup (vs 30-min midpoint) in the documented
+  #       band 2e5 to 5e5. The manuscript table cites 2.4e5 for Mode C. -----
+  - name: mode_c_nominal_speedup_in_band
+    parquet: runtime-bar.parquet
+    compute:
+      op: mean
+      filter:
+        mode_code: "C"
+      column: speedup_ratio_nominal
+    op: between
+    lo: 2.0e5
+    hi: 5.0e5
+
+  # ----- Mode A (fixed base) must be >= 2e5 speedup (manuscript cites 2e5) -----
+  - name: mode_a_speedup_at_least_2e5
+    parquet: runtime-bar.parquet
+    compute:
+      op: mean
+      filter:
+        mode_code: "A"
+      column: speedup_ratio_nominal
+    op: greater
+    value: 2.0e5
+
+  # ----- Row inventory: 3 measured rows (A, B, C) + 2 documented (D, REF) -----
+  - name: row_source_inventory
+    parquet: runtime-bar.parquet
+    compute:
+      op: row_counts
+      group_by: source
+    op: equal
+    value:
+      measured: 3
+      documented: 2
