@@ -135,6 +135,7 @@ def plot_plan_view(
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
+    ax.set_axisbelow(True)
 
     return fig, ax
 

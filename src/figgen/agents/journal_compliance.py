@@ -53,7 +53,9 @@ class ComplianceReport:
 
 
 def _pdffonts_report(pdf: Path) -> dict[str, Any]:
-    exe = which("pdffonts")
+    from .critic import _locate_pdffonts  # shared probe
+
+    exe = _locate_pdffonts()
     if not exe:
         return {"ok": True, "detail": "pdffonts not on PATH — skipped"}
     r = subprocess.run([exe, str(pdf)], capture_output=True, text=True, check=False)

@@ -167,6 +167,13 @@ def main() -> None:
     add_panel_label(ax_b, "(b)")
     ax_a.set_xlabel(r"Scour depth ratio, $S/D$")
     ax_b.set_xlabel("")
+    # Clean data-ink on both panels.
+    for _ax in (ax_a, ax_b):
+        _ax.spines["top"].set_visible(False)
+        _ax.spines["right"].set_visible(False)
+        _ax.tick_params(which="both", direction="in")
+        _ax.grid(True, linewidth=0.3, alpha=0.5)
+        _ax.set_axisbelow(True)
 
     data_sources = asset.as_sources()
     written = utils.save_figure(

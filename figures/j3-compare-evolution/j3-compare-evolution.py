@@ -92,6 +92,12 @@ def _plot_pair(ax, sd_dry, nf_dry, sd_sat, nf_sat,
     ax.xaxis.set_minor_locator(mticker.MultipleLocator(0.1))
     ax.yaxis.set_major_locator(mticker.MultipleLocator(1.0))
     ax.yaxis.set_minor_locator(mticker.MultipleLocator(0.5))
+    # Clean data-ink: hide top + right spines, ticks inward, axis below data.
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.tick_params(which="both", direction="in")
+    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.set_axisbelow(True)
 
 
 def main() -> None:

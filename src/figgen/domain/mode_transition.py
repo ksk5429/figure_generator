@@ -199,7 +199,7 @@ def plot_mode_transition(
 ) -> tuple[plt.Figure, tuple[plt.Axes, plt.Axes]]:
     spec = load_style(journal)
     fig = plt.figure()
-    set_size(fig, spec.width(width), 1.15)
+    set_size(fig, spec.width(width), 1.05)
     gs = fig.add_gridspec(2, 1, hspace=0.18, height_ratios=[1.0, 1.0])
     ax_a = fig.add_subplot(gs[0])
     ax_b = fig.add_subplot(gs[1], sharex=ax_a)

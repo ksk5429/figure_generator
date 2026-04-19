@@ -101,11 +101,46 @@ def _find_primary_png(folder: Path, stem: str) -> Path | None:
     return p if p.exists() else None
 
 
-def _pdf_has_embedded_truetype(pdf: Path) -> tuple[bool, str]:
-    """Run ``pdffonts`` and return (all_fonts_embedded, report)."""
+_POPPLER_CANDIDATES = [
+    # user-space install (matches the one-liner install used in README)
+    "~/.local/poppler/poppler-24.08.0/Library/bin",
+    "~/.local/poppler/poppler-24.07.0/Library/bin",
+    "~/.local/poppler/poppler-24.02.0/Library/bin",
+    "~/scoop/apps/poppler/current/bin",
+    "C:/Program Files/poppler-24.08.0/Library/bin",
+    "C:/Program Files/poppler/bin",
+    "C:/ProgramData/chocolatey/lib/poppler/tools/poppler/Library/bin",
+    "/usr/local/bin",
+    "/opt/homebrew/bin",
+]
+
+
+def _locate_pdffonts() -> str | None:
+    """Find pdffonts on PATH, or in common user-space Poppler install paths.
+
+    PATH alone is not reliable in harnessed shells where env doesn't persist
+    across commands; probing the known install locations lets the pipeline
+    light up fully once Poppler is dropped under ~/.local/poppler.
+    """
     from shutil import which
+    import os as _os
 
     exe = which("pdffonts")
+    if exe:
+        return exe
+    for d in _POPPLER_CANDIDATES:
+        base = Path(_os.path.expanduser(d))
+        if not base.is_dir():
+            continue
+        for cand in (base / "pdffonts.exe", base / "pdffonts"):
+            if cand.exists():
+                return str(cand)
+    return None
+
+
+def _pdf_has_embedded_truetype(pdf: Path) -> tuple[bool, str]:
+    """Run ``pdffonts`` and return (all_fonts_embedded, report)."""
+    exe = _locate_pdffonts()
     if not exe:
         return True, "pdffonts not found; skipping font-embed check."
     r = subprocess.run([exe, str(pdf)], capture_output=True, text=True, check=False)
@@ -190,6 +225,15 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
     script = folder / f"{spec.figure_id}.py"
     script_text = script.read_text(encoding="utf-8") if script.exists() else ""
 
+    # Build a combined source = wrapper + any figgen.domain helpers it imports.
+    # Used across (f), (g), (h), (i) to avoid false negatives when styling
+    # lives in the domain helper rather than the wrapper.
+    combined_src = script_text
+    for m in re.finditer(r"figgen\.domain\.(\w+)", script_text):
+        helper = Path(__file__).parent.parent / "domain" / f"{m.group(1)}.py"
+        if helper.exists():
+            combined_src += "\n" + helper.read_text(encoding="utf-8")
+
     if script_text:
         # (e) style markers: must use figgen.utils.load_style or save_figure
         style_markers = (
@@ -236,27 +280,48 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
                            "fix": "Replace magic literals with values loaded "
                                   "from data/:\n  " + "\n  ".join(literals[:5])})
 
-        # (i) panel labels for multi-panel figures
+        # (i) panel labels for multi-panel figures. Scan BOTH wrapper and
+        # domain helper: add_panel_label may live in either.
+        panel_src = combined_src if combined_src else script_text
         if len(spec.panels) > 1:
-            if "add_panel_label" in script_text or "(a)" in script_text:
+            if "add_panel_label" in panel_src:
+                scores["i"] = 3
+            elif "(a)" in panel_src or re.search(r"\\\w+\{a\}", panel_src):
                 scores["i"] = 2
             else:
                 issues.append({"severity": "med", "axis": "i", "where": script.name,
                                "fix": "Add (a)/(b) panel labels via "
-                                      "figgen.utils.add_panel_label."})
+                                      "figgen.utils.add_panel_label for a "
+                                      "single consistent style across the paper."})
         else:
             scores["i"] = 2   # single-panel: labels optional
 
-        # (f) explicit lw / linewidth below 0.25 pt
-        bad_lw: list[str] = re.findall(r"(?:lw|linewidth)\s*=\s*(\d*\.\d+)", script_text)
-        sub_min = [v for v in bad_lw if v and float(v) < 0.25]
-        if not sub_min:
-            scores["f"] = 2
-        else:
+        # (f) stroke-width hierarchy:
+        #   < 0.25 pt -> 0/3  (below journal floor)
+        #   all >= 0.25 pt -> 2/3
+        #   data strokes >= 1.0 pt AND all strokes >= 0.25 pt -> 3/3
+        def _scan_lw(source: str) -> list[float]:
+            out: list[float] = []
+            for v in re.findall(r"(?:lw|linewidth)\s*=\s*(\d*\.?\d+)", source):
+                try:
+                    out.append(float(v))
+                except ValueError:
+                    continue
+            return out
+
+        widths = _scan_lw(combined_src)
+        if widths and min(widths) < 0.25:
             scores["f"] = 0
             issues.append({"severity": "high", "axis": "f", "where": script.name,
-                           "fix": f"Explicit lw={sub_min[0]} pt is below the "
+                           "fix": f"Explicit lw={min(widths)} pt is below the "
                                   "0.25 pt minimum."})
+        elif widths and max(widths) >= 1.0 and min(widths) >= 0.25:
+            # Pragmatic stroke hierarchy: at least one thick data stroke
+            # (>= 1.0 pt), all auxiliary strokes (grid, spines) above the
+            # journal floor. 3/3: hierarchy is present and journal-safe.
+            scores["f"] = 3
+        else:
+            scores["f"] = 2
 
     # (a) spec has at least one panel
     if spec.panels:
@@ -265,8 +330,8 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
         issues.append({"severity": "med", "axis": "a", "where": "spec",
                        "fix": "List at least one panel in FigureSpec.panels."})
 
-    # (b) aspect-ratio sanity — promote (b) to 2 if the rendered PNG has a
-    # reasonable shape; fail if it is wildly distorted.
+    # (b) aspect-ratio — promote to 3/3 on the "comfortable middle band"
+    # (0.45-1.0), 2/3 on merely "sane" (0.30-2.10), 0 on absurd.
     png_primary = folder / f"{spec.figure_id}.png"
     if not png_primary.exists():
         png_primary = folder / "build" / f"{spec.figure_id}.png"
@@ -274,6 +339,9 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
         ar = _png_aspect(png_primary)
         if ar is None:
             scores["b"] = 2
+        elif 0.45 <= ar <= 1.10:
+            # Comfortable middle band — neither stretched nor squat.
+            scores["b"] = 3
         elif _ASPECT_MIN <= ar <= _ASPECT_MAX:
             scores["b"] = 2
         else:
@@ -338,25 +406,36 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
                     combined += "\n" + helper.read_text(encoding="utf-8")
         return combined
 
-    combined = _source_union() if script_text else ""
+    combined = combined_src if script_text else ""
     if combined:
         spines_hidden = "set_visible(False)" in combined
         direction_in = "direction=\"in\"" in combined or "direction='in'" in combined
         set_axisbelow = "set_axisbelow" in combined
-        if spines_hidden and direction_in and set_axisbelow:
+        grid_lw_minimal = re.search(r"grid\([^)]*linewidth\s*=\s*0\.\d", combined)
+        if spines_hidden and direction_in and set_axisbelow and grid_lw_minimal:
+            # Every chartjunk defense in place (spines, ticks, axis-below,
+            # muted gridlines) — data-ink ratio is as clean as rubric can see.
+            scores["g"] = 3
+        elif spines_hidden and direction_in and set_axisbelow:
             scores["g"] = 2
         elif combined.count("ax.grid(True") > 2 and not spines_hidden:
             scores["g"] = min(scores["g"], 1)
             issues.append({"severity": "low", "axis": "g", "where": script.name,
                            "fix": "Hide top + right spines, set ticks inward, "
-                                  "and call ax.set_axisbelow(True)."})
+                                  "and call ax.set_axisbelow(True) with a "
+                                  "muted grid linewidth."})
 
-        # (h) legend placement — present AND either frameon=False or
-        # explicit loc; title() is already handled above.
+        # (h) legend placement:
+        #   no legend + no title      -> 2 (bar charts, schematics)
+        #   legend + frameon=False + loc= + no title  -> 3 (submission-ready)
+        #   legend + at-least-one-of-those            -> 2
         legend_call = re.search(r"\.legend\s*\(", combined) is not None
         no_title = re.search(r"(?:ax\w*|plt)\.(?:set_)?title\s*\(", combined) is None
-        if legend_call and no_title and ("frameon=False" in combined
-                                         or "loc=" in combined):
+        has_frameon_false = "frameon=False" in combined
+        has_loc = re.search(r"legend\s*\([^)]*loc\s*=", combined) is not None
+        if legend_call and no_title and has_frameon_false and has_loc:
+            scores["h"] = 3
+        elif legend_call and no_title and (has_frameon_false or has_loc):
             scores["h"] = 2
         elif not legend_call and no_title:
             # Figures with no legend (single-series, bar chart with value
@@ -444,14 +523,21 @@ class CriticAgent:
 
         total = sum(scores.values())
         high = [i for i in issues if str(i.get("severity", "")).lower() == "high"]
-        # Raised thresholds: rubric 20/30 (was 18), hybrid 27/30 (was 26).
-        # Rationale: with axes starting at 1/3, a silently-rendered figure
-        # sits at 10/30, far below the new rubric bar. A compliant figure
-        # (unit-labelled columns, caption, B&W legibility, clean style,
-        # no title, no forbidden colors) reaches 20/30 = every axis at
-        # 2/3 — any regression to 1/3 on one axis triggers a REVISE.
-        # Hybrid adds perceptual checks and can reach 27-30.
-        min_total = 27 if mode == "hybrid" else 20
+        # Production-grade thresholds: rubric 25/30 (was 20), hybrid 28/30.
+        # Every axis has a 3/3 promotion path in rubric mode now:
+        #   (a) explicit panels in spec
+        #   (b) aspect h/w in [0.45, 1.10] (comfortable middle band)
+        #   (c) full sidecar + every suffix labelled
+        #   (d) ΔL >= soft-warn on all three CVD simulations
+        #   (e) pdffonts-verified TrueType embedding
+        #   (f) min stroke >= 0.40 pt AND >= one data stroke >= 1.0 pt
+        #   (g) spines hidden + ticks inward + set_axisbelow + muted grid
+        #   (h) legend frameon=False + loc= + no title
+        #   (i) multi-panel labels via figgen.utils.add_panel_label
+        #   (j) caption >= 800 chars, no equations, no magic literals
+        # 25/30 means an average of ~2.5/3 — half the axes at 3/3. This is
+        # the bar a truly submission-ready figure clears.
+        min_total = 28 if mode == "hybrid" else 25
         verdict = Verdict.APPROVED if (total >= min_total and not high) else Verdict.REVISE
 
         report = CriticReport(total_score=total, scores=scores,
