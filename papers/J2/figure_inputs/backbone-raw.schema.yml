@@ -1,0 +1,32 @@
+claim_id: j2-backbone-match
+asset: backbone-raw
+columns:
+- name: mode
+  dtype: category
+  allowed:
+  - H
+  - V
+- name: scour_m
+  dtype: float64
+  unit: meter
+- name: step
+  dtype: int64
+  note: OptumGX load step index 1..8
+- name: depth_local_m
+  dtype: float64
+  unit: meter
+- name: depth_global_m
+  dtype: float64
+  unit: meter
+- name: displacement_mm
+  dtype: float64
+  unit: millimeter
+- name: displacement_m
+  dtype: float64
+  unit: meter
+- name: reaction_kn_m
+  dtype: float64
+  unit: kilonewton_per_meter
+- name: secant_stiffness_kn_m2
+  dtype: float64
+  unit: kilonewton_per_m2

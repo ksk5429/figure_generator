@@ -1,0 +1,27 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "backbone-fits",
+  "generated_utc": "2026-04-19T04:34:21Z",
+  "primary_source": {
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\processed_results_v2\\02_hyperbolic_fits.xlsx",
+    "md5_8": "7ad53f6a",
+    "kind": "xlsx",
+    "note": "Per-slice soil-reaction integration from OptumGX 3D-FE; 8 load steps per (mode, scour, depth) slice. H = p-y, V = t-z."
+  },
+  "rows": 290,
+  "columns": [
+    "mode",
+    "scour_m",
+    "depth_local_m",
+    "depth_global_m",
+    "n_steps",
+    "k_ini_hyp_kn_m2",
+    "p_ult_hyp_kn_m",
+    "y50_analytical_mm",
+    "y50_interp_mm",
+    "r2_hyperbolic",
+    "sigma_v_kpa"
+  ],
+  "manuscript_ref": "paperJ2_oe00984/manuscript.qmd Section 2.3 Hyperbolic Backbone Fitting"
+}

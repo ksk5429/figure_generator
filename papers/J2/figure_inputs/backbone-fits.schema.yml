@@ -1,0 +1,39 @@
+claim_id: j2-backbone-match
+asset: backbone-fits
+columns:
+- name: mode
+  dtype: category
+  allowed:
+  - H
+  - V
+- name: scour_m
+  dtype: float64
+  unit: meter
+- name: depth_local_m
+  dtype: float64
+  unit: meter
+- name: depth_global_m
+  dtype: float64
+  unit: meter
+- name: n_steps
+  dtype: int64
+- name: k_ini_hyp_kn_m2
+  dtype: float64
+  unit: kilonewton_per_m2
+  note: hyperbolic initial stiffness
+- name: p_ult_hyp_kn_m
+  dtype: float64
+  unit: kilonewton_per_meter
+  note: hyperbolic ultimate soil reaction
+- name: y50_analytical_mm
+  dtype: float64
+  unit: millimeter
+- name: y50_interp_mm
+  dtype: float64
+  unit: millimeter
+- name: r2_hyperbolic
+  dtype: float64
+  unit: dimensionless
+- name: sigma_v_kpa
+  dtype: float64
+  unit: kilopascal

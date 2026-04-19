@@ -1,0 +1,25 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "backbone-raw",
+  "generated_utc": "2026-04-19T04:34:21Z",
+  "primary_source": {
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\processed_results_v2\\01_py_tz_curves_raw.xlsx",
+    "md5_8": "0a1acabf",
+    "kind": "xlsx",
+    "note": "Per-slice soil-reaction integration from OptumGX 3D-FE; 8 load steps per (mode, scour, depth) slice. H = p-y, V = t-z."
+  },
+  "rows": 2320,
+  "columns": [
+    "mode",
+    "scour_m",
+    "step",
+    "depth_local_m",
+    "depth_global_m",
+    "displacement_mm",
+    "displacement_m",
+    "reaction_kn_m",
+    "secant_stiffness_kn_m2"
+  ],
+  "manuscript_ref": "paperJ2_oe00984/manuscript.qmd Section 2.3 Hyperbolic Backbone Fitting"
+}

@@ -1,0 +1,16 @@
+mode:                   category            # {H, V}
+scour_m:                meter
+step:                   count               # OptumGX load step 1..8
+depth_local_m:          meter
+depth_global_m:         meter
+displacement_mm:        millimeter
+displacement_m:         meter
+reaction_kn_m:          kilonewton_per_meter
+secant_stiffness_kn_m2: kilonewton_per_m2
+n_steps:                count
+k_ini_hyp_kn_m2:        kilonewton_per_m2
+p_ult_hyp_kn_m:         kilonewton_per_meter
+y50_analytical_mm:      millimeter
+y50_interp_mm:          millimeter
+r2_hyperbolic:          dimensionless
+sigma_v_kpa:            kilopascal
