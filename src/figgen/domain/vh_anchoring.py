@@ -59,7 +59,7 @@ def profile_panel(
         ax.plot(
             p, z,
             color=colours[i],
-            linewidth=1.2 if is_key else 0.6,
+            linewidth=1.6 if is_key else 0.6,
             linestyle="-" if is_key else (0, (3, 2)),
             marker="o" if is_key else None,
             markersize=2.5,
@@ -74,7 +74,7 @@ def profile_panel(
     ax.set_xlim(left=0)
     ax.set_ylim(bottom=10.0, top=0.0)  # depth positive downward, surface at top
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -117,7 +117,7 @@ def integral_panel(
     ax.set_ylabel(r"$\int p_{ult}\,dz$ or $\int t_{ult}\,dz$ [MN]")
     ax.set_aspect("equal")
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -142,11 +142,11 @@ def ratio_panel(
            .drop_duplicates(subset=["scour_m"])
            .sort_values("scour_m"))
     sd = sub["scour_m"].to_numpy() / bucket_diameter_m
-    ax.plot(sd, sub["anchor_ratio_hyp"], color=hyp_color, linewidth=1.2,
+    ax.plot(sd, sub["anchor_ratio_hyp"], color=hyp_color, linewidth=1.6,
             marker="o", markersize=3.5, markeredgecolor="none",
             label="raw hyperbolic (anchored by construction)")
     ax.plot(sd, sub["anchor_ratio_anchored"], color=anchored_color,
-            linewidth=1.2, linestyle=(0, (4, 2)),
+            linewidth=1.6, linestyle=(0, (4, 2)),
             marker="s", markersize=3.5, markerfacecolor="white",
             markeredgecolor=anchored_color,
             label="+ stress-release correction (OpenSees input)")
@@ -155,7 +155,7 @@ def ratio_panel(
     ax.set_ylabel(r"$\int p_{ult}\,dz\ /\ H_{ult}^{VH}$ [-]")
     ax.set_ylim(0, 1.3)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

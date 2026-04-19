@@ -88,7 +88,7 @@ def plot_envelope_evolution(
         ax.plot(
             v, h,
             color=colours[i],
-            linewidth=1.3 if is_key else 0.6,
+            linewidth=1.6 if is_key else 0.6,
             linestyle="-" if is_key else (0, (3, 2)),
             marker="o" if is_key else None,
             markersize=2.2,
@@ -127,7 +127,7 @@ def plot_envelope_evolution(
     ax.set_xlabel(r"Vertical capacity, $V$ [MN]")
     ax.set_ylabel(r"Horizontal capacity, $H$ [MN]")
     ax.set_axisbelow(True)
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

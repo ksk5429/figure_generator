@@ -147,7 +147,7 @@ def plot_runtime_bar(
             annotation_clip=False,
         )
 
-    ax.xaxis.grid(True, which="both", linewidth=0.3, alpha=0.5)
+    ax.xaxis.grid(True, which="both", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

@@ -27,7 +27,7 @@ def ratios_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
         # bot/mid — solid line + filled marker (primary signal)
         ax.plot(sub["s_over_d"], sub["bot_over_mid"],
                 color=style["color"], marker=style["marker"],
-                linewidth=1.3, linestyle="-",
+                linewidth=1.6, linestyle="-",
                 markersize=5, markerfacecolor=style["color"],
                 markeredgewidth=0.9, markeredgecolor=style["color"],
                 label=f"{tid} bot/mid")
@@ -78,7 +78,7 @@ def ratios_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
     ax.legend(loc="center right", frameon=False, ncol=1,
               fontsize=plt.rcParams["xtick.labelsize"] - 0.5)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

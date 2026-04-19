@@ -39,18 +39,20 @@ def g0_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
         hatch = _SERIES_HATCH_A[tid]
         face = "white" if hatch else color
         ax.bar(xi, row["g0_mpa"], width=0.6,
-               facecolor=face, edgecolor=_DARK, linewidth=0.7,
+               facecolor=face, edgecolor=_DARK, linewidth=1.6,
                hatch=hatch, zorder=3)
         ax.annotate(f"{row['g0_mpa']:.1f}",
                     xy=(xi, row["g0_mpa"]), xytext=(0, 3),
                     textcoords="offset points", ha="center", va="bottom",
                     fontsize=plt.rcParams["xtick.labelsize"] - 0.5,
                     color=_DARK, fontweight="bold")
-        # Dr inside bar
-        ax.annotate(rf"$D_r={row['dr_percent']:.0f}\%$",
+        # Dr inside bar — 2-line format keeps the bbox width under the bar
+        # width (~55 px at 85 mm), preventing neighbor-bar overlap in the
+        # tight T2/T3 pair.
+        ax.annotate(rf"$D_r$" "\n" rf"${row['dr_percent']:.0f}\%$",
                     xy=(xi, 0.5 * row["g0_mpa"]),
                     ha="center", va="center",
-                    fontsize=plt.rcParams["xtick.labelsize"] - 1.5,
+                    fontsize=max(8.0, plt.rcParams["xtick.labelsize"] - 0.5),
                     color="white" if not hatch else _DARK)
 
     ax.axvline(2.5, color="0.55", linestyle=(0, (1, 2)), linewidth=0.5)
@@ -67,7 +69,7 @@ def g0_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
     ax.set_ylabel(r"$G_{0}$ [MPa]")
     ax.set_xlabel("Series")
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -95,10 +97,10 @@ def qc_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
             ax.annotate(f"{qc:.2f}",
                         xy=(x[i] + offset, qc), xytext=(0, 2),
                         textcoords="offset points", ha="center", va="bottom",
-                        fontsize=plt.rcParams["xtick.labelsize"] - 1.5,
+                        fontsize=max(8.0, plt.rcParams["xtick.labelsize"] - 0.5),
                         color=_DARK)
 
-    ax.axvline(3.5, color="0.55", linestyle=(0, (1, 2)), linewidth=0.4)
+    ax.axvline(3.5, color="0.55", linestyle=(0, (1, 2)), linewidth=0.5)
     ax.set_xticks(x)
     ax.set_xticklabels(stages, rotation=12, ha="right")
     ax.set_ylim(0, 4.2)
@@ -107,7 +109,7 @@ def qc_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
     ax.legend(loc="upper left", frameon=False,
               fontsize=plt.rcParams["xtick.labelsize"] - 0.5)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -137,7 +139,7 @@ def params_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
                edgecolor=_DARK, linewidth=0.6, zorder=3,
                label="T4 (dense sat.)" if i == 0 else None)
         ax.bar(x[i] + bw / 2 + 0.02, t5_norm[i], width=bw, facecolor="white",
-               edgecolor=_DARK, linewidth=0.7, hatch="\\\\", zorder=3,
+               edgecolor=_DARK, linewidth=1.6, hatch="\\\\", zorder=3,
                label="T5 (loose sat.)" if i == 0 else None)
         # Actual values
         def _fmt(v: float) -> str:
@@ -145,12 +147,12 @@ def params_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
         ax.annotate(_fmt(t4_v), xy=(x[i] - bw / 2 - 0.02, 1.0),
                     xytext=(0, 2), textcoords="offset points",
                     ha="center", va="bottom",
-                    fontsize=plt.rcParams["xtick.labelsize"] - 1.5,
+                    fontsize=max(8.0, plt.rcParams["xtick.labelsize"] - 0.5),
                     color=_DARK, fontweight="bold")
         ax.annotate(_fmt(t5_v), xy=(x[i] + bw / 2 + 0.02, t5_norm[i]),
                     xytext=(0, 2), textcoords="offset points",
                     ha="center", va="bottom",
-                    fontsize=plt.rcParams["xtick.labelsize"] - 1.5,
+                    fontsize=max(8.0, plt.rcParams["xtick.labelsize"] - 0.5),
                     color=_DARK, fontweight="bold")
         # Ratio
         ax.annotate(rf"${r:.2f}\times$",
@@ -159,7 +161,7 @@ def params_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
                     fontsize=plt.rcParams["xtick.labelsize"] - 0.5,
                     color="0.35", style="italic")
 
-    ax.axhline(1.0, color="0.55", linestyle=(0, (1, 2)), linewidth=0.4)
+    ax.axhline(1.0, color="0.55", linestyle=(0, (1, 2)), linewidth=0.5)
     ax.set_xticks(x)
     ax.set_xticklabels([display.get(p, p) for p in params])
     ax.set_ylim(0, 1.30)
@@ -168,7 +170,7 @@ def params_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
     ax.legend(loc="lower left", frameon=False,
               fontsize=plt.rcParams["xtick.labelsize"] - 0.5)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

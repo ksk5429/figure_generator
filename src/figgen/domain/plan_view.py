@@ -52,7 +52,7 @@ def plot_plan_view(
     names = ["A", "B", "C"]
     tri_x = [centres[n][0] for n in names] + [centres["A"][0]]
     tri_y = [centres[n][1] for n in names] + [centres["A"][1]]
-    ax.plot(tri_x, tri_y, "-", color="0.25", lw=1.0, zorder=1,
+    ax.plot(tri_x, tri_y, "-", color="0.25", lw=1.8, zorder=1,
             label="Tripod frame")
 
     # Centre marker
@@ -131,7 +131,7 @@ def plot_plan_view(
     ax.set_ylim(-extent, extent)
     ax.set_xlabel(r"$x$ [m, prototype]")
     ax.set_ylabel(r"$y$ [m, prototype]")
-    ax.grid(True, which="major", linestyle=":", linewidth=0.3, color="0.75")
+    ax.grid(True, which="major", linestyle=":", linewidth=0.5, color="0.75")
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

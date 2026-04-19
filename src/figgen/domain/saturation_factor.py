@@ -62,7 +62,7 @@ def sensitivity_panel(
         # Power-law fit line
         ax.plot(sd_fine, a * sd_fine ** b,
                 color=style["color"], linestyle=style["linestyle"],
-                linewidth=1.0, alpha=0.75, zorder=2)
+                linewidth=1.6, alpha=0.75, zorder=2)
         # Measured points
         ax.plot(sub[x_col], sub[y_col],
                 marker=style["marker"], markersize=4.8,
@@ -75,7 +75,7 @@ def sensitivity_panel(
     ax.set_ylim(0.0, 6.0)
     ax.set_xlabel(r"Scour depth ratio, $S/D$ [-]")
     ax.set_ylabel(r"$|\Delta f_{1}/f_{1,0}|$ [%]")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)
@@ -136,7 +136,7 @@ def ratio_panel(
     ax.set_xlim(-0.6, 1.6)
     ax.set_ylim(0, 12)
     ax.set_ylabel(r"Sensitivity slope, $|\Delta f_{1}/f_{1,0}|\,/\,(S/D)$ [%]")
-    ax.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

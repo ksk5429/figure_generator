@@ -5,7 +5,7 @@ paper: J3
 claim_id: j3-scour-setup
 tier: 1
 backend: tikz
-source: F:\TREE_OF_THOUGHT\figure_generator\figures\j3-scour-setup\j3-scour-setup.tex
+source: F:\TREE_OF_THOUGHT\figure_generator\figures\j3-scour-setup\j3-scour-setup.svg
 purpose: 'Cross-sectional schematic of the 1:70 centrifuge model installed in the
   KAIST beam-centrifuge strongbox (1400 x 700 mm). Tripod foundation with 3 suction
   buckets (D=114 mm, L=133 mm model; 8 m and 9.3 m prototype) supporting the EI-equivalent

@@ -95,7 +95,7 @@ def plot_baseline_comparison(
 
     ax.set_xlim(xmin_vis, xmax_vis)
     ax.set_xlabel(r"First natural frequency, $f_{1}$ [Hz]")
-    ax.grid(True, axis="x", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="x", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

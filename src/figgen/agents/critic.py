@@ -77,6 +77,17 @@ _MIN_CAPTION_CHARS = 200
 _DELTA_L_SOFT_WARN = 22.0
 # Aspect-ratio sanity bounds (height/width)
 _ASPECT_MIN, _ASPECT_MAX = 0.30, 2.10
+# Tier-1 readability floor: any explicit `fontsize=<N>` below this is
+# flagged. 8 pt at 85 mm print width renders at ~2.8 mm — the usual
+# "readable without glasses" threshold for a presbyopic reviewer.
+_MIN_FONTSIZE_PT = 8.0
+# For 3/3 on axis (f) stroke hierarchy: data stroke >= this, every
+# auxiliary stroke >= 0.5 pt.
+_MIN_DATA_STROKE_PT = 1.5
+_MIN_AUX_STROKE_PT = 0.5
+# Tier-2 placement: largest allowed pairwise text-bbox overlap as a
+# fraction of the smaller bbox area. Above this = collision.
+_TEXT_OVERLAP_FRAC = 0.20
 
 
 @dataclass
@@ -161,6 +172,137 @@ def _pdf_has_embedded_truetype(pdf: Path) -> tuple[bool, str]:
     if bad:
         return False, "Fonts not embedded or Type 3:\n" + "\n".join(bad)
     return True, r.stdout
+
+
+def _bbox_overlap_fraction(a: list[float], b: list[float]) -> float:
+    """Return the overlap area (a ∩ b) / min(area(a), area(b)).
+
+    Args are (x0, y0, x1, y1) with y0 < y1 in display coords. Returns 0 when
+    the rects don't intersect or either is degenerate.
+    """
+    ax0, ay0, ax1, ay1 = a
+    bx0, by0, bx1, by1 = b
+    ix0 = max(ax0, bx0)
+    iy0 = max(ay0, by0)
+    ix1 = min(ax1, bx1)
+    iy1 = min(ay1, by1)
+    if ix1 <= ix0 or iy1 <= iy0:
+        return 0.0
+    inter = (ix1 - ix0) * (iy1 - iy0)
+    area_a = max(0.0, (ax1 - ax0) * (ay1 - ay0))
+    area_b = max(0.0, (bx1 - bx0) * (by1 - by0))
+    denom = min(area_a, area_b) if min(area_a, area_b) > 0 else max(area_a, area_b)
+    if denom <= 0:
+        return 0.0
+    return inter / denom
+
+
+def _check_text_placement(folder: Path, figure_id: str
+                          ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Parse the text_placement.json sidecar and surface layout issues.
+
+    Returns
+    -------
+    summary
+        Dict with ``min_fontsize_pt``, ``overlap_count``, ``out_of_bounds_count``.
+    issues
+        Critic-style issue dicts, severity scaled by violation class.
+    """
+    sidecar = folder / f"{figure_id}.text_placement.json"
+    if not sidecar.exists():
+        sidecar = folder / "build" / f"{figure_id}.text_placement.json"
+    if not sidecar.exists():
+        return {"available": False}, []
+    try:
+        payload = json.loads(sidecar.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return {"available": False}, []
+
+    texts = payload.get("texts") or []
+    if not texts:
+        return {"available": True, "min_fontsize_pt": None,
+                "overlap_count": 0, "out_of_bounds_count": 0}, []
+
+    issues: list[dict[str, Any]] = []
+
+    # Tier 1: font-size floor. Flag the smallest text.
+    sizes = [t.get("fontsize_pt", 0.0) for t in texts if t.get("fontsize_pt")]
+    min_pt = min(sizes) if sizes else None
+    if min_pt is not None and min_pt < _MIN_FONTSIZE_PT:
+        worst = min((t for t in texts if t.get("fontsize_pt", 0) < _MIN_FONTSIZE_PT),
+                    key=lambda t: t["fontsize_pt"])
+        issues.append({
+            "severity": "med", "axis": "k",
+            "where": f"{figure_id}.text_placement.json",
+            "fix": (f"Text '{worst['text'][:40]}' at {worst['fontsize_pt']:.1f} pt "
+                    f"is below the {_MIN_FONTSIZE_PT:.0f}-pt reader-first floor. "
+                    "Older reviewers with presbyopia cannot read below 8 pt at "
+                    "submission print size."),
+        })
+
+    # Tier 2a: out-of-axes bbox check. Legend texts legitimately sit
+    # outside (top-right outside-axes legend is common); skip them.
+    # Slack is 25 px — tolerant of value labels that sit just past the
+    # last data point or panel labels near axes corners, strict enough
+    # that a genuinely mis-placed annotation sticking >0.5 cm into the
+    # gutter still trips the check.
+    out_of_bounds: list[dict[str, Any]] = []
+    slack = 25.0
+    for t in texts:
+        ab = t.get("axes_bbox")
+        if not ab:
+            continue
+        if t.get("origin") == "legend":
+            continue
+        tx0, ty0, tx1, ty1 = t["x0"], t["y0"], t["x1"], t["y1"]
+        ax0, ay0, ax1, ay1 = ab
+        if (tx0 < ax0 - slack or tx1 > ax1 + slack
+                or ty0 < ay0 - slack or ty1 > ay1 + slack):
+            out_of_bounds.append(t)
+    if out_of_bounds:
+        w = out_of_bounds[0]
+        issues.append({
+            "severity": "low", "axis": "h",
+            "where": f"{figure_id}.text_placement.json",
+            "fix": (f"{len(out_of_bounds)} annotation(s) extend outside "
+                    "their axes bbox (e.g. "
+                    f"'{w['text'][:40]}'). Either enlarge the axes limits "
+                    "or move the label inside the data window."),
+        })
+
+    # Tier 2b: pairwise text overlap. Only flag pairs whose overlap fraction
+    # is large AND the texts are non-identical (guards against matplotlib
+    # rendering the same tick label twice).
+    overlap_pairs: list[tuple[dict[str, Any], dict[str, Any], float]] = []
+    for i in range(len(texts)):
+        ti = texts[i]
+        for j in range(i + 1, len(texts)):
+            tj = texts[j]
+            if ti.get("axes_index") != tj.get("axes_index"):
+                continue
+            frac = _bbox_overlap_fraction(
+                [ti["x0"], ti["y0"], ti["x1"], ti["y1"]],
+                [tj["x0"], tj["y0"], tj["x1"], tj["y1"]],
+            )
+            if frac > _TEXT_OVERLAP_FRAC and ti["text"] != tj["text"]:
+                overlap_pairs.append((ti, tj, frac))
+    if overlap_pairs:
+        a, b, frac = overlap_pairs[0]
+        issues.append({
+            "severity": "med", "axis": "h",
+            "where": f"{figure_id}.text_placement.json",
+            "fix": (f"Annotation overlap: '{a['text'][:30]}' and "
+                    f"'{b['text'][:30]}' overlap by {100 * frac:.0f}%. "
+                    "Either reposition via xytext offsets or use "
+                    "figgen.utils.place_labels() for auto-avoidance."),
+        })
+
+    return {
+        "available": True,
+        "min_fontsize_pt": min_pt,
+        "overlap_count": len(overlap_pairs),
+        "out_of_bounds_count": len(out_of_bounds),
+    }, issues
 
 
 def _png_aspect(png: Path) -> float | None:
@@ -334,13 +476,22 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
             issues.append({"severity": "high", "axis": "f", "where": script.name,
                            "fix": f"Explicit lw={min(widths)} pt is below the "
                                   "0.25 pt minimum."})
-        elif widths and max(widths) >= 1.0 and min(widths) >= 0.25:
-            # Pragmatic stroke hierarchy: at least one thick data stroke
-            # (>= 1.0 pt), all auxiliary strokes (grid, spines) above the
-            # journal floor. 3/3: hierarchy is present and journal-safe.
+        elif (widths and max(widths) >= _MIN_DATA_STROKE_PT
+              and min(widths) >= _MIN_AUX_STROKE_PT):
+            # Production-grade stroke hierarchy: data stroke >= 1.5 pt,
+            # auxiliary (grid / reference / marker-edge) >= 0.5 pt.
+            # Bumped for older-reviewer print legibility.
             scores["f"] = 3
         else:
             scores["f"] = 2
+            if widths and max(widths) < _MIN_DATA_STROKE_PT:
+                issues.append({"severity": "low", "axis": "f",
+                               "where": script.name,
+                               "fix": (f"Data stroke weight max={max(widths):.2f} pt "
+                                       f"below the production-grade bar of "
+                                       f"{_MIN_DATA_STROKE_PT:.1f} pt. Bump "
+                                       "data-line linewidth so curves carry clearly "
+                                       "at 85-mm print size.")})
 
     # (a) spec has at least one panel. Multi-panel figures earn 3/3;
     # single-panel / narrative earn 2/3.
@@ -495,6 +646,31 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
         issues.append({"severity": "high", "axis": "j", "where": folder.name,
                        "fix": "CAPTION.md is missing. Every figure needs "
                               "a caption file."})
+
+    # -------- Tier-1 font floor + Tier-2 placement sweep ----------------
+    # The text_placement.json sidecar is authoritative (what was actually
+    # rendered); it catches readability and layout bugs the source-code
+    # regex heuristics miss.
+    summary, placement_issues = _check_text_placement(folder, spec.figure_id)
+    issues.extend(placement_issues)
+
+    if summary.get("available"):
+        min_pt = summary.get("min_fontsize_pt")
+        overlap = summary.get("overlap_count", 0)
+        oob = summary.get("out_of_bounds_count", 0)
+
+        # (h) demotion on overlap / out-of-bounds — annotations colliding
+        # is a high-severity readability fail.
+        if overlap > 0:
+            scores["h"] = min(scores["h"], 1)
+        elif oob > 0:
+            scores["h"] = min(scores["h"], 2)
+
+        # (j) Tier-1 font floor. Annotations below 8 pt cap (j) at 1/3
+        # regardless of caption quality — a perfectly-written caption
+        # cannot rescue text the reviewer can't read.
+        if min_pt is not None and min_pt < _MIN_FONTSIZE_PT:
+            scores["j"] = min(scores["j"], 1)
 
     return scores, issues
 

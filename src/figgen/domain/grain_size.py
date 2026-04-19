@@ -77,7 +77,7 @@ def plot_grain_size(
         ax.plot(sub[d_col], sub[pp_col],
                 color=style.get("color", "0.15"),
                 linestyle=style.get("linestyle", "-"),
-                linewidth=1.2,
+                linewidth=1.6,
                 zorder=3,
                 label=name)
         anc = anchors[anchors[sand_col] == name]
@@ -95,7 +95,7 @@ def plot_grain_size(
     ax.set_ylim(0, 101)
     ax.set_xlabel(r"Particle diameter, $d$ [mm]")
     ax.set_ylabel(r"Percent passing [%]")
-    ax.grid(True, which="both", linewidth=0.3, alpha=0.5)
+    ax.grid(True, which="both", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

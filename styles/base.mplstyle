@@ -1,5 +1,10 @@
 # Shared Matplotlib defaults for figure_generator.
 # Every journal stylesheet inherits these via figgen.utils.load_style().
+#
+# Tier-1 readability baseline (2026-04-19): font sizes, line weights, and
+# marker sizes bumped for older reviewers with presbyopia. At 85 mm printed
+# width every text element renders at >= 2.3 mm; data strokes carry >= 0.5 mm
+# visual weight against 0.13-mm grid lines.
 
 # --- Fonts ----------------------------------------------------------------
 font.family: serif
@@ -7,6 +12,7 @@ font.serif: Times New Roman, DejaVu Serif, Nimbus Roman, Liberation Serif, serif
 mathtext.fontset: cm
 text.usetex: False
 axes.unicode_minus: True
+font.size: 10
 
 # --- SVG / PDF editability (critical for Inkscape / Illustrator) ----------
 svg.fonttype: none
@@ -15,11 +21,11 @@ ps.fonttype: 42
 svg.image_inline: True
 
 # --- Axes -----------------------------------------------------------------
-axes.linewidth: 0.6
+axes.linewidth: 1.0
 axes.edgecolor: 0.15
 axes.labelcolor: 0.10
-axes.titlesize: 9
-axes.labelsize: 8
+axes.titlesize: 11
+axes.labelsize: 11
 axes.grid: False
 axes.spines.top: True
 axes.spines.right: True
@@ -27,45 +33,52 @@ axes.formatter.use_mathtext: True
 axes.axisbelow: True
 
 # --- Lines & markers ------------------------------------------------------
-lines.linewidth: 1.0
-lines.markersize: 3.5
-lines.markeredgewidth: 0.6
-patch.linewidth: 0.6
+lines.linewidth: 1.8
+lines.markersize: 7.0
+lines.markeredgewidth: 0.9
+patch.linewidth: 0.8
 
 # --- Ticks (geotechnical convention: inward on all sides) -----------------
 xtick.direction: in
 ytick.direction: in
 xtick.top: True
 ytick.right: True
-xtick.major.size: 3.0
-ytick.major.size: 3.0
-xtick.minor.size: 1.8
-ytick.minor.size: 1.8
-xtick.major.width: 0.5
-ytick.major.width: 0.5
-xtick.labelsize: 7
-ytick.labelsize: 7
+xtick.major.size: 3.5
+ytick.major.size: 3.5
+xtick.minor.size: 2.1
+ytick.minor.size: 2.1
+xtick.major.width: 0.8
+ytick.major.width: 0.8
+xtick.minor.width: 0.5
+ytick.minor.width: 0.5
+xtick.labelsize: 9
+ytick.labelsize: 9
 xtick.color: 0.15
 ytick.color: 0.15
 
 # --- Legend ---------------------------------------------------------------
 legend.frameon: False
-legend.fontsize: 7
+legend.fontsize: 9
 legend.handlelength: 1.8
 legend.handletextpad: 0.5
-legend.labelspacing: 0.3
+legend.labelspacing: 0.35
+
+# --- Grid (muted but visible) --------------------------------------------
+grid.linewidth: 0.4
+grid.alpha: 0.5
+grid.color: 0.80
 
 # --- Save -----------------------------------------------------------------
 savefig.dpi: 650
 savefig.bbox: tight
-savefig.pad_inches: 0.02
+savefig.pad_inches: 0.03
 savefig.transparent: False
 figure.dpi: 150
 
 # --- Layout ---------------------------------------------------------------
 figure.constrained_layout.use: True
-figure.constrained_layout.h_pad: 0.04
-figure.constrained_layout.w_pad: 0.04
+figure.constrained_layout.h_pad: 0.05
+figure.constrained_layout.w_pad: 0.05
 
 # --- Colors (base cycle; journal styles may override) ---------------------
 axes.prop_cycle: cycler('color', ['1f78b4','33a02c','e31a1c','ff7f00','6a3d9a','b15928','a6cee3','fb9a99'])

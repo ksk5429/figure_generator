@@ -53,13 +53,13 @@ def qu_panel(
                 marker=style["marker"], markersize=4.5,
                 markerfacecolor="white", markeredgewidth=0.9,
                 markeredgecolor=style["color"],
-                linewidth=1.3, label=label)
+                linewidth=1.6, label=label)
 
     ax.set_xlabel(r"Normalised scour, $S/D$ [-]")
     ax.set_ylabel(r"Bearing capacity, $q_{u}$ [kPa]")
     ax.set_xlim(left=-0.02)
     ax.set_ylim(bottom=0)
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)
@@ -94,14 +94,14 @@ def qu_norm_panel(
                 marker=style["marker"], markersize=4.5,
                 markerfacecolor="white", markeredgewidth=0.9,
                 markeredgecolor=style["color"],
-                linewidth=1.3, label=test_id)
+                linewidth=1.6, label=test_id)
 
-    ax.axhline(1.0, color="0.5", linewidth=0.4, linestyle=(0, (1, 1)))
+    ax.axhline(1.0, color="0.5", linewidth=0.5, linestyle=(0, (1, 1)))
     ax.set_xlabel(r"Normalised scour, $S/D$ [-]")
     ax.set_ylabel(r"$q_{u}(S)\,/\,q_{u}(0)$ [-]")
     ax.set_xlim(left=-0.02)
     ax.set_ylim(0.4, 1.05)
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

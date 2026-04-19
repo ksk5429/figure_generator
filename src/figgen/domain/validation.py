@@ -75,12 +75,12 @@ def centrifuge_panel(
         label=f"Model fit $f/f_0 = 1 + {power_law_a:g}\\,(S/D)^{{{power_law_b:g}}}$",
         zorder=1,
     )
-    ax.axhline(1.0, color="0.5", linewidth=0.4, linestyle=(0, (1, 1)))
+    ax.axhline(1.0, color="0.5", linewidth=0.5, linestyle=(0, (1, 1)))
     ax.set_xlabel(r"Normalised scour, $S/D$ [-]")
     ax.set_ylabel(r"Normalised frequency, $f/f_{0}$ [-]")
     ax.set_xlim(-0.02, sd_smooth_max)
     ax.set_ylim(0.85, 1.03)
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)
@@ -158,7 +158,7 @@ def field_panel(
     ax.set_ylabel(r"First natural frequency, $f_{1}$ [Hz]")
     ax.set_ylim(0.225, 0.245)
     ax.set_xlim(0.4, 2.6)
-    ax.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

@@ -28,10 +28,10 @@ _SUB_COLOR = "#7a7a7a"
 def sigma_pre_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
     z = df["z_m"].to_numpy(dtype=float)
     ax.plot(df["sigma_dry_pre_kpa"], z,
-            color=_DRY_COLOR, linewidth=1.2,
+            color=_DRY_COLOR, linewidth=1.6,
             label=r"Dry, $\gamma_{d} = 15.5$ kN/m$^{3}$")
     ax.plot(df["sigma_sat_pre_kpa"], z,
-            color=_SUB_COLOR, linewidth=1.2, linestyle=(0, (4, 2)),
+            color=_SUB_COLOR, linewidth=1.6, linestyle=(0, (4, 2)),
             label=r"Submerged, $\gamma' \approx 10$ kN/m$^{3}$")
     ax.invert_yaxis()
     ax.set_xlim(left=0)
@@ -54,10 +54,10 @@ def sigma_post_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
 
     # Post-scour profiles (solid on top)
     ax.plot(df["sigma_dry_post_kpa"], z,
-            color=_DRY_COLOR, linewidth=1.3,
+            color=_DRY_COLOR, linewidth=1.6,
             label=r"Dry, post-scour")
     ax.plot(df["sigma_sat_post_kpa"], z,
-            color=_SUB_COLOR, linewidth=1.3, linestyle=(0, (4, 2)),
+            color=_SUB_COLOR, linewidth=1.6, linestyle=(0, (4, 2)),
             label=r"Submerged, post-scour")
 
     # "Lost stress" hatched band between z = 0 and z = S.
@@ -73,7 +73,7 @@ def sigma_post_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
                      np.array([0, gamma_sub * s_m]),
                      np.array([0, gamma_d * s_m]),
                      facecolor="none", edgecolor=_DRY_COLOR,
-                     linewidth=0.3, hatch="///", alpha=0.7,
+                     linewidth=0.5, hatch="///", alpha=0.7,
                      zorder=0, label="Stress lost to scour")
 
     # Scour-line marker on y-axis (horizontal line at z=S)
@@ -96,16 +96,16 @@ def sigma_post_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
 def gmax_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
     z = df["z_m"].to_numpy(dtype=float)
     ax.plot(df["gmax_dry_pre_mpa"], z,
-            color=_DRY_COLOR, linewidth=0.7, linestyle=(0, (1, 1)),
+            color=_DRY_COLOR, linewidth=1.6, linestyle=(0, (1, 1)),
             alpha=0.7, label=r"Dry, pre")
     ax.plot(df["gmax_sat_pre_mpa"], z,
-            color=_SUB_COLOR, linewidth=0.7, linestyle=(0, (1, 1)),
+            color=_SUB_COLOR, linewidth=1.6, linestyle=(0, (1, 1)),
             alpha=0.7, label=r"Submerged, pre")
     ax.plot(df["gmax_dry_post_mpa"], z,
-            color=_DRY_COLOR, linewidth=1.3,
+            color=_DRY_COLOR, linewidth=1.6,
             label=r"Dry, post-scour")
     ax.plot(df["gmax_sat_post_mpa"], z,
-            color=_SUB_COLOR, linewidth=1.3, linestyle=(0, (4, 2)),
+            color=_SUB_COLOR, linewidth=1.6, linestyle=(0, (4, 2)),
             label=r"Submerged, post-scour")
     ax.invert_yaxis()
     ax.set_xlim(left=0)
@@ -127,7 +127,7 @@ def gmax_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
 
 def _axis_polish(ax: plt.Axes) -> None:
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

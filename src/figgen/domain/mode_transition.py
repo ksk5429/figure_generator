@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from ..utils import add_panel_label, load_style, set_size
+from ..utils import add_panel_label, load_style, place_labels, set_size
 
 
 _DARK = "#1a1a1a"
@@ -51,10 +51,10 @@ def _bar_style(stage: str) -> dict:
     if stage == "S/D=0.58":
         # Peak bar: solid near-black fill to flag the mode shift.
         return dict(facecolor=_DARK, edgecolor=_DARK,
-                    hatch=None, linewidth=1.3)
+                    hatch=None, linewidth=1.6)
     hatch = _STAGE_HATCH.get(stage)
     return dict(facecolor="white", edgecolor=_DARK,
-                hatch=hatch, linewidth=0.8)
+                hatch=hatch, linewidth=1.0)
 
 
 def displacement_panel(
@@ -74,55 +74,66 @@ def displacement_panel(
     # Unity reference (baseline ratio)
     ax.axhline(1.0, color="0.55", linewidth=0.5, linestyle=(0, (1, 2)), zorder=1)
 
-    # Value labels above each bar.
+    # Bar-top value labels. These pin directly to each bar tip.
+    bar_label_texts: list[plt.Text] = []
     for xi, s, v in zip(x, stages, values):
-        label = f"{v:.2f}×" if v < 2 else f"{v:.2f}×"
+        label = f"{v:.2f}×"
         weight = "bold" if s == "S/D=0.58" else "normal"
-        ax.annotate(label, xy=(xi, v), xytext=(0, 4),
-                    textcoords="offset points",
-                    ha="center", va="bottom",
-                    fontsize=plt.rcParams["xtick.labelsize"],
-                    fontweight=weight, color=_DARK)
+        bar_label_texts.append(ax.text(
+            xi, v + 0.10, label, ha="center", va="bottom",
+            fontsize=plt.rcParams["xtick.labelsize"],
+            fontweight=weight, color=_DARK, zorder=5,
+        ))
 
-    # Mode-shift callout at the peak bar
     peak_idx = stages.index("S/D=0.58") if "S/D=0.58" in stages else 3
     peak_val = values[peak_idx]
+
+    # "Mode shift" callout floats in the empty mid-left space (between the
+    # first two short bars) with a long curved arrow to the peak. Chosen
+    # so the text bbox does not touch any bar-top value label or the (a)
+    # panel label in the top-left corner.
     ax.annotate(
-        "mode shift\n(bending → tilting)",
-        xy=(peak_idx, peak_val), xytext=(peak_idx - 0.55, peak_val + 0.2),
-        textcoords="data",
-        fontsize=plt.rcParams["xtick.labelsize"] - 0.5,
-        ha="right", va="center", color=_DARK, style="italic",
-        arrowprops=dict(arrowstyle="->", color=_DARK, lw=0.7,
-                        connectionstyle="arc3,rad=-0.25",
-                        shrinkA=4, shrinkB=4),
+        "mode shift (bending → tilting)",
+        xy=(peak_idx, peak_val),
+        xytext=(1.0, 3.3), textcoords="data",
+        fontsize=max(9.0, float(plt.rcParams["xtick.labelsize"])),
+        ha="center", va="center", color=_DARK, fontstyle="italic",
+        arrowprops=dict(arrowstyle="->", color=_DARK, lw=0.9,
+                        connectionstyle="arc3,rad=-0.30",
+                        shrinkA=6, shrinkB=6),
+        zorder=7,
     )
 
-    # 67 % reduction arrow from peak to BF. The arrow curves well above
-    # the BF bar-top label (~1.43×) to avoid collision; the text sits
-    # between peak and BF on the upper side of the arc.
     if "Backfill" in stages:
         bf_idx = stages.index("Backfill")
         bf_val = values[bf_idx]
         reduction = float(df["disp_bf_reduction_fraction"].iloc[0])
+        # Curved arrow from peak to BF bar top
         ax.annotate(
             "", xy=(bf_idx - 0.05, bf_val + 0.55),
-            xytext=(peak_idx + 0.28, peak_val - 0.20),
-            arrowprops=dict(arrowstyle="->", color=_DARK, lw=0.9,
+            xytext=(peak_idx + 0.28, peak_val + 0.30),
+            arrowprops=dict(arrowstyle="->", color=_DARK, lw=1.0,
                             connectionstyle="arc3,rad=-0.35",
                             shrinkA=4, shrinkB=4),
         )
+        # Reduction annotation: leader-arrow-labelled from the Backfill
+        # bar into empty upper-right space so it never sits behind the
+        # peak bar footprint.
         ax.annotate(
             rf"${100 * reduction:.0f}\%$ reduction",
-            xy=(0.5 * (peak_idx + bf_idx), 3.2),
+            xy=(bf_idx, bf_val + 0.2),
+            xytext=(bf_idx, 3.0), textcoords="data",
             ha="center", va="bottom", color=_DARK, fontweight="bold",
-            fontsize=plt.rcParams["xtick.labelsize"] - 0.5,
+            fontsize=max(9.0, float(plt.rcParams["xtick.labelsize"])),
+            arrowprops=dict(arrowstyle="-", color=_DARK, lw=0.6,
+                            shrinkA=0, shrinkB=3),
+            zorder=7,
         )
 
     ax.set_ylabel(r"Normalised RMS" + "\n" + r"displacement, $\bar{u}/\bar{u}_{0}$")
     ax.set_ylim(0, 5.2)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -145,18 +156,17 @@ def strain_panel(
     # Zero-reference line
     ax.axhline(0.0, color="0.3", linewidth=0.5, zorder=1)
 
+    strain_label_texts: list[plt.Text] = []
     for xi, s, v in zip(x, stages, values):
         va = "bottom" if v >= 0 else "top"
-        offset_y = 1.5 if v >= 0 else -1.5
+        offset_y = 1.6 if v >= 0 else -1.6
         weight = "bold" if s == "S/D=0.58" else "normal"
-        ax.annotate(
-            f"{v:+.1f}%",
-            xy=(xi, v), xytext=(0, offset_y),
-            textcoords="offset points",
+        strain_label_texts.append(ax.text(
+            xi, v + offset_y, f"{v:+.1f}%",
             ha="center", va=va,
             fontsize=plt.rcParams["xtick.labelsize"],
-            fontweight=weight, color=_DARK,
-        )
+            fontweight=weight, color=_DARK, zorder=5,
+        ))
 
     # "Sign reversal" arrow between the 0.39 bar top (positive) and the
     # 0.58 bar bottom (negative). Placed well above the zero line so
@@ -172,11 +182,14 @@ def strain_panel(
                             connectionstyle="arc3,rad=-0.40",
                             shrinkA=2, shrinkB=2),
         )
-        ax.annotate(
-            "sign reversal",
-            xy=(0.5 * (i0 + i1), 22),
-            ha="center", va="bottom", style="italic", color=_DARK,
-            fontsize=plt.rcParams["xtick.labelsize"] - 0.5,
+        # "Sign reversal" label placed right-of-arrow at a y where no
+        # bar-top "+N%" label sits (strain bars top out at ~20% + 1.6
+        # offset, so y=25 sits in empty headroom near the ylim top).
+        ax.text(
+            0.5 * (i0 + i1) + 0.55, 25.0, "sign reversal",
+            ha="left", va="center", fontstyle="italic", color=_DARK,
+            fontsize=max(9.0, float(plt.rcParams["xtick.labelsize"])),
+            zorder=7,
         )
 
     ax.set_ylabel("Bottom strain\n" + r"change, $\Delta\varepsilon/\varepsilon_{0}$ [%]")
@@ -185,7 +198,7 @@ def strain_panel(
     ax.set_xticklabels(stages, rotation=0)
     ax.set_xlabel(r"Scour / backfill stage, $S/D$")
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

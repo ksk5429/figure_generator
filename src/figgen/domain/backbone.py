@@ -88,7 +88,7 @@ def backbone_panel(
     )
     ax.set_xlim(left=0)
     ax.set_ylim(bottom=0)
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)
@@ -118,7 +118,7 @@ def r2_summary(
         widths=0.35,
         showfliers=False,
         patch_artist=True,
-        medianprops=dict(color="white", linewidth=1.2),
+        medianprops=dict(color="white", linewidth=1.6),
         whiskerprops=dict(color="0.15", linewidth=0.6),
         capprops=dict(color="0.15", linewidth=0.6),
     )
@@ -134,14 +134,19 @@ def r2_summary(
         ax.scatter(pos + jitter, data,
                    s=7, color=col, alpha=0.4, edgecolor="none", zorder=2)
 
-    # Annotate medians
+    # Annotate medians at bottom of each strip (clear empty space
+    # since data clusters near R² = 1). Each label sits directly under
+    # its strip at y ≈ 0.15, so the two labels don't compete.
     for pos, data in zip(positions, (h, v)):
         med = float(np.median(data)) if data.size else np.nan
         ax.annotate(f"median = {med:.2f}",
                     xy=(pos, med),
-                    xytext=(8, 0), textcoords="offset points",
-                    va="center", ha="left",
-                    fontsize=plt.rcParams["xtick.labelsize"])
+                    xytext=(pos, 0.15),
+                    textcoords="data",
+                    va="center", ha="center",
+                    fontsize=plt.rcParams["xtick.labelsize"],
+                    arrowprops=dict(arrowstyle="-", color="0.45", lw=0.6,
+                                    shrinkA=0, shrinkB=2))
 
     ax.set_xticks(positions)
     ax.set_xticklabels(["p-y (H-mode)", "t-z (V-mode)"])
@@ -155,7 +160,7 @@ def r2_summary(
         fontsize=plt.rcParams["xtick.labelsize"],
         color="0.35", ha="right", va="bottom",
     )
-    ax.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

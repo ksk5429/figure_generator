@@ -48,7 +48,7 @@ def baseline_panel(
                linestyle=(0, (3, 2)), zorder=1)
 
     # Left y: baseline f_1
-    ax.plot(x, df[f1_col], color=_BASELINE_COLOR, linewidth=1.3,
+    ax.plot(x, df[f1_col], color=_BASELINE_COLOR, linewidth=1.6,
             marker="o", markersize=4, markerfacecolor="white",
             markeredgecolor=_BASELINE_COLOR, markeredgewidth=0.9,
             zorder=3,
@@ -59,7 +59,7 @@ def baseline_panel(
     ax.tick_params(axis="x", direction="in")
     ax.set_xlim(1.5, 5.2)
     ax.set_axisbelow(True)
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.spines["top"].set_visible(False)
 
     # Right y: pct drop at S/D = 0.5
@@ -108,7 +108,7 @@ def exponent_panel(
     ax.axvline(used_x, color=_USED_MARKER_EDGE, linewidth=0.8,
                linestyle=(0, (3, 2)), zorder=1)
 
-    ax.plot(x, df[b_col], color=_B_COLOR, linewidth=1.3,
+    ax.plot(x, df[b_col], color=_B_COLOR, linewidth=1.6,
             marker="o", markersize=4, markerfacecolor="white",
             markeredgecolor=_B_COLOR, markeredgewidth=0.9,
             zorder=3,
@@ -138,7 +138,7 @@ def exponent_panel(
     ax.set_xlim(1.5, 5.2)
     ax.set_ylim(used_b * 0.92, used_b * 1.08)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

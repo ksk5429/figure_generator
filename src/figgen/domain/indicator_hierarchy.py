@@ -23,7 +23,7 @@ def hierarchy_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
            label="T4 (dense sat.)")
     ax.bar(x + bw / 2 + 0.02, df["t5_value"].clip(lower=1e-3), width=bw,
            facecolor="white", edgecolor=_DARK, hatch="\\\\",
-           linewidth=0.7, zorder=3,
+           linewidth=1.6, zorder=3,
            label="T5 (loose sat.)")
 
     for i, (t4, t5, r) in enumerate(zip(df["t4_value"], df["t5_value"],
@@ -49,7 +49,7 @@ def hierarchy_panel(ax: plt.Axes, df: pd.DataFrame) -> None:
     ax.legend(loc="upper left", frameon=False,
               fontsize=plt.rcParams["xtick.labelsize"])
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, which="both", axis="y", linewidth=0.3, alpha=0.5)
+    ax.grid(True, which="both", axis="y", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

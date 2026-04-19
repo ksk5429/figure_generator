@@ -58,7 +58,7 @@ def recovery_panel(
                 marker=style["marker"], markersize=4.5,
                 markerfacecolor="white", markeredgewidth=0.9,
                 markeredgecolor=style["color"],
-                linewidth=1.3,
+                linewidth=1.6,
                 label=f"{test_id} ({_density_label(test_id)})")
 
         # Baseline dotted reference
@@ -110,7 +110,7 @@ def recovery_panel(
     ax.set_xlabel("Scour / backfill stage")
     # Give the right margin enough room for the T5 annotation block
     ax.set_xlim(-0.25, len(x) - 0.3)
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

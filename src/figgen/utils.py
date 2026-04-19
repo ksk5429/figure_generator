@@ -141,6 +141,102 @@ def annotate_value(
     return ax.annotate(text, **defaults)
 
 
+def place_labels(
+    ax: mpl.axes.Axes,
+    xs: Sequence[float],
+    ys: Sequence[float],
+    labels: Sequence[str],
+    *,
+    fontsize: float | None = None,
+    fontweight: str = "normal",
+    color: str = "0.15",
+    leader: bool = True,
+    expand: tuple[float, float] = (1.15, 1.30),
+    extra_texts: Sequence[mpl.text.Text] = (),
+    avoid_points: bool = True,
+) -> list[mpl.text.Text]:
+    """Place labels at (xs, ys) and auto-shift to avoid overlap.
+
+    Wraps ``adjustText.adjust_text`` with figgen-sane defaults:
+    reader-first fontsize floor (max(9, font.size)), grey leader lines,
+    expansion generous enough to keep callouts clear of the data path,
+    and a last-resort push to keep text inside the axes bbox.
+
+    Parameters
+    ----------
+    xs, ys
+        Anchor positions for each label (in data coordinates).
+    labels
+        Text strings — one per (x, y).
+    fontsize
+        Override font size in points. Defaults to ``max(9, rcParams["font.size"])``
+        so annotations never drop below the Tier-1 readability floor.
+    leader
+        When True, draws a thin grey leader line from the final label
+        position back to the data point after adjustment.
+    expand
+        ``(x_expand, y_expand)`` passed to adjust_text. Larger values
+        push labels farther to prevent collisions.
+    extra_texts
+        Existing ``Text`` artists (e.g., panel labels, titles) that the
+        placement routine must also avoid.
+    avoid_points
+        Pass the anchor points to adjust_text so labels steer clear of
+        the data marker too, not just each other.
+
+    Returns
+    -------
+    list[matplotlib.text.Text]
+        The placed text objects (handy for further styling).
+    """
+    from adjustText import adjust_text  # local import keeps utils startup fast
+
+    if fontsize is None:
+        fontsize = max(9.0, float(mpl.rcParams.get("font.size", 10.0)))
+
+    xs = list(xs)
+    ys = list(ys)
+    labels = list(labels)
+    if not (len(xs) == len(ys) == len(labels)):
+        raise ValueError("xs, ys, labels must all be the same length")
+
+    texts = [
+        ax.text(x, y, label, fontsize=fontsize, fontweight=fontweight,
+                color=color, ha="center", va="center", zorder=6)
+        for x, y, label in zip(xs, ys, labels)
+    ]
+
+    arrow_kwargs = None
+    if leader:
+        arrow_kwargs = dict(arrowstyle="-", color="0.45", lw=0.6,
+                            alpha=0.8, shrinkA=2, shrinkB=3)
+
+    kwargs: dict[str, Any] = {
+        "ax": ax,
+        "expand": expand,
+        "force_text": (0.4, 0.5),
+        "force_static": (0.2, 0.3),
+    }
+    if arrow_kwargs is not None:
+        kwargs["arrowprops"] = arrow_kwargs
+    if extra_texts:
+        kwargs["objects"] = list(extra_texts)
+    if avoid_points:
+        kwargs["x"] = xs
+        kwargs["y"] = ys
+
+    try:
+        adjust_text(texts, **kwargs)
+    except TypeError:
+        # Older adjustText API doesn't accept ``expand`` as a tuple — retry.
+        kwargs.pop("expand", None)
+        adjust_text(texts, **kwargs)
+    except Exception:  # noqa: BLE001 — never block rendering
+        pass
+
+    return texts
+
+
 def scientific_formatter(axis: mpl.axis.Axis, precision: int = 2) -> None:
     """Apply clean scientific-notation tick labels to a given axis object."""
     fmt = mpl.ticker.ScalarFormatter(useMathText=True)
@@ -153,6 +249,87 @@ def _figure_dir(figure_id: str) -> Path:
     d = FIGURES_DIR / figure_id
     d.mkdir(parents=True, exist_ok=True)
     return d
+
+
+def _dump_text_placement(fig: mpl.figure.Figure, out_dir: Path,
+                         figure_id: str) -> Path | None:
+    """Emit a JSON record of every text artist's position + bbox.
+
+    Used by the critic's Tier-2 placement check to detect overlaps,
+    out-of-bounds labels, and text colliding with data. Called after
+    savefig so the figure has been rendered (canvas has a renderer).
+    Silent on any failure — this is best-effort metadata, not a gate.
+    """
+    import json as _json
+    try:
+        fig.canvas.draw()   # force full rendering so bboxes are real
+        renderer = fig.canvas.get_renderer()
+    except Exception:  # noqa: BLE001
+        return None
+
+    records: list[dict[str, Any]] = []
+    for ax_idx, ax in enumerate(fig.axes):
+        try:
+            ax_bbox = ax.get_window_extent(renderer=renderer)
+        except Exception:  # noqa: BLE001
+            ax_bbox = None
+        # User-added text artists and legend entries. We explicitly skip
+        # axis labels since they legitimately sit outside the axes bbox
+        # (in the gutter) and would produce constant false positives on
+        # the out-of-bounds check.
+        text_artists: list[tuple[mpl.text.Text, str]] = [(t, "user") for t in ax.texts]
+        if ax.get_legend() is not None:
+            text_artists.extend((t, "legend") for t in ax.get_legend().get_texts())
+
+        for t, origin in text_artists:
+            # Annotation.get_window_extent() includes the arrow patch
+            # when one is attached; we only want the text glyph bbox for
+            # the overlap + out-of-bounds checks. Temporarily detach the
+            # arrow, measure, reattach.
+            arrow_patch = getattr(t, "arrow_patch", None)
+            try:
+                if arrow_patch is not None:
+                    t.arrow_patch = None
+                bbox = t.get_window_extent(renderer=renderer)
+            except Exception:  # noqa: BLE001
+                if arrow_patch is not None:
+                    t.arrow_patch = arrow_patch
+                continue
+            finally:
+                if arrow_patch is not None and t.arrow_patch is None:
+                    t.arrow_patch = arrow_patch
+            text = (t.get_text() or "").strip()
+            if not text:
+                continue
+            try:
+                fs_pt = float(t.get_fontsize())
+            except Exception:  # noqa: BLE001
+                fs_pt = float(mpl.rcParams.get("font.size", 10.0))
+            records.append({
+                "axes_index": ax_idx,
+                "origin": origin,
+                "text": text[:80],
+                "x0": float(bbox.x0), "y0": float(bbox.y0),
+                "x1": float(bbox.x1), "y1": float(bbox.y1),
+                "fontsize_pt": fs_pt,
+                "axes_bbox": (
+                    None if ax_bbox is None else
+                    [float(ax_bbox.x0), float(ax_bbox.y0),
+                     float(ax_bbox.x1), float(ax_bbox.y1)]
+                ),
+            })
+
+    out = out_dir / f"{figure_id}.text_placement.json"
+    try:
+        out.write_text(_json.dumps({
+            "figure_id": figure_id,
+            "dpi": float(fig.dpi),
+            "figsize_in": [float(fig.get_figwidth()), float(fig.get_figheight())],
+            "texts": records,
+        }, indent=2), encoding="utf-8")
+        return out
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def save_figure(
@@ -228,10 +405,15 @@ def save_figure(
             fig.savefig(out)
         embed_metadata(out, meta)
         written.append(out.resolve())
+
+    # Tier-2 text placement sidecar — written once after the last format,
+    # since the figure is fully rendered by that point.
+    _dump_text_placement(fig, out_dir, figure_id)
     return written
 
 
 __all__ = [
+    "place_labels",
     "JournalSpec",
     "load_journal",
     "load_style",

@@ -52,9 +52,9 @@ def _plot_pair(ax, sd_dry, nf_dry, sd_sat, nf_sat,
             color=c_sat, alpha=0.25, zorder=2)
 
     ax.plot(sd_dry, nf_dry, marker=mk_dry, color=c_dry, ms=MS,
-            mec=c_dry, mfc="white", mew=1.2, lw=1.3, zorder=5, label=lbl_dry)
+            mec=c_dry, mfc="white", mew=1.2, lw=1.8, zorder=5, label=lbl_dry)
     ax.plot(sd_sat, nf_sat, marker=mk_sat, color=c_sat, ms=MS,
-            mec=c_sat, mfc=c_sat, lw=1.3, zorder=5, label=lbl_sat)
+            mec=c_sat, mfc=c_sat, lw=1.8, zorder=5, label=lbl_sat)
 
     # Saturation-gap arrow at the saturated series' max S/D (dry interp)
     nf_dry_at_sat_max = np.polyval(p_dry, sd_sat[-1])
@@ -82,7 +82,7 @@ def _plot_pair(ax, sd_dry, nf_dry, sd_sat, nf_sat,
     # Use a panel label via add_panel_label() or annotation inside the axes
     # if per-panel context is needed.
     leg = ax.legend(loc="lower left", borderpad=0.3, handlelength=1.5,
-                    handletextpad=0.3, labelspacing=0.20, fontsize=6.5)
+                    handletextpad=0.3, labelspacing=0.25, fontsize=9)
     leg.get_frame().set_linewidth(0.4)
 
     ax.set_xlabel(r"Scour depth ratio, $S/D$")

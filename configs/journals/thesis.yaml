@@ -7,9 +7,9 @@ widths_in:
   full: 5.91
 default_width: double
 aspect_default: 0.68
-font_size: 9
-tick_font_size: 8
-line_width: 0.9
+font_size: 10
+tick_font_size: 9
+line_width: 1.0
 dpi:
   raster: 650
 formats: [png, svg, pdf]

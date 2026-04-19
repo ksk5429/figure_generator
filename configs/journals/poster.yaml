@@ -6,8 +6,8 @@ widths_in:
   double: 14.0
 default_width: single
 aspect_default: 0.62
-font_size: 14
-tick_font_size: 12
+font_size: 10
+tick_font_size: 9
 line_width: 1.6
 dpi:
   raster: 300

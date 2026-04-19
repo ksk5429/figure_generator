@@ -1,11 +1,13 @@
 # Ocean Engineering / Marine Structures (Elsevier) style. Inherits base.mplstyle.
 # Source: Elsevier standard column widths — single 90 mm, 1.5-col 140 mm, double 190 mm.
+# Tier-1 readability (2026-04-19): font sizes raised for presbyopic reviewers.
 
 figure.figsize: 3.54, 2.55
-font.size: 8
-axes.titlesize: 9
-axes.labelsize: 8
-xtick.labelsize: 7
-ytick.labelsize: 7
-legend.fontsize: 7
-lines.linewidth: 0.8
+font.size: 10
+axes.titlesize: 11
+axes.labelsize: 11
+xtick.labelsize: 9
+ytick.labelsize: 9
+legend.fontsize: 9
+lines.linewidth: 1.6
+lines.markersize: 7

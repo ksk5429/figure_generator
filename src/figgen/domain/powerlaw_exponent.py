@@ -56,7 +56,7 @@ def exponent_panel(
         labels.append(f"{test_id}  ({label_long})")
         ax.barh(
             i, b, height=0.62,
-            facecolor="white", edgecolor=_DARK, linewidth=0.7,
+            facecolor="white", edgecolor=_DARK, linewidth=1.6,
             hatch=_SERIES_HATCH.get(test_id, "///"),
             zorder=3,
         )
@@ -78,7 +78,7 @@ def exponent_panel(
     ax.axvspan(mean_b - std_b, mean_b + std_b,
                facecolor="0.85", alpha=0.55, zorder=1,
                label=rf"$\pm 1\sigma = {std_b:.2f}$")
-    ax.axvline(mean_b, color=_DARK, linewidth=1.2, zorder=2,
+    ax.axvline(mean_b, color=_DARK, linewidth=1.6, zorder=2,
                label=rf"Mean $b = {mean_b:.2f}$")
     ax.axvline(b_clay, color=_CLAY, linewidth=1.0, linestyle=(0, (4, 2)),
                zorder=2, label=rf"Clay reference $b = {b_clay:.2f}$")
@@ -88,7 +88,7 @@ def exponent_panel(
     ax.set_xlim(0.4, 2.3)
     ax.set_xlabel(r"Power-law exponent, $b$ in $|\Delta f_{1}/f_{1,0}|"
                   r" = a\,(S/D)^{b}$ [-]")
-    ax.grid(True, axis="x", linewidth=0.3, alpha=0.5)
+    ax.grid(True, axis="x", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.tick_params(which="both", direction="in")
     ax.spines["top"].set_visible(False)

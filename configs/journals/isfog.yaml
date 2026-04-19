@@ -7,9 +7,9 @@ widths_in:
   double: 7.28   # ~185 mm
 default_width: single
 aspect_default: 0.75
-font_size: 8
-tick_font_size: 7
-line_width: 0.8
+font_size: 10
+tick_font_size: 9
+line_width: 1.0
 dpi:
   raster: 650
 formats: [png, svg, pdf]

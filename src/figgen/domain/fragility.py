@@ -68,7 +68,7 @@ def plot_fragility(
                    zorder=0,
                    hatch=row["hatch"] or None,
                    edgecolor="0.2" if row["hatch"] else "none",
-                   linewidth=0.3 if row["hatch"] else 0)
+                   linewidth=0.5 if row["hatch"] else 0)
         # Zone label at the top
         label_x = 0.5 * (s_lo + s_hi)
         ax.annotate(
@@ -98,7 +98,7 @@ def plot_fragility(
     ax.set_xlim(0, s_max)
     ax.set_ylim(0, y_max)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     # Keep right spine on if we add the secondary axis

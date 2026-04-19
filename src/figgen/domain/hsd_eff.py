@@ -45,12 +45,12 @@ def coefficient_panel(
     a0 = sub["abs_a0_kpa"].to_numpy(dtype=float)
     a1 = sub["abs_a1_kpa"].to_numpy(dtype=float)
 
-    ax.plot(a0, z, color=_A0_COLOR, linewidth=1.2,
+    ax.plot(a0, z, color=_A0_COLOR, linewidth=1.6,
             linestyle=(0, (4, 2)),
             marker="s", markersize=3.5, markerfacecolor=_A0_COLOR,
             markeredgecolor="none",
             label=r"$|A_{0}|$ (phantom / breathing)")
-    ax.plot(a1, z, color=_A1_COLOR, linewidth=1.3,
+    ax.plot(a1, z, color=_A1_COLOR, linewidth=1.6,
             marker="o", markersize=3.5, markerfacecolor="white",
             markeredgecolor=_A1_COLOR, markeredgewidth=0.9,
             label=r"$|A_{1}|$ (sway / real)")
@@ -60,7 +60,7 @@ def coefficient_panel(
     ax.set_ylim(bottom=10.0, top=0.0)
     ax.set_xlim(left=0)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -81,7 +81,7 @@ def efficiency_panel(
             sub["hsd_efficiency"],
             sub["depth_local_m"],
             color=colours[i],
-            linewidth=1.2,
+            linewidth=1.6,
             marker="o", markersize=3.5,
             markerfacecolor=colours[i],
             markeredgecolor="none",
@@ -101,7 +101,7 @@ def efficiency_panel(
     ax.set_ylim(bottom=10.0, top=0.0)
     ax.set_xlim(0, 1)
     ax.tick_params(which="both", direction="in")
-    ax.grid(True, linewidth=0.3, alpha=0.5)
+    ax.grid(True, linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)

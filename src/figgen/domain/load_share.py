@@ -61,7 +61,7 @@ def plot_lid_skirt_share(
     ax_skirt.set_ylabel("Skirt share [%]")
 
     ax_lid.plot(x, lid_pct, color=lid_color, marker="o",
-                linestyle="-", linewidth=1.2, markersize=4,
+                linestyle="-", linewidth=1.6, markersize=4,
                 label="Lid")
     ax_lid.set_ylim(bottom=0.0, top=max(3.5, lid_pct.max() + 0.6))
     ax_lid.set_xlabel(r"Normalised scour depth, $S/D$ [-]")
@@ -82,7 +82,7 @@ def plot_lid_skirt_share(
 
     for ax in (ax_skirt, ax_lid):
         ax.set_axisbelow(True)
-        ax.grid(True, linewidth=0.3, alpha=0.5)
+        ax.grid(True, linewidth=0.5, alpha=0.5)
         ax.tick_params(which="both", direction="in")
 
     # Annotate endpoint lid-share values to make the reviewer's answer visible.
@@ -115,7 +115,7 @@ def plot_lid_skirt_share(
     ax_force.spines["top"].set_visible(False)
     ax_force.spines["right"].set_visible(False)
     ax_force.set_axisbelow(True)
-    ax_force.grid(True, axis="y", linewidth=0.3, alpha=0.5)
+    ax_force.grid(True, axis="y", linewidth=0.5, alpha=0.5)
     ax_force.legend(loc="upper right", frameon=False,
                     fontsize=plt.rcParams["xtick.labelsize"])
 

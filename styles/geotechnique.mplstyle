@@ -2,10 +2,11 @@
 # Source: ICE Publishing Géotechnique author guidelines — single column 85 mm.
 
 figure.figsize: 3.35, 2.41
-font.size: 8
-axes.titlesize: 9
-axes.labelsize: 8
-xtick.labelsize: 7
-ytick.labelsize: 7
-legend.fontsize: 7
-lines.linewidth: 0.7
+font.size: 10
+axes.titlesize: 11
+axes.labelsize: 11
+xtick.labelsize: 9
+ytick.labelsize: 9
+legend.fontsize: 9
+lines.linewidth: 1.5
+lines.markersize: 7
