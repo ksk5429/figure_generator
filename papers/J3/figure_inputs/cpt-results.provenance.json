@@ -1,0 +1,64 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "cpt-results",
+  "generated_utc": "2026-04-19T13:32:56Z",
+  "primary_source": {
+    "kind": "paper_script",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd \u00a73 Table 2",
+    "script_ref": "paperJ3_oe02685/fig11_cpt_results.py"
+  },
+  "g0_series_mpa": {
+    "T1": 23.5,
+    "T2": 15.9,
+    "T3": 15.7,
+    "T4": 20.9,
+    "T5": 18.7
+  },
+  "qc_per_stage_mpa": {
+    "T4": [
+      2.53,
+      2.38,
+      2.51,
+      1.87,
+      3.96
+    ],
+    "T5": [
+      1.63,
+      1.84,
+      2.25,
+      1.72,
+      3.07
+    ]
+  },
+  "t4_params": {
+    "G0_MPa": 20.9,
+    "Vs_m_s": 102.5,
+    "gamma_sub_kN_m3": 9.66,
+    "e_void": 0.675
+  },
+  "t5_params": {
+    "G0_MPa": 18.7,
+    "Vs_m_s": 97.7,
+    "gamma_sub_kN_m3": 9.38,
+    "e_void": 0.726
+  },
+  "rows": 23,
+  "columns": [
+    "panel",
+    "test_id",
+    "label",
+    "density",
+    "saturation",
+    "g0_mpa",
+    "dr_percent",
+    "stage",
+    "s_over_d",
+    "qc_mpa",
+    "qc_mean_no_backfill_t4",
+    "qc_mean_no_backfill_t5",
+    "g0_ratio_t4_over_t5",
+    "gamma_ratio_t4_over_t5",
+    "vs_ratio_t4_over_t5"
+  ]
+}

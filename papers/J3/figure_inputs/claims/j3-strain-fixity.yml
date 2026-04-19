@@ -1,0 +1,76 @@
+# Claim witness — j3-strain-fixity
+#
+# Strain elevation ratios distinguish bending (fixity-point migration)
+# from tilting (no migration). T4 bot/mid jumps +17.8% at the first
+# scour stage and plateaus — textbook elastic fixity migration. T5
+# bot/mid stays flat (+0.06% drift) across all scour stages — no
+# fixity migration, rigid-body tilting from the start.
+
+claim_id: j3-strain-fixity
+paper: J3
+status: confirmed
+source: manuscript.qmd §4.1 + @fig-strain-fixity
+origin_note: |
+  bot/mid and bot/top RMS strain ratios for T4 and T5 across Baseline,
+  S/D=0.19, 0.39, 0.58, Backfill. T4 migrates +17.8% from 0.159 to
+  0.188 between baseline and S/D=0.19, then plateaus — classic
+  elastic-cantilever fixity-point descent. T5 stays at 0.173 +/- 0.001
+  across the entire scour range — no fixity migration, consistent
+  with rigid-body tilting not bending.
+
+headline: >
+  T4 bot/mid ratio jumps +17.8% at first scour stage (fixity migration,
+  elastic bending). T5 bot/mid stays at 0.173 across all stages (no
+  migration, rigid-body tilting).
+
+primary_figure: figures/j3-strain-fixity
+
+assertions:
+  - name: t4_bot_mid_baseline
+    parquet: strain-fixity.parquet
+    compute: {op: mean, column: bot_over_mid, filter: {test_id: T4, stage_raw: "0.0"}}
+    op: near
+    value: 0.159
+    tolerance: 0.001
+
+  - name: t4_bot_mid_at_019
+    parquet: strain-fixity.parquet
+    compute: {op: mean, column: bot_over_mid, filter: {test_id: T4, stage_raw: "0.194"}}
+    op: near
+    value: 0.188
+    tolerance: 0.001
+
+  - name: t4_bot_mid_at_058
+    parquet: strain-fixity.parquet
+    compute: {op: mean, column: bot_over_mid, filter: {test_id: T4, stage_raw: "0.582"}}
+    op: near
+    value: 0.187
+    tolerance: 0.001
+
+  - name: t5_bot_mid_baseline
+    parquet: strain-fixity.parquet
+    compute: {op: mean, column: bot_over_mid, filter: {test_id: T5, stage_raw: "0.0"}}
+    op: near
+    value: 0.173
+    tolerance: 0.001
+
+  - name: t5_bot_mid_at_058
+    parquet: strain-fixity.parquet
+    compute: {op: mean, column: bot_over_mid, filter: {test_id: T5, stage_raw: "0.582"}}
+    op: near
+    value: 0.174
+    tolerance: 0.001
+
+  - name: t4_fixity_migration_significant
+    parquet: strain-fixity.parquet
+    compute: {op: mean, column: t4_bot_mid_migration_pct}
+    op: near
+    value: 17.75
+    tolerance: 0.1
+
+  - name: t5_fixity_migration_negligible
+    parquet: strain-fixity.parquet
+    compute: {op: mean, column: t5_bot_mid_migration_pct}
+    op: between
+    lo: -0.5
+    hi: 0.5

@@ -1,0 +1,14 @@
+test_id:                     label
+density:                     label
+stage:                       label
+stage_raw:                   label
+s_over_d:                    dimensionless
+is_backfill:                 label
+bot_rms:                     microstrain
+mid_rms:                     microstrain
+top_rms:                     microstrain
+bot_over_mid:                ratio
+bot_over_top:                ratio
+mid_over_top:                ratio
+t4_bot_mid_migration_pct:    percent
+t5_bot_mid_migration_pct:    percent

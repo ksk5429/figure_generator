@@ -1,0 +1,28 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "strain-fixity",
+  "generated_utc": "2026-04-19T13:41:43Z",
+  "primary_source": {
+    "kind": "paper_csv",
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ3_oe02685\\analysis1\\results\\strain_elevation_ratios.csv",
+    "script_ref": "paperJ3_oe02685/plot_fig17_strain_fixity.py"
+  },
+  "rows": 10,
+  "columns": [
+    "test_id",
+    "density",
+    "stage",
+    "stage_raw",
+    "s_over_d",
+    "is_backfill",
+    "bot_rms",
+    "mid_rms",
+    "top_rms",
+    "bot_over_mid",
+    "bot_over_top",
+    "mid_over_top",
+    "t4_bot_mid_migration_pct",
+    "t5_bot_mid_migration_pct"
+  ]
+}

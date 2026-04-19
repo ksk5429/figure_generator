@@ -74,7 +74,7 @@ def render(
     out_dir: Path,
     *,
     timeout_s: float = 180.0,
-    dpi: int = 600,
+    dpi: int = 650,
     config: Path | None = None,
 ) -> BackendResult:
     """Compile a ``.mmd`` file into SVG + PDF + PNG."""

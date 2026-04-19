@@ -1,0 +1,85 @@
+# Claim witness — j3-cpt-results
+#
+# In-flight CPT characterisation: G_0, q_c, and derived density-state
+# parameters confirming the T1-T5 intended density contrast.
+
+claim_id: j3-cpt-results
+paper: J3
+status: confirmed
+source: manuscript.qmd §3 + Table 2 + @fig-cpt-results
+origin_note: |
+  Five series characterised by small-strain shear modulus G_0, cone tip
+  resistance q_c at each scour stage + backfill, and derived parameters
+  (V_s, gamma', e). The dense-vs-loose contrast is preserved in the
+  saturated pair (T4 70.2 % vs T5 60.8 % Dr).
+
+headline: >
+  CPT characterisation: dry T1/T2/T3 at G_0 = 23.5/15.9/15.7 MPa;
+  saturated T4/T5 at G_0 = 20.9/18.7 MPa. q_c drops from 2.38 (T4) /
+  1.86 (T5) MPa pre-backfill to 3.96 / 3.07 MPa post-backfill.
+
+primary_figure: figures/j3-cpt-results
+
+assertions:
+  - name: g0_t1_at_23_5
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: g0_mpa, filter: {test_id: T1, panel: "a"}}
+    op: near
+    value: 23.5
+    tolerance: 0.05
+
+  - name: g0_t4_at_20_9
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: g0_mpa, filter: {test_id: T4, panel: "a"}}
+    op: near
+    value: 20.9
+    tolerance: 0.05
+
+  - name: g0_t5_at_18_7
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: g0_mpa, filter: {test_id: T5, panel: "a"}}
+    op: near
+    value: 18.7
+    tolerance: 0.05
+
+  - name: qc_t4_at_max_scour
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: qc_mpa, filter: {test_id: T4, stage: "S/D=0.58"}}
+    op: near
+    value: 1.87
+    tolerance: 0.01
+
+  - name: qc_t5_at_max_scour
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: qc_mpa, filter: {test_id: T5, stage: "S/D=0.58"}}
+    op: near
+    value: 1.72
+    tolerance: 0.01
+
+  - name: qc_t4_backfill_jump
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: qc_mpa, filter: {test_id: T4, stage: "Backfill"}}
+    op: near
+    value: 3.96
+    tolerance: 0.01
+
+  - name: qc_t5_backfill_jump
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: qc_mpa, filter: {test_id: T5, stage: "Backfill"}}
+    op: near
+    value: 3.07
+    tolerance: 0.01
+
+  - name: g0_ratio_dense_over_loose_sat
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: g0_ratio_t4_over_t5}
+    op: near
+    value: 1.118
+    tolerance: 0.01
+
+  - name: vs_ratio_t4_t5
+    parquet: cpt-results.parquet
+    compute: {op: mean, column: vs_ratio_t4_over_t5}
+    op: near
+    value: 1.049
+    tolerance: 0.01

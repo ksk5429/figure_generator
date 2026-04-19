@@ -96,6 +96,52 @@ slope-ratio bar chart with ×6.96 and ×1.94 called out.
 **Machine-checkable assertion:**
 see [`figure_inputs/claims/j3-saturation-factor.yml`](../figure_inputs/claims/j3-saturation-factor.yml).
 
+### `j3-strain-fixity` — confirmed (2026-04-19)
+
+**Headline:** Strain-elevation ratios (bot/mid, bot/top) are a
+dimensionless bending-vs-tilting discriminator. T4 bot/mid climbs
+**+17.8 %** at the first scour stage and plateaus — elastic-cantilever
+fixity-point migration. T5 bot/mid stays at 0.173 ± 0.001 across
+every scour stage — **no migration**, rigid-body tilting from the
+start.
+
+**Witness:** the J3-12 single-panel strain-elevation plot across
+scour stages, with fixity-migration vs no-migration callouts.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-strain-fixity.yml`](../figure_inputs/claims/j3-strain-fixity.yml).
+
+### `j3-indicator-hierarchy` — confirmed (2026-04-19)
+
+**Headline:** At _S_/_D_ = 0.58, eight monitoring indicators show
+wildly different T5/T4 amplification ratios. Frequency only ×3.0
+while displacement ×51.8 and asymmetry index ×113 — the
+bending-to-tilting transition is essentially invisible to frequency
+monitoring alone.
+
+**Witness:** the J3-11 log-scale grouped bar chart of 8 indicators
+at max scour for T4 and T5.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-indicator-hierarchy.yml`](../figure_inputs/claims/j3-indicator-hierarchy.yml).
+
+### `j3-cpt-results` — confirmed (2026-04-19)
+
+**Headline:** In-flight CPT characterisation confirms the intended
+density contrast across the five centrifuge series — _G_0 = 23.5
+(T1 dense dry), 15.9 (T2 loose dry), 15.7 (T3 sand-silt), 20.9
+(T4 dense sat.), 18.7 (T5 loose sat.) MPa. q_c drops smoothly with
+scour in both saturated tests and rebounds to 3.96 / 3.07 MPa after
+No. 5 backfill (stiffer than either native dense or loose sand).
+
+**Witness:** the J3-10 three-panel CPT figure — (a) _G_0 bar chart
+for all five series, (b) q_c per stage for T4 and T5 with backfill
+highlighted, (c) normalized-parameter comparison of _G_0, _V_s,
+_γ'_ and _e_ between T4 and T5.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-cpt-results.yml`](../figure_inputs/claims/j3-cpt-results.yml).
+
 ### `j3-backfill-recovery` — confirmed (2026-04-19)
 
 **Headline:** Backfill recovery after the maximum scour stage is

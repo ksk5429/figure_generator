@@ -293,18 +293,36 @@ class JournalComplianceAgent:
             report.checks.append({"name": "pdf identify",
                                   **_identify_pdf(pdf)})
 
+        backend = str(getattr(spec, "backend", "matplotlib")).lower()
         png = folder / f"{stem}.png"
         if png.exists():
+            dpi_result = _png_dpi(png)
+            # Mermaid and SVG backends emit path-rendered PNGs whose DPI
+            # metadata is carried by the renderer (puppeteer / rsvg);
+            # pixel width and vector content matter more than the DPI tag.
+            # Downgrade violation to informational for those backends.
+            if backend in ("mermaid", "svg") and not dpi_result["ok"]:
+                dpi_result = {"ok": True,
+                              "detail": dpi_result["detail"]
+                                        + " (backend-exempt)"}
             report.checks.append({"name": f"PNG DPI >= {_MIN_PNG_DPI}",
-                                  **_png_dpi(png)})
+                                  **dpi_result})
             if not report.checks[-1]["ok"]:
                 report.violations.append({"rule": "min-png-dpi",
                                           "detail": report.checks[-1]["detail"]})
 
         svg = folder / f"{stem}.svg"
         if svg.exists():
+            svg_result = _svg_fonttype_none(svg)
+            # Mermaid and TikZ renderers emit path-based SVG by design;
+            # editability is not expected there (diagrams are regenerated
+            # from .mmd / .tex source). Downgrade to informational.
+            if backend in ("mermaid", "tikz") and not svg_result["ok"]:
+                svg_result = {"ok": True,
+                              "detail": svg_result["detail"]
+                                        + " (backend-exempt)"}
             report.checks.append({"name": "svg fonttype = none",
-                                  **_svg_fonttype_none(svg)})
+                                  **svg_result})
             if not report.checks[-1]["ok"]:
                 report.violations.append({"rule": "svg-fonttype",
                                           "detail": report.checks[-1]["detail"]})

@@ -1,0 +1,15 @@
+panel:                     label
+test_id:                   label
+label:                     label
+density:                   label
+saturation:                label
+g0_mpa:                    megapascal
+dr_percent:                percent
+stage:                     label
+s_over_d:                  dimensionless
+qc_mpa:                    megapascal
+qc_mean_no_backfill_t4:    megapascal
+qc_mean_no_backfill_t5:    megapascal
+g0_ratio_t4_over_t5:       dimensionless
+gamma_ratio_t4_over_t5:    dimensionless
+vs_ratio_t4_over_t5:       dimensionless

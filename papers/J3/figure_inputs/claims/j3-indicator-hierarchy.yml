@@ -1,0 +1,72 @@
+# Claim witness — j3-indicator-hierarchy
+#
+# Scour-monitoring indicator sensitivity at maximum scour S/D = 0.58.
+# Quantifies which indicators amplify most between T4 (dense sat.,
+# elastic bending) and T5 (loose sat., bending-to-tilting transition).
+
+claim_id: j3-indicator-hierarchy
+paper: J3
+status: confirmed
+source: manuscript.qmd §5 Table 4 + @fig-indicator-hierarchy
+origin_note: |
+  Eight monitoring indicators scored at S/D = 0.58 for T4 and T5.
+  Frequency amplification is only x3.0 while displacement shows x51.8
+  and the asymmetry index x113 — frequency alone is the weakest
+  early-warning signal.
+
+headline: >
+  Frequency amplification T5/T4 = x3.0 at max scour, but displacement
+  = x51.8, asymmetry = x113, settlement rate = x35.5. Frequency
+  monitoring alone grossly under-represents the bending-to-tilting
+  transition.
+
+primary_figure: figures/j3-indicator-hierarchy
+
+assertions:
+  - name: freq_t5_near_2_58
+    parquet: indicator-hierarchy.parquet
+    compute: {op: mean, column: t5_value, filter: {key: frequency}}
+    op: near
+    value: 2.58
+    tolerance: 0.01
+
+  - name: displacement_t5_near_327
+    parquet: indicator-hierarchy.parquet
+    compute: {op: mean, column: t5_value, filter: {key: displacement}}
+    op: near
+    value: 326.5
+    tolerance: 1.0
+
+  - name: asymmetry_t5_near_5_66
+    parquet: indicator-hierarchy.parquet
+    compute: {op: mean, column: t5_value, filter: {key: asymmetry}}
+    op: near
+    value: 5.66
+    tolerance: 0.02
+
+  - name: ratio_displacement_near_52
+    parquet: indicator-hierarchy.parquet
+    compute: {op: mean, column: ratio_t5_t4, filter: {key: displacement}}
+    op: near
+    value: 51.8
+    tolerance: 0.1
+
+  - name: ratio_asymmetry_near_113
+    parquet: indicator-hierarchy.parquet
+    compute: {op: mean, column: ratio_t5_t4, filter: {key: asymmetry}}
+    op: near
+    value: 113.2
+    tolerance: 0.2
+
+  - name: ratio_frequency_near_3
+    parquet: indicator-hierarchy.parquet
+    compute: {op: mean, column: ratio_t5_t4, filter: {key: frequency}}
+    op: near
+    value: 3.04
+    tolerance: 0.03
+
+  - name: displacement_ratio_exceeds_frequency_ratio
+    parquet: indicator-hierarchy.parquet
+    compute: {op: mean, column: ratio_t5_t4, filter: {key: displacement}}
+    op: greater
+    value: 10.0

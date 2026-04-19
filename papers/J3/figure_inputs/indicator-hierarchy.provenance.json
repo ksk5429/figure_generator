@@ -1,0 +1,46 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "indicator-hierarchy",
+  "generated_utc": "2026-04-19T13:37:09Z",
+  "primary_source": {
+    "kind": "paper_script",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd \u00a75 Table 4",
+    "script_ref": "paperJ3_oe02685/plot_fig16_indicator_hierarchy.py"
+  },
+  "t4_values": [
+    0.85,
+    1.7,
+    2.0,
+    10.9,
+    6.3,
+    0.38,
+    0.05,
+    0.054
+  ],
+  "t5_values": [
+    2.58,
+    5.09,
+    23.0,
+    10.8,
+    326.5,
+    13.5,
+    5.66,
+    0.837
+  ],
+  "headline_ratios": {
+    "frequency": 3.035294117647059,
+    "displacement": 51.82539682539683,
+    "asymmetry": 113.2
+  },
+  "rows": 8,
+  "columns": [
+    "key",
+    "indicator",
+    "symbol",
+    "sd_at",
+    "t4_value",
+    "t5_value",
+    "ratio_t5_t4"
+  ]
+}

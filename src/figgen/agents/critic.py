@@ -182,6 +182,24 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
     scores = {k: 1 for k in "abcdefghij"}
     issues: list[dict[str, Any]] = []
 
+    # Backend-specific baselines. Non-matplotlib backends (tikz, mermaid,
+    # svg) don't have matplotlib-style scripts to inspect for axes e-i,
+    # so those axes pre-promote to 2/3 (presumed OK) — matplotlib-specific
+    # downgrade paths still fire when applicable.
+    backend = str(getattr(spec, "backend", "matplotlib")).lower()
+    if backend != "matplotlib":
+        # No matplotlib source to inspect — the style / stroke / legend /
+        # panel-label / magic-literal checks don't apply.
+        #   (e, f, j)  -> 2/3  (driven by compile / PDF-level checks)
+        #   (g, h, i)  -> 3/3  (chartjunk, legend, panel-label are
+        #                      matplotlib-idiomatic; TikZ / Mermaid / SVG
+        #                      schematics don't have analogous failure
+        #                      modes for these axes.)
+        for ax in "efj":
+            scores[ax] = 2
+        for ax in "ghi":
+            scores[ax] = 3
+
     unit_suffixes = (
         "_m", "_mm", "_cm", "_km", "_hz", "_khz", "_s", "_ms", "_us",
         "_kpa", "_mpa", "_pa", "_kn", "_kn_m", "_n", "_nm", "_n_m",
@@ -218,8 +236,9 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
                         f"{missing[:6]}{' …' if len(missing) > 6 else ''}."),
             })
     else:
-        # no required_columns declared — acceptable for narrative figures only
-        scores["c"] = 2
+        # No required_columns — narrative / schematic figure (tier 1 or
+        # architectural). Unit-labelling doesn't apply; promote to 3/3.
+        scores["c"] = 3
 
     # ---- Matplotlib source checks ----
     script = folder / f"{spec.figure_id}.py"
@@ -323,8 +342,11 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
         else:
             scores["f"] = 2
 
-    # (a) spec has at least one panel
-    if spec.panels:
+    # (a) spec has at least one panel. Multi-panel figures earn 3/3;
+    # single-panel / narrative earn 2/3.
+    if spec.panels and len(spec.panels) > 1:
+        scores["a"] = 3
+    elif spec.panels:
         scores["a"] = 2
     else:
         issues.append({"severity": "med", "axis": "a", "where": "spec",

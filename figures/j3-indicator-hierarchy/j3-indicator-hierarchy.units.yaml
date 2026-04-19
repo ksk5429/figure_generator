@@ -1,0 +1,7 @@
+key:          label
+indicator:    label
+symbol:       label
+sd_at:        dimensionless
+t4_value:     percent
+t5_value:     percent
+ratio_t5_t4:  dimensionless

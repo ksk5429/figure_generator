@@ -1,0 +1,38 @@
+figure_id: j3-strain-fixity
+journal: ocean_engineering
+width: single
+
+paper: J3
+claim_id: j3-strain-fixity
+tier: 2
+tier2_slug: strain-fixity
+
+description: >
+  Strain-elevation ratios as a bending-vs-tilting discriminator
+  (manuscript §4.1). Single panel at 85 mm column width. RMS strain
+  ratios bot/mid and bot/top plotted against S/D for T4 (dense sat.,
+  elastic bending) and T5 (loose sat., rigid-body tilting). T4 bot/mid
+  jumps +17.8 % from baseline to the first scour stage and plateaus —
+  textbook fixity-point migration. T5 bot/mid stays at 0.173 +/- 0.001
+  across every stage — no migration, consistent with rigid-body
+  tilting about the yielded upwind bucket. Post-backfill values shown
+  as star markers at S/D = 0.65 offset.
+
+data_sources:
+  - papers/J3/figure_inputs/strain-fixity.parquet
+
+required_columns:
+  - test_id
+  - density
+  - stage
+  - stage_raw
+  - s_over_d
+  - is_backfill
+  - bot_rms
+  - mid_rms
+  - top_rms
+  - bot_over_mid
+  - bot_over_top
+  - mid_over_top
+
+formats: [png, svg, pdf]

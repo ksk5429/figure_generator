@@ -1,0 +1,33 @@
+figure_id: j3-indicator-hierarchy
+journal: ocean_engineering
+width: double
+
+paper: J3
+claim_id: j3-indicator-hierarchy
+tier: 2
+tier2_slug: indicator-hierarchy
+
+description: >
+  Normalised indicator hierarchy at the deepest scour stage (S/D=0.58),
+  manuscript §5 Table 4. Grouped log-scale bar chart for eight
+  monitoring indicators — Frequency, Stiffness, Damping, Bottom strain,
+  Displacement, Settlement rate, Asymmetry index, Composite SDI —
+  comparing T4 (dense sat.) and T5 (loose sat.). The T5/T4 ratio is
+  annotated above each pair. Key observation: displacement ×51.8,
+  asymmetry index ×113, while frequency only ×3.0 — frequency alone is
+  the weakest early-warning signal for the bending-to-tilting
+  transition.
+
+data_sources:
+  - papers/J3/figure_inputs/indicator-hierarchy.parquet
+
+required_columns:
+  - key
+  - indicator
+  - symbol
+  - sd_at
+  - t4_value
+  - t5_value
+  - ratio_t5_t4
+
+formats: [png, svg, pdf]

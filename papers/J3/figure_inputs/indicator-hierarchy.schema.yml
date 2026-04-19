@@ -1,0 +1,23 @@
+claim_id: j3-indicator-hierarchy
+columns:
+- name: key
+  dtype: string
+  unit: label
+- name: indicator
+  dtype: string
+  unit: label
+- name: symbol
+  dtype: string
+  unit: label
+- name: sd_at
+  dtype: float64
+  unit: dimensionless
+- name: t4_value
+  dtype: float64
+  unit: percent
+- name: t5_value
+  dtype: float64
+  unit: percent
+- name: ratio_t5_t4
+  dtype: float64
+  unit: dimensionless
