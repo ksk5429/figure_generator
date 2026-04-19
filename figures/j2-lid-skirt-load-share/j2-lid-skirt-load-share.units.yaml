@@ -1,0 +1,11 @@
+scour_m:           meter
+s_over_d:          dimensionless
+status:            category         # {OK}
+h_ult_vh_kn:       kilonewton
+fx_lid_kn:         kilonewton
+fx_skirt_kn:       kilonewton
+fx_total_kn:       kilonewton
+lid_share_ratio:   dimensionless    # lid_force / total_force
+skirt_share_ratio: dimensionless
+lid_share_pct:     percent          # 100 * lid_share_ratio
+skirt_share_pct:   percent

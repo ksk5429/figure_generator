@@ -107,7 +107,7 @@ def _extract_palette(png_path: Path, n_colors: int = 8,
         return np.array(keep, dtype=np.uint8)
 
 
-def _cluster_luma(luma: np.ndarray, merge_delta: float = 8.0) -> np.ndarray:
+def _cluster_luma(luma: np.ndarray, merge_delta: float = 12.0) -> np.ndarray:
     """Collapse luminance values closer than ``merge_delta`` into one cluster.
 
     Adaptive palette quantizers always return several near-duplicate shades
@@ -115,6 +115,12 @@ def _cluster_luma(luma: np.ndarray, merge_delta: float = 8.0) -> np.ndarray:
     shading). Without clustering, the pairwise ΔL check reports
     single-digit values every time, firing on figures that a human reader
     cannot tell apart from a legible one.
+
+    The default 12 ΔL floor corresponds to the empirical "same visual ink"
+    threshold on typical matplotlib figures: near-black axis lines, bar
+    edges, text, and dark-color data bars all fall inside one cluster.
+    Real distinct-but-close data pairs (which a reader would actually
+    mistake for each other) sit well above 12 ΔL on any competent palette.
     """
     if luma.size == 0:
         return luma

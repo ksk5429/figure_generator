@@ -28,7 +28,7 @@ papers/J2/
 | Claim ID | Headline |
 |---|---|
 | `j2-speedup-five-orders` | Mode C runs in <10 ms; ≥5 orders of magnitude faster than 3D-FE |
-| `j2-load-sharing`     | Modal load-sharing predicts hub-level VH within ±X% of 3D-FE |
+| `j2-lid-skirt-load-share` | Skirt carries 97-99% of lateral load; lid share rises from 1% to 2.6% over 0 ≤ S/D ≤ 0.5 (answers R2 C5) |
 | `j2-vh-envelope`      | VH envelope evolution over 4 stages matches monotonic scour |
 | `j2-backbone-match`   | Calibrated p-y backbones match bucket-level load–displacement |
 | `j2-vh-anchoring`     | Fixed anchoring points preserve the envelope's outer hull |

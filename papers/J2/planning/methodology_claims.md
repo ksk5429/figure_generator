@@ -23,10 +23,13 @@ expressed in `j2-runtime-bar` (corresponds to manuscript `@tbl-walltime`).
 
 ## Supporting claims
 
-**C2 — Modal load-sharing is accurate.**
-`j2-load-sharing`: hub-level (V, H) predictions differ from the 3D-FE
-reference by less than the stated tolerance (target: < 10% MAPE on the
-held-out validation set).
+**C2 — Lid vs skirt lateral load share is skirt-dominated and scour-sensitive.**
+`j2-lid-skirt-load-share`: integrated 3D-FE stress-field data shows the
+skirt carries 97–99% of the horizontal load at the VH-envelope limit
+state; the lid share increases from ≈1.0% at intact seabed (S/D = 0) to
+≈2.6% at S/D = 0.5. This figure directly answers Reviewer R2 Comment 5
+(quantifying "lid bearing contribution vs scour depth"). Witnessed by
+`j2-lid-skirt-load-share` and expressed in `j2-lid-skirt-load-share`.
 
 **C3 — VH envelope evolution is physically monotonic.**
 `j2-vh-envelope`: across the four scour stages, the outer hull shrinks

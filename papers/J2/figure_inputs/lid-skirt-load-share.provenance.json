@@ -1,0 +1,32 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "lid-skirt-load-share",
+  "generated_utc": "2026-04-19T03:30:09Z",
+  "primary_source": {
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\load_share_lid_vs_skirt_tensor_integration.csv",
+    "md5_8": "4494b240",
+    "kind": "csv",
+    "upstream_script": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\extract_load_share.py",
+    "note": "3D-FE stress field integrated over lid and skirt surfaces at the VH-envelope limit state, 5 scour levels."
+  },
+  "manuscript_refs": {
+    "reviewer_comment": "R2 Comment 5 \u2014 proportion of lid bearing vs scour depth",
+    "target_section": "Section 4.1 Engineering Analysis of Inherent Resilience"
+  },
+  "rows": 5,
+  "columns": [
+    "scour_m",
+    "s_over_d",
+    "status",
+    "h_ult_vh_kn",
+    "fx_lid_kn",
+    "fx_skirt_kn",
+    "fx_total_kn",
+    "lid_share_ratio",
+    "skirt_share_ratio",
+    "lid_share_pct",
+    "skirt_share_pct"
+  ],
+  "sign_convention": "forces reported as magnitudes (abs value); original CSV carries signed values"
+}

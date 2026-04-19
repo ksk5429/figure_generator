@@ -1,0 +1,39 @@
+claim_id: j2-lid-skirt-load-share
+columns:
+- name: scour_m
+  dtype: float64
+  unit: meter
+- name: s_over_d
+  dtype: float64
+  unit: dimensionless
+- name: status
+  dtype: str
+  allowed:
+  - OK
+- name: h_ult_vh_kn
+  dtype: float64
+  unit: kilonewton
+  note: ultimate horizontal capacity at VH envelope
+- name: fx_lid_kn
+  dtype: float64
+  unit: kilonewton
+  note: integrated lateral force on lid (magnitude)
+- name: fx_skirt_kn
+  dtype: float64
+  unit: kilonewton
+  note: integrated lateral force on skirt (magnitude)
+- name: fx_total_kn
+  dtype: float64
+  unit: kilonewton
+- name: lid_share_ratio
+  dtype: float64
+  unit: dimensionless
+- name: skirt_share_ratio
+  dtype: float64
+  unit: dimensionless
+- name: lid_share_pct
+  dtype: float64
+  unit: percent
+- name: skirt_share_pct
+  dtype: float64
+  unit: percent

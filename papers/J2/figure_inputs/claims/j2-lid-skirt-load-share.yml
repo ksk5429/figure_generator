@@ -1,0 +1,100 @@
+# Claim witness — j2-lid-skirt-load-share
+#
+# Directly answers Reviewer R2 Comment 5:
+#   "no quantitative analysis of these mechanisms has been conducted
+#    ... the variation of the proportion of lid bearing in the total
+#    lateral resistance with scour depth."
+#
+# The 3D-FE stress field was integrated over the lid (top cap) and
+# skirt (vertical wall) surfaces at the VH-envelope limit state for
+# five scour levels. The skirt dominates lateral resistance by design
+# (large bearing area, deep embedment); the lid contribution is small
+# at intact seabed and grows modestly under scour as skirt embedment
+# is lost.
+
+claim_id: j2-lid-skirt-load-share
+paper: J2
+status: submitted  # R2 due 2026-04-29
+source: manuscript.qmd Section 4.1 (to add); Reviewer R2 Comment 5
+origin_note: |
+  Reviewer R2 explicitly asked for a quantitative breakdown of lid vs
+  skirt lateral resistance vs scour depth. The integrated stress-field
+  data show the skirt carrying ~97-99% at all scour levels, with the
+  lid share growing from ~1.0% at S/D=0 to ~2.6% at S/D=0.5.
+
+headline: >
+  Skirt friction carries >=95% of the lateral load at all scour levels;
+  the lid share grows from ~1% at intact seabed to ~2.6% at S/D = 0.5,
+  a factor-of-roughly-2.5 increase.
+
+primary_figure: figures/j2-lid-skirt-load-share
+
+assertions:
+
+  # ----- Lid share at S/D = 0 sits in the "~1%" band -----
+  - name: lid_share_at_zero_scour
+    parquet: lid-skirt-load-share.parquet
+    compute:
+      op: mean
+      filter:
+        s_over_d: 0.0
+      column: lid_share_pct
+    op: between
+    lo: 0.5
+    hi: 2.0
+    tolerance: 0.0
+
+  # ----- Lid share at S/D = 0.5 sits in the "~2.5%" band -----
+  - name: lid_share_at_max_scour
+    parquet: lid-skirt-load-share.parquet
+    compute:
+      op: mean
+      filter:
+        s_over_d: 0.5
+      column: lid_share_pct
+    op: between
+    lo: 2.0
+    hi: 4.0
+
+  # ----- Skirt share at S/D = 0 must be >= 95% (and <= 100) -----
+  - name: skirt_share_at_zero_scour
+    parquet: lid-skirt-load-share.parquet
+    compute:
+      op: mean
+      filter:
+        s_over_d: 0.0
+      column: skirt_share_pct
+    op: between
+    lo: 97.0
+    hi: 100.0
+
+  # ----- Skirt share at S/D = 0.5 must remain >= 95% -----
+  - name: skirt_share_at_max_scour
+    parquet: lid-skirt-load-share.parquet
+    compute:
+      op: mean
+      filter:
+        s_over_d: 0.5
+      column: skirt_share_pct
+    op: greater
+    value: 95.0
+
+  # ----- Average lid share across all 5 levels should be between 1% and 3% -----
+  - name: lid_share_mean_across_scour
+    parquet: lid-skirt-load-share.parquet
+    compute:
+      op: mean
+      column: lid_share_pct
+    op: between
+    lo: 1.0
+    hi: 3.0
+
+  # ----- Row inventory: 5 scour levels, all OK -----
+  - name: row_inventory
+    parquet: lid-skirt-load-share.parquet
+    compute:
+      op: row_counts
+      group_by: status
+    op: equal
+    value:
+      OK: 5

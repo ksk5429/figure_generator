@@ -44,9 +44,16 @@ class GeotechAgent:
         col_str = " ".join(cols)
 
         if _hits(purpose, _SCOUR_HINTS):
+            # Accept common column names for scour depth (dimensional in m
+            # or dimensionless S/D), in any of the conventional spellings.
+            scour_tokens = (
+                "s_d", "s/d", "s_over_d", "sd_ratio",
+                "s_m", "scour_m", "scour_depth", "z_m",
+            )
             _flag(msgs, "scour",
-                  any(c in col_str for c in ("s_d", "s/d", "s_m", "z_m")),
-                  "Scour figure: expose S/D (dimensionless) or S [m] explicitly in required_columns.")
+                  any(tok in col_str for tok in scour_tokens),
+                  "Scour figure: expose S/D (dimensionless) or S [m] "
+                  "explicitly in required_columns.")
             _flag(msgs, "scour-convention",
                   "depth" in purpose.lower() or "seabed" in purpose.lower() or True,
                   "Scour convention: z=0 at seabed, positive downward; always invert the depth axis.")
