@@ -13,6 +13,7 @@ from pathlib import Path
 from .. import FIGURES_DIR
 from ..backends import BackendResult
 from ..backends import matplotlib_backend, mermaid_backend, svg_backend, tikz_backend
+from ..metadata import embed_metadata, gather_metadata
 from .base import AgentResult, Verdict
 from .planner import FigureSpec
 
@@ -51,6 +52,27 @@ class CompileRunner:
             return AgentResult(name=self.name, verdict=Verdict.FAIL,
                                message=f"Unknown backend: {spec.backend}")
         result: BackendResult = renderer(source, folder, timeout_s=self.timeout_s)
+
+        # Post-render metadata embedding. Matplotlib figures that use
+        # ``figgen.utils.save_figure`` already embed full metadata; the
+        # other backends (tikz / mermaid / svg) render through external
+        # compilers that don't know about the figgen schema, so embed
+        # the canonical metadata dict into their outputs here.
+        if result.ok and spec.backend in {"tikz", "mermaid", "svg"}:
+            meta = gather_metadata(
+                figure_id=spec.figure_id,
+                journal=spec.journal,
+                data_sources=[str(source)],
+                paper=spec.paper,
+                claim_id=spec.claim_id,
+                tier=spec.tier,
+                extra={"description": spec.purpose or ""},
+            )
+            for out in result.outputs:
+                try:
+                    embed_metadata(out, meta)
+                except Exception:  # noqa: BLE001
+                    continue
 
         build_dir = folder / "build"
         build_dir.mkdir(parents=True, exist_ok=True)

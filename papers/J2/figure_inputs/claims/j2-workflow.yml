@@ -1,0 +1,32 @@
+# Claim witness — j2-workflow
+#
+# Structural / architectural claim (marked ⚠ in planning/methodology_claims.md).
+# No Tier-2 parquet exists because the claim is about the shape of the
+# computational pipeline, not about a numeric result. The claim is
+# witnessed by the Mermaid source surviving a structural check: the
+# diagram must contain exactly three phases, an input gate, an output
+# gate, and a validation loop.
+#
+# The witness agent will SKIP on "inconclusive" for narrative claims like
+# this; the orchestrator still runs the Mermaid backend and journal-
+# compliance gate, which are the real correctness checks here.
+
+claim_id: j2-workflow
+paper: J2
+status: submitted
+source: manuscript.qmd Section 2.1 Computational Workflow
+origin_note: |
+  This figure answers Reviewer R2 Comment 4 (computational efficiency —
+  covered quantitatively by j2-runtime-bar) by showing the architecture
+  that yields the speedup: three automated phases replacing the
+  iteration-by-iteration 3D FE workflow.
+
+headline: >
+  Exactly three computational phases: OptumGX 3D-FE -> Python parameter
+  extraction -> OpenSeesPy structural dynamics, with centrifuge and
+  field-data validation loops.
+
+primary_figure: figures/j2-workflow
+
+# No parquet assertions for this narrative claim.
+assertions: []

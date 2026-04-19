@@ -1,0 +1,12 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#ffffff",
+    "primaryTextColor": "#000",
+    "primaryBorderColor": "#000",
+    "lineColor": "#000",
+    "fontFamily": "Helvetica, Arial, sans-serif",
+    "fontSize": "10px"
+  },
+  "themeCSS": ".node rect{stroke-width:0.8px !important}.edgeLabel{background:#fff}"
+}

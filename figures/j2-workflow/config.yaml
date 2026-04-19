@@ -1,0 +1,24 @@
+figure_id: j2-workflow
+journal: ocean_engineering
+width: double
+backend: mermaid
+
+paper: J2
+claim_id: j2-workflow
+tier: 1  # structural / narrative — no parquet payload
+
+description: >
+  Computational workflow of the Op³ framework as described in manuscript
+  Section 2.1: Inputs → Phase 1 (OptumGX 3D-FE) → Phase 2 (Python parameter
+  extraction) → Phase 3 (OpenSeesPy structural dynamics) → Outputs, with
+  validation loops against centrifuge tests and Gunsan field monitoring.
+  Replaces the current figures_final2/Fig_01_Workflow_v1.png.
+
+source: j2-workflow.mmd
+
+data_sources:
+  - figures/j2-workflow/j2-workflow.mmd
+
+required_columns: []  # architectural figure — no tabular data
+
+formats: [png, svg, pdf]

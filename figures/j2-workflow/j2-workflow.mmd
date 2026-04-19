@@ -1,0 +1,72 @@
+flowchart TB
+
+    %% Inputs ---------------------------------------------------------------
+    subgraph IN["Inputs"]
+        direction LR
+        site["Site: Gunsan clay<br/>s_u profile, OCR, γ'"]
+        geom["Foundation<br/>D = 8 m, L = 9.3 m<br/>3 buckets, tripod"]
+        scour["Scour sweep<br/>S = 0…5.0 m<br/>(11 levels)"]
+    end
+
+    %% Phase 1 — 3D FE Analysis (OptumGX) ----------------------------------
+    subgraph P1["Phase 1: 3D FE Analysis (OptumGX)"]
+        direction LR
+        ld["Load-deformation<br/>target 80 mm = 1% D<br/>quasi-linear regime"]
+        la["Limit analysis<br/>upper + lower bound<br/>20 polar VH angles"]
+        out1["σ(z), τ(z) per element<br/>VH envelope per scour"]
+        ld --> out1
+        la --> out1
+    end
+
+    %% Phase 2 — Parameter Extraction (Python) -----------------------------
+    subgraph P2["Phase 2: Parameter Extraction (Python)"]
+        direction LR
+        fx["Fourier decomposition<br/>keep 1st harmonic<br/>drop axisymmetric"]
+        fit["Hyperbolic backbone<br/>p-y, t-z, Q-z<br/>per 0.5 m depth slice"]
+        pl["Power-law fit<br/>K(z) = A · z^B"]
+        vhc["VH integral constraint<br/>global equilibrium"]
+        springs["Calibrated springs<br/>p-y, t-z, Q-z<br/>per scour"]
+        fx --> fit --> pl --> springs
+        vhc --> springs
+    end
+
+    %% Phase 3 — 1D Structural Dynamics (OpenSeesPy) -----------------------
+    subgraph P3["Phase 3: Structural Dynamics (OpenSeesPy)"]
+        direction LR
+        asm["BNWF assembly<br/>spine + radial beams<br/>tower Gauss-Lobatto"]
+        mass["Masses<br/>soil plug, marine growth<br/>hydro added, RNA"]
+        stress["Stress correction<br/>overburden loss<br/>below scoured mudline"]
+        eig["Eigenvalue<br/>analysis"]
+        asm --> mass --> stress --> eig
+    end
+
+    %% Outputs --------------------------------------------------------------
+    subgraph OUT["Outputs"]
+        direction LR
+        f1["f₁(S)<br/>natural frequency<br/>vs scour depth"]
+        pw["Power-law<br/>|Δf/f₀| = 0.167 (S/D)^1.47"]
+        f1 --> pw
+    end
+
+    %% Validation -----------------------------------------------------------
+    subgraph VAL["Validation"]
+        direction LR
+        cent["Centrifuge<br/>70g tests<br/>Kim 2025"]
+        field["Gunsan field data<br/>32 months<br/>−3.9% on f₀"]
+    end
+
+    %% Edges between subgraphs --------------------------------------------
+    IN  --> P1
+    P1  --> P2
+    P2  --> P3
+    P3  --> OUT
+    OUT -.->|compare| VAL
+
+    %% Styling -------------------------------------------------------------
+    classDef phase fill:#ffffff,stroke:#000,stroke-width:0.8px,color:#000
+    classDef inout fill:#f3f3f3,stroke:#000,stroke-width:0.8px,color:#000
+    classDef valnode fill:#ffffff,stroke:#555,stroke-width:0.7px,color:#333,stroke-dasharray:3 2
+
+    class site,geom,scour,f1,pw inout
+    class ld,la,out1,fx,fit,pl,vhc,springs,asm,mass,stress,eig phase
+    class cent,field valnode
