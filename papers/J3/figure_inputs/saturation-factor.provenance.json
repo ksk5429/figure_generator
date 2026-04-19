@@ -1,0 +1,138 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "saturation-factor",
+  "generated_utc": "2026-04-19T11:26:04Z",
+  "primary_source": {
+    "kind": "manuscript_revision",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd \u00a74.2 + Table 3 + code/generate_revision_figures.py::fig_saturation_factor"
+  },
+  "series": {
+    "T1": {
+      "label": "Dense dry",
+      "SD": [
+        0.0,
+        0.2,
+        0.34,
+        0.49
+      ],
+      "df_pct": [
+        0.0,
+        1.88,
+        3.13,
+        5.0
+      ]
+    },
+    "T2": {
+      "label": "Loose dry",
+      "SD": [
+        0.0,
+        0.3,
+        0.43,
+        0.61
+      ],
+      "df_pct": [
+        0.0,
+        1.32,
+        2.63,
+        5.26
+      ]
+    },
+    "T3": {
+      "label": "Sand-silt",
+      "SD": [
+        0.0,
+        0.29,
+        0.49,
+        0.56
+      ],
+      "df_pct": [
+        0.0,
+        1.95,
+        3.9,
+        5.19
+      ]
+    },
+    "T4": {
+      "label": "Dense sat.",
+      "SD": [
+        0.0,
+        0.19,
+        0.39,
+        0.58
+      ],
+      "df_pct": [
+        0.0,
+        0.35,
+        0.61,
+        0.85
+      ]
+    },
+    "T5": {
+      "label": "Loose sat.",
+      "SD": [
+        0.0,
+        0.19,
+        0.39,
+        0.58
+      ],
+      "df_pct": [
+        0.0,
+        0.52,
+        1.24,
+        2.58
+      ]
+    }
+  },
+  "slopes_pct_per_sd": {
+    "T1": 10.204081632653061,
+    "T2": 8.62295081967213,
+    "T3": 9.267857142857142,
+    "T4": 1.4655172413793105,
+    "T5": 4.448275862068966
+  },
+  "power_law_fits": {
+    "T1": {
+      "a": 11.160987463061769,
+      "b": 1.1401905019001497
+    },
+    "T2": {
+      "a": 13.872815153600103,
+      "b": 1.9634895581811282
+    },
+    "T3": {
+      "a": 12.216284526617578,
+      "b": 1.5242337745183807
+    },
+    "T4": {
+      "a": 1.311254852712552,
+      "b": 0.8020650153982728
+    },
+    "T5": {
+      "a": 6.199082990057461,
+      "b": 1.631848901881275
+    }
+  },
+  "slope_ratios": {
+    "dense_T1_over_T4": 6.962785114045618,
+    "loose_T2_over_T5": 1.9384928199262925
+  },
+  "hardin_multiplier": 1.23,
+  "rows": 20,
+  "columns": [
+    "test_id",
+    "label",
+    "density",
+    "saturation",
+    "pair",
+    "s_over_d",
+    "df_rel_pct",
+    "slope_pct_per_sd",
+    "power_a",
+    "power_b",
+    "ratio_dense",
+    "ratio_loose",
+    "hardin_multiplier",
+    "hardin_slope_predicted"
+  ]
+}

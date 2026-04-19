@@ -45,6 +45,21 @@ phi' for T4 or T5.
 **Machine-checkable assertion:** see
 [`figure_inputs/claims/j3-phi-prime.yml`](../figure_inputs/claims/j3-phi-prime.yml).
 
+### `j3-saturation-factor` — confirmed (2026-04-19)
+
+**Headline:** Dry-to-saturated scour-sensitivity slope ratio is **×6.96
+for dense** sand (T1 vs T4) and **×1.94 for loose** sand (T2 vs T5).
+The saturation effect is therefore strongly density-dependent and far
+exceeds Hardin's unit-weight multiplier (γ_d/γ')^0.5 ≈ 1.23, which
+captures only the effective-unit-weight mechanism in isolation.
+
+**Witness:** the J3-07 two-panel revision figure — (a) |Δf/f_0|% vs
+S/D for all five series with power-law fits, (b) dry-vs-saturated
+slope-ratio bar chart with ×6.96 and ×1.94 called out.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-saturation-factor.yml`](../figure_inputs/claims/j3-saturation-factor.yml).
+
 ### `j3-backfill-recovery` — confirmed (2026-04-19)
 
 **Headline:** Backfill recovery after the maximum scour stage is

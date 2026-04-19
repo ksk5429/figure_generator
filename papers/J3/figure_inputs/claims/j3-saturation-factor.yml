@@ -1,0 +1,134 @@
+# Claim witness — j3-saturation-factor
+#
+# Dry-to-saturated sensitivity-slope ratio as a slope-based reframing of
+# the saturation effect: roughly ×7 for dense sand and ~×2 for loose.
+
+claim_id: j3-saturation-factor
+paper: J3
+status: confirmed
+source: manuscript.qmd §4.2 + @fig-saturation-factor + Table 3
+origin_note: |
+  Secant-slope comparison of |Δf/f_0| vs S/D for five centrifuge series.
+  The dry-to-saturated sensitivity ratio collapses from ~7× for dense
+  sand (T1 vs T4) to ~2× for loose sand (T2 vs T5), showing that the
+  saturation effect is strongly density-dependent. The companion Hardin
+  unit-weight prediction (multiplier 1.23) under-predicts both ratios.
+
+headline: >
+  Dry-to-saturated scour-sensitivity slope ratio is ×6.96 (dense; T1/T4)
+  and ×1.94 (loose; T2/T5). Hardin's (γ_d/γ')^0.5 ≈ 1.23 captures only
+  the unit-weight part of the effect.
+
+primary_figure: figures/j3-saturation-factor
+
+assertions:
+
+  # ----- Measured secant slopes for each series -----
+  - name: slope_t1_dense_dry
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: slope_pct_per_sd
+      filter: {test_id: T1}
+    op: near
+    value: 10.20
+    tolerance: 0.05
+
+  - name: slope_t2_loose_dry
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: slope_pct_per_sd
+      filter: {test_id: T2}
+    op: near
+    value: 8.62
+    tolerance: 0.05
+
+  - name: slope_t3_sand_silt
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: slope_pct_per_sd
+      filter: {test_id: T3}
+    op: near
+    value: 9.27
+    tolerance: 0.05
+
+  - name: slope_t4_dense_sat
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: slope_pct_per_sd
+      filter: {test_id: T4}
+    op: near
+    value: 1.47
+    tolerance: 0.02
+
+  - name: slope_t5_loose_sat
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: slope_pct_per_sd
+      filter: {test_id: T5}
+    op: near
+    value: 4.45
+    tolerance: 0.02
+
+  # ----- Headline dry/saturated slope ratios -----
+  - name: ratio_dense_near_6_96
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: ratio_dense
+    op: near
+    value: 6.96
+    tolerance: 0.02
+
+  - name: ratio_loose_near_1_94
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: ratio_loose
+    op: near
+    value: 1.94
+    tolerance: 0.02
+
+  # ----- Sanity: dry ratio >> loose ratio (density-dependent saturation) -----
+  - name: dense_ratio_exceeds_loose
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: ratio_dense
+    op: greater
+    value: 3.0   # any value well above ratio_loose = 1.94
+
+  # ----- Hardin multiplier 1.23 embedded for cross-reference -----
+  - name: hardin_multiplier_is_1_23
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: hardin_multiplier
+    op: near
+    value: 1.23
+    tolerance: 0.001
+
+  # ----- Deepest-point |Δf/f_0| for the paired tests (T1 endpoint 5.0 %) -----
+  - name: t1_df_at_deepest_near_5_0
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: df_rel_pct
+      filter: {test_id: T1, s_over_d: 0.49}
+    op: near
+    value: 5.00
+    tolerance: 0.01
+
+  - name: t5_df_at_deepest_near_2_58
+    parquet: saturation-factor.parquet
+    compute:
+      op: mean
+      column: df_rel_pct
+      filter: {test_id: T5, s_over_d: 0.58}
+    op: near
+    value: 2.58
+    tolerance: 0.01

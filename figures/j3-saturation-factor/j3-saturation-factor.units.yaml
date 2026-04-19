@@ -1,0 +1,14 @@
+test_id:                label
+label:                  label
+density:                label
+saturation:             label
+pair:                   label
+s_over_d:               dimensionless
+df_rel_pct:             percent
+slope_pct_per_sd:       percent
+power_a:                percent
+power_b:                dimensionless
+ratio_dense:            dimensionless
+ratio_loose:            dimensionless
+hardin_multiplier:      dimensionless
+hardin_slope_predicted: percent

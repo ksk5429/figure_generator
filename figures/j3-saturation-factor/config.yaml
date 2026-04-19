@@ -1,0 +1,39 @@
+figure_id: j3-saturation-factor
+journal: ocean_engineering
+width: double
+
+paper: J3
+claim_id: j3-saturation-factor
+tier: 2
+tier2_slug: saturation-factor
+
+description: >
+  Factor-of-two reframing of the saturation effect (manuscript §4.2,
+  revision R1). (a) |Δf_1/f_1,0| vs S/D for five centrifuge series
+  (T1–T5) with power-law fits overlaid; (b) secant-slope bar chart
+  paired by density (Dense T1 vs T4, Loose T2 vs T5), with dry/saturated
+  ratios ×6.96 and ×1.94 annotated and the Hardin (γ_d/γ')^0.5 × slope(T5)
+  prediction drawn as a dashed reference. The density-dependent ratio
+  (×7 dense vs ×2 loose) shows the saturation effect is strongly
+  modulated by relative density and is only partly captured by the
+  Hardin unit-weight mechanism.
+
+data_sources:
+  - papers/J3/figure_inputs/saturation-factor.parquet
+
+required_columns:
+  - test_id
+  - label
+  - density
+  - saturation
+  - pair
+  - s_over_d
+  - df_rel_pct
+  - slope_pct_per_sd
+  - power_a
+  - power_b
+  - ratio_dense
+  - ratio_loose
+  - hardin_multiplier
+
+formats: [png, svg, pdf]
