@@ -1,0 +1,35 @@
+figure_id: j3-stress-scour
+journal: ocean_engineering
+width: double
+
+paper: J3
+claim_id: j3-stress-scour
+tier: 2
+tier2_slug: stress-scour
+
+description: >
+  Stress-release mechanism behind the saturation effect (manuscript
+  Section 4.3). Three panels at 190 mm width: (a) pre-scour sigma_v(z)
+  for dry vs submerged sand; (b) post-scour at S/D = 0.58 with the
+  hatched "lost stress" layer between z=0 and z=S; (c) G_max(z) = A_G
+  * sqrt(sigma_v) illustrating the Hardin 1972 law. Analytical ratio
+  sqrt(γ'/γ_d) ≈ 0.80 annotated in panel (c).
+
+data_sources:
+  - papers/J3/figure_inputs/stress-scour.parquet
+
+required_columns:
+  - z_m
+  - sigma_dry_pre_kpa
+  - sigma_sat_pre_kpa
+  - sigma_dry_post_kpa
+  - sigma_sat_post_kpa
+  - gmax_dry_pre_mpa
+  - gmax_sat_pre_mpa
+  - gmax_dry_post_mpa
+  - gmax_sat_post_mpa
+  - gamma_ratio
+  - sqrt_gamma_ratio
+  - s_m
+
+formats: [png, svg, pdf]

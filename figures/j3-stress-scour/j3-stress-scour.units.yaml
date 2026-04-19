@@ -1,0 +1,16 @@
+z_m:                   meter
+sigma_dry_pre_kpa:     kilopascal
+sigma_sat_pre_kpa:     kilopascal
+sigma_dry_post_kpa:    kilopascal
+sigma_sat_post_kpa:    kilopascal
+gmax_dry_pre_mpa:      megapascal
+gmax_sat_pre_mpa:      megapascal
+gmax_dry_post_mpa:     megapascal
+gmax_sat_post_mpa:     megapascal
+gamma_d_kn_m3:         kilonewton_per_m3
+gamma_sub_kn_m3:       kilonewton_per_m3
+gamma_ratio:           dimensionless
+sqrt_gamma_ratio:      dimensionless
+s_m:                   meter
+s_over_d:              dimensionless
+d_m:                   meter

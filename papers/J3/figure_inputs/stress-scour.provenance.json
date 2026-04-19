@@ -1,0 +1,45 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "stress-scour",
+  "generated_utc": "2026-04-19T10:56:44Z",
+  "primary_source": {
+    "kind": "manuscript",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd Section 4.3 + @fig-stress-scour",
+    "laws": {
+      "sigma_v": "sigma'_v(z) = gamma \u00b7 z",
+      "gmax": "G_max \u221d sqrt(sigma'_v) (Hardin 1972)"
+    }
+  },
+  "constants_kn_m3": {
+    "gamma_dry": 15.5,
+    "gamma_sat": 19.8,
+    "gamma_water": 9.81,
+    "gamma_submerged": 9.99
+  },
+  "scour": {
+    "D_m": 8.0,
+    "S_over_D": 0.58,
+    "S_m": 4.64
+  },
+  "sensitivity_ratio_predicted": 0.8028176187853989,
+  "rows": 151,
+  "columns": [
+    "z_m",
+    "sigma_dry_pre_kpa",
+    "sigma_sat_pre_kpa",
+    "sigma_dry_post_kpa",
+    "sigma_sat_post_kpa",
+    "gmax_dry_pre_mpa",
+    "gmax_sat_pre_mpa",
+    "gmax_dry_post_mpa",
+    "gmax_sat_post_mpa",
+    "gamma_d_kn_m3",
+    "gamma_sub_kn_m3",
+    "gamma_ratio",
+    "sqrt_gamma_ratio",
+    "s_m",
+    "s_over_d",
+    "d_m"
+  ]
+}

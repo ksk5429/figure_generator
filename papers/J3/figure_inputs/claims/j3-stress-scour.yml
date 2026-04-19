@@ -1,0 +1,102 @@
+# Claim witness — j3-stress-scour
+#
+# Encodes the stress-release mechanism at the heart of the saturation
+# effect (manuscript Section 4.3). The fractional frequency reduction
+# per unit scour scales as sqrt(γ'/γ_d) because G_max ∝ √σ' and σ' is
+# proportional to unit weight.
+
+claim_id: j3-stress-scour
+paper: J3
+status: submitted
+source: manuscript.qmd Section 4.3 + @fig-stress-scour
+origin_note: |
+  Three-panel figure illustrating the stress-release mechanism.
+  The predicted sensitivity ratio sqrt(γ'/γ_d) ≈ 0.80 is the
+  analytical anchor the measured ratio of 0.80 validates to within 2 %.
+
+headline: >
+  γ'/γ_d ≈ 0.64 for SNU No. 7 sand; sqrt(γ'/γ_d) ≈ 0.80 is the
+  analytically-predicted saturated-to-dry frequency-sensitivity ratio,
+  matching the measured 0.80 to within 2 %.
+
+primary_figure: figures/j3-stress-scour
+
+assertions:
+
+  # ----- Unit-weight constants -----
+  - name: gamma_dry_at_15_5
+    parquet: stress-scour.parquet
+    compute:
+      op: mean
+      column: gamma_d_kn_m3
+    op: near
+    value: 15.5
+    tolerance: 0.01
+
+  - name: gamma_submerged_near_10
+    parquet: stress-scour.parquet
+    compute:
+      op: mean
+      column: gamma_sub_kn_m3
+    op: between
+    lo: 9.5
+    hi: 10.5
+
+  # ----- Key ratios (the analytical predictions) -----
+  - name: gamma_ratio_near_0_64
+    parquet: stress-scour.parquet
+    compute:
+      op: mean
+      column: gamma_ratio
+    op: near
+    value: 0.64
+    tolerance: 0.01
+
+  - name: sqrt_ratio_near_0_80
+    parquet: stress-scour.parquet
+    compute:
+      op: mean
+      column: sqrt_gamma_ratio
+    op: near
+    value: 0.80
+    tolerance: 0.01
+
+  # ----- Scour geometry -----
+  - name: s_over_d_at_0_58
+    parquet: stress-scour.parquet
+    compute:
+      op: mean
+      column: s_over_d
+    op: near
+    value: 0.58
+    tolerance: 0.01
+
+  - name: s_m_at_4_64
+    parquet: stress-scour.parquet
+    compute:
+      op: mean
+      column: s_m
+    op: near
+    value: 4.64
+    tolerance: 0.02
+
+  # ----- Profiles: check total integrated effective stress -----
+  # mean(sigma_dry_pre) over 0..15 m is γ_d * 7.5 = 15.5 * 7.5 = 116.25 kPa
+  - name: mean_sigma_dry_pre_matches_analytic
+    parquet: stress-scour.parquet
+    compute:
+      op: mean
+      column: sigma_dry_pre_kpa
+    op: near
+    value: 116.25
+    tolerance: 0.5
+
+  # mean(sigma_sat_pre) over 0..15 m is γ' * 7.5 = 9.99 * 7.5 = 74.93 kPa
+  - name: mean_sigma_sat_pre_matches_analytic
+    parquet: stress-scour.parquet
+    compute:
+      op: mean
+      column: sigma_sat_pre_kpa
+    op: near
+    value: 74.93
+    tolerance: 0.5
