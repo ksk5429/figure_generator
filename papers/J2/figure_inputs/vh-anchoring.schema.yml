@@ -1,0 +1,53 @@
+claim_id: j2-vh-anchoring
+columns:
+- name: mode
+  dtype: category
+  allowed:
+  - H
+  - V
+- name: scour_m
+  dtype: float64
+  unit: meter
+- name: depth_local_m
+  dtype: float64
+  unit: meter
+- name: depth_global_m
+  dtype: float64
+  unit: meter
+- name: sigma_v_kpa
+  dtype: float64
+  unit: kilopascal
+- name: k_ini_dynamic_kn_m2
+  dtype: float64
+  unit: kilonewton_per_m2
+- name: p_ult_hyp_kn_m
+  dtype: float64
+  unit: kilonewton_per_meter
+  note: per-slice hyperbolic p_ult (pre-anchor)
+- name: p_ult_anchored_kn_m
+  dtype: float64
+  unit: kilonewton_per_meter
+  note: stress-corrected p_ult used in OpenSees input
+- name: vh_capacity_kn
+  dtype: float64
+  unit: kilonewton
+  note: per-scour envelope capacity (H_ult for H-mode, V_ult for V-mode)
+- name: integral_pult_hyp_kn
+  dtype: float64
+  unit: kilonewton
+  note: sum(p_ult_hyp * dz=0.5); anchored directly to envelope
+- name: integral_pult_anchored_kn
+  dtype: float64
+  unit: kilonewton
+  note: sum(p_ult_anchored * dz=0.5); includes stress-release correction
+- name: anchor_ratio_hyp
+  dtype: float64
+  unit: dimensionless
+  note: "raw-hyperbolic integral / vh_capacity; \u22481.0 by construction"
+- name: anchor_ratio_anchored
+  dtype: float64
+  unit: dimensionless
+  note: stress-corrected integral / vh_capacity; drops below 1 at scoured cases
+- name: r2_hyperbolic
+  dtype: float64
+  unit: dimensionless

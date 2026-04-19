@@ -1,0 +1,38 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "vh-anchoring",
+  "generated_utc": "2026-04-19T05:19:47Z",
+  "primary_source": {
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\processed_results_v2\\04_spring_parameters.xlsx",
+    "md5_8": "27aa6eab",
+    "kind": "xlsx",
+    "sheet_used": "All_Springs",
+    "dz_m": 0.5
+  },
+  "rows": 290,
+  "columns": [
+    "mode",
+    "scour_m",
+    "depth_local_m",
+    "depth_global_m",
+    "sigma_v_kpa",
+    "k_ini_dynamic_kn_m2",
+    "p_ult_hyp_kn_m",
+    "p_ult_anchored_kn_m",
+    "vh_capacity_kn",
+    "r2_hyperbolic",
+    "integral_pult_hyp_kn",
+    "integral_pult_anchored_kn",
+    "anchor_ratio_hyp",
+    "anchor_ratio_anchored"
+  ],
+  "manuscript_ref": "paperJ2_oe00984/manuscript.qmd Section 2.3 VH Capacity Anchoring",
+  "anchor_ratio_stats": {
+    "hyp_min": 1.0222504970806177,
+    "hyp_max": 1.0734128238017384,
+    "hyp_mean": 1.039519678369979,
+    "anchored_min": 0.3444520061546559,
+    "anchored_max": 1.0373752745279552
+  }
+}

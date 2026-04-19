@@ -1,0 +1,31 @@
+figure_id: j2-vh-anchoring
+journal: ocean_engineering
+width: double
+
+paper: J2
+claim_id: j2-vh-anchoring
+tier: 2
+tier2_slug: vh-anchoring
+
+description: >
+  VH anchoring constraint visualised across three panels: (a) anchored
+  p_ult(z) profiles per scour level, (b) 1:1 check of integrated spring
+  capacity vs envelope H_ult / V_ult, (c) anchor-ratio evolution vs S/D
+  distinguishing the raw hyperbolic anchoring (≈ 1.0 by construction) from
+  the OpenSees input after stress-release correction.
+
+data_sources:
+  - papers/J2/figure_inputs/vh-anchoring.parquet
+
+required_columns:
+  - mode
+  - scour_m
+  - depth_local_m
+  - p_ult_hyp_kn_m
+  - p_ult_anchored_kn_m
+  - vh_capacity_kn
+  - integral_pult_hyp_kn
+  - anchor_ratio_hyp
+  - anchor_ratio_anchored
+
+formats: [png, svg, pdf]

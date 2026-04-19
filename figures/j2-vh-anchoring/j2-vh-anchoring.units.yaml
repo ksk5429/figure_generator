@@ -1,0 +1,14 @@
+mode:                       category
+scour_m:                    meter
+depth_local_m:              meter
+depth_global_m:             meter
+sigma_v_kpa:                kilopascal
+k_ini_dynamic_kn_m2:        kilonewton_per_m2
+p_ult_hyp_kn_m:             kilonewton_per_meter
+p_ult_anchored_kn_m:        kilonewton_per_meter
+vh_capacity_kn:             kilonewton
+integral_pult_hyp_kn:       kilonewton
+integral_pult_anchored_kn:  kilonewton
+anchor_ratio_hyp:           dimensionless
+anchor_ratio_anchored:      dimensionless
+r2_hyperbolic:              dimensionless
