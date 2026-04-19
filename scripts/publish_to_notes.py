@@ -1,15 +1,18 @@
 """Publish built figures into the research-notes MkDocs site.
 
-Destination layout (under ``research_notes / docs / figures``):
+Destination layout (under ``research_notes / docs / papers / <paper> / figures``):
 
-    figures/<paper>/<figure_id>/<figure_id>.{png,svg,pdf}
-    figures/<paper>/<figure_id>/CAPTION.md
-    figures/<paper>/<figure_id>/metadata.json
-    figures/<paper>/index.md     (grid of that paper's figures)
+    papers/<paper>/figures/<figure_id>/<figure_id>.{png,svg,pdf}
+    papers/<paper>/figures/<figure_id>/CAPTION.md
+    papers/<paper>/figures/<figure_id>/metadata.json
+    papers/<paper>/figures/<figure_id>/report.md        (if present from pipeline)
+    papers/<paper>/figures/index.md                     (grid + claim column)
 
-Figures missing a ``paper`` metadata tag are skipped (publish-to-notes is
-paper-scoped). Use ``--paper J3`` to publish only one paper, or
-``--dry-run`` to preview without writing.
+Co-located under the paper's MkDocs page so reviewers can open one folder
+and see every format plus the machine-checkable claim status. Figures
+missing a ``paper`` metadata tag are skipped (publish is paper-scoped).
+Use ``--paper J3`` to publish only one paper, or ``--dry-run`` to preview
+without writing.
 
 Usage (from the figure_generator repo root):
 
@@ -92,6 +95,14 @@ def _copy_figure(src_dir: Path, dest_dir: Path, fig_id: str, meta: dict[str, str
         if not dry:
             shutil.copy2(cap_src, cap_dest)
         written.append(cap_dest)
+    # Pipeline report (from `make pipeline FIG=...`) is a valuable review
+    # artifact — copy it alongside the outputs when present.
+    report_src = src_dir / "build" / "report.md"
+    if report_src.exists():
+        report_dest = dest_dir / "report.md"
+        if not dry:
+            shutil.copy2(report_src, report_dest)
+        written.append(report_dest)
     meta_dest = dest_dir / "metadata.json"
     if not dry:
         meta_dest.write_text(json.dumps(meta, indent=2, sort_keys=True), encoding="utf-8")
@@ -144,8 +155,10 @@ def publish(paper_filter: str | None = None, dry: bool = False) -> dict[str, int
             f"research_notes path does not exist: {notes_root}. "
             f"Set FIGGEN_RESEARCH_NOTES or edit configs/paths.yaml."
         )
-    figures_root = notes_root / "docs" / "figures"
-    figures_root.mkdir(parents=True, exist_ok=True)
+    # New layout: co-located under each paper's MkDocs page.
+    # Per-paper root: <notes_root>/docs/papers/<paper>/figures/
+    papers_root_docs = notes_root / "docs" / "papers"
+    papers_root_docs.mkdir(parents=True, exist_ok=True)
 
     entries = _scan(paper_filter)
     if not entries:
@@ -158,16 +171,19 @@ def publish(paper_filter: str | None = None, dry: bool = False) -> dict[str, int
     for e in entries:
         by_paper.setdefault(e["paper"], []).append(e)
 
-    print(f"→ publishing to {figures_root}{' (dry run)' if dry else ''}")
+    print(f"→ publishing to {papers_root_docs}{' (dry run)' if dry else ''}")
     for paper, items in sorted(by_paper.items()):
-        paper_dir = figures_root / paper
-        paper_dir.mkdir(parents=True, exist_ok=True)
+        # Each paper gets its own figures/ subfolder under docs/papers/<paper>/.
+        paper_fig_dir = papers_root_docs / paper / "figures"
+        paper_fig_dir.mkdir(parents=True, exist_ok=True)
         for e in items:
-            dest_dir = paper_dir / e["figure_id"]
+            dest_dir = paper_fig_dir / e["figure_id"]
             paths = _copy_figure(e["src"], dest_dir, e["figure_id"], e["meta"], dry)
-            print(f"  [{paper}] {e['figure_id']}: {len(paths)} files")
-        _write_paper_index(paper_dir, paper, items, dry)
-        print(f"  [{paper}] index.md ({len(items)} figures)")
+            print(f"  [{paper}] {e['figure_id']}: {len(paths)} files -> {dest_dir.relative_to(notes_root)}")
+        # Place the grid index inside the figures/ subfolder so it doesn't
+        # clash with the paper's own manuscript index.md.
+        _write_paper_index(paper_fig_dir, paper, items, dry)
+        print(f"  [{paper}] figures/index.md ({len(items)} figures)")
 
     return {"figures": sum(len(v) for v in by_paper.values()), "papers": len(by_paper)}
 

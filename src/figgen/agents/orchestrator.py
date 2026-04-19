@@ -20,6 +20,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .base import AgentResult, Verdict
+from .claim_witness import ClaimWitnessAgent
 from .compile_runner import CompileRunner
 from .critic import CriticAgent
 from .geotech import GeotechAgent
@@ -65,6 +66,7 @@ class Orchestrator:
         self.planner = PlannerAgent(use_llm=use_llm)
         self.geotech = GeotechAgent()
         self.compiler = CompileRunner()
+        self.claim_witness = ClaimWitnessAgent()
         self.critic = CriticAgent(use_vision=use_vision)
         self.compliance = JournalComplianceAgent()
 
@@ -89,6 +91,18 @@ class Orchestrator:
             if not compile_res.ok:
                 # With no auto-author in the Python loop, bail out on compile
                 # failure; Claude-Code subagent mode handles the retry edit.
+                return report
+
+            # Claim-witness runs AFTER compile (so the measurements we
+            # embed into the PNG are from the just-rendered run) but BEFORE
+            # critic / compliance (so a numerical failure short-circuits
+            # cosmetic review).
+            witness_res = self.claim_witness.run(spec)
+            report.add(witness_res)
+            if witness_res.verdict == Verdict.REVISE:
+                # Claim disagreement is a correctness failure — do not run
+                # the cosmetic critic or the compliance linter on a figure
+                # that reports the wrong number.
                 return report
 
             critic_res = self.critic.run(spec)

@@ -36,6 +36,7 @@ from .. import FIGURES_DIR
 from ..llm import LLMUnavailable, vision_review
 from .base import AgentResult, Verdict
 from .geotech import detect_suspicious_literals
+from .legibility import legibility_check
 from .planner import FigureSpec
 
 
@@ -167,6 +168,37 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
                 issues.append({"severity": "high", "axis": "e", "where": pdf.name,
                                "fix": f"Fix font embedding: {report.splitlines()[0] if report else ''}"})
             break
+
+    # (d) B&W legibility + CVD — deterministic pairwise luminance check
+    png_primary = folder / f"{spec.figure_id}.png"
+    if not png_primary.exists():
+        png_primary = folder / "build" / f"{spec.figure_id}.png"
+    if png_primary.exists():
+        leg = legibility_check(png_primary)
+        if not leg.ok:
+            scores["d"] = 0
+            issues.append({"severity": "high", "axis": "d", "where": png_primary.name,
+                           "fix": leg.message})
+        # Below threshold but not catastrophic: soft warning
+        elif leg.min_delta_l < 20 or leg.min_delta_l_deutan < 20:
+            if scores["d"] > 1:
+                scores["d"] = 1
+            issues.append({"severity": "low", "axis": "d", "where": png_primary.name,
+                           "fix": leg.message})
+
+    # (f) stroke-width rubric: explicit lw/linewidth below 0.25 in script?
+    if script.exists():
+        text = script.read_text(encoding="utf-8")
+        bad_lw = re.findall(r"(?:lw|linewidth)\s*=\s*(\d*\.\d+)", text)
+        for v in bad_lw:
+            try:
+                if float(v) < 0.25:
+                    scores["f"] = 0
+                    issues.append({"severity": "high", "axis": "f", "where": script.name,
+                                   "fix": f"Explicit lw={v} pt is below the 0.25 pt minimum."})
+                    break
+            except ValueError:
+                continue
 
     # (i) panel labels
     if script.exists():

@@ -34,6 +34,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 from figgen import FIGURES_DIR
 from figgen.agents import (
+    ClaimWitnessAgent,
     CompileRunner,
     CriticAgent,
     GeotechAgent,
@@ -62,6 +63,8 @@ def run_stage(stage: str, figure_id: str, *, use_llm: bool, use_vision: bool) ->
         res = GeotechAgent().run(_spec_for(figure_id))
     elif stage == "compile":
         res = CompileRunner().run(_spec_for(figure_id))
+    elif stage == "witness":
+        res = ClaimWitnessAgent().run(_spec_for(figure_id))
     elif stage == "critic":
         res = CriticAgent(use_vision=use_vision).run(_spec_for(figure_id))
     elif stage == "compliance":
@@ -81,7 +84,7 @@ def main() -> int:
     ap.add_argument("--no-vision", action="store_true")
     ap.add_argument("--no-compliance", action="store_true")
     ap.add_argument("--ci", action="store_true", help="alias for --no-llm --no-vision --max-iter 1")
-    ap.add_argument("--stage", choices=["plan", "geotech", "compile", "critic", "compliance"],
+    ap.add_argument("--stage", choices=["plan", "geotech", "compile", "witness", "critic", "compliance"],
                     default=None)
     ap.add_argument("--report", type=Path, default=None,
                     help="write markdown report here (default: figures/<id>/build/report.md)")

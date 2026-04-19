@@ -1,0 +1,24 @@
+# J2 Tier-2 figure-input manifest
+#
+# Each entry declares a parquet + its claim + provenance origin. A new
+# session adds one row here BEFORE writing any plot script. The parquet,
+# schema, provenance, and claim files share the entry's slug.
+#
+# Fields:
+#   slug           — unique stem; also the claim_id root when 1:1
+#   claim_id       — which claim in planning/methodology_claims.md it witnesses
+#   source         — pointer to the originating script/data in ../../PHD/papers/paperJ2_oe00984/
+#   status         — "pending" | "locked" | "retired"
+#   figures        — list of figgen figure_ids that consume this parquet
+
+entries: []
+
+# Example (uncomment + fill in when the first J2 session begins):
+#
+# entries:
+#   - slug: runtime-bar
+#     claim_id: j2-speedup-120000x
+#     source: 3_postprocessing/benchmark_runtimes.py
+#     status: pending
+#     figures:
+#       - j2-runtime-bar

@@ -46,14 +46,25 @@ session discipline.
             │
             ▼
   ┌───────────────────┐
-  │  Critic (opus)    │  10-axis rubric + optional vision
-  │                   │  APPROVED iff >=26/30 AND no "high" issues
+  │  Claim-Witness    │  run papers/<P>/figure_inputs/claims/<id>.yml
+  │   (deterministic) │  against the Tier-2 parquet. FAIL blocks
+  │                   │  the critic so wrong numbers never ship.
+  │                   │  Embeds measured values into PNG + warns on
+  │                   │  > 5% drift vs previous run.
   └───────────────────┘
             │
             ▼
   ┌───────────────────┐
-  │ Journal-Compliance│  pdffonts, identify, ASCE whitelist,
-  │     (sonnet)      │  Elsevier 10 MB, grayscale, labels
+  │  Critic (opus)    │  10-axis rubric + B&W legibility (ΔL ≥ 15) +
+  │                   │  deuteranope/protanope CVD simulation +
+  │                   │  optional vision. APPROVED iff >=26/30 AND no
+  │                   │  "high" issues.
+  └───────────────────┘
+            │
+            ▼
+  ┌───────────────────┐
+  │ Journal-Compliance│  pdffonts, strokes ≥ 0.25 pt, identify, ASCE
+  │     (sonnet)      │  whitelist, Elsevier 10 MB, grayscale, labels
   └───────────────────┘
             │
             ▼

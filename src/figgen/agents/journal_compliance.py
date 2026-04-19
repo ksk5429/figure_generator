@@ -74,6 +74,65 @@ def _pdffonts_report(pdf: Path) -> dict[str, Any]:
     return {"ok": not bad, "detail": "\n".join(bad) if bad else "fonts embedded"}
 
 
+_MIN_STROKE_PT = 0.25
+
+
+# Exposed for unit tests: applies the stroke-width regex to raw content
+# bytes. Returns the sub-threshold widths (in points) found.
+def _stream_violations(data: bytes, min_pt: float = _MIN_STROKE_PT) -> list[float]:
+    import re as _re
+
+    # PDF `w` operator: <float> w. Guard against `cw` / similar operators by
+    # requiring a whitespace delimiter before and after.
+    w_re = _re.compile(rb"(?:^|\s)(-?\d+\.?\d*)\s+w(?=\s|$)")
+    out: list[float] = []
+    for m in w_re.findall(data):
+        try:
+            v = float(m)
+        except (ValueError, TypeError):
+            continue
+        # PDF spec: `0 w` means 1 device pixel (not zero); skip it.
+        if 0 < v < min_pt:
+            out.append(v)
+    return out
+
+
+def _pdf_stroke_widths(pdf: Path) -> dict[str, Any]:
+    """Scan the PDF content streams for ``w`` (stroke-width) operators.
+
+    Best-effort: uses ``pypdf`` when available; otherwise returns a SKIP.
+    PDF strokes are in points; anything under 0.25 pt violates
+    Elsevier/ASCE minimum line weights.
+    """
+    try:
+        from pypdf import PdfReader  # type: ignore
+    except ImportError:
+        try:
+            from PyPDF2 import PdfReader  # type: ignore
+        except ImportError:
+            return {"ok": True, "detail": "pypdf/PyPDF2 not installed — skipped"}
+    try:
+        reader = PdfReader(str(pdf))
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": True, "detail": f"pdf parse skipped: {exc}"}
+
+    violations: list[float] = []
+    for page in reader.pages:
+        try:
+            raw = page.get_contents()
+            if raw is None:
+                continue
+            data = raw.get_data() if hasattr(raw, "get_data") else bytes(raw)
+        except Exception:  # noqa: BLE001
+            continue
+        violations.extend(_stream_violations(data))
+    if violations:
+        return {"ok": False,
+                "detail": f"{len(violations)} stroke(s) < {_MIN_STROKE_PT} pt "
+                          f"(min={min(violations):.3f} pt)"}
+    return {"ok": True, "detail": f"all strokes ≥ {_MIN_STROKE_PT} pt"}
+
+
 def _identify_pdf(pdf: Path) -> dict[str, Any]:
     exe = which("magick") or which("identify")
     if not exe:
@@ -120,13 +179,18 @@ class JournalComplianceAgent:
                 report.violations.append({"rule": "asce-formats",
                                           "detail": "ASCE requires BMP/EPS/PDF/PS/TIFF; no PNG/SVG/JPG."})
 
-        # Font embedding on the primary PDF
+        # Font embedding + stroke-width checks on the primary PDF
         pdf = folder / f"{stem}.pdf"
         if pdf.exists():
             report.checks.append({"name": "pdffonts embedding",
                                   **_pdffonts_report(pdf)})
             if not report.checks[-1]["ok"]:
                 report.violations.append({"rule": "font-embedding",
+                                          "detail": report.checks[-1]["detail"]})
+            report.checks.append({"name": f"stroke width >= {_MIN_STROKE_PT} pt",
+                                  **_pdf_stroke_widths(pdf)})
+            if not report.checks[-1]["ok"]:
+                report.violations.append({"rule": "min-stroke-width",
                                           "detail": report.checks[-1]["detail"]})
             report.checks.append({"name": "pdf identify",
                                   **_identify_pdf(pdf)})

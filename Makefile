@@ -41,8 +41,9 @@ help:
 	@echo "  make format             Run ruff format"
 	@echo "  make pipeline FIG=<id> [ASK=\"...\"]   Run the full 5-agent pipeline (LLM+vision)"
 	@echo "  make pipeline-ci FIG=<id>             Deterministic, offline run (no LLM, no vision)"
-	@echo "  make pipeline-stage FIG=<id> STAGE=<plan|geotech|compile|critic|compliance>"
+	@echo "  make pipeline-stage FIG=<id> STAGE=<plan|geotech|compile|witness|critic|compliance>"
 	@echo "  make critic FIG=<id>                  Run the critic alone"
+	@echo "  make claim-witness FIG=<id>           Run the claim-witness agent alone"
 	@echo "  make compliance FIG=<id>              Run the journal-compliance linter"
 	@echo "  make validate-pdf FIG=<id>            pdffonts + identify checks"
 	@echo "  make iter-gallery FIG=<id>            Build figures/<id>/build/iterations.html"
@@ -196,6 +197,12 @@ ifndef FIG
 	$(error FIG is not set. Usage: make critic FIG=<figure_id>)
 endif
 	$(PY) scripts/run_pipeline.py --figure $(FIG) --stage critic
+
+claim-witness:
+ifndef FIG
+	$(error FIG is not set. Usage: make claim-witness FIG=<figure_id>)
+endif
+	$(PY) scripts/run_pipeline.py --figure $(FIG) --stage witness
 
 compliance:
 ifndef FIG
