@@ -1,0 +1,27 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "grain-size",
+  "generated_utc": "2026-04-19T10:41:53Z",
+  "primary_source": {
+    "kind": "manuscript",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd @tbl-soil-properties",
+    "note": "Three SNU silica sands. PSD curves reconstructed from the 5 anchor points (USCS-fines, d10, d50, d60, d_max) via monotone PCHIP interpolation on log-diameter."
+  },
+  "uscs_fines_boundary_mm": 0.075,
+  "n_curve_points": 120,
+  "rows": 378,
+  "columns": [
+    "sand",
+    "row_kind",
+    "d10_mm",
+    "d50_mm",
+    "d60_mm",
+    "cu",
+    "fc_pct",
+    "uscs",
+    "note",
+    "d_mm",
+    "percent_passing"
+  ]
+}

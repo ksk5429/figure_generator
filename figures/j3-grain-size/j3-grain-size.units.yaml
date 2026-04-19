@@ -1,0 +1,11 @@
+sand:             category      # {No. 5, No. 7, No. 8}
+row_kind:         category      # {summary, anchor, curve}
+d_mm:             millimeter
+percent_passing:  percent
+d10_mm:           millimeter
+d50_mm:           millimeter
+d60_mm:           millimeter
+cu:               dimensionless
+fc_pct:           percent
+uscs:             label
+note:             label

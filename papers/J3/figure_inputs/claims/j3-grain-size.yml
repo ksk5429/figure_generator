@@ -1,0 +1,132 @@
+# Claim witness — j3-grain-size
+#
+# Index properties of the three SNU silica sands used in this programme.
+# Values hardcoded from manuscript @tbl-soil-properties. Any future
+# edit to d50 / d10 / Cu / FC for any of the three sands will trip an
+# assertion here, preventing silent drift between the table and the
+# figure.
+
+claim_id: j3-grain-size
+paper: J3
+status: submitted
+source: manuscript.qmd @tbl-soil-properties
+origin_note: |
+  PSD anchors for No. 5 (coarse backfill), No. 7 (test-bed), No. 8
+  (silt fraction used in T3 only). The figure reconstructs smooth
+  curves through these anchor points via monotone PCHIP interpolation
+  on log-diameter.
+
+headline: >
+  d50 values — No. 5: 1.99 mm; No. 7: 0.21 mm; No. 8: 0.15 mm.
+  Fines content — No. 5: 0 %; No. 7: 5.8 %; No. 8: 12.4 %. All three
+  sands classify as SP or SP-SM (poorly graded sand).
+
+primary_figure: figures/j3-grain-size
+
+assertions:
+
+  # ----- d50 per sand, filtered to the summary row -----
+  - name: no5_d50_at_1_99_mm
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 5", row_kind: "summary"}
+      column: d50_mm
+    op: near
+    value: 1.99
+    tolerance: 0.01
+
+  - name: no7_d50_at_0_21_mm
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 7", row_kind: "summary"}
+      column: d50_mm
+    op: near
+    value: 0.21
+    tolerance: 0.005
+
+  - name: no8_d50_at_0_15_mm
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 8", row_kind: "summary"}
+      column: d50_mm
+    op: near
+    value: 0.15
+    tolerance: 0.005
+
+  # ----- Cu per sand; all three are poorly-graded (Cu < 6) -----
+  - name: no5_cu_matches_table
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 5", row_kind: "summary"}
+      column: cu
+    op: near
+    value: 3.33
+    tolerance: 0.01
+
+  - name: no7_cu_matches_table
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 7", row_kind: "summary"}
+      column: cu
+    op: near
+    value: 2.45
+    tolerance: 0.01
+
+  - name: no8_cu_matches_table
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 8", row_kind: "summary"}
+      column: cu
+    op: near
+    value: 2.27
+    tolerance: 0.01
+
+  # ----- Fines content ordering: No. 8 > No. 7 > No. 5 = 0 -----
+  - name: no5_fines_zero
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 5", row_kind: "summary"}
+      column: fc_pct
+    op: near
+    value: 0.0
+    tolerance: 0.01
+
+  - name: no7_fines_5_8_pct
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 7", row_kind: "summary"}
+      column: fc_pct
+    op: near
+    value: 5.8
+    tolerance: 0.01
+
+  - name: no8_fines_12_4_pct
+    parquet: grain-size.parquet
+    compute:
+      op: mean
+      filter: {sand: "No. 8", row_kind: "summary"}
+      column: fc_pct
+    op: near
+    value: 12.4
+    tolerance: 0.01
+
+  # ----- Row inventory: 3 sands × (1 summary + 5 anchors + 120 curve pts)
+  #       = 3 × 126 = 378 rows -----
+  - name: row_inventory_three_sands
+    parquet: grain-size.parquet
+    compute:
+      op: row_counts
+      group_by: sand
+    op: equal
+    value:
+      "No. 5": 126
+      "No. 7": 126
+      "No. 8": 126

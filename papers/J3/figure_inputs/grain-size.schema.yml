@@ -1,0 +1,40 @@
+claim_id: j3-grain-size
+columns:
+- name: sand
+  dtype: category
+  allowed:
+  - No. 5
+  - No. 7
+  - No. 8
+- name: row_kind
+  dtype: category
+  allowed:
+  - summary
+  - anchor
+  - curve
+- name: d_mm
+  dtype: float64
+  unit: millimeter
+  note: particle diameter (for curve/anchor rows); d50 for summary
+- name: percent_passing
+  dtype: float64
+  unit: percent
+- name: d10_mm
+  dtype: float64
+  unit: millimeter
+- name: d50_mm
+  dtype: float64
+  unit: millimeter
+- name: d60_mm
+  dtype: float64
+  unit: millimeter
+- name: cu
+  dtype: float64
+  unit: dimensionless
+- name: fc_pct
+  dtype: float64
+  unit: percent
+- name: uscs
+  dtype: label
+- name: note
+  dtype: label
