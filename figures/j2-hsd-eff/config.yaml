@@ -1,0 +1,31 @@
+figure_id: j2-hsd-eff
+journal: ocean_engineering
+width: one_half
+
+paper: J2
+claim_id: j2-hsd-eff
+tier: 2
+tier2_slug: hsd-eff
+
+description: >
+  HSD (Harmonic Slice Decomposition) efficiency. Per-depth fits of
+  P(θ) = A0 + A1·cos(θ) to the raw OptumGX skirt pressure at three
+  scour levels. Panel (a): |A0| (phantom breathing) vs |A1| (real sway)
+  profiles at the intact case — A0 is comparable to A1 through most of
+  the skirt. Panel (b): η = |A1| / (|A0| + |A1|) per depth for three
+  scour levels — HSD identifies ~30-43% of raw pressure as real
+  lateral resistance; the rest would be double-counted by a naive
+  mean-of-|P| extraction.
+
+data_sources:
+  - papers/J2/figure_inputs/hsd-eff.parquet
+
+required_columns:
+  - scour_m
+  - depth_local_m
+  - abs_a0_kpa
+  - abs_a1_kpa
+  - hsd_efficiency
+  - phantom_frac
+
+formats: [png, svg, pdf]

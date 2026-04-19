@@ -1,0 +1,10 @@
+scour_m:          meter
+depth_local_m:    meter
+depth_global_m:   meter
+n_elements:       count
+a0_kpa:           kilopascal
+a1_kpa:           kilopascal
+abs_a0_kpa:       kilopascal
+abs_a1_kpa:       kilopascal
+hsd_efficiency:   dimensionless
+phantom_frac:     dimensionless

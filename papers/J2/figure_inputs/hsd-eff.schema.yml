@@ -1,0 +1,37 @@
+claim_id: j2-hsd-eff
+columns:
+- name: scour_m
+  dtype: float64
+  unit: meter
+- name: depth_local_m
+  dtype: float64
+  unit: meter
+  note: positive downward from mudline
+- name: depth_global_m
+  dtype: float64
+  unit: meter
+  note: z-axis original (negative below original seabed)
+- name: n_elements
+  dtype: int64
+- name: a0_kpa
+  dtype: float64
+  unit: kilopascal
+  note: "axisymmetric/breathing component of P(\u03B8) fit"
+- name: a1_kpa
+  dtype: float64
+  unit: kilopascal
+  note: sway-mode cosine amplitude; carries net lateral force
+- name: abs_a0_kpa
+  dtype: float64
+  unit: kilopascal
+- name: abs_a1_kpa
+  dtype: float64
+  unit: kilopascal
+- name: hsd_efficiency
+  dtype: float64
+  unit: dimensionless
+  note: '|A1| / (|A0| + |A1|); fraction of raw pressure HSD keeps'
+- name: phantom_frac
+  dtype: float64
+  unit: dimensionless
+  note: 1 - hsd_efficiency; fraction filtered as confinement-only

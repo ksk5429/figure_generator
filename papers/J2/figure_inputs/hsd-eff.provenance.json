@@ -1,0 +1,40 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "hsd-eff",
+  "generated_utc": "2026-04-19T07:13:32Z",
+  "primary_sources": [
+    {
+      "scour_m": 0.0,
+      "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\1_optumgx_data\\1_raw_plates\\fixed\\merged_final\\plates_H_scour0.0m_merged.xlsx",
+      "md5_8": "f96c5b3e"
+    },
+    {
+      "scour_m": 2.0,
+      "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\1_optumgx_data\\1_raw_plates\\fixed\\merged_final\\plates_H_scour2.0m_merged.xlsx",
+      "md5_8": "3ffc691e"
+    },
+    {
+      "scour_m": 4.5,
+      "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\1_optumgx_data\\1_raw_plates\\fixed\\merged_final\\plates_H_scour4.5m_merged.xlsx",
+      "md5_8": "aa5bf88f"
+    }
+  ],
+  "load_step": "step8",
+  "dz_m": 0.5,
+  "rows": 54,
+  "columns": [
+    "scour_m",
+    "depth_local_m",
+    "depth_global_m",
+    "n_elements",
+    "a0_kpa",
+    "a1_kpa",
+    "abs_a0_kpa",
+    "abs_a1_kpa",
+    "hsd_efficiency",
+    "phantom_frac"
+  ],
+  "manuscript_ref": "paperJ2_oe00984/manuscript.qmd Section 2.3 Net Soil Reaction Integration; HSD algorithm in 3_postprocessing/hsd_vh.py",
+  "method": "P(\u03b8) = A0 + A1\u00b7cos(\u03b8) fit per 0.5 m depth slice at step8"
+}
