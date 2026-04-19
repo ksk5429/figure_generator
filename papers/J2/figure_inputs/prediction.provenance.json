@@ -1,0 +1,31 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "prediction",
+  "generated_utc": "2026-04-19T05:47:32Z",
+  "primary_source": {
+    "kind": "manuscript",
+    "manuscript_ref": "paperJ2_oe00984/manuscript.qmd @tbl-comparison",
+    "note": "Four-model baseline comparison is the product of four distinct OpenSeesPy pipelines; no upstream CSV emits the full 4-row summary. Values from manuscript Section 4.2."
+  },
+  "field_baseline": {
+    "f0_hz": 0.24,
+    "cov_pct": 1.53,
+    "ci95_plusminus_pct": 0.6
+  },
+  "rows": 4,
+  "columns": [
+    "model_code",
+    "model_label",
+    "model_category",
+    "f0_hz",
+    "rel_error_pct",
+    "scour_sens_pct",
+    "ssi_physics",
+    "scour_sensitivity_kind",
+    "field_f0_hz",
+    "rel_error_abs_hz",
+    "overpredicts",
+    "within_ci95"
+  ]
+}

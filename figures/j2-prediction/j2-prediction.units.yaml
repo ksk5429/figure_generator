@@ -1,0 +1,12 @@
+model_code:              category
+model_label:             label
+model_category:          category
+f0_hz:                   hertz
+field_f0_hz:             hertz
+rel_error_pct:           percent
+rel_error_abs_hz:        hertz
+scour_sens_pct:          percent
+ssi_physics:             label
+scour_sensitivity_kind:  category
+overpredicts:            dimensionless
+within_ci95:             dimensionless

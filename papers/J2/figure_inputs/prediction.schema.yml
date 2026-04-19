@@ -1,0 +1,45 @@
+claim_id: j2-prediction
+columns:
+- name: model_code
+  dtype: category
+  allowed:
+  - FIX
+  - MACRO
+  - BNWF
+  - DBNWF
+- name: model_label
+  dtype: label
+- name: model_category
+  dtype: category
+- name: f0_hz
+  dtype: float64
+  unit: hertz
+- name: field_f0_hz
+  dtype: float64
+  unit: hertz
+  note: broadcast; 32-month Gunsan parked mean
+- name: rel_error_pct
+  dtype: float64
+  unit: percent
+  note: (model - field) / field * 100
+- name: rel_error_abs_hz
+  dtype: float64
+  unit: hertz
+- name: scour_sens_pct
+  dtype: float64
+  unit: percent
+  nullable: true
+  note: f0 drop at S = 4.5 m; null for models without published curve
+- name: ssi_physics
+  dtype: label
+- name: scour_sensitivity_kind
+  dtype: category
+  allowed:
+  - none
+  - limited
+  - partial
+  - full
+- name: overpredicts
+  dtype: bool
+- name: within_ci95
+  dtype: bool

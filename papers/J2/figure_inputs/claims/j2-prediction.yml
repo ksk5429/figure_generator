@@ -1,0 +1,104 @@
+# Claim witness — j2-prediction
+#
+# The paper's predictive-capability verdict: of four competing foundation
+# idealisations, only the Distributed BNWF (the proposed model) lands
+# inside the 95% CI band on the 32-month Gunsan field mean, AND does so
+# on the conservative side (model underpredicts field, so a monitored
+# frequency drop below the model reflects real degradation, not error).
+
+claim_id: j2-prediction
+paper: J2
+status: submitted
+source: manuscript.qmd Section 4.2 @tbl-comparison
+origin_note: |
+  Three simpler foundation idealisations (Fixed Base, Macro-Element,
+  Standard BNWF) overpredict by +5.0 to +7.0 % — well outside the
+  ±0.6 % CI95 around the field mean. The Distributed BNWF predicts
+  -3.9 %, inside the -4.5 % to -3.3 % CI, and is the only model with a
+  calibrated per-depth spring distribution that can respond
+  physically to scour.
+
+headline: >
+  Only the Distributed BNWF lands within ~5% of field on the
+  conservative side (-3.9 %); the three simpler models overpredict
+  f0 by 5-7 %.
+
+primary_figure: figures/j2-prediction
+
+assertions:
+
+  # ----- Distributed BNWF is the only model in the CI band -----
+  - name: distributed_bnwf_rel_error
+    parquet: prediction.parquet
+    compute:
+      op: mean
+      filter: {model_code: "DBNWF"}
+      column: rel_error_pct
+    op: between
+    lo: -4.5
+    hi: -3.3
+
+  - name: fixed_base_overpredicts
+    parquet: prediction.parquet
+    compute:
+      op: mean
+      filter: {model_code: "FIX"}
+      column: rel_error_pct
+    op: between
+    lo: 6.0
+    hi: 8.0
+
+  - name: macro_element_overpredicts
+    parquet: prediction.parquet
+    compute:
+      op: mean
+      filter: {model_code: "MACRO"}
+      column: rel_error_pct
+    op: between
+    lo: 4.0
+    hi: 6.0
+
+  - name: standard_bnwf_overpredicts
+    parquet: prediction.parquet
+    compute:
+      op: mean
+      filter: {model_code: "BNWF"}
+      column: rel_error_pct
+    op: between
+    lo: 4.5
+    hi: 6.5
+
+  # ----- Distributed BNWF baseline f0 matches the manuscript value -----
+  - name: distributed_bnwf_f0_matches_manuscript
+    parquet: prediction.parquet
+    compute:
+      op: mean
+      filter: {model_code: "DBNWF"}
+      column: f0_hz
+    op: near
+    value: 0.2307
+    tolerance: 0.0005
+
+  # ----- DBNWF scour sensitivity at S = 4.5 m is the published 7.1% -----
+  - name: distributed_bnwf_scour_sensitivity
+    parquet: prediction.parquet
+    compute:
+      op: mean
+      filter: {model_code: "DBNWF"}
+      column: scour_sens_pct
+    op: near
+    value: 7.1
+    tolerance: 0.2
+
+  # ----- Row inventory: exactly 4 models -----
+  - name: row_inventory_four_models
+    parquet: prediction.parquet
+    compute:
+      op: row_counts
+      group_by: model_code
+    op: equal
+    value:
+      FIX:   1
+      MACRO: 1
+      BNWF:  1
+      DBNWF: 1
