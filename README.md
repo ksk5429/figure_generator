@@ -1,7 +1,7 @@
 # figure_generator
 
 Publication-grade figure generation engine for offshore / geotechnical /
-structural engineering research. Targets ISFOG proceedings, Géotechnique,
+structural engineering research. Targets Géotechnique, Computers and Geotechnics,
 Ocean Engineering, Marine Structures, the KSK dissertation, and related
 venues.
 
