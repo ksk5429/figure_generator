@@ -1,0 +1,27 @@
+# Claim witness — j3-scour-setup
+#
+# Architectural / narrative claim encoding the centrifuge model geometry.
+# No Tier-2 parquet; the correctness check is that the TikZ source
+# compiles and the dimension callouts match the values in the manuscript
+# @tbl-model-comparison table.
+
+claim_id: j3-scour-setup
+paper: J3
+status: submitted
+source: manuscript.qmd Section 2.1 + @tbl-model-comparison
+origin_note: |
+  Cross-sectional schematic of the 1:70 centrifuge model installed in
+  the KAIST beam-centrifuge strongbox. Replaces panel (a) of the existing
+  figures1/test_setup2.png (panels b and c are separate figures: the
+  centrifuge photograph cannot be reproduced from a generator, and the
+  plan view is the subject of session J3-02).
+
+headline: >
+  Strongbox 1400 x 700 mm; tripod bucket D = 114.3 mm (8.0 m prototype),
+  L = 132.9 mm skirt; total model height 1478 mm including tripod
+  transition; EI-equivalent tower d = 56.4 mm, t = 0.5 mm.
+
+primary_figure: figures/j3-scour-setup
+
+# Architectural figure — no numeric assertions.
+assertions: []

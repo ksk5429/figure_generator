@@ -45,6 +45,23 @@ phi' for T4 or T5.
 **Machine-checkable assertion:** see
 [`figure_inputs/claims/j3-phi-prime.yml`](../figure_inputs/claims/j3-phi-prime.yml).
 
+### `j3-scour-setup` — architectural (2026-04-19)
+
+**Headline:** Centrifuge model configuration at 1:70 scale. Strongbox
+1400 × 700 mm (aluminium, Duxseal-lined). Tripod bucket foundation
+with D = 114.3 mm and L = 132.9 mm at model scale (prototype 8.0 m and
+9.3 m respectively); total model height 1478 mm including tripod
+transition and EI-equivalent tower ($d$ = 56.4 mm, $t$ = 0.5 mm, STS 304).
+Three buckets at vertices of an equilateral triangle, side
+L_base = 286 mm model (20.0 m prototype).
+
+**Witness:** the J3-01 cross-section schematic (replaces panel (a) of
+the existing `figures1/test_setup2.png`). Narrative / architectural —
+no Tier-2 parquet, no numeric assertions.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-scour-setup.yml`](../figure_inputs/claims/j3-scour-setup.yml).
+
 ---
 
 ## Adding a new claim
