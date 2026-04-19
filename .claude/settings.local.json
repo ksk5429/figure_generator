@@ -21,7 +21,9 @@
       "Bash(uniq -c echo \"---\")",
       "Bash(git fetch *)",
       "Bash(git pull *)",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "Read(//c/Program Files/Quarto/bin//**)",
+      "Read(//c/Users/geolab/AppData/**)"
     ],
     "additionalDirectories": [
       "F:\\TREE_OF_THOUGHT\\mkdocs_material\\docs\\papers\\MSSP",

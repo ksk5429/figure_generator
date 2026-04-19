@@ -1,0 +1,28 @@
+# Claim witness — j2-geometry
+#
+# Structural / narrative claim (no Tier-2 parquet). The figure encodes
+# the foundation geometry exactly as listed in @tbl-structural-params:
+# bucket diameter D = 8 m, skirt penetration L = 9.3 m, tripod geometry.
+# The witness agent SKIPs this claim cleanly; the real correctness
+# check is the TikZ source surviving tectonic/latexmk compilation and
+# matching the dimension callouts in the tex file.
+
+claim_id: j2-geometry
+paper: J2
+status: submitted
+source: manuscript.qmd @tbl-structural-params (Section 3.1)
+origin_note: |
+  Elevation-view cross-section of a single suction bucket, showing skirt,
+  lid, soil plug, scoured mudline, and the three horizontal layers
+  (water, soil, bucket interior). Dimensions D and L are the Gunsan
+  4.2 MW TSB foundation values; S is drawn at 2 m as a representative
+  example scour.
+
+headline: >
+  Foundation schematic with bucket diameter D = 8.0 m, skirt
+  penetration L = 9.3 m, scoured mudline at S = 2.0 m.
+
+primary_figure: figures/j2-geometry
+
+# Architectural figure — no numeric assertions.
+assertions: []

@@ -1,0 +1,24 @@
+figure_id: j2-geometry
+journal: ocean_engineering
+width: double
+backend: tikz
+
+paper: J2
+claim_id: j2-geometry
+tier: 1  # narrative / structural (no parquet payload)
+
+description: >
+  Elevation-view schematic of the tripod suction-bucket foundation cross-
+  section (manuscript Section 2.1). Shows one bucket (D = 8 m, L = 9.3 m
+  skirt), the seabed with a 2 m example scour hole, the soil layer (Gunsan
+  clay), and the water column above. Dimension arrows and callout labels
+  anchor the geometry to the structural-parameters table (@tbl-structural-params).
+
+source: j2-geometry.tex
+
+data_sources:
+  - figures/j2-geometry/j2-geometry.tex
+
+required_columns: []   # no tabular data
+
+formats: [png, svg, pdf]
