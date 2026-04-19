@@ -1,0 +1,141 @@
+# Claim witness — j3-backfill-recovery
+#
+# Asymmetric recovery after backfilling the scour hole with coarser No. 5
+# sand: T4 (dense) recovers only 41 % of its frequency loss while T5
+# (loose) overshoots the baseline by +1.49 %. Driven by the ratio of
+# backfill to native G_0 (1.14 for T4, 1.34 for T5).
+
+claim_id: j3-backfill-recovery
+paper: J3
+status: confirmed
+source: manuscript.qmd §4.4 + @fig-backfill-recovery
+origin_note: |
+  Frequency waterfall across 5 stages (Baseline → S/D=0.19/0.39/0.58 →
+  Backfill) for T4 dense-saturated and T5 loose-saturated tripod suction
+  buckets. Recovery ratio R = (f_bf − f_min) / (f_base − f_min):
+  R_T4 ≈ 0.41 (under-recovery), R_T5 ≈ 1.58 (over-recovery; +1.49 %
+  overshoot). Mechanism: backfill G_0 (25.3 MPa) lies between loose
+  (18.9 MPa) and dense (22.2 MPa) native values.
+
+headline: >
+  Backfill recovery is asymmetric (41 % in dense vs 158 % in loose sand)
+  and governed by G_0,bf / G_0,native, not geometric infill.
+
+primary_figure: figures/j3-backfill-recovery
+
+assertions:
+
+  # ----- T4 dense: frequencies at each stage -----
+  - name: t4_baseline_at_10_919
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: f_hz
+      filter: {test_id: T4, stage: Baseline}
+    op: near
+    value: 10.919
+    tolerance: 0.001
+
+  - name: t4_minimum_at_10_826
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: f_hz
+      filter: {test_id: T4, stage: "S/D=0.58"}
+    op: near
+    value: 10.826
+    tolerance: 0.001
+
+  - name: t4_backfill_at_10_864
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: f_hz
+      filter: {test_id: T4, stage: Backfill}
+    op: near
+    value: 10.864
+    tolerance: 0.001
+
+  # ----- T5 loose: frequencies at each stage -----
+  - name: t5_baseline_at_10_779
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: f_hz
+      filter: {test_id: T5, stage: Baseline}
+    op: near
+    value: 10.779
+    tolerance: 0.001
+
+  - name: t5_minimum_at_10_501
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: f_hz
+      filter: {test_id: T5, stage: "S/D=0.58"}
+    op: near
+    value: 10.501
+    tolerance: 0.001
+
+  - name: t5_backfill_at_10_940
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: f_hz
+      filter: {test_id: T5, stage: Backfill}
+    op: near
+    value: 10.940
+    tolerance: 0.001
+
+  # ----- Headline recovery ratios -----
+  - name: t4_recovery_near_0_41
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: recovery_ratio
+      filter: {test_id: T4}
+    op: near
+    value: 0.41
+    tolerance: 0.01
+
+  - name: t5_recovery_near_1_58
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: recovery_ratio
+      filter: {test_id: T5}
+    op: near
+    value: 1.58
+    tolerance: 0.01
+
+  # ----- T5 overshoot: +1.49 % above baseline -----
+  - name: t5_overshoot_near_plus_1_49_pct
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: overshoot_pct
+      filter: {test_id: T5}
+    op: near
+    value: 1.49
+    tolerance: 0.05
+
+  # ----- Stiffness ratio that drives the mechanism -----
+  - name: t4_g0_ratio_near_1_14
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: g0_ratio
+      filter: {test_id: T4}
+    op: near
+    value: 1.14
+    tolerance: 0.01
+
+  - name: t5_g0_ratio_near_1_34
+    parquet: backfill-recovery.parquet
+    compute:
+      op: mean
+      column: g0_ratio
+      filter: {test_id: T5}
+    op: near
+    value: 1.34
+    tolerance: 0.01

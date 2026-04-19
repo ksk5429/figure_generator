@@ -1,0 +1,14 @@
+test_id:           label
+density:           label
+stage:             label
+stage_index:       dimensionless
+s_over_d:          dimensionless
+f_hz:              hertz
+f_baseline_hz:     hertz
+f_min_hz:          hertz
+f_backfill_hz:     hertz
+recovery_ratio:    dimensionless
+overshoot_pct:     percent
+g0_native_mpa:     megapascal
+g0_backfill_mpa:   megapascal
+g0_ratio:          dimensionless

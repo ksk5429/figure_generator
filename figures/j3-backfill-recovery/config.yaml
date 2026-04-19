@@ -1,0 +1,33 @@
+figure_id: j3-backfill-recovery
+journal: ocean_engineering
+width: single
+
+paper: J3
+claim_id: j3-backfill-recovery
+tier: 2
+tier2_slug: backfill-recovery
+
+description: >
+  Scour progression and backfill recovery (manuscript §4.4). Single-panel
+  waterfall of the first natural frequency at 70 g model scale across
+  five stages (Baseline, S/D = 0.19, 0.39, 0.58, Backfill) for T4
+  (dense saturated) and T5 (loose saturated). T4 recovers only 41 %
+  of the frequency loss while T5 overshoots the baseline by +1.49 %
+  because the coarser No. 5 backfill (G_0 = 25.3 MPa) is stiffer than
+  loose No. 7 sand (18.9 MPa) but softer than dense No. 7 sand
+  (22.2 MPa). Baseline dotted references and recovery arrows annotated
+  at the Backfill stage communicate the headline numbers.
+
+data_sources:
+  - papers/J3/figure_inputs/backfill-recovery.parquet
+
+required_columns:
+  - test_id
+  - stage
+  - stage_index
+  - s_over_d
+  - f_hz
+  - recovery_ratio
+  - overshoot_pct
+
+formats: [png, svg, pdf]

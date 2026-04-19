@@ -45,6 +45,23 @@ phi' for T4 or T5.
 **Machine-checkable assertion:** see
 [`figure_inputs/claims/j3-phi-prime.yml`](../figure_inputs/claims/j3-phi-prime.yml).
 
+### `j3-backfill-recovery` — confirmed (2026-04-19)
+
+**Headline:** Backfill recovery after the maximum scour stage is
+**asymmetric**: 41 % recovery in dense saturated sand (T4) versus 158 %
+over-recovery in loose saturated sand (T5), with a net +1.49 %
+frequency overshoot above the pre-scour baseline in T5. The recovery
+ratio is governed by the ratio of backfill to native small-strain
+stiffness ($G_{0,\text{bf}}/G_{0,\text{native}}$ = 1.14 for T4, 1.34
+for T5), not by geometric infill.
+
+**Witness:** the J3-06 single-panel frequency waterfall across stages
+Baseline → S/D = 0.19 / 0.39 / 0.58 → Backfill, with recovery and
+over-recovery arrows annotated at the Backfill stage.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-backfill-recovery.yml`](../figure_inputs/claims/j3-backfill-recovery.yml).
+
 ### `j3-scour-setup` — architectural (2026-04-19)
 
 **Headline:** Centrifuge model configuration at 1:70 scale. Strongbox

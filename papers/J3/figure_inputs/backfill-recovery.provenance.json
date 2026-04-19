@@ -1,0 +1,60 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "backfill-recovery",
+  "generated_utc": "2026-04-19T11:11:21Z",
+  "primary_source": {
+    "kind": "manuscript_revision",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd \u00a74.4 + code/generate_revision_figures.py::fig_backfill_recovery"
+  },
+  "stages": [
+    "Baseline",
+    "S/D=0.19",
+    "S/D=0.39",
+    "S/D=0.58",
+    "Backfill"
+  ],
+  "frequencies_hz": {
+    "T4_dense_sat": [
+      10.919,
+      10.881,
+      10.852,
+      10.826,
+      10.864
+    ],
+    "T5_loose_sat": [
+      10.779,
+      10.723,
+      10.645,
+      10.501,
+      10.94
+    ]
+  },
+  "stiffness_mpa": {
+    "native_T4": 22.2,
+    "native_T5": 18.9,
+    "backfill": 25.3
+  },
+  "recovery_ratios_predicted": {
+    "T4": 0.40860215053763727,
+    "T5": 1.5791366906474795
+  },
+  "overshoot_pct_T5": 1.4936450505612728,
+  "rows": 10,
+  "columns": [
+    "test_id",
+    "density",
+    "stage_index",
+    "stage",
+    "s_over_d",
+    "f_hz",
+    "f_baseline_hz",
+    "f_min_hz",
+    "f_backfill_hz",
+    "recovery_ratio",
+    "overshoot_pct",
+    "g0_native_mpa",
+    "g0_backfill_mpa",
+    "g0_ratio"
+  ]
+}
