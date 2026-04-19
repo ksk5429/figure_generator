@@ -1,0 +1,16 @@
+You are looking at a scientific figure rendered at publication DPI. Describe
+what you see with specific attention to:
+
+1. Axis labels and units. Are units in square brackets? SI only?
+2. Legend placement and readability. Does it overlap data?
+3. Color scheme. Is it grayscale-legible when printed B&W?
+   Are markers + linestyles paired with colors?
+4. Font sizes. Any text smaller than ~6 pt? Any inconsistency?
+5. Line weights. Anything obviously under 0.25 pt?
+6. Panel labels `(a)`, `(b)`, `(c)`. Present? Inside the artwork?
+7. Data-ink ratio. Decorative or redundant elements?
+8. Suspicious artifacts (equations in figure, emojis, misaligned gridlines).
+
+Then return the JSON verdict exactly as described in prompts/critic.md:
+
+{"scores": {...}, "issues": [...], "verdict": "APPROVED" | "REVISE"}

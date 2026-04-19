@@ -268,7 +268,34 @@ make publish-dry [PAPER=<code>]  # preview publish without writing
 make test                # pytest + pytest-mpl
 make metadata FIG=<id>   # print embedded metadata
 make clean               # remove generated outputs and gallery/site/
+
+# agentic pipeline (PaperVizAgent-style 5-agent loop)
+make pipeline FIG=<id> ASK="..."        # full LLM+vision run
+make pipeline-ci FIG=<id>                # deterministic, offline
+make pipeline-stage FIG=<id> STAGE=...   # plan|geotech|compile|critic|compliance
+make critic FIG=<id>                     # rubric-only + optional vision
+make compliance FIG=<id>                 # pdffonts/identify/whitelist
+make validate-pdf FIG=<id>               # font-embed checks
+make iter-gallery FIG=<id>               # side-by-side iteration gallery
 ```
+
+---
+
+## 9b. Agentic pipeline (optional)
+
+For the PaperVizAgent-style run:
+
+1. Invoke the pipeline via `make pipeline FIG=<id> ASK="..."` or via
+   `/figgen-new FIG=<id> ASK="..."` inside Claude Code.
+2. The orchestrator runs Planner → Geotech → Author → Compile → Critic →
+   Compliance, looping up to 4 times on REVISE verdicts.
+3. Every iteration's PNG is preserved under `figures/<id>/build/iter_<n>.png`.
+4. On APPROVED, you get the same PDF/SVG/PNG trio as `make figure`, plus
+   `figures/<id>/build/report.md` with per-stage verdicts.
+
+**Never** skip the Tier-2 contract. Agentic runs still route through
+`figgen.io.load_tier2()` for paper figures. See `docs/pipeline.md` for the
+architecture diagram and `docs/backends.md` for backend selection.
 
 ---
 

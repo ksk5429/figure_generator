@@ -15,7 +15,7 @@ TEMPLATE    := scripts/_template_figure.py
 
 FIG_IDS     := $(notdir $(patsubst %/,%,$(wildcard $(FIG_DIR)/*/)))
 
-.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry publish-paper publish-paper-dry witness witness-all refresh-all
+.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry publish-paper publish-paper-dry witness witness-all refresh-all pipeline pipeline-ci pipeline-stage critic compliance validate-pdf iter-gallery
 
 help:
 	@echo "figure_generator targets:"
@@ -39,6 +39,13 @@ help:
 	@echo "  make clean              Remove generated figure outputs and site/"
 	@echo "  make lint               Run ruff"
 	@echo "  make format             Run ruff format"
+	@echo "  make pipeline FIG=<id> [ASK=\"...\"]   Run the full 5-agent pipeline (LLM+vision)"
+	@echo "  make pipeline-ci FIG=<id>             Deterministic, offline run (no LLM, no vision)"
+	@echo "  make pipeline-stage FIG=<id> STAGE=<plan|geotech|compile|critic|compliance>"
+	@echo "  make critic FIG=<id>                  Run the critic alone"
+	@echo "  make compliance FIG=<id>              Run the journal-compliance linter"
+	@echo "  make validate-pdf FIG=<id>            pdffonts + identify checks"
+	@echo "  make iter-gallery FIG=<id>            Build figures/<id>/build/iterations.html"
 
 setup:
 	$(PIP) install -e .[dev]
@@ -162,3 +169,48 @@ lint:
 
 format:
 	ruff format src tests scripts gallery
+
+pipeline:
+ifndef FIG
+	$(error FIG is not set. Usage: make pipeline FIG=<figure_id> [ASK="..."])
+endif
+	$(PY) scripts/run_pipeline.py --figure $(FIG) $(if $(ASK),--ask "$(ASK)",)
+
+pipeline-ci:
+ifndef FIG
+	$(error FIG is not set. Usage: make pipeline-ci FIG=<figure_id>)
+endif
+	$(PY) scripts/run_pipeline.py --figure $(FIG) --ci
+
+pipeline-stage:
+ifndef FIG
+	$(error FIG is not set. Usage: make pipeline-stage FIG=<figure_id> STAGE=<plan|geotech|compile|critic|compliance>)
+endif
+ifndef STAGE
+	$(error STAGE is not set. Usage: make pipeline-stage FIG=<figure_id> STAGE=<plan|geotech|compile|critic|compliance>)
+endif
+	$(PY) scripts/run_pipeline.py --figure $(FIG) --stage $(STAGE)
+
+critic:
+ifndef FIG
+	$(error FIG is not set. Usage: make critic FIG=<figure_id>)
+endif
+	$(PY) scripts/run_pipeline.py --figure $(FIG) --stage critic
+
+compliance:
+ifndef FIG
+	$(error FIG is not set. Usage: make compliance FIG=<figure_id>)
+endif
+	$(PY) scripts/journal_lint.py $(FIG_DIR)/$(FIG)
+
+validate-pdf:
+ifndef FIG
+	$(error FIG is not set. Usage: make validate-pdf FIG=<figure_id>)
+endif
+	$(PY) scripts/validate_pdf.py $(FIG_DIR)/$(FIG)/*.pdf
+
+iter-gallery:
+ifndef FIG
+	$(error FIG is not set. Usage: make iter-gallery FIG=<figure_id>)
+endif
+	$(PY) scripts/iteration_gallery.py $(FIG_DIR)/$(FIG)

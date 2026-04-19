@@ -35,6 +35,13 @@ dependencies = [
 shm = ["obspy>=1.4"]
 mesh = ["pyvista>=0.42"]
 latex = ["tikzplotlib>=0.10"]
+agents = [
+    "anthropic>=0.39",
+]
+svg = [
+    "drawsvg>=2.4",
+    "cairosvg>=2.7",
+]
 docs = [
     "mkdocs>=1.6",
     "mkdocs-material>=9.5",
@@ -64,6 +71,10 @@ where = ["src"]
 testpaths = ["tests"]
 addopts = "-ra --strict-markers"
 filterwarnings = ["ignore::DeprecationWarning"]
+markers = [
+    "integration: end-to-end pipeline tests that spawn subprocesses (matplotlib backend, etc.)",
+    "vision: tests that exercise the Anthropic vision API (require ANTHROPIC_API_KEY)",
+]
 
 [tool.ruff]
 line-length = 100

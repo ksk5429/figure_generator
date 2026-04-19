@@ -6,13 +6,23 @@
       "Bash(git -c user.name=ksk5429 -c user.email=15989422+ksk5429@users.noreply.github.com commit -q -m 'feat\\(publish\\): register A, E, Op3, J5, J11 manuscripts *)",
       "Bash(pngquant --version)",
       "Bash(oxipng --version)",
-      "Bash(git -c user.name=\"ksk5429\" -c user.email=\"15989422+ksk5429@users.noreply.github.com\" commit -q -F /f/tmp/figgen_commit3.txt)"
+      "Bash(git -c user.name=\"ksk5429\" -c user.email=\"15989422+ksk5429@users.noreply.github.com\" commit -q -F /f/tmp/figgen_commit3.txt)",
+      "Bash(awk '{print $5, $6, $7, $8, $9}')",
+      "Bash(awk '{print $6, $7, $8, $9}')",
+      "Bash(git -c user.name=\"ksk5429\" -c user.email=\"15989422+ksk5429@users.noreply.github.com\" commit -q -F /f/tmp/figgen_commit4.txt)",
+      "Bash(xxd)",
+      "Bash(git -c user.name=ksk5429 -c user.email=15989422+ksk5429@users.noreply.github.com commit -q -m 'feat\\(publish\\): bold Figure/Table captions + clickable numeric citations *)",
+      "Bash(git -c user.name=ksk5429 -c user.email=15989422+ksk5429@users.noreply.github.com commit -q -m 'fix\\(publish\\): reference list hygiene — protect margin labels, clean DOIs *)",
+      "Bash(git -c user.name=ksk5429 -c user.email=15989422+ksk5429@users.noreply.github.com commit -q -m 'fix\\(publish\\): patch broken image references automatically *)",
+      "Bash(git add *)"
     ],
     "additionalDirectories": [
       "F:\\TREE_OF_THOUGHT\\mkdocs_material\\docs\\papers\\MSSP",
       "F:\\TREE_OF_THOUGHT\\mkdocs_material\\docs\\papers\\B\\figures",
       "F:\\TREE_OF_THOUGHT\\mkdocs_material\\docs\\papers\\V\\",
-      "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ1_oe2025_published\\OE-D-25-03025R1_250929"
+      "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ1_oe2025_published\\OE-D-25-03025R1_250929",
+      "f:\\TREE_OF_THOUGHT\\mkdocs_material\\docs",
+      "F:\\TREE_OF_THOUGHT\\figure_generator\\.claude"
     ]
   }
 }
