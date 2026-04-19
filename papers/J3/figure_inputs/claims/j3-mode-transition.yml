@@ -1,0 +1,157 @@
+# Claim witness — j3-mode-transition
+#
+# Bending-to-tilting transition in loose saturated sand at S/D = 0.58.
+# Two simultaneous signatures: 4.27× displacement amplification and
+# a sign reversal of the bottom bending strain (+14.3 % -> -10.8 %).
+
+claim_id: j3-mode-transition
+paper: J3
+status: confirmed
+source: manuscript.qmd §4.1 + @fig-t5-progression + fig_timeseries_response.py
+origin_note: |
+  T5 (loose saturated) tower-average RMS displacement (mean of six LVDT
+  channels, D2 excluded) and bottom bending strain change across five
+  stages. The abrupt >2× displacement jump from S/D = 0.39 to 0.58
+  (1.67 -> 4.27) and the contemporaneous strain sign reversal
+  (+14.3 % -> -10.8 %) mark the bending-to-tilting transition. After
+  backfill, displacement sheds 66 % of the peak amplification and
+  bottom strain returns to +2.9 %, back in the elastic-bending regime.
+
+headline: >
+  At S/D = 0.58 in loose saturated sand, displacement amplified 4.27×
+  while bottom strain reversed sign — the bending-to-tilting transition
+  that frequency monitoring alone (df/f = -2.58 %) does not detect.
+
+primary_figure: figures/j3-mode-transition
+
+assertions:
+
+  # ----- Displacement progression -----
+  - name: disp_baseline_is_unity
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: disp_norm
+      filter: {stage: Baseline}
+    op: near
+    value: 1.000
+    tolerance: 0.001
+
+  - name: disp_at_019_near_1_77
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: disp_norm
+      filter: {stage: "S/D=0.19"}
+    op: near
+    value: 1.770
+    tolerance: 0.001
+
+  - name: disp_at_039_near_1_67
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: disp_norm
+      filter: {stage: "S/D=0.39"}
+    op: near
+    value: 1.670
+    tolerance: 0.001
+
+  - name: disp_at_058_near_4_27
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: disp_norm
+      filter: {stage: "S/D=0.58"}
+    op: near
+    value: 4.270
+    tolerance: 0.005
+
+  - name: disp_backfill_near_1_43
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: disp_norm
+      filter: {stage: Backfill}
+    op: near
+    value: 1.433
+    tolerance: 0.005
+
+  # ----- Abruptness: >2x jump between 0.39 and 0.58 -----
+  - name: disp_peak_at_058_above_4
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: disp_peak_at_058
+    op: greater
+    value: 4.0
+
+  # ----- Strain progression, reversal at S/D = 0.58 -----
+  - name: strain_at_019_near_plus_20_9
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: strain_change_pct
+      filter: {stage: "S/D=0.19"}
+    op: near
+    value: 20.9
+    tolerance: 0.05
+
+  - name: strain_at_039_near_plus_14_3
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: strain_change_pct
+      filter: {stage: "S/D=0.39"}
+    op: near
+    value: 14.3
+    tolerance: 0.05
+
+  - name: strain_at_058_near_minus_10_8
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: strain_change_pct
+      filter: {stage: "S/D=0.58"}
+    op: near
+    value: -10.8
+    tolerance: 0.05
+
+  - name: strain_at_058_is_negative
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: strain_peak_at_058
+    op: less
+    value: 0.0
+
+  - name: strain_backfill_near_plus_2_9
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: strain_change_pct
+      filter: {stage: Backfill}
+    op: near
+    value: 2.9
+    tolerance: 0.05
+
+  # ----- Backfill sheds ~67 % of the peak amplification -----
+  - name: disp_bf_reduction_near_0_67
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: disp_bf_reduction_fraction
+    op: near
+    value: 0.665
+    tolerance: 0.01
+
+  # ----- Frequency alone is silent: |df/f| at S/D = 0.58 is only 2.58 % -----
+  - name: freq_decline_at_058_near_minus_2_58
+    parquet: mode-transition.parquet
+    compute:
+      op: mean
+      column: df_pct_vs_baseline
+      filter: {stage: "S/D=0.58"}
+    op: near
+    value: -2.58
+    tolerance: 0.02

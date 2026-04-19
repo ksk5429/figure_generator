@@ -1,0 +1,67 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "mode-transition",
+  "generated_utc": "2026-04-19T11:40:23Z",
+  "primary_source": {
+    "kind": "paper_script",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd \u00a74.1 + @fig-t5-progression",
+    "script_ref": "paperJ3_oe02685/fig_timeseries_response.py"
+  },
+  "stages": [
+    "Baseline",
+    "S/D=0.19",
+    "S/D=0.39",
+    "S/D=0.58",
+    "Backfill"
+  ],
+  "s_over_d": [
+    0.0,
+    0.19,
+    0.39,
+    0.58,
+    null
+  ],
+  "disp_norm_t5": [
+    1.0,
+    1.77,
+    1.67,
+    4.27,
+    1.433
+  ],
+  "strain_change_pct_t5": [
+    0.0,
+    20.9,
+    14.3,
+    -10.8,
+    2.9
+  ],
+  "f1_hz_t5": [
+    10.779,
+    10.723,
+    10.645,
+    10.501,
+    10.94
+  ],
+  "notes": {
+    "disp_excluded_channel": "D2 (anomalous amplification, ~93x)",
+    "disp_mean_channels": 6,
+    "recovery_reduction_fraction": 0.6644028103044497
+  },
+  "rows": 5,
+  "columns": [
+    "test_id",
+    "density",
+    "stage_index",
+    "stage",
+    "s_over_d",
+    "is_backfill",
+    "disp_norm",
+    "strain_change_pct",
+    "f1_hz",
+    "df_pct_vs_baseline",
+    "disp_peak_at_058",
+    "strain_peak_at_058",
+    "disp_bf_reduction_fraction"
+  ]
+}

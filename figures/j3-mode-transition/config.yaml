@@ -1,0 +1,38 @@
+figure_id: j3-mode-transition
+journal: ocean_engineering
+width: single
+
+paper: J3
+claim_id: j3-mode-transition
+tier: 2
+tier2_slug: mode-transition
+
+description: >
+  T5 bending-to-tilting transition in loose saturated sand (manuscript
+  §4.1, @fig-t5-progression). Two stacked panels sharing an x-axis:
+  (a) Normalised RMS tower displacement across Baseline, S/D = 0.19,
+  0.39, 0.58, Backfill; peak of 4.27× at S/D = 0.58 marks the abrupt
+  mode shift from elastic bending to rigid-body tilting. (b) Bottom
+  bending strain change (%) across the same stages; +20.9 % at 0.19,
+  +14.3 % at 0.39, then a sign reversal to -10.8 % at 0.58 consistent
+  with the tilting kinematic mode. After backfill, displacement sheds
+  67 % of its peak amplification and bottom strain returns to +2.9 %.
+  Frequency alone declines only 2.58 % at S/D = 0.58 — the mode
+  transition is invisible to frequency monitoring.
+
+data_sources:
+  - papers/J3/figure_inputs/mode-transition.parquet
+
+required_columns:
+  - stage
+  - stage_index
+  - s_over_d
+  - is_backfill
+  - disp_norm
+  - strain_change_pct
+  - f1_hz
+  - df_pct_vs_baseline
+  - disp_peak_at_058
+  - disp_bf_reduction_fraction
+
+formats: [png, svg, pdf]

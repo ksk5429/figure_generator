@@ -1,0 +1,13 @@
+test_id:                    label
+density:                    label
+stage:                      label
+stage_index:                dimensionless
+s_over_d:                   dimensionless
+is_backfill:                label
+disp_norm:                  dimensionless
+strain_change_pct:          percent
+f1_hz:                      hertz
+df_pct_vs_baseline:         percent
+disp_peak_at_058:           dimensionless
+strain_peak_at_058:         percent
+disp_bf_reduction_fraction: dimensionless

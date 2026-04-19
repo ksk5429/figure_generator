@@ -45,6 +45,26 @@ phi' for T4 or T5.
 **Machine-checkable assertion:** see
 [`figure_inputs/claims/j3-phi-prime.yml`](../figure_inputs/claims/j3-phi-prime.yml).
 
+### `j3-mode-transition` — confirmed (2026-04-19)
+
+**Headline:** At _S_/_D_ = 0.58 in loose saturated sand (T5), the
+tripod suction bucket foundation transitions from elastic cantilever
+bending to rigid-body tilting. Two simultaneous signatures evidence
+the transition: tower RMS displacement amplifies **×4.27** (from 1.67×
+at _S_/_D_ = 0.39) and bottom bending strain **reverses sign** from
++14.3 % at _S_/_D_ = 0.39 to −10.8 % at 0.58. Frequency alone declines
+only 2.58 % and is silent to the transition. Backfill sheds 67 % of
+the peak displacement amplification and brings bottom strain back to
++2.9 %, consistent with a return to elastic bending.
+
+**Witness:** the J3-09 two-panel T5 progression figure — (a)
+normalised RMS displacement vs _S_/_D_ + backfill, (b) bottom bending
+strain change vs _S_/_D_ + backfill, with the strain sign reversal
+and displacement amplification jumps marked.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-mode-transition.yml`](../figure_inputs/claims/j3-mode-transition.yml).
+
 ### `j3-powerlaw-exponent` — confirmed (2026-04-19)
 
 **Headline:** Cross-material power-law agreement: least-squares fits to
