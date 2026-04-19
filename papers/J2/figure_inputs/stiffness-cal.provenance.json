@@ -1,0 +1,32 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "stiffness-cal",
+  "generated_utc": "2026-04-19T05:56:15Z",
+  "primary_source": {
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\stiffness_scaling_sensitivity.csv",
+    "md5_8": "3f8e8ab2",
+    "kind": "csv",
+    "note": "Three-row G_max/G sensitivity study (scaling factor 2.0, 3.0, 4.0). NREL 5 MW reference tower baseline per @tbl-scaling-sensitivity caption."
+  },
+  "used_scaling_factor": 3.0,
+  "hardin_1978_band": [
+    2.0,
+    5.0
+  ],
+  "rows": 3,
+  "columns": [
+    "scaling_factor",
+    "baseline_f1_hz",
+    "power_law_a",
+    "power_law_b",
+    "f1_at_sd_025_hz",
+    "f1_at_sd_050_hz",
+    "pct_drop_at_sd_050_pct",
+    "used",
+    "baseline_f1_used_hz",
+    "baseline_f1_ratio_to_used",
+    "b_delta_pct"
+  ],
+  "manuscript_ref": "paperJ2_oe00984/manuscript.qmd @tbl-scaling-sensitivity"
+}

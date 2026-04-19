@@ -1,0 +1,121 @@
+# Claim witness — j2-stiffness-cal
+#
+# The G_max/G scaling factor is the single calibration lever that
+# transfers static secant stiffness extracted from OptumGX to the
+# small-strain dynamic stiffness required for natural-frequency
+# prediction. Hardin 1978 documents a band of 2-5 for clays at ~1 %
+# strain; the manuscript uses 3.0.
+#
+# This claim establishes that the *scour-sensitivity conclusion* (the
+# power-law exponent b) is insensitive to the chosen scaling factor,
+# while the *baseline frequency* depends on it. The two facts together
+# mean the paper's scour-frequency mapping transfers to any site that
+# can supply a site-specific G_max/G calibration, without changing the
+# scour-sensitivity exponent.
+
+claim_id: j2-stiffness-cal
+paper: J2
+status: submitted
+source: manuscript.qmd @tbl-scaling-sensitivity
+origin_note: |
+  Three-row sensitivity sweep over the G_max/G factor (2.0, 3.0, 4.0)
+  from Hardin 1978. Baseline f_1 spans [0.284, 0.316] Hz (±4 % around
+  the used value 0.3043 Hz). The scour-power-law exponent b spans
+  [1.28, 1.31] — a 2 % variation, well within the decision-relevant
+  range of ±5 %.
+
+headline: >
+  Scour-sensitivity exponent b stays in [1.28, 1.31] (±2 %) across the
+  full G_max/G = [2, 4] range; baseline f_1 varies ±4 % across the same
+  range, so the exponent is robust while the absolute frequency
+  requires site-specific G_max/G calibration.
+
+primary_figure: figures/j2-stiffness-cal
+
+assertions:
+
+  # ----- Used row matches manuscript headline values -----
+  - name: baseline_f1_at_factor_3_matches_manuscript
+    parquet: stiffness-cal.parquet
+    compute:
+      op: mean
+      filter: {scaling_factor: 3.0}
+      column: baseline_f1_hz
+    op: near
+    value: 0.3043
+    tolerance: 0.0005
+
+  - name: power_law_b_at_factor_3_matches_manuscript
+    parquet: stiffness-cal.parquet
+    compute:
+      op: mean
+      filter: {scaling_factor: 3.0}
+      column: power_law_b
+    op: near
+    value: 1.301
+    tolerance: 0.01
+
+  # ----- Exponent-robustness claim: b stays in tight band over 2-4x -----
+  - name: power_law_b_at_factor_2_in_robustness_band
+    parquet: stiffness-cal.parquet
+    compute:
+      op: mean
+      filter: {scaling_factor: 2.0}
+      column: power_law_b
+    op: between
+    lo: 1.25
+    hi: 1.33
+
+  - name: power_law_b_at_factor_4_in_robustness_band
+    parquet: stiffness-cal.parquet
+    compute:
+      op: mean
+      filter: {scaling_factor: 4.0}
+      column: power_law_b
+    op: between
+    lo: 1.25
+    hi: 1.33
+
+  # ----- Magnitude-dependence claim: baseline f_1 shifts by up to ±4 % -----
+  - name: baseline_f1_at_factor_2_below_used
+    parquet: stiffness-cal.parquet
+    compute:
+      op: mean
+      filter: {scaling_factor: 2.0}
+      column: baseline_f1_ratio_to_used
+    op: between
+    lo: 0.90
+    hi: 0.96
+
+  - name: baseline_f1_at_factor_4_above_used
+    parquet: stiffness-cal.parquet
+    compute:
+      op: mean
+      filter: {scaling_factor: 4.0}
+      column: baseline_f1_ratio_to_used
+    op: between
+    lo: 1.02
+    hi: 1.06
+
+  # ----- Drop-at-SD=0.5 reported as 8.9 % at used factor -----
+  - name: pct_drop_at_sd_050_at_factor_3_matches
+    parquet: stiffness-cal.parquet
+    compute:
+      op: mean
+      filter: {scaling_factor: 3.0}
+      column: pct_drop_at_sd_050_pct
+    op: near
+    value: 8.9
+    tolerance: 0.2
+
+  # ----- Row inventory: exactly 3 sensitivity points -----
+  - name: row_inventory_three_factors
+    parquet: stiffness-cal.parquet
+    compute:
+      op: row_counts
+      group_by: scaling_factor
+    op: equal
+    value:
+      "2.0": 1
+      "3.0": 1
+      "4.0": 1

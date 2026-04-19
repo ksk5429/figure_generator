@@ -1,0 +1,29 @@
+figure_id: j2-stiffness-cal
+journal: ocean_engineering
+width: one_half
+
+paper: J2
+claim_id: j2-stiffness-cal
+tier: 2
+tier2_slug: stiffness-cal
+
+description: >
+  G_max/G stiffness-scaling sensitivity study across the Hardin 1978
+  band [2, 5]. (a) Baseline f_1 (left y) and % drop at S/D = 0.5
+  (right y) vs scaling factor — both scale with the factor. (b) Power-law
+  scour exponent b vs scaling factor, with a ±5% decision band shaded
+  around the used value — b stays flat across the range, showing the
+  scour-sensitivity conclusion is insensitive to the stiffness
+  calibration choice.
+
+data_sources:
+  - papers/J2/figure_inputs/stiffness-cal.parquet
+
+required_columns:
+  - scaling_factor
+  - baseline_f1_hz
+  - power_law_b
+  - pct_drop_at_sd_050_pct
+  - used
+
+formats: [png, svg, pdf]

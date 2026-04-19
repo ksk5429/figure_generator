@@ -1,0 +1,11 @@
+scaling_factor:             dimensionless
+baseline_f1_hz:             hertz
+power_law_a:                dimensionless
+power_law_b:                dimensionless
+f1_at_sd_025_hz:            hertz
+f1_at_sd_050_hz:            hertz
+pct_drop_at_sd_050_pct:     percent
+used:                       dimensionless
+baseline_f1_used_hz:        hertz
+baseline_f1_ratio_to_used:  dimensionless
+b_delta_pct:                percent

@@ -1,0 +1,39 @@
+claim_id: j2-stiffness-cal
+columns:
+- name: scaling_factor
+  dtype: float64
+  unit: dimensionless
+  note: G_max / G applied to static secant stiffness; Hardin 1978 band is [2, 5]
+- name: baseline_f1_hz
+  dtype: float64
+  unit: hertz
+  note: first natural frequency at S = 0 (NREL 5 MW reference tower)
+- name: power_law_a
+  dtype: float64
+  unit: dimensionless
+- name: power_law_b
+  dtype: float64
+  unit: dimensionless
+  note: scour-sensitivity exponent in f/f0 = 1 + a (S/D)^b
+- name: f1_at_sd_025_hz
+  dtype: float64
+  unit: hertz
+- name: f1_at_sd_050_hz
+  dtype: float64
+  unit: hertz
+- name: pct_drop_at_sd_050_pct
+  dtype: float64
+  unit: percent
+- name: used
+  dtype: bool
+  note: true for the published manuscript row (factor 3.0)
+- name: baseline_f1_used_hz
+  dtype: float64
+  unit: hertz
+- name: baseline_f1_ratio_to_used
+  dtype: float64
+  unit: dimensionless
+- name: b_delta_pct
+  dtype: float64
+  unit: percent
+  note: (b - b_used) / b_used * 100

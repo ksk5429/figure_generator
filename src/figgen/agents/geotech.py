@@ -49,6 +49,10 @@ class GeotechAgent:
             scour_tokens = (
                 "s_d", "s/d", "s_over_d", "sd_ratio",
                 "s_m", "scour_m", "scour_depth", "z_m",
+                # Parametric-study figures whose x-axis is NOT scour but
+                # whose data is evaluated AT fixed S/D points, e.g.
+                # "f1_at_sd_050_hz". Treat "at_sd_" as a valid witness.
+                "at_sd_", "at_sd",
             )
             _flag(msgs, "scour",
                   any(tok in col_str for tok in scour_tokens),
