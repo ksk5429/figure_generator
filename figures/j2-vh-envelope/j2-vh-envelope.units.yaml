@@ -1,0 +1,8 @@
+scour_m:    meter
+s_over_d:   dimensionless
+angle_deg:  degree
+v_kn:       kilonewton   # vertical capacity (compression positive)
+h_kn:       kilonewton   # horizontal capacity
+h_ult_kn:   kilonewton   # per-scour peak H (broadcast onto every row)
+v_ult_kn:   kilonewton   # per-scour peak V
+l_eff_m:    meter        # remaining skirt embedment length

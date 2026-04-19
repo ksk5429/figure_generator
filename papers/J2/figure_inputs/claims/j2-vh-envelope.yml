@@ -1,0 +1,116 @@
+# Claim witness — j2-vh-envelope
+#
+# The manuscript's VH failure-envelope evolution is the backbone of the
+# capacity-constraint half of the Op3 framework. Under scour the envelope
+# must shrink monotonically — no physical mechanism allows the capacity
+# to grow when the skirt is being progressively removed. The numerical
+# anchors below pin both the intact and fully-scoured envelopes to their
+# OptumGX values so that a bad rebuild (wrong scour level, wrong soil
+# parameter, wrong solver tolerance) is caught before the figure ships.
+
+claim_id: j2-vh-envelope
+paper: J2
+status: submitted
+source: manuscript.qmd Section 2.3 + Table @tbl-walltime lineage
+origin_note: |
+  OptumGX 3D-FE limit analysis, 11 scour levels (0 to 5 m in 0.5 m steps),
+  20 polar VH angles per level. Envelope shrinkage: H_ult loses ~44% from
+  S=0 to S=5 m; V_ult loses ~13% over the same range (skirt lateral
+  resistance decays faster than vertical bearing under scour, since
+  skirt friction is lost but lid bearing and base bearing are only
+  partially affected).
+
+headline: >
+  VH envelope shrinks monotonically under scour. H_ult drops from
+  ~20850 kN at S=0 to ~11750 kN at S=5 m (44% loss); V_ult drops from
+  ~116900 kN to ~102030 kN (13% loss).
+
+primary_figure: figures/j2-vh-envelope
+
+assertions:
+
+  # ----- Intact envelope anchors (S = 0 m) -----
+  - name: h_ult_intact
+    parquet: vh-envelope.parquet
+    compute:
+      op: mean
+      filter: {scour_m: 0.0}
+      column: h_ult_kn
+    op: between
+    lo: 20500.0
+    hi: 21200.0
+
+  - name: v_ult_intact
+    parquet: vh-envelope.parquet
+    compute:
+      op: mean
+      filter: {scour_m: 0.0}
+      column: v_ult_kn
+    op: between
+    lo: 115000.0
+    hi: 118000.0
+
+  # ----- Fully-scoured envelope anchors (S = 5 m, S/D = 0.625) -----
+  - name: h_ult_max_scour
+    parquet: vh-envelope.parquet
+    compute:
+      op: mean
+      filter: {scour_m: 5.0}
+      column: h_ult_kn
+    op: between
+    lo: 11400.0
+    hi: 12100.0
+
+  - name: v_ult_max_scour
+    parquet: vh-envelope.parquet
+    compute:
+      op: mean
+      filter: {scour_m: 5.0}
+      column: v_ult_kn
+    op: between
+    lo: 101000.0
+    hi: 103500.0
+
+  # ----- Horizontal capacity loss must exceed 40% from intact to S=5 m -----
+  # Encoded via the absolute h_ult @ S=5 being well below h_ult @ S=0:
+  # 12100 / 21200 < 0.58, so the "between" band above already constrains
+  # the ratio. We add an explicit "H_ult @ S=5 < 12500" tripwire to catch
+  # any regression that pulls the shrinkage back.
+  - name: h_ult_shrinks_below_12500_at_max_scour
+    parquet: vh-envelope.parquet
+    compute:
+      op: mean
+      filter: {scour_m: 5.0}
+      column: h_ult_kn
+    op: less
+    value: 12500.0
+
+  # ----- L_eff at max scour must be positive (skirt not fully removed) -----
+  - name: l_eff_positive_at_max_scour
+    parquet: vh-envelope.parquet
+    compute:
+      op: mean
+      filter: {scour_m: 5.0}
+      column: l_eff_m
+    op: greater
+    value: 3.0
+
+  # ----- Row inventory: 220 envelope points across 11 scour levels -----
+  - name: row_inventory_per_scour
+    parquet: vh-envelope.parquet
+    compute:
+      op: row_counts
+      group_by: scour_m
+    op: equal
+    value:
+      "0.0":  20
+      "0.5":  20
+      "1.0":  20
+      "1.5":  20
+      "2.0":  20
+      "2.5":  20
+      "3.0":  20
+      "3.5":  20
+      "4.0":  20
+      "4.5":  20
+      "5.0":  20

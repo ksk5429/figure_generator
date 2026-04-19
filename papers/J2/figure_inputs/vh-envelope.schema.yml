@@ -1,0 +1,33 @@
+claim_id: j2-vh-envelope
+columns:
+- name: scour_m
+  dtype: float64
+  unit: meter
+- name: s_over_d
+  dtype: float64
+  unit: dimensionless
+  note: scour_m / D with D = 8.0 m
+- name: angle_deg
+  dtype: float64
+  unit: degree
+  note: polar VH angle; 0 = pure V, 180 = pure uplift
+- name: v_kn
+  dtype: float64
+  unit: kilonewton
+  note: vertical capacity at this (scour, angle); +compressive
+- name: h_kn
+  dtype: float64
+  unit: kilonewton
+  note: horizontal capacity at this (scour, angle)
+- name: h_ult_kn
+  dtype: float64
+  unit: kilonewton
+  note: per-scour max H (broadcast onto every envelope row)
+- name: v_ult_kn
+  dtype: float64
+  unit: kilonewton
+  note: per-scour max V
+- name: l_eff_m
+  dtype: float64
+  unit: meter
+  note: remaining skirt-embedment length = L0 - scour

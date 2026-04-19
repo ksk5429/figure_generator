@@ -1,0 +1,29 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "vh-envelope",
+  "generated_utc": "2026-04-19T04:08:27Z",
+  "primary_source": {
+    "path": "F:\\TREE_OF_THOUGHT\\PHD\\papers\\paperJ2_oe00984\\3_postprocessing\\processed_results_v2\\03_vh_capacity.xlsx",
+    "md5_8": "0f83f1a5",
+    "kind": "xlsx",
+    "sheets_used": [
+      "Envelopes",
+      "Summary"
+    ],
+    "note": "OptumGX 3D-FE limit analysis sweep: 11 scour levels x 20 polar VH angles each. Summary sheet carries the per-scour ultimate capacities and effective embedment."
+  },
+  "bucket_diameter_m": 8.0,
+  "rows": 220,
+  "columns": [
+    "scour_m",
+    "s_over_d",
+    "angle_deg",
+    "v_kn",
+    "h_kn",
+    "h_ult_kn",
+    "v_ult_kn",
+    "l_eff_m"
+  ],
+  "manuscript_ref": "paperJ2_oe00984/manuscript.qmd Section 2.3 VH envelope"
+}

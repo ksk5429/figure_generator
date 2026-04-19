@@ -1,0 +1,29 @@
+figure_id: j2-vh-envelope
+journal: ocean_engineering
+width: one_half
+
+paper: J2
+claim_id: j2-vh-envelope
+tier: 2
+tier2_slug: vh-envelope
+
+description: >
+  VH failure-envelope evolution under progressive scour. Eleven envelopes
+  (S = 0 to 5 m in 0.5 m steps) overlaid on a single (V, H) plane. Intact
+  and fully-scoured envelopes highlighted; intermediate scours dashed.
+  Scour arrow visualises the envelope shrinkage direction.
+
+data_sources:
+  - papers/J2/figure_inputs/vh-envelope.parquet
+
+required_columns:
+  - scour_m
+  - s_over_d
+  - angle_deg
+  - v_kn
+  - h_kn
+  - h_ult_kn
+  - v_ult_kn
+  - l_eff_m
+
+formats: [png, svg, pdf]
