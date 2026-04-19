@@ -161,10 +161,10 @@ def main() -> None:
     ax_b.yaxis.set_major_locator(mticker.MultipleLocator(2.0))
     ax_b.yaxis.set_minor_locator(mticker.MultipleLocator(1.0))
 
-    ax_a.set_title("(a) Frequency decline vs scour depth",
-                   fontsize=12, fontweight="bold", loc="left")
-    ax_b.set_title("(b) Scour sensitivity",
-                   fontsize=12, fontweight="bold", loc="left")
+    # Panel labels belong inside the axes (journal rule — no titles).
+    from figgen.utils import add_panel_label
+    add_panel_label(ax_a, "(a)")
+    add_panel_label(ax_b, "(b)")
     ax_a.set_xlabel(r"Scour depth ratio, $S/D$")
     ax_b.set_xlabel("")
 

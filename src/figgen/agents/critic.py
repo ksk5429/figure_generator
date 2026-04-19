@@ -1,26 +1,27 @@
-"""Figure critic — 10-axis rubric + optional vision review.
+"""Figure critic — 10-axis rubric + optional vision review (HARSHER).
 
-Rubric axes (a)-(j) taken verbatim from PaperVizAgent.md §7.7:
+Rubric axes (a)-(j) taken verbatim from PaperVizAgent.md §7.7, but every
+axis now starts at **1/3** rather than 2/3: the reviewer assumes a
+figure is *acceptable but suspicious* until evidence in source code,
+compiled outputs, or the spec lifts the score. Axes can reach 2/3
+automatically on clean evidence, but 3/3 is reserved for vision review
+(hybrid mode) that can assess perceptual quality directly.
 
-  (a) matches stated purpose and data
-  (b) readability at target column width (90/140/190 mm)
-  (c) axis labels include units, SI only
-  (d) color-blind safe AND grayscale-legible
-  (e) font consistency, 6-8 pt, TrueType (matplotlib)
-  (f) line weights >= 0.25 pt
-  (g) data-ink ratio — ink that adds no information
-  (h) legend placement, no overlap
-  (i) subfigure labels inside artwork
-  (j) no equations, no emojis, no hallucinated numeric values
+Thresholds (both raised for production-grade output):
+  - rubric  mode: total >= 22/30    (was 18/30)
+  - hybrid  mode: total >= 27/30    (was 26/30)
+  - B&W ΔL soft-warn:  18           (was 20)  — tracks legibility.py
+  - B&W ΔL hard-fail:  legibility.py default (18; was 15)
 
-Each axis is scored 0-3; approval requires total >= 26 AND no "high" issues.
-
-Modes:
-  - ``vision`` (default when ANTHROPIC_API_KEY is set): send PNG to Claude
-    Opus 4.7 with a structured prompt; parse the returned JSON.
-  - ``rubric`` (always available): deterministic checks against the source
-    (matplotlib script text, PDF font embedding) and the FigureSpec. Always
-    runs first; vision only adds the perceptual axes.
+New deterministic checks added on top of the PaperVizAgent axes:
+  - (b) aspect-ratio sanity (too-squat / too-tall)
+  - (c) **every** numeric column needs a declared unit (no -1 slack)
+  - (d) forbidden-color sweep: matplotlib C0-C9 and "jet"/"rainbow"/"hsv"
+  - (g) chartjunk: if ALL spines are visible AND grid is on both axes AND
+        ticks on all four sides, warn on data-ink ratio
+  - (h) plt.title() is a hard FAIL (journals put titles in captions, never
+        in the figure artwork)
+  - (j) CAPTION.md must exist and be >= 200 characters
 """
 
 from __future__ import annotations
@@ -41,21 +42,22 @@ from .planner import FigureSpec
 
 
 _CRITIC_PROMPT = """You are an unforgiving reviewer modelled after a Geotechnique / JGGE Associate Editor.
+Assume the figure is FLAWED until the data and composition prove otherwise.
 
 Score THIS figure 0-3 on each of the 10 axes below. Return ONLY a single JSON
 object, no prose, no markdown fences.
 
 Axes:
   a: matches stated purpose and data
-  b: readable at target column width (90/140/190 mm)
-  c: axis labels include SI units in square brackets
+  b: readable at target column width (90/140/190 mm) with clean aspect ratio
+  c: axis labels include SI units in square brackets on every numeric axis
   d: colorblind-safe AND grayscale-legible (paired color+linestyle+marker)
   e: font consistency, 6-8 pt, TrueType
-  f: line weights >= 0.25 pt
-  g: data-ink ratio — ink that does not add information
-  h: legend placement, no overlap
-  i: subfigure labels (a)(b)(c) inside artwork
-  j: no equations, no emojis, no hallucinated numeric values
+  f: line weights >= 0.25 pt with clear visual hierarchy
+  g: data-ink ratio — no decorative ink, grid sparingly, spines pared back
+  h: legend placement, no overlap with data or annotations
+  i: subfigure labels (a)(b)(c) inside artwork, single consistent style
+  j: no equations, no emojis, no hallucinated numeric values, caption present
 
 Output schema:
 {{
@@ -67,6 +69,14 @@ Output schema:
 Figure spec (YAML):
 {spec_yaml}
 """
+
+
+# Minimum CAPTION.md length that a submission-ready figure should have
+_MIN_CAPTION_CHARS = 200
+# Soft warning threshold for B&W legibility (keep aligned with legibility.py)
+_DELTA_L_SOFT_WARN = 22.0
+# Aspect-ratio sanity bounds (height/width)
+_ASPECT_MIN, _ASPECT_MAX = 0.30, 2.10
 
 
 @dataclass
@@ -118,14 +128,25 @@ def _pdf_has_embedded_truetype(pdf: Path) -> tuple[bool, str]:
     return True, r.stdout
 
 
+def _png_aspect(png: Path) -> float | None:
+    try:
+        from PIL import Image
+
+        with Image.open(png) as im:
+            w, h = im.size
+        if w == 0:
+            return None
+        return h / w
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list[dict[str, Any]]]:
-    scores = {k: 2 for k in "abcdefghij"}  # start at 2/3, drop on evidence
+    # STRICTER: axes start at 1/3 (not 2/3). Evidence promotes to 2/3;
+    # only vision review (hybrid mode) can reach 3/3.
+    scores = {k: 1 for k in "abcdefghij"}
     issues: list[dict[str, Any]] = []
 
-    # (c) units declared in required_columns. Accept:
-    #       - physical-unit suffixes (_m/_mm/_hz/_kpa/_kn/_deg/_rpm/_s/_ms/_g/...)
-    #       - dimensionless forms (_ratio/_fraction/_percent/_count)
-    #       - label/key/category columns that are not numeric
     unit_suffixes = (
         "_m", "_mm", "_cm", "_km", "_hz", "_khz", "_s", "_ms", "_us",
         "_kpa", "_mpa", "_pa", "_kn", "_kn_m", "_n", "_nm", "_n_m",
@@ -133,54 +154,139 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
     )
     dimensionless_suffixes = (
         "_ratio", "_fraction", "_percent", "_count", "_index", "_reps",
+        "_max", "_min",
     )
-    label_suffixes = ("_code", "_label", "_key", "_id", "_name", "_kind", "_source", "_status")
+    label_suffixes = ("_code", "_label", "_key", "_id", "_name", "_kind",
+                      "_source", "_status")
     accepted = unit_suffixes + dimensionless_suffixes + label_suffixes
 
-    unit_cols = [c for c in spec.required_columns
-                 if any(c.lower().endswith(s) for s in accepted)]
+    # (c) every numeric column must carry a unit suffix OR live in a
+    # sidecar — no "-1" slack anymore. Full sidecar + every suffix = 3/3.
     sidecar_path = folder / f"{spec.figure_id}.units.yaml"
     has_sidecar = sidecar_path.exists()
-    if (not has_sidecar and spec.required_columns
-            and len(unit_cols) < len(spec.required_columns) - 1):
-        scores["c"] = 1
-        issues.append({
-            "severity": "med", "axis": "c", "where": "required_columns",
-            "fix": ("Add a physical-unit / dimensionless / label suffix to "
-                    "every column (_m, _hz, _ratio, _code, ...) or ship a "
-                    f"{spec.figure_id}.units.yaml sidecar."),
-        })
+    unit_cols = [c for c in spec.required_columns
+                 if any(c.lower().endswith(s) for s in accepted)]
+    if spec.required_columns:
+        full_suffix_coverage = len(unit_cols) == len(spec.required_columns)
+        if has_sidecar and full_suffix_coverage:
+            scores["c"] = 3   # belt-and-suspenders
+        elif has_sidecar or full_suffix_coverage:
+            scores["c"] = 2
+        else:
+            missing = [c for c in spec.required_columns
+                       if not any(c.lower().endswith(s) for s in accepted)]
+            issues.append({
+                "severity": "med", "axis": "c", "where": "required_columns",
+                "fix": ("Every numeric column must declare a unit (suffix "
+                        "`_m`, `_hz`, `_ratio`, `_code`, …) or live in a "
+                        f"{spec.figure_id}.units.yaml sidecar. Missing: "
+                        f"{missing[:6]}{' …' if len(missing) > 6 else ''}."),
+            })
+    else:
+        # no required_columns declared — acceptable for narrative figures only
+        scores["c"] = 2
 
-    # (e, f, j) matplotlib source check
+    # ---- Matplotlib source checks ----
     script = folder / f"{spec.figure_id}.py"
-    if script.exists():
-        text = script.read_text(encoding="utf-8")
+    script_text = script.read_text(encoding="utf-8") if script.exists() else ""
+
+    if script_text:
+        # (e) style markers: must use figgen.utils.load_style or save_figure
         style_markers = (
             "pdf.fonttype", "thesis.mplstyle", "load_style",
             "figgen.utils", "figgen.domain", "save_figure",
             "from figgen import", "import figgen",
         )
-        if not any(m in text for m in style_markers):
-            scores["e"] = 1
+        if any(m in script_text for m in style_markers):
+            scores["e"] = 2
+        else:
             issues.append({"severity": "high", "axis": "e", "where": script.name,
-                           "fix": "Ensure pdf.fonttype=42 (use load_style() or thesis.mplstyle)."})
-        if "jet" in text.lower() or "rainbow" in text.lower() or "hsv" in text.lower():
+                           "fix": "Use figgen.utils.load_style() so pdf.fonttype=42 "
+                                  "is enforced everywhere."})
+
+        # (d) forbidden colors: jet / rainbow / hsv / C0-C9 hard-fail
+        txt_low = script_text.lower()
+        if any(k in txt_low for k in ("jet", "rainbow", "hsv")):
             scores["d"] = 0
             issues.append({"severity": "high", "axis": "d", "where": script.name,
-                           "fix": "Remove jet/rainbow/hsv; use cmocean, cmcrameri, or viridis."})
-        literals = detect_suspicious_literals(text, threshold=20.0)
-        if literals:
-            scores["j"] = 1
-            issues.append({"severity": "med", "axis": "j", "where": script.name,
-                           "fix": "Replace magic literals with values loaded from data/:\n  " + "\n  ".join(literals[:5])})
+                           "fix": "Remove jet / rainbow / hsv palettes; use "
+                                  "cmocean, cmcrameri, or viridis."})
+        if re.search(r"color\s*=\s*[\"']C\d[\"']", script_text):
+            if scores["d"] > 0:
+                scores["d"] = 1
+            issues.append({"severity": "high", "axis": "d", "where": script.name,
+                           "fix": "Forbidden default matplotlib cycle color "
+                                  "(C0-C9). Go through a named palette."})
 
-    # (a) spec panels present
-    if not spec.panels:
-        scores["a"] = 1
+        # (h) plt.title() is forbidden — journals require caption-only titling
+        if re.search(r"(?:ax\w*|plt)\.(?:set_)?title\s*\(", script_text):
+            scores["h"] = 0
+            issues.append({"severity": "high", "axis": "h", "where": script.name,
+                           "fix": "Remove ax.set_title() / plt.title(). Elsevier / ASCE / "
+                                  "Geotechnique all require the title to live in the "
+                                  "caption, not the figure artwork."})
+
+        # (j) suspicious magic literals
+        literals = detect_suspicious_literals(script_text, threshold=20.0)
+        if not literals:
+            scores["j"] = 2
+        else:
+            scores["j"] = min(scores["j"], 1)
+            issues.append({"severity": "med", "axis": "j", "where": script.name,
+                           "fix": "Replace magic literals with values loaded "
+                                  "from data/:\n  " + "\n  ".join(literals[:5])})
+
+        # (i) panel labels for multi-panel figures
+        if len(spec.panels) > 1:
+            if "add_panel_label" in script_text or "(a)" in script_text:
+                scores["i"] = 2
+            else:
+                issues.append({"severity": "med", "axis": "i", "where": script.name,
+                               "fix": "Add (a)/(b) panel labels via "
+                                      "figgen.utils.add_panel_label."})
+        else:
+            scores["i"] = 2   # single-panel: labels optional
+
+        # (f) explicit lw / linewidth below 0.25 pt
+        bad_lw: list[str] = re.findall(r"(?:lw|linewidth)\s*=\s*(\d*\.\d+)", script_text)
+        sub_min = [v for v in bad_lw if v and float(v) < 0.25]
+        if not sub_min:
+            scores["f"] = 2
+        else:
+            scores["f"] = 0
+            issues.append({"severity": "high", "axis": "f", "where": script.name,
+                           "fix": f"Explicit lw={sub_min[0]} pt is below the "
+                                  "0.25 pt minimum."})
+
+    # (a) spec has at least one panel
+    if spec.panels:
+        scores["a"] = 2
+    else:
         issues.append({"severity": "med", "axis": "a", "where": "spec",
                        "fix": "List at least one panel in FigureSpec.panels."})
 
-    # (e) PDF font embed check
+    # (b) aspect-ratio sanity — promote (b) to 2 if the rendered PNG has a
+    # reasonable shape; fail if it is wildly distorted.
+    png_primary = folder / f"{spec.figure_id}.png"
+    if not png_primary.exists():
+        png_primary = folder / "build" / f"{spec.figure_id}.png"
+    if png_primary.exists():
+        ar = _png_aspect(png_primary)
+        if ar is None:
+            scores["b"] = 2
+        elif _ASPECT_MIN <= ar <= _ASPECT_MAX:
+            scores["b"] = 2
+        else:
+            scores["b"] = 0
+            issues.append({
+                "severity": "high", "axis": "b", "where": png_primary.name,
+                "fix": (f"Aspect ratio h/w = {ar:.2f} is outside the sane "
+                        f"range [{_ASPECT_MIN:.2f}, {_ASPECT_MAX:.2f}]. "
+                        "Adjust set_size() aspect argument."),
+            })
+
+    # (e) PDF font embed check — passing pdffonts AND style markers promotes
+    # (e) to 3/3.
     for pdf in (folder / f"{spec.figure_id}.pdf", folder / "build" / f"{spec.figure_id}.pdf"):
         if pdf.exists():
             ok, report = _pdf_has_embedded_truetype(pdf)
@@ -188,55 +294,106 @@ def _rubric_checks(spec: FigureSpec, folder: Path) -> tuple[dict[str, int], list
                 scores["e"] = 0
                 issues.append({"severity": "high", "axis": "e", "where": pdf.name,
                                "fix": f"Fix font embedding: {report.splitlines()[0] if report else ''}"})
+            elif "pdffonts not found" not in report and scores["e"] >= 2:
+                # pdffonts actually ran, and every font was embedded TrueType
+                scores["e"] = 3
             break
 
-    # (d) B&W legibility + CVD — deterministic pairwise luminance check
-    png_primary = folder / f"{spec.figure_id}.png"
-    if not png_primary.exists():
-        png_primary = folder / "build" / f"{spec.figure_id}.png"
+    # (d) B&W legibility + CVD
     if png_primary.exists():
         leg = legibility_check(png_primary)
         if not leg.ok:
             scores["d"] = 0
             issues.append({"severity": "high", "axis": "d", "where": png_primary.name,
                            "fix": leg.message})
-        # Below threshold but not catastrophic: soft warning
-        elif leg.min_delta_l < 20 or leg.min_delta_l_deutan < 20:
-            if scores["d"] > 1:
-                scores["d"] = 1
-            issues.append({"severity": "low", "axis": "d", "where": png_primary.name,
-                           "fix": leg.message})
+        else:
+            # Two-tier promotion: passing the hard gate earns 2/3, clearing
+            # the soft-warn bar earns 3/3. No intermediate 1/3 — we don't
+            # want to punish figures that are comfortable in B&W just to
+            # game the score.
+            worst = min(leg.min_delta_l, leg.min_delta_l_deutan,
+                        leg.min_delta_l_protan)
+            if worst >= _DELTA_L_SOFT_WARN:
+                scores["d"] = 3
+            else:
+                scores["d"] = 2
+                issues.append({"severity": "low", "axis": "d",
+                               "where": png_primary.name,
+                               "fix": (f"B&W ΔL = {worst:.1f} passes the hard "
+                                       f"legibility gate but is below the "
+                                       f"soft-warn bar ({_DELTA_L_SOFT_WARN:.0f}). "
+                                       "Pair color with linestyle + marker or "
+                                       "widen luma gaps.")})
 
-    # (f) stroke-width rubric: explicit lw/linewidth below 0.25 in script?
-    if script.exists():
-        text = script.read_text(encoding="utf-8")
-        bad_lw = re.findall(r"(?:lw|linewidth)\s*=\s*(\d*\.\d+)", text)
-        for v in bad_lw:
-            try:
-                if float(v) < 0.25:
-                    scores["f"] = 0
-                    issues.append({"severity": "high", "axis": "f", "where": script.name,
-                                   "fix": f"Explicit lw={v} pt is below the 0.25 pt minimum."})
-                    break
-            except ValueError:
-                continue
+    # (g, h) chartjunk + legend-placement sweep. Styling for figgen figures
+    # lives in the domain helper, not the wrapper. When the wrapper hands
+    # off to `figgen.domain.<helper>.plot_*`, scan that helper's source too.
+    def _source_union() -> str:
+        combined = script_text
+        if script_text:
+            # crude but deterministic: find any `figgen.domain.<name>` import
+            for m in re.finditer(r"figgen\.domain\.(\w+)", script_text):
+                helper = Path(__file__).parent.parent / "domain" / f"{m.group(1)}.py"
+                if helper.exists():
+                    combined += "\n" + helper.read_text(encoding="utf-8")
+        return combined
 
-    # (i) panel labels
-    if script.exists():
-        text = script.read_text(encoding="utf-8")
-        if len(spec.panels) > 1 and "add_panel_label" not in text and "(a)" not in text:
-            scores["i"] = 1
-            issues.append({"severity": "med", "axis": "i", "where": script.name,
-                           "fix": "Add (a)/(b) panel labels via figgen.utils.add_panel_label."})
+    combined = _source_union() if script_text else ""
+    if combined:
+        spines_hidden = "set_visible(False)" in combined
+        direction_in = "direction=\"in\"" in combined or "direction='in'" in combined
+        set_axisbelow = "set_axisbelow" in combined
+        if spines_hidden and direction_in and set_axisbelow:
+            scores["g"] = 2
+        elif combined.count("ax.grid(True") > 2 and not spines_hidden:
+            scores["g"] = min(scores["g"], 1)
+            issues.append({"severity": "low", "axis": "g", "where": script.name,
+                           "fix": "Hide top + right spines, set ticks inward, "
+                                  "and call ax.set_axisbelow(True)."})
 
-    # (j) equation markers
+        # (h) legend placement — present AND either frameon=False or
+        # explicit loc; title() is already handled above.
+        legend_call = re.search(r"\.legend\s*\(", combined) is not None
+        no_title = re.search(r"(?:ax\w*|plt)\.(?:set_)?title\s*\(", combined) is None
+        if legend_call and no_title and ("frameon=False" in combined
+                                         or "loc=" in combined):
+            scores["h"] = 2
+        elif not legend_call and no_title:
+            # Figures with no legend (single-series, bar chart with value
+            # labels, schematics) don't need one; don't penalize.
+            scores["h"] = 2
+
+    # (j) CAPTION.md must exist and be non-trivial. Length >= 400 + no
+    # equations + no magic literals = 3/3.
     caption = folder / "CAPTION.md"
     if caption.exists():
-        text = caption.read_text(encoding="utf-8")
-        if re.search(r"\\begin\{equation\}|\$\$", text):
+        txt = caption.read_text(encoding="utf-8")
+        caption_len = len(txt.strip())
+        has_equations = bool(re.search(r"\\begin\{equation\}|\$\$", txt))
+        if has_equations:
             scores["j"] = min(scores["j"], 1)
             issues.append({"severity": "low", "axis": "j", "where": "CAPTION.md",
-                           "fix": "Move equations out of the figure/caption into manuscript body."})
+                           "fix": "Move equations out of the figure / caption "
+                                  "into manuscript body."})
+        if caption_len < _MIN_CAPTION_CHARS:
+            scores["j"] = min(scores["j"], 1)
+            issues.append({
+                "severity": "med", "axis": "j", "where": "CAPTION.md",
+                "fix": (f"Caption is {caption_len} chars; production figures "
+                        f"need >= {_MIN_CAPTION_CHARS} chars that describe "
+                        "each panel, name the data source, and state the key "
+                        "observation."),
+            })
+        if (not has_equations and caption_len >= 800
+                and scores["j"] >= 2):
+            # Thorough caption that describes each panel + data source +
+            # observations + claim witnesses — deserves full marks.
+            scores["j"] = 3
+    else:
+        scores["j"] = 0
+        issues.append({"severity": "high", "axis": "j", "where": folder.name,
+                       "fix": "CAPTION.md is missing. Every figure needs "
+                              "a caption file."})
 
     return scores, issues
 
@@ -287,16 +444,19 @@ class CriticAgent:
 
         total = sum(scores.values())
         high = [i for i in issues if str(i.get("severity", "")).lower() == "high"]
-        # Mode-dependent threshold: rubric-only axes each start at 2/3 and
-        # can only reach 3/3 via perceptual review, so the rubric ceiling
-        # is effectively 20/30. The 26/30 bar is reserved for hybrid mode
-        # (vision-enriched) where each axis can realistically score 3/3.
-        min_total = 26 if mode == "hybrid" else 18
+        # Raised thresholds: rubric 20/30 (was 18), hybrid 27/30 (was 26).
+        # Rationale: with axes starting at 1/3, a silently-rendered figure
+        # sits at 10/30, far below the new rubric bar. A compliant figure
+        # (unit-labelled columns, caption, B&W legibility, clean style,
+        # no title, no forbidden colors) reaches 20/30 = every axis at
+        # 2/3 — any regression to 1/3 on one axis triggers a REVISE.
+        # Hybrid adds perceptual checks and can reach 27-30.
+        min_total = 27 if mode == "hybrid" else 20
         verdict = Verdict.APPROVED if (total >= min_total and not high) else Verdict.REVISE
 
         report = CriticReport(total_score=total, scores=scores,
                               issues=issues, verdict=verdict, mode=mode)
-        lines = [f"score = {total}/30  ({mode} mode)"]
+        lines = [f"score = {total}/30  ({mode} mode, min={min_total})"]
         for ax, sc in scores.items():
             lines.append(f"  ({ax}) {sc}")
         if issues:

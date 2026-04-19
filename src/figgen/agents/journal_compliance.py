@@ -74,7 +74,8 @@ def _pdffonts_report(pdf: Path) -> dict[str, Any]:
     return {"ok": not bad, "detail": "\n".join(bad) if bad else "fonts embedded"}
 
 
-_MIN_STROKE_PT = 0.25
+_MIN_STROKE_PT = 0.30
+_MIN_PNG_DPI = 650
 
 
 # Exposed for unit tests: applies the stroke-width regex to raw content
@@ -131,6 +132,96 @@ def _pdf_stroke_widths(pdf: Path) -> dict[str, Any]:
                 "detail": f"{len(violations)} stroke(s) < {_MIN_STROKE_PT} pt "
                           f"(min={min(violations):.3f} pt)"}
     return {"ok": True, "detail": f"all strokes ≥ {_MIN_STROKE_PT} pt"}
+
+
+def _png_dpi(png: Path) -> dict[str, Any]:
+    """Check PNG pixel density. Submission figures must be >= 600 DPI."""
+    try:
+        from PIL import Image
+    except ImportError:
+        return {"ok": True, "detail": "Pillow not installed — skipped"}
+    try:
+        with Image.open(png) as im:
+            dpi = im.info.get("dpi")
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": True, "detail": f"png read skipped: {exc}"}
+    if not dpi:
+        return {"ok": True, "detail": "PNG missing DPI metadata — skipped"}
+    xdpi = float(dpi[0]) if isinstance(dpi, (list, tuple)) else float(dpi)
+    if xdpi < _MIN_PNG_DPI:
+        return {"ok": False,
+                "detail": f"PNG DPI = {xdpi:.0f} (< {_MIN_PNG_DPI} required)"}
+    return {"ok": True, "detail": f"PNG DPI = {xdpi:.0f}"}
+
+
+def _pdf_raster_in_vector(pdf: Path) -> dict[str, Any]:
+    """Flag raster XObjects embedded in a vector PDF.
+
+    A paper figure that should be all-vector (lines, text, patches) but
+    carries a big ``Image`` XObject has been accidentally rasterized —
+    lines get blurry at 2x zoom, text becomes uneditable, and reviewers
+    catch it. We allow one raster object (for legitimate base-maps) but
+    warn on any more.
+    """
+    try:
+        from pypdf import PdfReader  # type: ignore
+    except ImportError:
+        try:
+            from PyPDF2 import PdfReader  # type: ignore
+        except ImportError:
+            return {"ok": True, "detail": "pypdf not installed — skipped"}
+    try:
+        reader = PdfReader(str(pdf))
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": True, "detail": f"pdf parse skipped: {exc}"}
+    raster_count = 0
+    for page in reader.pages:
+        try:
+            resources = page["/Resources"]
+            xobj = resources.get("/XObject", {}) if resources else {}
+            if hasattr(xobj, "get_object"):
+                xobj = xobj.get_object()
+            for name, ref in (xobj or {}).items():
+                try:
+                    obj = ref.get_object() if hasattr(ref, "get_object") else ref
+                    subtype = obj.get("/Subtype")
+                    if str(subtype) == "/Image":
+                        raster_count += 1
+                except Exception:  # noqa: BLE001
+                    continue
+        except Exception:  # noqa: BLE001
+            continue
+    if raster_count > 1:
+        return {"ok": False,
+                "detail": f"PDF contains {raster_count} raster images — "
+                          "avoid rasterized content in a figure meant to be "
+                          "pure vector."}
+    return {"ok": True,
+            "detail": f"{raster_count} raster image(s) (allowed: 0-1)"}
+
+
+def _svg_fonttype_none(svg: Path) -> dict[str, Any]:
+    """Verify SVG text is saved as <text> elements, not <path>.
+
+    Matplotlib's ``svg.fonttype: none`` setting keeps text editable in
+    Inkscape for downstream annotation. If a figure pipeline forgets to
+    load the style, text gets written as Bezier paths and the SVG is
+    uneditable.
+    """
+    try:
+        with svg.open("r", encoding="utf-8", errors="ignore") as fh:
+            head = fh.read(120_000)
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": True, "detail": f"svg read skipped: {exc}"}
+    has_text = "<text" in head
+    has_pathtext = "font-family" in head and not has_text
+    if has_pathtext:
+        return {"ok": False,
+                "detail": "SVG has no <text> elements; font rendered as paths "
+                          "(svg.fonttype != 'none')."}
+    return {"ok": True,
+            "detail": "SVG text kept as <text> (fonttype='none')" if has_text
+                      else "no text in SVG"}
 
 
 def _identify_pdf(pdf: Path) -> dict[str, Any]:
@@ -192,8 +283,29 @@ class JournalComplianceAgent:
             if not report.checks[-1]["ok"]:
                 report.violations.append({"rule": "min-stroke-width",
                                           "detail": report.checks[-1]["detail"]})
+            report.checks.append({"name": "pdf raster-in-vector",
+                                  **_pdf_raster_in_vector(pdf)})
+            if not report.checks[-1]["ok"]:
+                report.violations.append({"rule": "raster-in-vector",
+                                          "detail": report.checks[-1]["detail"]})
             report.checks.append({"name": "pdf identify",
                                   **_identify_pdf(pdf)})
+
+        png = folder / f"{stem}.png"
+        if png.exists():
+            report.checks.append({"name": f"PNG DPI >= {_MIN_PNG_DPI}",
+                                  **_png_dpi(png)})
+            if not report.checks[-1]["ok"]:
+                report.violations.append({"rule": "min-png-dpi",
+                                          "detail": report.checks[-1]["detail"]})
+
+        svg = folder / f"{stem}.svg"
+        if svg.exists():
+            report.checks.append({"name": "svg fonttype = none",
+                                  **_svg_fonttype_none(svg)})
+            if not report.checks[-1]["ok"]:
+                report.violations.append({"rule": "svg-fonttype",
+                                          "detail": report.checks[-1]["detail"]})
 
         # Geotechnique: pair color + linestyle heuristic via script inspection
         if jl == "geotechnique":

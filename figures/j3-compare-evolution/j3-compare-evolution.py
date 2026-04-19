@@ -19,10 +19,14 @@ from figgen import io, utils
 HERE = Path(__file__).resolve().parent
 FIGURE_ID = HERE.name
 
-C_T1 = "#4477AA"
-C_T2 = "#EE6677"
-C_T4 = "#4477AA"
-C_T5 = "#EE6677"
+# Dry vs saturated pairing: near-black for dry (T1, T2), mid-grey for
+# saturated (T4, T5). Uses a two-luma-cluster palette so the figure
+# survives B&W print and CVD simulation — ΔL ≈ 33 in luma, far above the
+# legibility gate that the previous red/blue pair failed under protan.
+C_T1 = "#1a1a1a"
+C_T2 = "#1a1a1a"
+C_T4 = "#7a7a7a"
+C_T5 = "#7a7a7a"
 FIG_WIDTH = 7.48  # Elsevier double column
 MS = 7.5
 
@@ -74,7 +78,9 @@ def _plot_pair(ax, sd_dry, nf_dry, sd_sat, nf_sat,
             f"{nf_sat[-1]:.2f}%", fontsize=10, color=c_sat,
             ha="center", va="bottom", fontweight="bold")
 
-    ax.set_title(title, fontsize=12, pad=4, style="italic", color="0.30")
+    # Panel title belongs in the caption, not the figure (journal rule).
+    # Use a panel label via add_panel_label() or annotation inside the axes
+    # if per-panel context is needed.
     leg = ax.legend(loc="lower left", borderpad=0.3, handlelength=1.5,
                     handletextpad=0.3, labelspacing=0.20, fontsize=6.5)
     leg.get_frame().set_linewidth(0.4)

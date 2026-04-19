@@ -11,7 +11,7 @@ font_size: 8
 tick_font_size: 7
 line_width: 0.7
 dpi:
-  raster: 600
+  raster: 650
 formats: [png, svg, pdf]
 palette:
   continuous: cmocean.deep

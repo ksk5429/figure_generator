@@ -22,6 +22,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import yaml
+
 from .. import FIGURES_DIR
 from ..io import papers_root
 from ..metadata import embed_metadata, read_png_metadata
@@ -30,8 +32,69 @@ from .base import AgentResult, Verdict
 from .planner import FigureSpec
 
 
+_MIN_ASSERTIONS = 5
+# Flag an assertion as "too loose" when tolerance exceeds this fraction
+# of the absolute target value. Tolerances that coarse basically accept
+# any measurement — they aren't witnessing the claim.
+_LOOSE_TOLERANCE_FRACTION = 0.10
+
+
 def _claim_path(paper: str, claim_id: str) -> Path:
     return papers_root() / paper / "figure_inputs" / "claims" / f"{claim_id}.yml"
+
+
+def _audit_claim_yaml(claim_yaml: Path) -> list[str]:
+    """Return human-readable warnings about the claim definition itself.
+
+    Checks:
+      - >= _MIN_ASSERTIONS assertions
+      - tolerance / |value| <= _LOOSE_TOLERANCE_FRACTION for `near` ops
+      - every assertion has a parquet + compute block (schema fidelity)
+    """
+    warnings: list[str] = []
+    try:
+        spec = yaml.safe_load(claim_yaml.read_text(encoding="utf-8")) or {}
+    except Exception as exc:  # noqa: BLE001
+        return [f"claim YAML parse failed: {exc}"]
+    assertions = spec.get("assertions") or []
+    if len(assertions) < _MIN_ASSERTIONS:
+        warnings.append(
+            f"only {len(assertions)} assertion(s); production claims "
+            f"should witness at least {_MIN_ASSERTIONS} facts."
+        )
+    for a in assertions:
+        name = a.get("name", "<unnamed>")
+        if "parquet" not in a:
+            warnings.append(f"  - {name}: missing `parquet:` key.")
+        if "compute" not in a:
+            warnings.append(f"  - {name}: missing `compute:` block.")
+        if a.get("op") == "near" and "value" in a and "tolerance" in a:
+            try:
+                val = abs(float(a["value"]))
+                tol = abs(float(a["tolerance"]))
+            except (TypeError, ValueError):
+                continue
+            if val > 0 and tol / val > _LOOSE_TOLERANCE_FRACTION:
+                warnings.append(
+                    f"  - {name}: tolerance {tol:g} is {100 * tol / val:.0f} % "
+                    f"of value {a['value']} (too loose — tighten to witness)."
+                )
+    return warnings
+
+
+def _audit_provenance(paper: str, slug: str) -> list[str]:
+    """Ensure the parquet ships with its schema.yml + provenance.json siblings."""
+    warnings: list[str] = []
+    root = papers_root() / paper / "figure_inputs"
+    pq = root / f"{slug}.parquet"
+    if not pq.exists():
+        return [f"parquet missing: {pq}"]
+    for suffix, label in (("schema.yml", "schema"),
+                          ("provenance.json", "provenance")):
+        sidecar = root / f"{slug}.{suffix}"
+        if not sidecar.exists():
+            warnings.append(f"missing {label}: {sidecar.name}")
+    return warnings
 
 
 def _measured_dict(report: ClaimReport) -> dict[str, float | int | str]:
@@ -178,6 +241,25 @@ class ClaimWitnessAgent:
         drift_warnings = _compare_to_previous(spec.figure_id, measured)
         if drift_warnings:
             md = md + "\n\nDrift vs previous build:\n" + "\n".join(drift_warnings)
+
+        # Claim-definition audit — warn on under-witnessed or over-tolerant
+        # claims, and on missing parquet siblings (schema + provenance).
+        claim_warnings = _audit_claim_yaml(claim_yaml)
+        try:
+            claim_spec = yaml.safe_load(claim_yaml.read_text(encoding="utf-8")) or {}
+            first_parquet = None
+            for a in claim_spec.get("assertions", []):
+                if a.get("parquet"):
+                    first_parquet = str(a["parquet"]).replace(".parquet", "")
+                    break
+            if first_parquet:
+                claim_warnings.extend(_audit_provenance(paper, first_parquet))
+        except Exception:  # noqa: BLE001
+            pass
+        if claim_warnings:
+            md = md + "\n\nClaim audit:\n" + "\n".join(
+                "  ⚠ " + w for w in claim_warnings
+            )
 
         # Embed current measurements into the output files so the NEXT run
         # has a baseline to compare against.

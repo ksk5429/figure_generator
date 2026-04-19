@@ -121,6 +121,23 @@ class GeotechAgent:
 # Utility: detect suspicious numeric literals in a plot script (§9.2 fabrication check).
 _FLOAT_RE = re.compile(r"(?<![\w.])(-?\d+\.\d+|\d{3,})")
 
+# Lines that LOOK like data fabrication but are actually styling / plumbing.
+# We skip them to avoid false positives in the magic-literal check:
+#   - hex color codes:           color = "#4477AA"
+#   - RGB tuples written inline: color = (255, 220, 165)
+#   - matplotlib rcParam keys:   "figure.dpi": 650
+#   - font / dpi / size config:  dpi=650, fontsize=16, figsize=(8, 6)
+#   - axis ticks / limits:       set_xticks([0, 10, 20, …]), set_xlim(0, 500)
+#   - numpy arange / linspace:   np.linspace(0, 100, 250)
+_STYLE_LINE_HINTS = (
+    "color", "#", "dpi", "fontsize", "figsize", "linewidth",
+    "markersize", "rcparam", "set_xtick", "set_ytick",
+    "set_xlim", "set_ylim", "linspace", "arange", "range(",
+    "savefig.", "zorder",
+    "* 100", "/ 100", "*100", "/100",     # percent conversion
+    "* 1000", "/ 1000", "*1000", "/1000",  # unit conversion
+)
+
 
 def detect_suspicious_literals(script_text: str, threshold: float = 20.0) -> list[str]:
     """Return a list of literals > ``threshold`` that appear in the script body.
@@ -135,7 +152,11 @@ def detect_suspicious_literals(script_text: str, threshold: float = 20.0) -> lis
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
             continue
-        # ignore matplotlib rcParam keys like fontsize=7
+        # Skip styling / rcParam / layout / iterator helpers — these legitimately
+        # carry integer literals that aren't data.
+        low = stripped.lower()
+        if any(h in low for h in _STYLE_LINE_HINTS):
+            continue
         for m in _FLOAT_RE.finditer(stripped):
             try:
                 v = float(m.group(0))

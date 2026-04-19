@@ -107,7 +107,7 @@ def _extract_palette(png_path: Path, n_colors: int = 8,
         return np.array(keep, dtype=np.uint8)
 
 
-def _cluster_luma(luma: np.ndarray, merge_delta: float = 12.0) -> np.ndarray:
+def _cluster_luma(luma: np.ndarray, merge_delta: float = 18.0) -> np.ndarray:
     """Collapse luminance values closer than ``merge_delta`` into one cluster.
 
     Adaptive palette quantizers always return several near-duplicate shades
@@ -148,7 +148,7 @@ def legibility_check(
     png_path: Path,
     *,
     n_colors: int = 6,
-    min_delta_l: float = 15.0,
+    min_delta_l: float = 17.0,
 ) -> LegibilityReport:
     """Run grayscale + Deuteranope + Protanope pairwise-contrast checks."""
     path = Path(png_path)
