@@ -1,0 +1,47 @@
+claim_id: j3-plan-view
+columns:
+- name: bucket
+  dtype: category
+  allowed:
+  - A
+  - B
+  - C
+- name: angle_deg
+  dtype: float64
+  unit: degree
+  note: angular position of the bucket around the tripod centre
+- name: center_x_m
+  dtype: float64
+  unit: meter
+  note: x-coordinate of the bucket centre (prototype)
+- name: center_y_m
+  dtype: float64
+  unit: meter
+- name: center_x_mm
+  dtype: float64
+  unit: millimeter
+  note: model-scale (1:70) x-coordinate
+- name: center_y_mm
+  dtype: float64
+  unit: millimeter
+- name: bucket_d_m
+  dtype: float64
+  unit: meter
+- name: bucket_d_mm
+  dtype: float64
+  unit: millimeter
+- name: l_base_m
+  dtype: float64
+  unit: meter
+  note: tripod triangle side length (prototype)
+- name: l_base_mm
+  dtype: float64
+  unit: millimeter
+- name: r_circ_m
+  dtype: float64
+  unit: meter
+  note: circumradius of the tripod triangle
+- name: scale_factor
+  dtype: int64
+  unit: dimensionless
+  note: centrifuge scaling N (prototype / model)

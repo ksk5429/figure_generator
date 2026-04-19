@@ -1,0 +1,12 @@
+bucket:         category          # {A, B, C}
+angle_deg:      degree
+center_x_m:     meter
+center_y_m:     meter
+center_x_mm:    millimeter
+center_y_mm:    millimeter
+bucket_d_m:     meter
+bucket_d_mm:    millimeter
+l_base_m:       meter
+l_base_mm:      millimeter
+r_circ_m:       meter
+scale_factor:   dimensionless

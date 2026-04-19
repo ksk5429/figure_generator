@@ -1,0 +1,29 @@
+figure_id: j3-plan-view
+journal: ocean_engineering
+width: one_half
+
+paper: J3
+claim_id: j3-plan-view
+tier: 2
+tier2_slug: plan-view
+
+description: >
+  Plan view (overhead) of the tripod bucket layout. Three buckets
+  A / B / C at the vertices of an equilateral triangle with side
+  L_base = 20.0 m (prototype, 285.7 mm model). Shake direction along
+  the A-B axis; section plane of Fig 1(a) indicated by dashed line.
+  All three buckets paired with distinct hatches (plain / // / xx) so
+  the identity survives B&W print.
+
+data_sources:
+  - papers/J3/figure_inputs/plan-view.parquet
+
+required_columns:
+  - bucket
+  - angle_deg
+  - center_x_m
+  - center_y_m
+  - bucket_d_m
+  - l_base_m
+
+formats: [png, svg, pdf]

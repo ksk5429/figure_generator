@@ -1,0 +1,105 @@
+# Claim witness — j3-plan-view
+#
+# Encodes the tripod-bucket layout: bucket diameter, tripod triangle
+# side length, and three bucket positions at 60°, 180°, 300°. Any
+# regression in the underlying geometry constants trips an assertion.
+
+claim_id: j3-plan-view
+paper: J3
+status: submitted
+source: manuscript.qmd @tbl-model-comparison + Section 2.1
+origin_note: |
+  Centrifuge tripod bucket layout. Three buckets at equilateral-triangle
+  vertices with L_base = 20 m (prototype), D = 8 m, scale factor 70.
+  The shake direction aligns with the A-B axis; B and C are mirror-
+  symmetric about that axis.
+
+headline: >
+  Tripod triangle side L_base = 20.0 m, bucket diameter D = 8.0 m,
+  buckets at 60° / 180° / 300° around the tripod centre. Centrifuge
+  scaling N = 70 (model L_base = 285.7 mm, D = 114.3 mm).
+
+primary_figure: figures/j3-plan-view
+
+assertions:
+
+  # ----- Geometry constants match manuscript @tbl-model-comparison -----
+  - name: bucket_diameter_prototype
+    parquet: plan-view.parquet
+    compute:
+      op: mean
+      column: bucket_d_m
+    op: near
+    value: 8.0
+    tolerance: 0.01
+
+  - name: tripod_side_length_prototype
+    parquet: plan-view.parquet
+    compute:
+      op: mean
+      column: l_base_m
+    op: near
+    value: 20.0
+    tolerance: 0.01
+
+  - name: scale_factor_is_70
+    parquet: plan-view.parquet
+    compute:
+      op: mean
+      column: scale_factor
+    op: near
+    value: 70.0
+    tolerance: 0.01
+
+  # ----- Bucket angular positions (each row verifies one bucket) -----
+  - name: bucket_a_angle_180
+    parquet: plan-view.parquet
+    compute:
+      op: mean
+      filter: {bucket: "A"}
+      column: angle_deg
+    op: near
+    value: 180.0
+    tolerance: 0.01
+
+  - name: bucket_b_angle_300
+    parquet: plan-view.parquet
+    compute:
+      op: mean
+      filter: {bucket: "B"}
+      column: angle_deg
+    op: near
+    value: 300.0
+    tolerance: 0.01
+
+  - name: bucket_c_angle_60
+    parquet: plan-view.parquet
+    compute:
+      op: mean
+      filter: {bucket: "C"}
+      column: angle_deg
+    op: near
+    value: 60.0
+    tolerance: 0.01
+
+  # ----- Circumradius = L_base / sqrt(3) ≈ 11.547 m -----
+  - name: circumradius_prototype
+    parquet: plan-view.parquet
+    compute:
+      op: mean
+      column: r_circ_m
+    op: between
+    lo: 11.54
+    hi: 11.56
+
+  # ----- Row inventory: 3 buckets -----
+  - name: row_inventory_three_buckets
+    parquet: plan-view.parquet
+    compute:
+      op: row_counts
+      group_by: bucket
+    op: equal
+    value:
+      A: 1
+      B: 1
+      C: 1

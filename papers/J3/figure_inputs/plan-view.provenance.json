@@ -1,0 +1,36 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "plan-view",
+  "generated_utc": "2026-04-19T10:33:00Z",
+  "primary_source": {
+    "kind": "manuscript",
+    "manuscript_ref": "paperJ3_oe02685/manuscript.qmd @tbl-model-comparison + Section 2.1",
+    "note": "Pure geometry. Values hardcoded from the manuscript structural-parameters table. Replaces the standalone generate_fig1_plan_view.py with a figgen-wired Tier-2 asset."
+  },
+  "geometry_constants": {
+    "bucket_diameter_m": 8.0,
+    "l_base_m": 20.0,
+    "scale_factor": 70,
+    "bucket_angles_deg": {
+      "A": 180.0,
+      "B": 300.0,
+      "C": 60.0
+    }
+  },
+  "rows": 3,
+  "columns": [
+    "bucket",
+    "angle_deg",
+    "center_x_m",
+    "center_y_m",
+    "center_x_mm",
+    "center_y_mm",
+    "bucket_d_m",
+    "bucket_d_mm",
+    "l_base_m",
+    "l_base_mm",
+    "r_circ_m",
+    "scale_factor"
+  ]
+}
