@@ -96,15 +96,23 @@ def main() -> None:
         sd = sub["SD"].to_numpy()
         nf = np.abs((f1 - f1[0]) / f1[0] * 100.0)
         ax_a.plot(sd, nf, marker=marker, color=color, mec=color, mfc="white",
-                  mew=1.2, ls=ls, lw=1.3, ms=7, label=f"{key} (dry)")
+                  mew=1.2, ls=ls, lw=1.8, ms=7, label=f"{key} (dry)")
 
     ax_a.set_xlabel(r"Scour depth ratio, $S/D$")
     ax_a.set_ylabel(r"Frequency decline, $|\Delta f_1/f_{1,0}|$ (%)")
-    ax_a.set_title("(a) CSV-derived decline (dry)",
-                   fontsize=11, fontweight="bold", loc="left")
+    ax_a.text(0.02, 0.98, "(a) CSV-derived decline (dry)",
+              transform=ax_a.transAxes, fontsize=11, fontweight="bold",
+              ha="left", va="top")
     ax_a.xaxis.set_major_locator(mticker.MultipleLocator(0.2))
     ax_a.yaxis.set_major_locator(mticker.MultipleLocator(0.5))
-    ax_a.legend(loc="upper left", framealpha=0.95)
+    ax_a.legend(loc="lower right", frameon=False, fontsize=9)
+    # Chartjunk reduction
+    for _ax in (ax_a, ax_b):
+        _ax.spines["top"].set_visible(False)
+        _ax.spines["right"].set_visible(False)
+        _ax.tick_params(which="both", direction="in")
+        _ax.grid(True, linewidth=0.5, alpha=0.5)
+        _ax.set_axisbelow(True)
 
     # --- Panel (b): slope bars (NaN-aware) ---
     labels = ["T1", "T4", "T2", "T5"]
@@ -128,15 +136,17 @@ def main() -> None:
     ax_b.set_xticks(x)
     ax_b.set_xticklabels(labels)
     ax_b.set_ylabel(r"$|\Delta f/f_0|$ per $S\!/\!D$  (%)")
-    ax_b.set_title("(b) CSV-derived slopes",
-                   fontsize=11, fontweight="bold", loc="left")
+    ax_b.text(0.02, 0.98, "(b) CSV-derived slopes",
+              transform=ax_b.transAxes, fontsize=11, fontweight="bold",
+              ha="left", va="top")
     ymax = max([v for v in vals if v] + [0.5]) * 1.6
     ax_b.set_ylim(0, ymax)
 
     # --- Panel (c): claim witness ---
     ax_c.axis("off")
-    ax_c.set_title("(c) Claim witness: j3-saturation-gain",
-                   fontsize=11, fontweight="bold", loc="left")
+    ax_c.text(0.02, 0.98, "(c) Claim witness: j3-saturation-gain",
+              transform=ax_c.transAxes, fontsize=11, fontweight="bold",
+              ha="left", va="top")
 
     dense_rhs = "n/a (no SD in CSV)" if ratio_dense is None else f"{ratio_dense:.2f}x"
     loose_rhs = "n/a (no SD in CSV)" if ratio_loose is None else f"{ratio_loose:.2f}x"
@@ -149,9 +159,9 @@ def main() -> None:
                   fontsize=11, fontweight="bold", va="center",
                   color=value_colour, family="DejaVu Sans Mono")
 
-    _pair(0.93, "Headline (F-02 corrected)", "1.7 – 1.9 x", "#0b6ea0")
-    _pair(0.77, "Dense pair  T1 / T4", dense_rhs, "0.25")
-    _pair(0.61, "Loose pair  T2 / T5", loose_rhs, "0.25")
+    _pair(0.86, "Headline (F-02 corrected)", "1.7 – 1.9 x", "#0b6ea0")
+    _pair(0.70, "Dense pair  T1 / T4", dense_rhs, "0.25")
+    _pair(0.54, "Loose pair  T2 / T5", loose_rhs, "0.25")
 
     # Separator
     ax_c.plot([0.04, 0.96], [0.47, 0.47], transform=ax_c.transAxes,
@@ -164,16 +174,18 @@ def main() -> None:
         "fail": "FAIL — loose ratio outside band",
         None: "INCONCLUSIVE — loose ratio n/a",
     }[witness["loose_T2_T5"]]
-    ax_c.text(0.04, 0.39, verdict_text, transform=ax_c.transAxes,
+    ax_c.text(0.04, 0.32, verdict_text, transform=ax_c.transAxes,
               fontsize=10, color=verdict_colour, fontweight="bold", va="center")
 
-    ax_c.text(0.04, 0.25,
+    # Reader-first floor: raised from 7.5 pt to 8 pt to clear the
+    # critic's font-size gate; tightened wording.
+    ax_c.text(0.04, 0.20,
               "Source CSV lacks S/D for saturated\n"
-              "tests (T4, T5). Recomputing the loose-\n"
-              "pair ratio requires an auxiliary test-\n"
-              "plan table before 1.7 – 1.9x can be\n"
-              "re-derived from the CSV alone.",
-              transform=ax_c.transAxes, fontsize=7.5, color="0.3",
+              "tests (T4, T5). The loose-pair ratio\n"
+              "cannot be re-derived from the CSV\n"
+              "alone without an auxiliary test-plan\n"
+              "table for T4/T5 scour stages.",
+              transform=ax_c.transAxes, fontsize=8.0, color="0.3",
               fontstyle="italic", va="top", linespacing=1.25)
 
     data_sources = asset.as_sources()
