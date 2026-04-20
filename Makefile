@@ -15,7 +15,7 @@ TEMPLATE    := scripts/_template_figure.py
 
 FIG_IDS     := $(notdir $(patsubst %/,%,$(wildcard $(FIG_DIR)/*/)))
 
-.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry publish-paper publish-paper-dry witness witness-all refresh-all pipeline pipeline-ci pipeline-stage critic compliance validate-pdf iter-gallery
+.PHONY: help setup figure figures figures-for gallery gallery-pages serve test clean metadata lint format new-figure publish publish-dry publish-paper publish-paper-dry witness witness-all refresh-all pipeline pipeline-ci pipeline-stage critic compliance validate-pdf iter-gallery watch refine freeze thaw
 
 help:
 	@echo "figure_generator targets:"
@@ -47,6 +47,13 @@ help:
 	@echo "  make compliance FIG=<id>              Run the journal-compliance linter"
 	@echo "  make validate-pdf FIG=<id>            pdffonts + identify checks"
 	@echo "  make iter-gallery FIG=<id>            Build figures/<id>/build/iterations.html"
+	@echo ""
+	@echo "  --- human-in-the-loop refinement ---"
+	@echo "  make watch FIG=<id>                   Auto-rebuild figure on any source-file change"
+	@echo "  make refine FIG=<id>                  Parse figures/<id>/_markup.png via Claude Vision"
+	@echo "                                         into figures/<id>/_refinements.yml"
+	@echo "  make freeze FIG=<id>                  Freeze hand-polished SVG (skip regen on rebuilds)"
+	@echo "  make thaw FIG=<id>                    Re-enable regeneration (drop the .frozen marker)"
 
 setup:
 	$(PIP) install -e .[dev]
@@ -221,3 +228,30 @@ ifndef FIG
 	$(error FIG is not set. Usage: make iter-gallery FIG=<figure_id>)
 endif
 	$(PY) scripts/iteration_gallery.py $(FIG_DIR)/$(FIG)
+
+# ============================================================================
+# Human-in-the-loop refinement
+# ============================================================================
+watch:
+ifndef FIG
+	$(error FIG is not set. Usage: make watch FIG=<figure_id>)
+endif
+	$(PY) scripts/watch.py --figure $(FIG)
+
+refine:
+ifndef FIG
+	$(error FIG is not set. Usage: make refine FIG=<figure_id>)
+endif
+	$(PY) scripts/refine.py --figure $(FIG)
+
+freeze:
+ifndef FIG
+	$(error FIG is not set. Usage: make freeze FIG=<figure_id>)
+endif
+	$(PY) scripts/freeze.py --figure $(FIG)
+
+thaw:
+ifndef FIG
+	$(error FIG is not set. Usage: make thaw FIG=<figure_id>)
+endif
+	$(PY) scripts/thaw.py --figure $(FIG)

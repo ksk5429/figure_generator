@@ -251,6 +251,115 @@ def _figure_dir(figure_id: str) -> Path:
     return d
 
 
+def _emit_frozen_outputs(out_dir: Path, figure_id: str,
+                        frozen_svg: Path, formats: Sequence[str],
+                        meta: Mapping[str, Any]) -> None:
+    """Restore frozen SVG and regenerate PNG/PDF from it.
+
+    Called from ``save_figure`` when ``.frozen`` marker exists.
+    Conversion cascade (Windows-safe): cairosvg (needs libcairo DLL) →
+    Poppler pdftocairo/pdftoppm (if an intermediate PDF exists) →
+    pymupdf fallback (renders SVG through MuPDF's own SVG parser).
+    """
+    import shutil as _shutil
+
+    live_svg = out_dir / f"{figure_id}.svg"
+    _shutil.copyfile(frozen_svg, live_svg)
+
+    dpi = int(mpl.rcParams.get("savefig.dpi", 650))
+    embed_metadata(live_svg, dict(meta))
+
+    # Probe available converters once
+    cairosvg = None
+    try:
+        import cairosvg as _cs  # type: ignore
+        # libcairo DLL-presence probe
+        _cs.svg2png(bytestring=b'<svg xmlns="http://www.w3.org/2000/svg" '
+                                b'width="1" height="1"/>',
+                    output_width=1)
+        cairosvg = _cs
+    except Exception:  # noqa: BLE001 — libcairo missing on Windows
+        cairosvg = None
+    pymupdf = None
+    try:
+        import pymupdf as _pm  # type: ignore
+        pymupdf = _pm
+    except ImportError:
+        try:
+            import fitz as _pm  # type: ignore
+            pymupdf = _pm
+        except ImportError:
+            pymupdf = None
+
+    def _svg_to_pdf(src: Path, dst: Path) -> bool:
+        if cairosvg is not None:
+            try:
+                cairosvg.svg2pdf(url=str(src), write_to=str(dst))
+                return dst.exists()
+            except Exception:  # noqa: BLE001
+                pass
+        if pymupdf is not None:
+            try:
+                doc = pymupdf.open(str(src))
+                pdf_bytes = doc.convert_to_pdf()
+                doc.close()
+                dst.write_bytes(pdf_bytes)
+                return dst.exists()
+            except Exception:  # noqa: BLE001
+                pass
+        return False
+
+    def _svg_to_png(src: Path, dst: Path) -> bool:
+        if cairosvg is not None:
+            try:
+                cairosvg.svg2png(url=str(src), write_to=str(dst), dpi=dpi)
+                try:
+                    from PIL import Image
+                    with Image.open(dst) as im:
+                        im.save(dst, dpi=(dpi, dpi))
+                except Exception:  # noqa: BLE001
+                    pass
+                return dst.exists()
+            except Exception:  # noqa: BLE001
+                pass
+        if pymupdf is not None:
+            try:
+                doc = pymupdf.open(str(src))
+                page = doc[0]
+                zoom = dpi / 72.0
+                pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom),
+                                       alpha=False)
+                pix.save(str(dst))
+                doc.close()
+                try:
+                    from PIL import Image
+                    with Image.open(dst) as im:
+                        im.save(dst, dpi=(dpi, dpi))
+                except Exception:  # noqa: BLE001
+                    pass
+                return dst.exists()
+            except Exception:  # noqa: BLE001
+                pass
+        return False
+
+    for ext in formats:
+        ext_lower = ext.lower().lstrip(".")
+        target = out_dir / f"{figure_id}.{ext_lower}"
+        if ext_lower == "svg":
+            continue
+        if ext_lower == "pdf":
+            ok = _svg_to_pdf(live_svg, target)
+        elif ext_lower == "png":
+            ok = _svg_to_png(live_svg, target)
+        else:
+            ok = False
+        if ok and target.exists():
+            try:
+                embed_metadata(target, dict(meta))
+            except Exception:  # noqa: BLE001
+                pass
+
+
 def _dump_text_placement(fig: mpl.figure.Figure, out_dir: Path,
                          figure_id: str) -> Path | None:
     """Emit a JSON record of every text artist's position + bbox.
@@ -378,6 +487,24 @@ def save_figure(
         tier=tier,
         extra=extra_metadata,
     )
+
+    # Freeze short-circuit — if the figure has been human-polished and
+    # frozen (see scripts/freeze.py), restore the frozen SVG in place of
+    # the regenerated one, then regenerate PNG/PDF from the frozen SVG so
+    # they stay in sync. The caller's ``fig`` is still rendered but its
+    # saved SVG is immediately overwritten. This preserves your Inkscape
+    # work while keeping PNG/PDF reproducible from it.
+    frozen_marker = out_dir / ".frozen"
+    frozen_svg = out_dir / f"{figure_id}.frozen.svg"
+    if frozen_marker.exists() and frozen_svg.exists():
+        _emit_frozen_outputs(out_dir, figure_id, frozen_svg, formats, meta)
+        _dump_text_placement(fig, out_dir, figure_id)
+        return sorted(
+            (out_dir / f"{figure_id}.{ext.lower().lstrip('.')}").resolve()
+            for ext in formats
+            if (out_dir / f"{figure_id}.{ext.lower().lstrip('.')}").exists()
+        )
+
     written: list[Path] = []
     for ext in formats:
         ext_lower = ext.lower().lstrip(".")
