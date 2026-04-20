@@ -96,6 +96,40 @@ slope-ratio bar chart with ×6.96 and ×1.94 called out.
 **Machine-checkable assertion:**
 see [`figure_inputs/claims/j3-saturation-factor.yml`](../figure_inputs/claims/j3-saturation-factor.yml).
 
+### `j3-cross-foundation` — confirmed (2026-04-20)
+
+**Headline:** Tripod SB curves (present study + Zaaijer tripod) stay
+at _f_1/_f_1,0 > 0.97 for _S_/_D_ ≤ 0.6; monopile curves drop to
+0.85–0.90 in the same range. Consistent with the 5× tripod/monopile
+sensitivity ratio predicted by Jalbi et al. (2018).
+
+**Witness:** submitted Fig. 11 — multi-series f/f₀ vs S/D plot.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-cross-foundation.yml`](../figure_inputs/claims/j3-cross-foundation.yml).
+
+### `j3-literature-comparison` — confirmed (2026-04-20)
+
+**Headline:** Tripod SB shows ~3× lower scour-frequency sensitivity
+than monopiles at comparable _S_/_D_ in both saturated and dry soil.
+
+**Witness:** submitted Fig. 11 — two-panel horizontal-bar comparison.
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-literature-comparison.yml`](../figure_inputs/claims/j3-literature-comparison.yml).
+
+### `j3-hydrostatic-profile` — confirmed (2026-04-20)
+
+**Headline:** In-bucket pore-pressure transducers at _z_ = 70, 120,
+170, 220 mm match _u_0 = _γ_w · _N_ · _z_ within ±2 kPa in both T4
+and T5. Verifies full hydrostatic equilibrium of the saturated
+bed before testing.
+
+**Witness:** the J3 hydrostatic-profile figure (submitted Fig. 2).
+
+**Machine-checkable assertion:**
+see [`figure_inputs/claims/j3-hydrostatic-profile.yml`](../figure_inputs/claims/j3-hydrostatic-profile.yml).
+
 ### `j3-strain-fixity` — confirmed (2026-04-19)
 
 **Headline:** Strain-elevation ratios (bot/mid, bot/top) are a

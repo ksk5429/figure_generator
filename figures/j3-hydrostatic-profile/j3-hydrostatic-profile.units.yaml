@@ -1,0 +1,11 @@
+kind:               label
+ppt_id:             index
+depth_mm:           millimeter
+u_hydrostatic_kpa:  kilopascal
+u_measured_kpa:     kilopascal
+below_skirt:        label
+included:           label
+test_id:            label
+n_centrifuge:       dimensionless
+gamma_w_kn_m3:      kilonewton_per_m3
+skirt_tip_mm:       millimeter

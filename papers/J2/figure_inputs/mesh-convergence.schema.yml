@@ -1,0 +1,23 @@
+claim_id: j2-mesh-convergence
+columns:
+- name: n_elements
+  dtype: int64
+  unit: index
+- name: time_s
+  dtype: float64
+  unit: second
+- name: limit_load_kn
+  dtype: float64
+  unit: kilonewton
+- name: error_pct
+  dtype: float64
+  unit: percent
+- name: ref_load_kn
+  dtype: float64
+  unit: kilonewton
+- name: threshold_1pct
+  dtype: float64
+  unit: percent
+- name: threshold_0p5pct
+  dtype: float64
+  unit: percent

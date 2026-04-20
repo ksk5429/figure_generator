@@ -53,7 +53,7 @@
     % ==========================================================
     % 2. WATER LAYER
     % ==========================================================
-    \filldraw[fill=waterFill, draw=accent, line width=0.3pt]
+    \filldraw[fill=waterFill, draw=accent, line width=0.4pt]
         (waterBL) -- (waterBR) -- (waterTR) -- (waterTL) -- cycle;
     % Wavy surface
     \draw[accent, line width=0.5pt, decorate,
@@ -63,7 +63,7 @@
     % ==========================================================
     % 3. SOIL LAYER (with scour hole carved out of the top)
     % ==========================================================
-    \filldraw[fill=soilFill, draw=black, line width=0.3pt,
+    \filldraw[fill=soilFill, draw=black, line width=0.4pt,
               pattern=north east lines, pattern color=black!40]
         (soilBL) -- (soilBR) -- (soilTR)
         -- (scourR) -- (scourBotR) -- (scourBotL) -- (scourL)
@@ -76,7 +76,7 @@
         (scourL) -- (scourBotL) -- (scourBotR) -- (scourR);
 
     % Original mudline as faint dashed reference
-    \draw[black!55, line width=0.3pt, dash pattern=on 2pt off 1.5pt]
+    \draw[black!55, line width=0.4pt, dash pattern=on 2pt off 1.5pt]
         (scourL) -- (scourR);
 
     % ==========================================================

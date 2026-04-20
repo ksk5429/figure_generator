@@ -1,0 +1,22 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "literature-comparison",
+  "generated_utc": "2026-04-19T23:46:24Z",
+  "primary_source": {
+    "kind": "paper_script",
+    "script_ref": "ch5_centrifuge_testing_year2/figures1/fig_literature_comparison.py"
+  },
+  "rows": 6,
+  "columns": [
+    "label",
+    "lo",
+    "hi",
+    "sd",
+    "foundation",
+    "highlight",
+    "panel",
+    "order",
+    "width_pct"
+  ]
+}

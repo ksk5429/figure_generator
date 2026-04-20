@@ -1,0 +1,28 @@
+figure_id: j3-literature-comparison
+journal: ocean_engineering
+width: double
+paper: J3
+claim_id: j3-literature-comparison
+tier: 2
+tier2_slug: literature-comparison
+description: >
+  Cross-study comparison of scour-frequency sensitivity |df_1/f_1,0|
+  for tripod/jacket suction-bucket foundations and monopiles (submitted
+  Fig. 11). Two panels: (a) saturated soil, (b) dry soil. Each horizontal
+  range bar spans the [lo, hi] frequency drop reported at the quoted
+  S/D. Present-study (TSB, 70g centrifuge) highlighted with solid dark
+  fill; jacket-SB studies use '//' hatch; monopile studies use 'xx'
+  hatch.
+data_sources:
+  - papers/J3/figure_inputs/literature-comparison.parquet
+required_columns:
+  - panel
+  - order
+  - label
+  - lo
+  - hi
+  - width_pct
+  - sd
+  - foundation
+  - highlight
+formats: [png, svg, pdf]

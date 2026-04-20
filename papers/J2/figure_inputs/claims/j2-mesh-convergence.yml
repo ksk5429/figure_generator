@@ -1,0 +1,53 @@
+claim_id: j2-mesh-convergence
+paper: J2
+status: confirmed
+source: manuscript_v18.qmd + @fig-femmesh
+origin_note: |
+  Mesh convergence study of the OptumGX FE model. Relative error
+  drops below 1 % at N = 8 k elements and below 0.5 % beyond N = 15 k.
+
+headline: >
+  OptumGX limit-load error drops below 1 % at 8k elements and below
+  0.5 % beyond 15k elements; the 30k mesh is adopted as the reference.
+
+primary_figure: figures/j2-mesh-convergence
+
+assertions:
+  - name: ref_load_finest_mesh
+    parquet: mesh-convergence.parquet
+    compute: {op: mean, column: ref_load_kn}
+    op: near
+    value: 175406.5312
+    tolerance: 0.01
+
+  - name: error_at_8k_below_2_pct
+    parquet: mesh-convergence.parquet
+    compute: {op: mean, column: error_pct, filter: {n_elements: 8000}}
+    op: less
+    value: 2.0
+
+  - name: error_at_15k_below_1_pct
+    parquet: mesh-convergence.parquet
+    compute: {op: mean, column: error_pct, filter: {n_elements: 15000}}
+    op: less
+    value: 1.0
+
+  - name: error_at_20k_below_0p5_pct
+    parquet: mesh-convergence.parquet
+    compute: {op: mean, column: error_pct, filter: {n_elements: 20000}}
+    op: less
+    value: 0.5
+
+  - name: threshold_1pct_declared
+    parquet: mesh-convergence.parquet
+    compute: {op: mean, column: threshold_1pct}
+    op: near
+    value: 1.0
+    tolerance: 0.001
+
+  - name: threshold_0p5pct_declared
+    parquet: mesh-convergence.parquet
+    compute: {op: mean, column: threshold_0p5pct}
+    op: near
+    value: 0.5
+    tolerance: 0.001

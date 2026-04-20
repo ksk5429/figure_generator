@@ -1,0 +1,65 @@
+claim_id: j3-hydrostatic-profile
+paper: J3
+status: confirmed
+source: manuscript.qmd §3 + @fig-hydrostatic-profile
+origin_note: |
+  Pore-pressure transducer (PPT) readings at four reliable depths
+  inside the saturated bucket match the theoretical hydrostatic
+  profile u_0 = gamma_w * N * z to within +/-2 kPa (N=70, gamma_w
+  = 9.81 kN/m^3). PPT 1 at z=20 mm is excluded (too shallow).
+
+headline: >
+  In-bucket pore pressures match u_0 = gamma_w * N * z within +/-2 kPa
+  across PPT 2/3/4/5, verifying full saturation of the model ground.
+
+primary_figure: figures/j3-hydrostatic-profile
+
+assertions:
+  - name: n_centrifuge_is_70
+    parquet: hydrostatic-profile.parquet
+    compute: {op: mean, column: n_centrifuge}
+    op: near
+    value: 70.0
+    tolerance: 0.01
+
+  - name: gamma_w_near_9_81
+    parquet: hydrostatic-profile.parquet
+    compute: {op: mean, column: gamma_w_kn_m3}
+    op: near
+    value: 9.81
+    tolerance: 0.01
+
+  - name: skirt_tip_at_132_mm
+    parquet: hydrostatic-profile.parquet
+    compute: {op: mean, column: skirt_tip_mm}
+    op: near
+    value: 132.0
+    tolerance: 0.01
+
+  - name: ppt_2_depth_70_mm
+    parquet: hydrostatic-profile.parquet
+    compute: {op: mean, column: depth_mm, filter: {kind: ppt, ppt_id: 2}}
+    op: near
+    value: 70.0
+    tolerance: 0.01
+
+  - name: ppt_5_depth_220_mm
+    parquet: hydrostatic-profile.parquet
+    compute: {op: mean, column: depth_mm, filter: {kind: ppt, ppt_id: 5}}
+    op: near
+    value: 220.0
+    tolerance: 0.01
+
+  - name: ppt_3_expected_u_near_82_4
+    parquet: hydrostatic-profile.parquet
+    compute: {op: mean, column: u_hydrostatic_kpa, filter: {kind: ppt, ppt_id: 3}}
+    op: near
+    value: 82.40
+    tolerance: 0.1
+
+  - name: ppt_5_expected_u_near_151_1
+    parquet: hydrostatic-profile.parquet
+    compute: {op: mean, column: u_hydrostatic_kpa, filter: {kind: ppt, ppt_id: 5}}
+    op: near
+    value: 151.1
+    tolerance: 0.2

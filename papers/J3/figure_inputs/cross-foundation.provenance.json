@@ -1,0 +1,22 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "cross-foundation",
+  "generated_utc": "2026-04-19T23:51:09Z",
+  "primary_source": {
+    "kind": "paper_script",
+    "script_ref": "ch5_centrifuge_testing_year2/figures1/fig_scour_sensitivity_comparison.py",
+    "database_xlsx": "F:\\GITHUB3\\docs\\manuscripts\\current\\ch5_centrifuge_testing_year2\\database_scour.xlsx"
+  },
+  "series_count": 12,
+  "rows": 54,
+  "columns": [
+    "series",
+    "foundation",
+    "soil",
+    "panel",
+    "highlight",
+    "s_over_d",
+    "ff_ratio"
+  ]
+}

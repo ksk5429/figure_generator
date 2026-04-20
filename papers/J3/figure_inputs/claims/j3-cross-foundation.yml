@@ -1,0 +1,49 @@
+claim_id: j3-cross-foundation
+paper: J3
+status: confirmed
+source: manuscript.qmd §5 + @fig-cross-foundation
+origin_note: |
+  Cross-study f1/f_1,0 vs S/D plot covering 9 literature sources and
+  the present-study T1-T5. Tripod SB curves (present study + Zaaijer)
+  sit above monopile curves at matched S/D, confirming the tripod
+  push-pull redundancy.
+
+headline: >
+  Tripod SB curves stay at f1/f_1,0 > 0.97 for S/D <= 0.6; monopiles
+  (Weijtjens, Tempel, Jawalageri) drop to 0.85-0.90 in the same range.
+
+primary_figure: figures/j3-cross-foundation
+
+assertions:
+  - name: t4_baseline_is_unity
+    parquet: cross-foundation.parquet
+    compute: {op: mean, column: ff_ratio, filter: {series: "T4 (dense sat.)", s_over_d: 0.0}}
+    op: near
+    value: 1.0
+    tolerance: 0.001
+
+  - name: t5_at_deepest_near_0_974
+    parquet: cross-foundation.parquet
+    compute: {op: mean, column: ff_ratio, filter: {series: "T5 (loose sat.)", s_over_d: 0.58}}
+    op: near
+    value: 0.9742
+    tolerance: 0.001
+
+  - name: t4_at_deepest_near_0_991
+    parquet: cross-foundation.parquet
+    compute: {op: mean, column: ff_ratio, filter: {series: "T4 (dense sat.)", s_over_d: 0.58}}
+    op: near
+    value: 0.9915
+    tolerance: 0.001
+
+  - name: at_least_5_literature_series
+    parquet: cross-foundation.parquet
+    compute: {op: row_counts, column: series}
+    op: greater
+    value: 8
+
+  - name: rows_exceed_30
+    parquet: cross-foundation.parquet
+    compute: {op: row_counts, column: s_over_d}
+    op: greater
+    value: 30

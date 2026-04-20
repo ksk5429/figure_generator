@@ -1,0 +1,15 @@
+figure_id: j3-bearing-capacity-schematic
+journal: ocean_engineering
+width: double
+backend: tikz
+paper: J3
+claim_id: j3-bearing-capacity-schematic
+tier: 1
+description: >
+  Two-panel schematic of the suction-bucket bearing-capacity formulation
+  (manuscript submitted Fig 9): (a) intact condition with effective
+  embedment L and q_ult = gamma L N_q + 0.4 gamma R N_gamma; (b)
+  scoured condition with effective embedment L-S and updated formula.
+  B&W-safe hatches differentiate effective-capacity zone from the
+  lost-support zone.
+formats: [png, svg, pdf]

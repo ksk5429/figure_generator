@@ -1,0 +1,15 @@
+figure_id: j3-bending-vs-tilting
+journal: ocean_engineering
+width: double
+backend: tikz
+paper: J3
+claim_id: j3-bending-vs-tilting
+tier: 1
+description: >
+  Two-panel schematic contrasting elastic-bending (a) and nonlinear
+  rigid-body tilting (b) response modes of the tripod suction-bucket
+  foundation (manuscript submitted Fig 8). Panel (a) shows a plumb
+  tower with moderate nacelle displacement u-bar; panel (b) shows
+  the foundation tilted theta about the yielded upwind bucket with
+  amplified nacelle displacement.
+formats: [png, svg, pdf]

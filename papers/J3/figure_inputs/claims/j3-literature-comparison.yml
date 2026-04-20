@@ -1,0 +1,58 @@
+claim_id: j3-literature-comparison
+paper: J3
+status: confirmed
+source: manuscript.qmd §5 + @fig-literature-comparison
+origin_note: |
+  Two-panel horizontal-bar chart comparing the present-study tripod
+  sensitivity against jacket SB and monopile studies. Panel (a) is
+  saturated soil; panel (b) is dry soil.
+
+headline: >
+  Tripod SB shows 0.85-2.58 % frequency sensitivity at S/D = 0.58 in
+  saturated soil — comparable to jacket SB (1-3 %) but well below
+  monopiles (2-4.8 % at S/D = 0.4-1.0).
+
+primary_figure: figures/j3-literature-comparison
+
+assertions:
+  - name: present_study_lo
+    parquet: literature-comparison.parquet
+    compute: {op: mean, column: lo, filter: {panel: a, order: 0}}
+    op: near
+    value: 0.85
+    tolerance: 0.01
+
+  - name: present_study_hi
+    parquet: literature-comparison.parquet
+    compute: {op: mean, column: hi, filter: {panel: a, order: 0}}
+    op: near
+    value: 2.58
+    tolerance: 0.01
+
+  - name: present_study_sd
+    parquet: literature-comparison.parquet
+    compute: {op: mean, column: sd, filter: {panel: a, order: 0}}
+    op: near
+    value: 0.58
+    tolerance: 0.01
+
+  - name: mayall_hi_at_4_8
+    parquet: literature-comparison.parquet
+    compute: {op: mean, column: hi, filter: {panel: a, label: "Mayall et al. (2019) (Monopile, 1g lab)"}}
+    op: near
+    value: 4.8
+    tolerance: 0.01
+
+  - name: kim2025_dry_range
+    parquet: literature-comparison.parquet
+    compute: {op: mean, column: width_pct, filter: {panel: b, order: 0}}
+    op: near
+    value: 0.30
+    tolerance: 0.01
+
+  - name: prendergast_dry_hi
+    parquet: literature-comparison.parquet
+    compute: {op: mean, column: hi, filter: {panel: b, order: 1}}
+    op: near
+    value: 10.0
+    tolerance: 0.01

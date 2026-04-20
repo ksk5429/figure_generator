@@ -1,0 +1,25 @@
+figure_id: j3-cross-foundation
+journal: ocean_engineering
+width: double
+paper: J3
+claim_id: j3-cross-foundation
+tier: 2
+tier2_slug: cross-foundation
+description: >
+  Cross-study comparison of normalised first natural frequency
+  f_1/f_{1,0} versus S/D (manuscript submitted Fig 11). Single panel
+  aggregating 9 literature series and the present study (T1-T5).
+  Tripod-family (present study + Zaaijer tripod) drawn near-black with
+  filled markers; monopile-family series drawn grey with open markers
+  and dashed/dotted lines.
+data_sources:
+  - papers/J3/figure_inputs/cross-foundation.parquet
+required_columns:
+  - series
+  - foundation
+  - soil
+  - panel
+  - highlight
+  - s_over_d
+  - ff_ratio
+formats: [png, svg, pdf]

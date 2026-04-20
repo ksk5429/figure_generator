@@ -1,0 +1,15 @@
+figure_id: j2-model-comp
+journal: ocean_engineering
+width: double
+backend: tikz
+paper: J2
+claim_id: j2-model-comp
+tier: 1
+description: >
+  Four-panel schematic of foundation model variations (manuscript
+  submitted Fig 9): (a) Fixed Base with rigid foundation; (b)
+  Macro-Element 6x6 stiffness at the reference node; (c) BNWF with
+  uniform spring distribution along each bucket skirt; (d) BNWF with
+  distributed springs from the proposed framework (depth-varying
+  stiffness). B&W-safe via rigid-block fill + coil spring annotation.
+formats: [png, svg, pdf]

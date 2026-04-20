@@ -1,0 +1,20 @@
+{
+  "tier": 2,
+  "paper": "J2",
+  "slug": "mesh-convergence",
+  "generated_utc": "2026-04-19T23:54:08Z",
+  "primary_source": {
+    "kind": "paper_script",
+    "script_ref": "ch4_1_optumgx_opensees_revised/4_figures/fig6_efficiency_frontierv2.py"
+  },
+  "rows": 8,
+  "columns": [
+    "n_elements",
+    "time_s",
+    "limit_load_kn",
+    "error_pct",
+    "ref_load_kn",
+    "threshold_1pct",
+    "threshold_0p5pct"
+  ]
+}

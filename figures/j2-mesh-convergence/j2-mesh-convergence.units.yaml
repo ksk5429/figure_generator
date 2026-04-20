@@ -1,0 +1,7 @@
+n_elements:       index
+time_s:           second
+limit_load_kn:    kilonewton
+error_pct:        percent
+ref_load_kn:      kilonewton
+threshold_1pct:   percent
+threshold_0p5pct: percent

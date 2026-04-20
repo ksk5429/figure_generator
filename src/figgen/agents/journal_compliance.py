@@ -89,13 +89,18 @@ def _stream_violations(data: bytes, min_pt: float = _MIN_STROKE_PT) -> list[floa
     # requiring a whitespace delimiter before and after.
     w_re = _re.compile(rb"(?:^|\s)(-?\d+\.?\d*)\s+w(?=\s|$)")
     out: list[float] = []
+    # PDF stream numbers round-trip through 6-decimal floats; a 0.3-pt line
+    # can emerge as 0.299976 or 0.300001. Absorb that noise with a small
+    # tolerance so figures authored at the journal minimum aren't flagged.
+    tolerance = 0.005
+    effective_min = max(0.0, min_pt - tolerance)
     for m in w_re.findall(data):
         try:
             v = float(m)
         except (ValueError, TypeError):
             continue
         # PDF spec: `0 w` means 1 device pixel (not zero); skip it.
-        if 0 < v < min_pt:
+        if 0 < v < effective_min:
             out.append(v)
     return out
 

@@ -123,23 +123,48 @@ def _compile_pdflatex_direct(tex: Path, out_dir: Path,
     return True, "\n".join(out), "\n".join(err)
 
 
-def _rasterize_pdf(pdf: Path, out_png: Path, dpi: int = 600) -> bool:
-    # pdftocairo: best text rendering
-    if shutil.which("pdftocairo"):
-        cmd = ["pdftocairo", "-png", "-r", str(dpi), "-singlefile", str(pdf), str(out_png.with_suffix(""))]
+def _set_png_dpi(png: Path, dpi: int) -> None:
+    """Stamp PNG DPI metadata so the journal-compliance check can read it.
+
+    pdftocairo / pdftoppm / magick all write DPI on their own, but pymupdf's
+    Pixmap.save() produces a raw 96-DPI PNG regardless of render zoom.
+    Re-encode the file through PIL with the requested DPI to align.
+    """
+    try:
+        from PIL import Image
+    except ImportError:
+        return
+    try:
+        with Image.open(png) as im:
+            im.save(png, dpi=(dpi, dpi))
+    except Exception:  # noqa: BLE001
+        pass
+
+
+def _rasterize_pdf(pdf: Path, out_png: Path, dpi: int = 650) -> bool:
+    # pdftocairo (Poppler): best text rendering; writes the right DPI tag.
+    pdftocairo = _which(["pdftocairo"])
+    if pdftocairo:
+        cmd = [pdftocairo, "-png", "-r", str(dpi), "-singlefile",
+               str(pdf), str(out_png.with_suffix(""))]
         r = subprocess.run(cmd, capture_output=True, text=True, check=False)
         if r.returncode == 0 and out_png.exists():
+            _set_png_dpi(out_png, dpi)
             return True
-    if shutil.which("pdftoppm"):
-        cmd = ["pdftoppm", "-r", str(dpi), "-png", "-singlefile", str(pdf), str(out_png.with_suffix(""))]
+    pdftoppm = _which(["pdftoppm"])
+    if pdftoppm:
+        cmd = [pdftoppm, "-r", str(dpi), "-png", "-singlefile",
+               str(pdf), str(out_png.with_suffix(""))]
         r = subprocess.run(cmd, capture_output=True, text=True, check=False)
         if r.returncode == 0 and out_png.exists():
+            _set_png_dpi(out_png, dpi)
             return True
     magick = _which(["magick", "convert"])
     if magick:
         cmd = [magick, "-density", str(dpi), str(pdf), str(out_png)]
         r = subprocess.run(cmd, capture_output=True, text=True, check=False)
         if r.returncode == 0 and out_png.exists():
+            _set_png_dpi(out_png, dpi)
             return True
     # Python-only fallback via pymupdf (aka fitz). No external toolchain.
     try:
@@ -157,7 +182,11 @@ def _rasterize_pdf(pdf: Path, out_png: Path, dpi: int = 600) -> bool:
         pix = page.get_pixmap(matrix=mat, alpha=False)
         pix.save(str(out_png))
         doc.close()
-        return out_png.exists()
+        if out_png.exists():
+            # pymupdf writes 96-DPI PNG regardless of zoom; re-stamp the tag.
+            _set_png_dpi(out_png, dpi)
+            return True
+        return False
     except Exception:  # noqa: BLE001
         return False
 
@@ -186,7 +215,7 @@ def render(
     out_dir: Path,
     *,
     timeout_s: float = 120.0,
-    dpi: int = 600,
+    dpi: int = 650,
 ) -> BackendResult:
     """Compile a TikZ standalone document to PDF + PNG.
 

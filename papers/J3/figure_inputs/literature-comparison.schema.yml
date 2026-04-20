@@ -1,0 +1,29 @@
+claim_id: j3-literature-comparison
+columns:
+- name: panel
+  dtype: string
+  unit: label
+- name: order
+  dtype: int64
+  unit: index
+- name: label
+  dtype: string
+  unit: label
+- name: lo
+  dtype: float64
+  unit: percent
+- name: hi
+  dtype: float64
+  unit: percent
+- name: width_pct
+  dtype: float64
+  unit: percent
+- name: sd
+  dtype: float64
+  unit: dimensionless
+- name: foundation
+  dtype: string
+  unit: label
+- name: highlight
+  dtype: bool
+  unit: label

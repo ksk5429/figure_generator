@@ -86,11 +86,26 @@ def _default_spec_from_config(figure_id: str, folder: Path, user_ask: str) -> Fi
     cfg: dict[str, Any] = {}
     if cfg_path.exists():
         cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
-    source_candidates = sorted(folder.glob(f"{figure_id}.*"))
+    # Source priority: matplotlib script > TikZ source > Mermaid source > SVG
+    # source. Must be explicit — alphabetical ordering picks a stale ``.svg``
+    # artefact over the authoritative ``.tex`` for TikZ figures, breaking
+    # the compile step. When a backend is declared in config, prefer its
+    # canonical extension first.
+    backend_ext = {
+        "matplotlib": [".py"],
+        "tikz":       [".tex"],
+        "mermaid":    [".mmd", ".mermaid"],
+        "svg":        [".svg"],
+    }
+    priority_ext = backend_ext.get(str(cfg.get("backend", "matplotlib")).lower(),
+                                   [".py"])
+    fallback_ext = [".py", ".tex", ".mmd", ".mermaid", ".svg"]
+    ordered_ext = priority_ext + [e for e in fallback_ext if e not in priority_ext]
     src: Path | None = None
-    for c in source_candidates:
-        if c.suffix in {".py", ".tex", ".mmd", ".mermaid", ".svg"}:
-            src = c
+    for ext in ordered_ext:
+        cand = folder / f"{figure_id}{ext}"
+        if cand.exists():
+            src = cand
             break
     backend = choose_backend(cfg.get("backend"), src)
     return FigureSpec(

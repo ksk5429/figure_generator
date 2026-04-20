@@ -1,0 +1,9 @@
+panel:       label
+order:       index
+label:       label
+lo:          percent
+hi:          percent
+width_pct:   percent
+sd:          dimensionless
+foundation:  label
+highlight:   label

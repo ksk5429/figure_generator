@@ -1,0 +1,19 @@
+claim_id: j2-model-comp
+paper: J2
+status: architectural
+source: manuscript_v18.qmd + @fig-model-comp
+origin_note: |
+  Four foundation-model variations compared in the manuscript:
+  (a) Fixed Base, (b) Macro-Element 6x6, (c) BNWF uniform, (d) BNWF
+  distributed. Only the distributed BNWF resolves both depth-varying
+  and circumferentially distributed springs — the scope required
+  for reliable scour-sensitivity prediction.
+
+headline: >
+  Four foundation-model tiers: Fixed -> Macro -> Uniform BNWF ->
+  Distributed BNWF. The distributed BNWF is the only one representing
+  both depth-varying and circumferentially distributed SSI.
+
+primary_figure: figures/j2-model-comp
+
+assertions: []

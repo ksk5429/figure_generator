@@ -1,0 +1,18 @@
+claim_id: j3-bending-vs-tilting
+paper: J3
+status: architectural
+source: manuscript.qmd §4.1 + @fig-bending-vs-tilting
+origin_note: |
+  Schematic figure illustrating the two response modes (elastic
+  bending vs rigid-body tilting). No numeric assertions — it is an
+  architectural figure supporting the quantitative evidence in
+  `j3-mode-transition`.
+
+headline: >
+  Two distinct response modes: elastic bending (plumb tower, moderate
+  u) and rigid-body tilting about the yielded upwind bucket
+  (amplified u + strain reversal).
+
+primary_figure: figures/j3-bending-vs-tilting
+
+assertions: []

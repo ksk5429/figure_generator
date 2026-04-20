@@ -1,0 +1,38 @@
+{
+  "tier": 2,
+  "paper": "J3",
+  "slug": "hydrostatic-profile",
+  "generated_utc": "2026-04-19T23:42:11Z",
+  "primary_source": {
+    "kind": "paper_script",
+    "script_ref": "ch5_centrifuge_testing_year2/figures1/fig_hydrostatic_profile.py"
+  },
+  "ppt_depths_mm": {
+    "1": 20.0,
+    "2": 70.0,
+    "3": 120.0,
+    "4": 170.0,
+    "5": 220.0
+  },
+  "ppt_included": {
+    "1": false,
+    "2": true,
+    "3": true,
+    "4": true,
+    "5": true
+  },
+  "rows": 261,
+  "columns": [
+    "kind",
+    "ppt_id",
+    "depth_mm",
+    "u_hydrostatic_kpa",
+    "u_measured_kpa",
+    "below_skirt",
+    "included",
+    "test_id",
+    "n_centrifuge",
+    "gamma_w_kn_m3",
+    "skirt_tip_mm"
+  ]
+}

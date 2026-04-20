@@ -1,0 +1,28 @@
+figure_id: j3-hydrostatic-profile
+journal: ocean_engineering
+width: single
+paper: J3
+claim_id: j3-hydrostatic-profile
+tier: 2
+tier2_slug: hydrostatic-profile
+description: >
+  Hydrostatic pore pressure profile u_0 = gamma_w * N * z inside the
+  saturated bucket at 70 g (manuscript §3, submitted Fig 2). Depth axis
+  inverted, zero at bucket lid, skirt tip at 132 mm. PPT 2-5 markers
+  at 70/120/170/220 mm for T4 (open) and T5 (filled). PPT 1 at 20 mm
+  excluded. Shaded band below the skirt tip indicates sensors sitting
+  in native soil outside the bucket.
+data_sources:
+  - papers/J3/figure_inputs/hydrostatic-profile.parquet
+required_columns:
+  - kind
+  - ppt_id
+  - depth_mm
+  - u_hydrostatic_kpa
+  - below_skirt
+  - included
+  - test_id
+  - n_centrifuge
+  - gamma_w_kn_m3
+  - skirt_tip_mm
+formats: [png, svg, pdf]

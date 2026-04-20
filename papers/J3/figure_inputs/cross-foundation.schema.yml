@@ -1,0 +1,23 @@
+claim_id: j3-cross-foundation
+columns:
+- name: series
+  dtype: string
+  unit: label
+- name: foundation
+  dtype: string
+  unit: label
+- name: soil
+  dtype: string
+  unit: label
+- name: panel
+  dtype: string
+  unit: label
+- name: highlight
+  dtype: bool
+  unit: label
+- name: s_over_d
+  dtype: float64
+  unit: dimensionless
+- name: ff_ratio
+  dtype: float64
+  unit: ratio

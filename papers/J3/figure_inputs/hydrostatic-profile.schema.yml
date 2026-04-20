@@ -1,0 +1,35 @@
+claim_id: j3-hydrostatic-profile
+columns:
+- name: kind
+  dtype: string
+  unit: label
+- name: ppt_id
+  dtype: int64
+  unit: index
+- name: depth_mm
+  dtype: float64
+  unit: millimeter
+- name: u_hydrostatic_kpa
+  dtype: float64
+  unit: kilopascal
+- name: u_measured_kpa
+  dtype: float64
+  unit: kilopascal
+- name: below_skirt
+  dtype: bool
+  unit: label
+- name: included
+  dtype: bool
+  unit: label
+- name: test_id
+  dtype: string
+  unit: label
+- name: n_centrifuge
+  dtype: int64
+  unit: dimensionless
+- name: gamma_w_kn_m3
+  dtype: float64
+  unit: kilonewton_per_m3
+- name: skirt_tip_mm
+  dtype: float64
+  unit: millimeter

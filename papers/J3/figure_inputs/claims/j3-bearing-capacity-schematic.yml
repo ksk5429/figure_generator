@@ -1,0 +1,17 @@
+claim_id: j3-bearing-capacity-schematic
+paper: J3
+status: architectural
+source: manuscript.qmd §5 + @fig-bearing-capacity-schematic
+origin_note: |
+  Schematic illustrating the Meyerhof-style q_ult formulation for a
+  suction bucket in intact vs scoured condition. Supports the
+  quantitative j3-bearing-capacity figure.
+
+headline: >
+  Scour reduces effective embedment from L to L-S, shrinking the
+  effective-capacity zone linearly. q_ult(S) = gamma(L-S)N_q +
+  0.4 gamma R N_gamma.
+
+primary_figure: figures/j3-bearing-capacity-schematic
+
+assertions: []
