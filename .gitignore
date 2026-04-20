@@ -36,3 +36,26 @@ gallery/docs/figures/*.md
 
 *.log
 .cache/
+
+# Windows Explorer clutter
+desktop.ini
+Thumbs.db
+
+# Stray experiment tracking dirs (not part of figure_generator core)
+tstex_modules/
+
+# Human-loop artefacts per figure
+figures/*/_markup.png
+figures/*/_refinements.yml
+figures/*/.frozen
+
+# TikZ build artifacts
+figures/*/*.aux
+figures/*/*.fdb_latexmk
+figures/*/*.fls
+figures/*/*.log
+figures/*/*.out
+figures/*/*.synctex.gz
+
+# Pipeline text-placement sidecar (regenerated on every build)
+figures/*/*.text_placement.json
