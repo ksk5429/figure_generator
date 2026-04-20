@@ -1,0 +1,25 @@
+{
+  "tier": 2,
+  "paper": "J5",
+  "slug": "degradation-quantiles",
+  "generated_utc": "2026-04-20T03:06:48Z",
+  "primary_source": {
+    "kind": "monte_carlo_ensemble",
+    "csv_refs": [
+      "paperJ5_mc_optumgx/1_data/mc_production/mc_PC3.csv",
+      "paperJ5_mc_optumgx/1_data/mc_production/mc_PC4.csv"
+    ]
+  },
+  "rows": 4,
+  "columns": [
+    "pc_id",
+    "s_over_d",
+    "n",
+    "hmax_mean_kn",
+    "hmax_p5_kn",
+    "hmax_p50_kn",
+    "hmax_p95_kn",
+    "hmax_std_kn",
+    "hmax_cov"
+  ]
+}

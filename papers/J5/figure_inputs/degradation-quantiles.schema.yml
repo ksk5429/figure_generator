@@ -1,0 +1,29 @@
+claim_id: j5-degradation-quantiles
+columns:
+- name: pc_id
+  dtype: object
+  unit: label
+- name: s_over_d
+  dtype: float64
+  unit: dimensionless
+- name: n
+  dtype: int64
+  unit: label
+- name: hmax_mean_kn
+  dtype: float64
+  unit: label
+- name: hmax_p5_kn
+  dtype: float64
+  unit: label
+- name: hmax_p50_kn
+  dtype: float64
+  unit: label
+- name: hmax_p95_kn
+  dtype: float64
+  unit: label
+- name: hmax_std_kn
+  dtype: float64
+  unit: label
+- name: hmax_cov
+  dtype: float64
+  unit: label

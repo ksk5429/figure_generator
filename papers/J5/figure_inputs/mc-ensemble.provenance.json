@@ -1,0 +1,36 @@
+{
+  "tier": 2,
+  "paper": "J5",
+  "slug": "mc-ensemble",
+  "generated_utc": "2026-04-20T03:06:48Z",
+  "primary_source": {
+    "kind": "monte_carlo_ensemble",
+    "csv_refs": [
+      "paperJ5_mc_optumgx/1_data/mc_production/mc_PC3.csv",
+      "paperJ5_mc_optumgx/1_data/mc_production/mc_PC4.csv"
+    ]
+  },
+  "rows": 800,
+  "columns": [
+    "run",
+    "pc_id",
+    "scour_base",
+    "S_D",
+    "su0",
+    "k_su",
+    "gamma",
+    "alpha_int",
+    "d_max",
+    "alpha_scour",
+    "theta_0_deg",
+    "Vmax_kN",
+    "Hmax_kN",
+    "Mmax_kN",
+    "Vmax_mobilised_fraction",
+    "Hmax_mobilised_fraction",
+    "Mmax_mobilised_fraction",
+    "Hmax_reference_kN",
+    "reference_sd",
+    "Hmax_ratio_to_ref"
+  ]
+}

@@ -1,0 +1,1435 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns3="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="252pt" height="201.024pt" viewBox="0 0 252 201.024" version="1.1">
+ <metadata><rdf:RDF><rdf:Description><dc:figure_id>j5-capacity-cdf</dc:figure_id><dc:journal>ocean_engineering</dc:journal><dc:paper>J5</dc:paper><dc:claim_id>j5-capacity-cdf</dc:claim_id><dc:tier>2</dc:tier><dc:git_hash>9feac650-dirty</dc:git_hash><dc:generated_utc>2026-04-20T03:16:26Z</dc:generated_utc><dc:data_sources>mc-ensemble.parquet:ca42beee; mc-ensemble.schema.yml:bf498e6c; mc-ensemble.provenance.json:cd570ded</dc:data_sources><dc:generator>figgen</dc:generator><dc:description>Empirical CDF of horizontal capacity Hmax at each of four scour stages (S/D = 0.3125, 0.375, 0.4375, 0.5; n = 200 per stage, total 800 realisations). Four monotone shades + step markers differentiate the stages; p5 and p95 reference lines annotate the quantile bounds. The ~ 2.3x spread between p5 and p95 at every stage shows that soil-parameter uncertainty dominates over scour geometry uncertainty at any single S/D.
+</dc:description><dc:claim_measured>{"cov_near_0_27": 0.27382420161103727, "pc3_shallowest_p5": 13847.52724609375, "pc3_shallowest_p95": 32075.099804687492, "pc4_deepest_p5": 11903.685205078125, "pc4_deepest_p95": 28019.572070312493, "spread_ratio_pc3_shallow_above_2": 21644.526557617188}</dc:claim_measured><dc:claim_id_measured>j5-capacity-cdf</dc:claim_id_measured></rdf:Description></rdf:RDF></metadata><defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 201.024  L 252 201.024  L 252 0  L 0 0  z " style="fill: #ffffff" />
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 31.91 173.069469  L 245.34 173.069469  L 245.34 2.16  L 31.91 2.16  z " style="fill: #ffffff" />
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 31.91 173.069469  L 31.91 2.16  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m1feb6a24c7" d="M 0 0  L 0 -3.5  " style="stroke: #262626; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use ns3:href="#m1feb6a24c7" x="31.91" y="173.069469" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_3">
+      <defs>
+       <path id="m6eca5a0f0e" d="M 0 0  L 0 3.5  " style="stroke: #262626; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use ns3:href="#m6eca5a0f0e" x="31.91" y="2.16" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_1">
+      
+      <g style="fill: #262626" transform="translate(29.66 182.818844)">
+       <text>
+        <tspan x="0" y="-0.046875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">5</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_4">
+      <path d="M 62.4 173.069469  L 62.4 2.16  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_5">
+      <g>
+       <use ns3:href="#m1feb6a24c7" x="62.4" y="173.069469" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use ns3:href="#m6eca5a0f0e" x="62.4" y="2.16" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_2">
+      
+      <g style="fill: #262626" transform="translate(57.9 182.818844)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">1</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_7">
+      <path d="M 92.89 173.069469  L 92.89 2.16  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use ns3:href="#m1feb6a24c7" x="92.89" y="173.069469" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use ns3:href="#m6eca5a0f0e" x="92.89" y="2.16" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_3">
+      
+      <g style="fill: #262626" transform="translate(88.39 182.818844)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">1</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">5</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_10">
+      <path d="M 123.38 173.069469  L 123.38 2.16  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use ns3:href="#m1feb6a24c7" x="123.38" y="173.069469" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use ns3:href="#m6eca5a0f0e" x="123.38" y="2.16" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_4">
+      
+      <g style="fill: #262626" transform="translate(118.88 182.818844)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">2</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_13">
+      <path d="M 153.87 173.069469  L 153.87 2.16  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use ns3:href="#m1feb6a24c7" x="153.87" y="173.069469" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use ns3:href="#m6eca5a0f0e" x="153.87" y="2.16" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_5">
+      
+      <g style="fill: #262626" transform="translate(149.37 182.818844)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">2</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">5</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_16">
+      <path d="M 184.36 173.069469  L 184.36 2.16  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_17">
+      <g>
+       <use ns3:href="#m1feb6a24c7" x="184.36" y="173.069469" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use ns3:href="#m6eca5a0f0e" x="184.36" y="2.16" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_6">
+      
+      <g style="fill: #262626" transform="translate(179.86 182.818844)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">3</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_19">
+      <path d="M 214.85 173.069469  L 214.85 2.16  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use ns3:href="#m1feb6a24c7" x="214.85" y="173.069469" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_21">
+      <g>
+       <use ns3:href="#m6eca5a0f0e" x="214.85" y="2.16" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_7">
+      
+      <g style="fill: #262626" transform="translate(210.35 182.818844)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">3</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">5</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_22">
+      <path d="M 245.34 173.069469  L 245.34 2.16  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_23">
+      <g>
+       <use ns3:href="#m1feb6a24c7" x="245.34" y="173.069469" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use ns3:href="#m6eca5a0f0e" x="245.34" y="2.16" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_8">
+      
+      <g style="fill: #262626" transform="translate(240.84 182.818844)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">4</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="text_9">
+     
+     <g style="fill: #1a1a1a" transform="translate(66.63 196.444)">
+      <text>
+       <tspan x="0" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">H</tspan>
+       <tspan x="7.943848" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">o</tspan>
+       <tspan x="13.443848" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">r</tspan>
+       <tspan x="17.106934" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">i</tspan>
+       <tspan x="20.163086" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">z</tspan>
+       <tspan x="25.04541" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">o</tspan>
+       <tspan x="30.54541" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">n</tspan>
+       <tspan x="36.04541" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">t</tspan>
+       <tspan x="39.101562" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">a</tspan>
+       <tspan x="43.983887" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">l</tspan>
+       <tspan x="47.040039" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a"> </tspan>
+       <tspan x="49.790039" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">c</tspan>
+       <tspan x="54.672363" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">a</tspan>
+       <tspan x="59.554688" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">p</tspan>
+       <tspan x="65.054688" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">a</tspan>
+       <tspan x="69.937012" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">c</tspan>
+       <tspan x="74.819336" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">i</tspan>
+       <tspan x="77.875488" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">t</tspan>
+       <tspan x="80.931641" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">y</tspan>
+       <tspan x="86.431641" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">,</tspan>
+       <tspan x="89.181641" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a"> </tspan>
+       <tspan x="116.095697" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a"> </tspan>
+       <tspan x="118.845697" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">[</tspan>
+       <tspan x="122.508783" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">M</tspan>
+       <tspan x="132.289545" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">N</tspan>
+       <tspan x="140.233393" y="-0.359375" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">]</tspan>
+       <tspan x="91.931641" y="-0.359375" style="font-size: 11px; font-family: 'cmmi10'; fill: #1a1a1a">H</tspan>
+       <tspan x="101.073242" y="1.511313" style="font-size: 7.7px; font-family: 'cmr10'; fill: #1a1a1a">m</tspan>
+       <tspan x="107.487402" y="1.511313" style="font-size: 7.7px; font-family: 'cmr10'; fill: #1a1a1a">a</tspan>
+       <tspan x="111.337402" y="1.511313" style="font-size: 7.7px; font-family: 'cmr10'; fill: #1a1a1a">x</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_25">
+      <path d="M 31.91 169.782748  L 245.34 169.782748  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_26">
+      <defs>
+       <path id="m94251f769d" d="M 0 0  L 3.5 0  " style="stroke: #262626; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use ns3:href="#m94251f769d" x="31.91" y="169.782748" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_27">
+      <defs>
+       <path id="mbc78c3d832" d="M 0 0  L -3.5 0  " style="stroke: #262626; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use ns3:href="#mbc78c3d832" x="245.34" y="169.782748" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_10">
+      
+      <g style="fill: #262626" transform="translate(17.16 172.907436)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">.</tspan>
+        <tspan x="6.75" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_28">
+      <path d="M 31.91 136.915543  L 245.34 136.915543  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_29">
+      <g>
+       <use ns3:href="#m94251f769d" x="31.91" y="136.915543" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use ns3:href="#mbc78c3d832" x="245.34" y="136.915543" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_11">
+      
+      <g style="fill: #262626" transform="translate(17.16 140.04023)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">.</tspan>
+        <tspan x="6.75" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_31">
+      <path d="M 31.91 104.048337  L 245.34 104.048337  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use ns3:href="#m94251f769d" x="31.91" y="104.048337" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_33">
+      <g>
+       <use ns3:href="#mbc78c3d832" x="245.34" y="104.048337" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_12">
+      
+      <g style="fill: #262626" transform="translate(17.16 107.173025)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">.</tspan>
+        <tspan x="6.75" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">4</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_34">
+      <path d="M 31.91 71.181132  L 245.34 71.181132  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_35">
+      <g>
+       <use ns3:href="#m94251f769d" x="31.91" y="71.181132" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use ns3:href="#mbc78c3d832" x="245.34" y="71.181132" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_13">
+      
+      <g style="fill: #262626" transform="translate(17.16 74.305819)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">.</tspan>
+        <tspan x="6.75" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">6</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_37">
+      <path d="M 31.91 38.313926  L 245.34 38.313926  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use ns3:href="#m94251f769d" x="31.91" y="38.313926" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_39">
+      <g>
+       <use ns3:href="#mbc78c3d832" x="245.34" y="38.313926" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_14">
+      
+      <g style="fill: #262626" transform="translate(17.16 41.438614)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">.</tspan>
+        <tspan x="6.75" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">8</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_40">
+      <path d="M 31.91 5.446721  L 245.34 5.446721  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #cccccc; stroke-opacity: 0.5; stroke-width: 0.5; stroke-linecap: square" />
+     </g>
+     <g id="line2d_41">
+      <g>
+       <use ns3:href="#m94251f769d" x="31.91" y="5.446721" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="line2d_42">
+      <g>
+       <use ns3:href="#mbc78c3d832" x="245.34" y="5.446721" style="fill: #262626; stroke: #262626; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_15">
+      
+      <g style="fill: #262626" transform="translate(17.16 8.571408)">
+       <text>
+        <tspan x="0" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">1</tspan>
+        <tspan x="4.5" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">.</tspan>
+        <tspan x="6.75" y="-0.921875" style="font-size: 9px; font-family: 'Times New Roman'; fill: #262626">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="text_16">
+     
+     <g style="fill: #1a1a1a" transform="translate(10.41 160.269734) rotate(-90)">
+      <text>
+       <tspan x="0" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">E</tspan>
+       <tspan x="6.719238" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">m</tspan>
+       <tspan x="15.275391" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">p</tspan>
+       <tspan x="20.775391" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">i</tspan>
+       <tspan x="23.831543" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">r</tspan>
+       <tspan x="27.494629" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">i</tspan>
+       <tspan x="30.550781" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">c</tspan>
+       <tspan x="35.433105" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">a</tspan>
+       <tspan x="40.31543" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">l</tspan>
+       <tspan x="43.371582" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a"> </tspan>
+       <tspan x="46.121582" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">C</tspan>
+       <tspan x="53.458496" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">D</tspan>
+       <tspan x="61.402344" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">F</tspan>
+       <tspan x="67.52002" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">,</tspan>
+       <tspan x="70.27002" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a"> </tspan>
+       <tspan x="131.474213" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a"> </tspan>
+       <tspan x="134.224213" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">[</tspan>
+       <tspan x="137.887299" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">-</tspan>
+       <tspan x="141.550385" y="-0.75" style="font-size: 11px; font-family: 'Times New Roman'; fill: #1a1a1a">]</tspan>
+       <tspan x="73.02002" y="-0.75" style="font-size: 11px; font-family: 'cmmi10'; fill: #1a1a1a">P</tspan>
+       <tspan x="84.353027" y="-0.75" style="font-size: 11px; font-family: 'cmmi10'; fill: #1a1a1a">H</tspan>
+       <tspan x="120.925385" y="-0.75" style="font-size: 11px; font-family: 'cmmi10'; fill: #1a1a1a">x</tspan>
+       <tspan x="80.083008" y="-0.75" style="font-size: 11px; font-family: 'cmr10'; fill: #1a1a1a">(</tspan>
+       <tspan x="127.204193" y="-0.75" style="font-size: 11px; font-family: 'cmr10'; fill: #1a1a1a">)</tspan>
+       <tspan x="93.494629" y="1.120688" style="font-size: 7.7px; font-family: 'cmr10'; fill: #1a1a1a">m</tspan>
+       <tspan x="99.908789" y="1.120688" style="font-size: 7.7px; font-family: 'cmr10'; fill: #1a1a1a">a</tspan>
+       <tspan x="103.758789" y="1.120688" style="font-size: 7.7px; font-family: 'cmr10'; fill: #1a1a1a">x</tspan>
+       <tspan x="110.448529" y="-0.75" style="font-size: 11px; font-family: 'cmsy10'; fill: #1a1a1a">∙</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_43">
+    <path d="M 60.379787 168.961068  L 71.612536 168.961068  L 71.612536 168.139388  L 72.30772 168.139388  L 72.30772 167.317708  L 74.577676 167.317708  L 74.577676 166.496028  L 74.934332 166.496028  L 74.934332 165.674348  L 79.176396 165.674348  L 79.176396 164.852667  L 81.75716 164.852667  L 81.75716 164.030987  L 82.044522 164.030987  L 82.044522 163.209307  L 85.580046 163.209307  L 85.580046 162.387627  L 85.715911 162.387627  L 85.715911 161.565947  L 85.869922 161.565947  L 85.869922 160.744267  L 87.107083 160.744267  L 87.107083 159.922587  L 88.752829 159.922587  L 88.804078 158.279226  L 89.26375 158.279226  L 89.26375 157.457546  L 89.510052 157.457546  L 89.510052 156.635866  L 90.628988 156.635866  L 90.628988 155.814186  L 91.26103 155.814186  L 91.26103 154.992506  L 91.387623 154.992506  L 91.387623 154.170826  L 93.38981 154.170826  L 93.38981 153.349145  L 93.877316 153.349145  L 93.877316 152.527465  L 94.469316 152.527465  L 94.469316 151.705785  L 95.116062 151.705785  L 95.116062 150.884105  L 95.922397 150.884105  L 95.922397 150.062425  L 96.09881 150.062425  L 96.09881 149.240745  L 96.807763 149.240745  L 96.807763 148.419065  L 97.004578 148.419065  L 97.110668 145.954024  L 97.149864 145.954024  L 97.149864 145.132344  L 97.548074 145.132344  L 97.548074 144.310664  L 98.338015 144.310664  L 98.338015 143.488984  L 98.90532 143.488984  L 98.90532 142.667304  L 99.322312 142.667304  L 99.322312 141.845623  L 99.502084 141.845623  L 99.502084 141.023943  L 99.927122 141.023943  L 99.927122 140.202263  L 100.351564 140.202263  L 100.439675 138.558903  L 100.83838 138.558903  L 100.932881 136.915543  L 101.340947 136.915543  L 101.340947 136.093863  L 101.765377 136.093863  L 101.765377 135.272182  L 101.957702 135.272182  L 101.957702 134.450502  L 103.464516 134.450502  L 103.487419 132.807142  L 103.726515 132.807142  L 103.726515 131.985462  L 104.037442 131.985462  L 104.037442 131.163782  L 104.72866 131.163782  L 104.72866 130.342102  L 105.872249 130.342102  L 105.872249 129.520421  L 106.208282 129.520421  L 106.208282 128.698741  L 106.399535 128.698741  L 106.399535 127.877061  L 106.858291 127.877061  L 106.858291 127.055381  L 107.838532 127.055381  L 107.838532 126.233701  L 108.381981 126.233701  L 108.381981 125.412021  L 108.670731 125.412021  L 108.670731 124.590341  L 109.481455 124.590341  L 109.481455 123.76866  L 109.905814 123.76866  L 110.007277 122.1253  L 110.270813 122.1253  L 110.270813 121.30362  L 110.65164 121.30362  L 110.65164 120.48194  L 111.257283 120.48194  L 111.257283 119.66026  L 113.031742 119.66026  L 113.031742 118.83858  L 113.176474 118.83858  L 113.176474 118.016899  L 113.318443 118.016899  L 113.318443 117.195219  L 114.281427 117.195219  L 114.37061 115.551859  L 116.248258 115.551859  L 116.248258 114.730179  L 116.385642 114.730179  L 116.385642 113.908499  L 116.62288 113.908499  L 116.686707 112.265139  L 116.972705 112.265139  L 116.972705 111.443458  L 117.133183 111.443458  L 117.133183 110.621778  L 117.471824 110.621778  L 117.471824 109.800098  L 117.731239 109.800098  L 117.731239 108.978418  L 117.848804 108.978418  L 117.848804 108.156738  L 117.995109 108.156738  L 117.995109 107.335058  L 118.882094 107.335058  L 118.882094 106.513378  L 120.692056 106.513378  L 120.692056 105.691697  L 121.261195 105.691697  L 121.261195 104.870017  L 122.602684 104.870017  L 122.602684 104.048337  L 122.753037 104.048337  L 122.753037 103.226657  L 123.281753 103.226657  L 123.281753 102.404977  L 123.638998 102.404977  L 123.638998 101.583297  L 124.143274 101.583297  L 124.144561 99.939936  L 124.664058 99.939936  L 124.664058 99.118256  L 124.791961 99.118256  L 124.791961 98.296576  L 125.140833 98.296576  L 125.140833 97.474896  L 125.831515 97.474896  L 125.831515 96.653216  L 126.671336 96.653216  L 126.671336 95.831536  L 126.863947 95.831536  L 126.969935 94.188175  L 127.083499 94.188175  L 127.083499 93.366495  L 127.412815 93.366495  L 127.473402 90.901455  L 127.525485 90.901455  L 127.525485 90.079775  L 127.98923 90.079775  L 127.98923 89.258095  L 128.210986 89.258095  L 128.210986 88.436415  L 128.703935 88.436415  L 128.703935 87.614734  L 128.999676 87.614734  L 128.999676 86.793054  L 129.225421 86.793054  L 129.225421 85.971374  L 131.39787 85.971374  L 131.468973 84.328014  L 131.878147 84.328014  L 131.878147 83.506334  L 132.020306 83.506334  L 132.126938 81.862973  L 133.649794 81.862973  L 133.649794 81.041293  L 134.251555 81.041293  L 134.323016 79.397933  L 134.400146 79.397933  L 134.400146 78.576253  L 134.735274 78.576253  L 134.805711 76.932893  L 135.049952 76.932893  L 135.077596 75.289532  L 135.732273 75.289532  L 135.732273 74.467852  L 135.932411 74.467852  L 135.932411 73.646172  L 136.577132 73.646172  L 136.577132 72.824492  L 138.693412 72.824492  L 138.693412 72.002812  L 138.841277 72.002812  L 138.841277 71.181132  L 140.015153 71.181132  L 140.015153 70.359451  L 140.333822 70.359451  L 140.333822 69.537771  L 140.514165 69.537771  L 140.589378 67.072731  L 140.96843 67.072731  L 141.038498 65.429371  L 141.351949 65.429371  L 141.351949 64.607691  L 141.958069 64.607691  L 141.958069 63.78601  L 143.223881 63.78601  L 143.223881 62.96433  L 143.718688 62.96433  L 143.750405 61.32097  L 144.201347 61.32097  L 144.201347 60.49929  L 144.368006 60.49929  L 144.368006 59.67761  L 144.528876 59.67761  L 144.528876 58.85593  L 144.958773 58.85593  L 144.958773 58.034249  L 145.083044 58.034249  L 145.083044 57.212569  L 145.981725 57.212569  L 145.981725 56.390889  L 146.773381 56.390889  L 146.773381 55.569209  L 147.066502 55.569209  L 147.066502 54.747529  L 147.226646 54.747529  L 147.226646 53.925849  L 147.395627 53.925849  L 147.493136 52.282488  L 148.09093 52.282488  L 148.09093 51.460808  L 148.706399 51.460808  L 148.706399 50.639128  L 148.872963 50.639128  L 148.872963 49.817448  L 149.34239 49.817448  L 149.34239 48.995768  L 150.347809 48.995768  L 150.347809 48.174088  L 150.463076 48.174088  L 150.463076 47.352408  L 150.751004 47.352408  L 150.751004 46.530727  L 151.872857 46.530727  L 151.872857 45.709047  L 153.076676 45.709047  L 153.076676 44.887367  L 154.140968 44.887367  L 154.140968 44.065687  L 155.352374 44.065687  L 155.352374 43.244007  L 156.148877 43.244007  L 156.240788 41.600647  L 156.266133 41.600647  L 156.266133 40.778966  L 156.42979 40.778966  L 156.42979 39.957286  L 159.692256 39.957286  L 159.692256 39.135606  L 159.966714 39.135606  L 159.967512 37.492246  L 162.29802 37.492246  L 162.29802 36.670566  L 162.929222 36.670566  L 162.929222 35.848886  L 163.486355 35.848886  L 163.486355 35.027206  L 164.003435 35.027206  L 164.003435 34.205525  L 164.88169 34.205525  L 164.88169 33.383845  L 165.35257 33.383845  L 165.35257 32.562165  L 165.521003 32.562165  L 165.521003 31.740485  L 165.894029 31.740485  L 165.894029 30.918805  L 166.106757 30.918805  L 166.159792 29.275445  L 168.263114 29.275445  L 168.263114 28.453764  L 168.703373 28.453764  L 168.703373 27.632084  L 169.135295 27.632084  L 169.135295 26.810404  L 169.41242 26.810404  L 169.41242 25.988724  L 169.619872 25.988724  L 169.619872 25.167044  L 171.149517 25.167044  L 171.149517 24.345364  L 171.3389 24.345364  L 171.3389 23.523684  L 175.286462 23.523684  L 175.286462 22.702003  L 177.224506 22.702003  L 177.224506 21.880323  L 179.274768 21.880323  L 179.274768 21.058643  L 182.831391 21.058643  L 182.831391 20.236963  L 184.326806 20.236963  L 184.326806 19.415283  L 185.182813 19.415283  L 185.182813 18.593603  L 185.513296 18.593603  L 185.513296 17.771923  L 185.627753 17.771923  L 185.627753 16.950242  L 185.841171 16.950242  L 185.841171 16.128562  L 190.076482 16.128562  L 190.076482 15.306882  L 191.162843 15.306882  L 191.162843 14.485202  L 196.896071 14.485202  L 196.896071 13.663522  L 199.253829 13.663522  L 199.253829 12.841842  L 202.440856 12.841842  L 202.440856 12.020162  L 211.848069 12.020162  L 211.848069 11.198482  L 215.624351 11.198482  L 215.624351 10.376801  L 218.441674 10.376801  L 218.441674 9.555121  L 220.40261 9.555121  L 220.40261 8.733441  L 243.004347 8.733441  L 243.004347 7.911761  L 250.325925 7.911761  L 250.325925 7.090081  L 253 7.090081  L 253 7.090081  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke: #0f0f0f; stroke-width: 1.8; stroke-linecap: square" />
+    <defs>
+     <path id="m68baf1385e" d="M 0 3.5  C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874  C 3.131218 1.81853 3.5 0.928211 3.5 0  C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874  C 1.81853 -3.131218 0.928211 -3.5 0 -3.5  C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874  C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0  C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874  C -1.81853 3.131218 -0.928211 3.5 0 3.5  z " style="stroke: #0f0f0f; stroke-width: 0.9" />
+    </defs>
+    <g clip-path="url(#pc57a67d40a)">
+     <use ns3:href="#m68baf1385e" x="60.379787" y="168.961068" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="71.612536" y="168.139388" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="72.30772" y="167.317708" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="74.577676" y="166.496028" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="74.934332" y="165.674348" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="79.176396" y="164.852667" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="81.75716" y="164.030987" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="82.044522" y="163.209307" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="85.580046" y="162.387627" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="85.715911" y="161.565947" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="85.869922" y="160.744267" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="87.107083" y="159.922587" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="88.752829" y="159.100906" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="88.804078" y="158.279226" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="89.26375" y="157.457546" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="89.510052" y="156.635866" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="90.628988" y="155.814186" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="91.26103" y="154.992506" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="91.387623" y="154.170826" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="93.38981" y="153.349145" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="93.877316" y="152.527465" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="94.469316" y="151.705785" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="95.116062" y="150.884105" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="95.922397" y="150.062425" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="96.09881" y="149.240745" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="96.807763" y="148.419065" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="97.004578" y="147.597384" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="97.051617" y="146.775704" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="97.110668" y="145.954024" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="97.149864" y="145.132344" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="97.548074" y="144.310664" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="98.338015" y="143.488984" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="98.90532" y="142.667304" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="99.322312" y="141.845623" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="99.502084" y="141.023943" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="99.927122" y="140.202263" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="100.351564" y="139.380583" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="100.439675" y="138.558903" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="100.83838" y="137.737223" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="100.932881" y="136.915543" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="101.340947" y="136.093863" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="101.765377" y="135.272182" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="101.957702" y="134.450502" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="103.464516" y="133.628822" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="103.487419" y="132.807142" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="103.726515" y="131.985462" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="104.037442" y="131.163782" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="104.72866" y="130.342102" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="105.872249" y="129.520421" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="106.208282" y="128.698741" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="106.399535" y="127.877061" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="106.858291" y="127.055381" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="107.838532" y="126.233701" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="108.381981" y="125.412021" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="108.670731" y="124.590341" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="109.481455" y="123.76866" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="109.905814" y="122.94698" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="110.007277" y="122.1253" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="110.270813" y="121.30362" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="110.65164" y="120.48194" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="111.257283" y="119.66026" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="113.031742" y="118.83858" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="113.176474" y="118.016899" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="113.318443" y="117.195219" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="114.281427" y="116.373539" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="114.37061" y="115.551859" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="116.248258" y="114.730179" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="116.385642" y="113.908499" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="116.62288" y="113.086819" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="116.686707" y="112.265139" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="116.972705" y="111.443458" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="117.133183" y="110.621778" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="117.471824" y="109.800098" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="117.731239" y="108.978418" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="117.848804" y="108.156738" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="117.995109" y="107.335058" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="118.882094" y="106.513378" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="120.692056" y="105.691697" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="121.261195" y="104.870017" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="122.602684" y="104.048337" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="122.753037" y="103.226657" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="123.281753" y="102.404977" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="123.638998" y="101.583297" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="124.143274" y="100.761617" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="124.144561" y="99.939936" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="124.664058" y="99.118256" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="124.791961" y="98.296576" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="125.140833" y="97.474896" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="125.831515" y="96.653216" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="126.671336" y="95.831536" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="126.863947" y="95.009856" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="126.969935" y="94.188175" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="127.083499" y="93.366495" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="127.412815" y="92.544815" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="127.41846" y="91.723135" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="127.473402" y="90.901455" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="127.525485" y="90.079775" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="127.98923" y="89.258095" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="128.210986" y="88.436415" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="128.703935" y="87.614734" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="128.999676" y="86.793054" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="129.225421" y="85.971374" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="131.39787" y="85.149694" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="131.468973" y="84.328014" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="131.878147" y="83.506334" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="132.020306" y="82.684654" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="132.126938" y="81.862973" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="133.649794" y="81.041293" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="134.251555" y="80.219613" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="134.323016" y="79.397933" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="134.400146" y="78.576253" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="134.735274" y="77.754573" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="134.805711" y="76.932893" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="135.049952" y="76.111212" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="135.077596" y="75.289532" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="135.732273" y="74.467852" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="135.932411" y="73.646172" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="136.577132" y="72.824492" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="138.693412" y="72.002812" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="138.841277" y="71.181132" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="140.015153" y="70.359451" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="140.333822" y="69.537771" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="140.514165" y="68.716091" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="140.5748" y="67.894411" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="140.589378" y="67.072731" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="140.96843" y="66.251051" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="141.038498" y="65.429371" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="141.351949" y="64.607691" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="141.958069" y="63.78601" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="143.223881" y="62.96433" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="143.718688" y="62.14265" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="143.750405" y="61.32097" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="144.201347" y="60.49929" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="144.368006" y="59.67761" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="144.528876" y="58.85593" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="144.958773" y="58.034249" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="145.083044" y="57.212569" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="145.981725" y="56.390889" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="146.773381" y="55.569209" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="147.066502" y="54.747529" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="147.226646" y="53.925849" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="147.395627" y="53.104169" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="147.493136" y="52.282488" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="148.09093" y="51.460808" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="148.706399" y="50.639128" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="148.872963" y="49.817448" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="149.34239" y="48.995768" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="150.347809" y="48.174088" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="150.463076" y="47.352408" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="150.751004" y="46.530727" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="151.872857" y="45.709047" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="153.076676" y="44.887367" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="154.140968" y="44.065687" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="155.352374" y="43.244007" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="156.148877" y="42.422327" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="156.240788" y="41.600647" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="156.266133" y="40.778966" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="156.42979" y="39.957286" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="159.692256" y="39.135606" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="159.966714" y="38.313926" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="159.967512" y="37.492246" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="162.29802" y="36.670566" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="162.929222" y="35.848886" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="163.486355" y="35.027206" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="164.003435" y="34.205525" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="164.88169" y="33.383845" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="165.35257" y="32.562165" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="165.521003" y="31.740485" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="165.894029" y="30.918805" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="166.106757" y="30.097125" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="166.159792" y="29.275445" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="168.263114" y="28.453764" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="168.703373" y="27.632084" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="169.135295" y="26.810404" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="169.41242" y="25.988724" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="169.619872" y="25.167044" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="171.149517" y="24.345364" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="171.3389" y="23.523684" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="175.286462" y="22.702003" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="177.224506" y="21.880323" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="179.274768" y="21.058643" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="182.831391" y="20.236963" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="184.326806" y="19.415283" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="185.182813" y="18.593603" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="185.513296" y="17.771923" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="185.627753" y="16.950242" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="185.841171" y="16.128562" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="190.076482" y="15.306882" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="191.162843" y="14.485202" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="196.896071" y="13.663522" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="199.253829" y="12.841842" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="202.440856" y="12.020162" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="211.848069" y="11.198482" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="215.624351" y="10.376801" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="218.441674" y="9.555121" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="220.40261" y="8.733441" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="243.004347" y="7.911761" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="250.325925" y="7.090081" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="254.639569" y="6.268401" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     <use ns3:href="#m68baf1385e" x="263.639312" y="5.446721" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+    </g>
+   </g>
+   <g id="line2d_44">
+    <path d="M 57.543586 168.961068  L 68.478318 168.961068  L 68.478318 168.139388  L 69.194691 168.139388  L 69.194691 167.317708  L 71.324369 167.317708  L 71.324369 166.496028  L 71.669401 166.496028  L 71.669401 165.674348  L 75.513713 165.674348  L 75.513713 164.852667  L 78.422298 164.852667  L 78.422298 164.030987  L 78.578756 164.030987  L 78.578756 163.209307  L 81.844378 163.209307  L 81.90992 161.565947  L 81.984459 161.565947  L 81.984459 160.744267  L 83.147236 160.744267  L 83.147236 159.922587  L 84.637334 159.922587  L 84.637334 159.100906  L 85.147172 159.100906  L 85.147172 158.279226  L 85.408445 158.279226  L 85.475862 156.635866  L 86.523325 156.635866  L 86.523325 155.814186  L 87.219896 155.814186  L 87.280483 154.170826  L 89.49691 154.170826  L 89.49691 153.349145  L 90.134436 153.349145  L 90.134436 152.527465  L 90.451509 152.527465  L 90.451509 151.705785  L 91.095026 151.705785  L 91.095026 150.884105  L 91.66516 150.884105  L 91.671263 149.240745  L 92.716874 149.240745  L 92.716874 148.419065  L 92.872349 148.419065  L 92.948675 146.775704  L 93.174629 146.775704  L 93.174629 145.954024  L 93.295481 145.954024  L 93.308719 144.310664  L 94.126596 144.310664  L 94.126596 143.488984  L 94.686671 143.488984  L 94.686671 142.667304  L 94.857349 142.667304  L 94.857349 141.845623  L 95.147076 141.845623  L 95.147076 141.023943  L 95.451517 141.023943  L 95.451517 140.202263  L 95.88516 140.202263  L 95.922909 138.558903  L 96.45387 138.558903  L 96.490363 136.915543  L 97.001338 136.915543  L 97.001338 136.093863  L 97.451983 136.093863  L 97.547252 134.450502  L 98.931117 134.450502  L 99.034569 132.807142  L 99.166932 132.807142  L 99.166932 131.985462  L 99.531794 131.985462  L 99.531794 131.163782  L 100.240722 131.163782  L 100.240722 130.342102  L 101.714044 130.342102  L 101.796975 128.698741  L 101.871389 128.698741  L 101.871389 127.877061  L 102.534178 127.877061  L 102.534178 127.055381  L 103.175111 127.055381  L 103.175111 126.233701  L 103.892912 126.233701  L 103.933704 124.590341  L 104.895592 124.590341  L 104.895592 123.76866  L 105.18545 123.76866  L 105.18545 122.94698  L 105.603913 122.94698  L 105.64168 121.30362  L 106.020554 121.30362  L 106.020554 120.48194  L 106.694621 120.48194  L 106.694621 119.66026  L 108.098722 119.66026  L 108.098722 118.83858  L 108.502726 118.83858  L 108.56716 117.195219  L 109.265476 117.195219  L 109.265476 116.373539  L 109.72759 116.373539  L 109.72759 115.551859  L 111.366285 115.551859  L 111.366285 114.730179  L 111.562493 114.730179  L 111.635943 113.086819  L 112.031848 113.086819  L 112.031848 112.265139  L 112.243027 112.265139  L 112.320789 110.621778  L 112.567055 110.621778  L 112.567055 109.800098  L 112.7095 109.800098  L 112.7095 108.978418  L 112.840679 108.978418  L 112.840679 108.156738  L 113.437795 108.156738  L 113.437795 107.335058  L 114.478242 107.335058  L 114.478242 106.513378  L 115.555146 106.513378  L 115.555146 105.691697  L 116.470037 105.691697  L 116.470037 104.870017  L 117.172581 104.870017  L 117.172581 104.048337  L 117.652203 104.048337  L 117.652203 103.226657  L 118.062199 103.226657  L 118.062199 102.404977  L 118.53577 102.404977  L 118.53577 101.583297  L 118.692091 101.583297  L 118.692091 100.761617  L 118.900721 100.761617  L 118.900721 99.939936  L 119.386286 99.939936  L 119.386286 99.118256  L 119.764362 99.118256  L 119.764362 98.296576  L 120.050254 98.296576  L 120.050254 97.474896  L 120.471599 97.474896  L 120.471599 96.653216  L 121.374449 96.653216  L 121.374449 95.831536  L 121.618702 95.831536  L 121.618702 95.009856  L 121.971993 95.009856  L 122.043597 93.366495  L 122.177563 93.366495  L 122.276572 91.723135  L 122.434226 91.723135  L 122.517574 90.079775  L 122.758766 90.079775  L 122.78741 88.436415  L 123.239901 88.436415  L 123.239901 87.614734  L 123.783278 87.614734  L 123.838767 85.971374  L 125.897676 85.971374  L 125.897676 85.149694  L 126.079461 85.149694  L 126.176457 83.506334  L 126.646789 83.506334  L 126.646789 82.684654  L 126.982155 82.684654  L 126.982155 81.862973  L 128.524199 81.862973  L 128.524199 81.041293  L 128.639203 81.041293  L 128.655056 79.397933  L 129.274765 79.397933  L 129.358184 77.754573  L 129.499712 77.754573  L 129.499712 76.932893  L 129.648256 76.932893  L 129.676471 75.289532  L 130.247741 75.289532  L 130.247741 74.467852  L 130.525725 74.467852  L 130.525725 73.646172  L 131.160369 73.646172  L 131.160369 72.824492  L 133.411484 72.824492  L 133.411484 72.002812  L 133.554251 72.002812  L 133.554251 71.181132  L 134.111682 71.181132  L 134.111682 70.359451  L 134.256414 70.359451  L 134.256414 69.537771  L 134.663313 69.537771  L 134.759904 67.894411  L 134.92349 67.894411  L 134.92349 67.072731  L 135.279247 67.072731  L 135.279247 66.251051  L 135.457816 66.251051  L 135.457816 65.429371  L 135.841644 65.429371  L 135.841644 64.607691  L 136.494416 64.607691  L 136.494416 63.78601  L 137.416322 63.78601  L 137.416322 62.96433  L 137.704821 62.96433  L 137.713635 61.32097  L 138.405091 61.32097  L 138.405091 60.49929  L 138.701952 60.49929  L 138.701952 59.67761  L 138.860023 59.67761  L 138.95989 58.034249  L 139.183455 58.034249  L 139.183455 57.212569  L 139.707967 57.212569  L 139.707967 56.390889  L 141.173726 56.390889  L 141.226452 54.747529  L 141.393754 54.747529  L 141.393754 53.925849  L 141.513523 53.925849  L 141.513523 53.104169  L 141.647464 53.104169  L 141.647464 52.282488  L 141.995265 52.282488  L 141.995265 51.460808  L 142.483009 51.460808  L 142.483009 50.639128  L 143.093059 50.639128  L 143.179051 48.995768  L 144.076493 48.995768  L 144.076493 48.174088  L 144.504306 48.174088  L 144.504306 47.352408  L 145.074135 47.352408  L 145.074135 46.530727  L 145.704599 46.530727  L 145.704599 45.709047  L 146.461013 45.709047  L 146.461013 44.887367  L 147.617823 44.887367  L 147.617823 44.065687  L 149.2955 44.065687  L 149.2955 43.244007  L 149.993101 43.244007  L 150.016695 41.600647  L 150.412005 41.600647  L 150.412005 40.778966  L 150.579331 40.778966  L 150.579331 39.957286  L 153.360079 39.957286  L 153.360079 39.135606  L 153.523772 39.135606  L 153.523772 38.313926  L 153.753114 38.313926  L 153.753114 37.492246  L 156.303447 37.492246  L 156.303447 36.670566  L 156.792038 36.670566  L 156.841632 35.027206  L 157.119448 35.027206  L 157.119448 34.205525  L 158.043855 34.205525  L 158.043855 33.383845  L 158.262227 33.383845  L 158.262227 32.562165  L 158.538162 32.562165  L 158.597367 30.918805  L 159.343277 30.918805  L 159.343277 30.097125  L 159.816574 30.097125  L 159.816574 29.275445  L 161.814348 29.275445  L 161.814348 28.453764  L 161.946622 28.453764  L 161.946622 27.632084  L 162.329796 27.632084  L 162.329796 26.810404  L 162.619951 26.810404  L 162.619951 25.988724  L 162.768971 25.988724  L 162.768971 25.167044  L 164.372376 25.167044  L 164.372376 24.345364  L 164.613985 24.345364  L 164.613985 23.523684  L 168.311457 23.523684  L 168.311457 22.702003  L 170.143621 22.702003  L 170.143621 21.880323  L 172.249622 21.880323  L 172.249622 21.058643  L 175.24904 21.058643  L 175.24904 20.236963  L 177.644184 20.236963  L 177.644184 19.415283  L 178.097604 19.415283  L 178.097604 18.593603  L 178.428385 18.593603  L 178.428385 17.771923  L 178.582621 17.771923  L 178.614648 16.128562  L 182.612613 16.128562  L 182.612613 15.306882  L 183.998038 15.306882  L 183.998038 14.485202  L 189.388944 14.485202  L 189.388944 13.663522  L 191.268867 13.663522  L 191.268867 12.841842  L 194.612953 12.841842  L 194.612953 12.020162  L 203.944608 12.020162  L 203.944608 11.198482  L 206.907069 11.198482  L 206.907069 10.376801  L 209.87558 10.376801  L 209.87558 9.555121  L 211.582973 9.555121  L 211.582973 8.733441  L 234.195691 8.733441  L 234.195691 7.911761  L 241.136358 7.911761  L 241.136358 7.090081  L 244.702426 7.090081  L 244.702426 6.268401  L 253 6.268401  L 253 6.268401  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke-dasharray: 7.2,3.6; stroke-dashoffset: 0; stroke: #4a4a4a; stroke-width: 1.8" />
+    <defs>
+     <path id="m36afda0fdb" d="M -3.5 3.5  L 3.5 3.5  L 3.5 -3.5  L -3.5 -3.5  z " style="stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+    </defs>
+    <g clip-path="url(#pc57a67d40a)">
+     <use ns3:href="#m36afda0fdb" x="57.543586" y="168.961068" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="68.478318" y="168.139388" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="69.194691" y="167.317708" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="71.324369" y="166.496028" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="71.669401" y="165.674348" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="75.513713" y="164.852667" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="78.422298" y="164.030987" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="78.578756" y="163.209307" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="81.844378" y="162.387627" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="81.90992" y="161.565947" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="81.984459" y="160.744267" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="83.147236" y="159.922587" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="84.637334" y="159.100906" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="85.147172" y="158.279226" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="85.408445" y="157.457546" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="85.475862" y="156.635866" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="86.523325" y="155.814186" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="87.219896" y="154.992506" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="87.280483" y="154.170826" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="89.49691" y="153.349145" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="90.134436" y="152.527465" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="90.451509" y="151.705785" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="91.095026" y="150.884105" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="91.66516" y="150.062425" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="91.671263" y="149.240745" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="92.716874" y="148.419065" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="92.872349" y="147.597384" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="92.948675" y="146.775704" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="93.174629" y="145.954024" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="93.295481" y="145.132344" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="93.308719" y="144.310664" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="94.126596" y="143.488984" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="94.686671" y="142.667304" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="94.857349" y="141.845623" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="95.147076" y="141.023943" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="95.451517" y="140.202263" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="95.88516" y="139.380583" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="95.922909" y="138.558903" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="96.45387" y="137.737223" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="96.490363" y="136.915543" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="97.001338" y="136.093863" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="97.451983" y="135.272182" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="97.547252" y="134.450502" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="98.931117" y="133.628822" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="99.034569" y="132.807142" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="99.166932" y="131.985462" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="99.531794" y="131.163782" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="100.240722" y="130.342102" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="101.714044" y="129.520421" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="101.796975" y="128.698741" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="101.871389" y="127.877061" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="102.534178" y="127.055381" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="103.175111" y="126.233701" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="103.892912" y="125.412021" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="103.933704" y="124.590341" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="104.895592" y="123.76866" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="105.18545" y="122.94698" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="105.603913" y="122.1253" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="105.64168" y="121.30362" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="106.020554" y="120.48194" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="106.694621" y="119.66026" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="108.098722" y="118.83858" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="108.502726" y="118.016899" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="108.56716" y="117.195219" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="109.265476" y="116.373539" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="109.72759" y="115.551859" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="111.366285" y="114.730179" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="111.562493" y="113.908499" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="111.635943" y="113.086819" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="112.031848" y="112.265139" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="112.243027" y="111.443458" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="112.320789" y="110.621778" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="112.567055" y="109.800098" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="112.7095" y="108.978418" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="112.840679" y="108.156738" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="113.437795" y="107.335058" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="114.478242" y="106.513378" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="115.555146" y="105.691697" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="116.470037" y="104.870017" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="117.172581" y="104.048337" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="117.652203" y="103.226657" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="118.062199" y="102.404977" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="118.53577" y="101.583297" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="118.692091" y="100.761617" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="118.900721" y="99.939936" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="119.386286" y="99.118256" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="119.764362" y="98.296576" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="120.050254" y="97.474896" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="120.471599" y="96.653216" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="121.374449" y="95.831536" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="121.618702" y="95.009856" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="121.971993" y="94.188175" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="122.043597" y="93.366495" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="122.177563" y="92.544815" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="122.276572" y="91.723135" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="122.434226" y="90.901455" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="122.517574" y="90.079775" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="122.758766" y="89.258095" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="122.78741" y="88.436415" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="123.239901" y="87.614734" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="123.783278" y="86.793054" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="123.838767" y="85.971374" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="125.897676" y="85.149694" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="126.079461" y="84.328014" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="126.176457" y="83.506334" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="126.646789" y="82.684654" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="126.982155" y="81.862973" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="128.524199" y="81.041293" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="128.639203" y="80.219613" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="128.655056" y="79.397933" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="129.274765" y="78.576253" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="129.358184" y="77.754573" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="129.499712" y="76.932893" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="129.648256" y="76.111212" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="129.676471" y="75.289532" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="130.247741" y="74.467852" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="130.525725" y="73.646172" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="131.160369" y="72.824492" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="133.411484" y="72.002812" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="133.554251" y="71.181132" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="134.111682" y="70.359451" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="134.256414" y="69.537771" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="134.663313" y="68.716091" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="134.759904" y="67.894411" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="134.92349" y="67.072731" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="135.279247" y="66.251051" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="135.457816" y="65.429371" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="135.841644" y="64.607691" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="136.494416" y="63.78601" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="137.416322" y="62.96433" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="137.704821" y="62.14265" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="137.713635" y="61.32097" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="138.405091" y="60.49929" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="138.701952" y="59.67761" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="138.860023" y="58.85593" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="138.95989" y="58.034249" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="139.183455" y="57.212569" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="139.707967" y="56.390889" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="141.173726" y="55.569209" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="141.226452" y="54.747529" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="141.393754" y="53.925849" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="141.513523" y="53.104169" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="141.647464" y="52.282488" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="141.995265" y="51.460808" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="142.483009" y="50.639128" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="143.093059" y="49.817448" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="143.179051" y="48.995768" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="144.076493" y="48.174088" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="144.504306" y="47.352408" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="145.074135" y="46.530727" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="145.704599" y="45.709047" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="146.461013" y="44.887367" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="147.617823" y="44.065687" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="149.2955" y="43.244007" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="149.993101" y="42.422327" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="150.016695" y="41.600647" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="150.412005" y="40.778966" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="150.579331" y="39.957286" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="153.360079" y="39.135606" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="153.523772" y="38.313926" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="153.753114" y="37.492246" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="156.303447" y="36.670566" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="156.792038" y="35.848886" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="156.841632" y="35.027206" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="157.119448" y="34.205525" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="158.043855" y="33.383845" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="158.262227" y="32.562165" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="158.538162" y="31.740485" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="158.597367" y="30.918805" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="159.343277" y="30.097125" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="159.816574" y="29.275445" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="161.814348" y="28.453764" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="161.946622" y="27.632084" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="162.329796" y="26.810404" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="162.619951" y="25.988724" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="162.768971" y="25.167044" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="164.372376" y="24.345364" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="164.613985" y="23.523684" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="168.311457" y="22.702003" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="170.143621" y="21.880323" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="172.249622" y="21.058643" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="175.24904" y="20.236963" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="177.644184" y="19.415283" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="178.097604" y="18.593603" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="178.428385" y="17.771923" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="178.582621" y="16.950242" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="178.614648" y="16.128562" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="182.612613" y="15.306882" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="183.998038" y="14.485202" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="189.388944" y="13.663522" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="191.268867" y="12.841842" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="194.612953" y="12.020162" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="203.944608" y="11.198482" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="206.907069" y="10.376801" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="209.87558" y="9.555121" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="211.582973" y="8.733441" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="234.195691" y="7.911761" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="241.136358" y="7.090081" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="244.702426" y="6.268401" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m36afda0fdb" x="253.969528" y="5.446721" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+    </g>
+   </g>
+   <g id="line2d_45">
+    <path d="M 54.504227 168.961068  L 64.955717 168.961068  L 64.955717 168.139388  L 65.498755 168.139388  L 65.498755 167.317708  L 67.768533 167.317708  L 67.768533 166.496028  L 68.017937 166.496028  L 68.017937 165.674348  L 71.829503 165.674348  L 71.829503 164.852667  L 74.272467 164.852667  L 74.272467 164.030987  L 74.536711 164.030987  L 74.536711 163.209307  L 77.892874 163.209307  L 77.956177 161.565947  L 78.062981 161.565947  L 78.062981 160.744267  L 78.755521 160.744267  L 78.755521 159.922587  L 80.25395 159.922587  L 80.25395 159.100906  L 80.989598 159.100906  L 81.084421 157.457546  L 81.48967 157.457546  L 81.48967 156.635866  L 82.35985 156.635866  L 82.35985 155.814186  L 82.584904 155.814186  L 82.584904 154.992506  L 82.796077 154.992506  L 82.796077 154.170826  L 85.030208 154.170826  L 85.030208 153.349145  L 85.950131 153.349145  L 85.950131 152.527465  L 86.19832 152.527465  L 86.19832 151.705785  L 86.948779 151.705785  L 86.948779 150.884105  L 87.240179 150.884105  L 87.344911 149.240745  L 88.099503 149.240745  L 88.177907 147.597384  L 88.475584 147.597384  L 88.519253 145.954024  L 88.610347 145.954024  L 88.649728 144.310664  L 89.430195 144.310664  L 89.430195 143.488984  L 90.194672 143.488984  L 90.194672 142.667304  L 90.338243 142.667304  L 90.338243 141.845623  L 90.652558 141.845623  L 90.724019 140.202263  L 91.307605 140.202263  L 91.371384 138.558903  L 91.663188 138.558903  L 91.663188 137.737223  L 92.004712 137.737223  L 92.040026 136.093863  L 92.604424 136.093863  L 92.604424 135.272182  L 93.02418 135.272182  L 93.02418 134.450502  L 93.781219 134.450502  L 93.841461 132.807142  L 94.683717 132.807142  L 94.735675 131.163782  L 95.545554 131.163782  L 95.545554 130.342102  L 96.835114 130.342102  L 96.945563 128.698741  L 97.008877 128.698741  L 97.008877 127.877061  L 97.644522 127.877061  L 97.644522 127.055381  L 98.441735 127.055381  L 98.441735 126.233701  L 98.859096 126.233701  L 98.872513 124.590341  L 99.922661 124.590341  L 99.922661 123.76866  L 100.279394 123.76866  L 100.3232 122.1253  L 100.611956 122.1253  L 100.611956 121.30362  L 101.214175 121.30362  L 101.214175 120.48194  L 101.864958 120.48194  L 101.864958 119.66026  L 102.909526 119.66026  L 102.909526 118.83858  L 103.292033 118.83858  L 103.292033 118.016899  L 103.526544 118.016899  L 103.555914 116.373539  L 104.688368 116.373539  L 104.688368 115.551859  L 106.140966 115.551859  L 106.145265 113.908499  L 106.471163 113.908499  L 106.471163 113.086819  L 106.59915 113.086819  L 106.59915 112.265139  L 106.825705 112.265139  L 106.825705 111.443458  L 106.976856 111.443458  L 106.976856 110.621778  L 107.168288 110.621778  L 107.168288 109.800098  L 107.370737 109.800098  L 107.370737 108.978418  L 107.653294 108.978418  L 107.653294 108.156738  L 108.190192 108.156738  L 108.190192 107.335058  L 108.895392 107.335058  L 108.895392 106.513378  L 110.295074 106.513378  L 110.295074 105.691697  L 110.708809 105.691697  L 110.708809 104.870017  L 111.365011 104.870017  L 111.365011 104.048337  L 112.096306 104.048337  L 112.096306 103.226657  L 112.376278 103.226657  L 112.376278 102.404977  L 112.669065 102.404977  L 112.669065 101.583297  L 113.115923 101.583297  L 113.137301 99.939936  L 113.692731 99.939936  L 113.692731 99.118256  L 114.018712 99.118256  L 114.018712 98.296576  L 114.741171 98.296576  L 114.741171 97.474896  L 114.928958 97.474896  L 114.928958 96.653216  L 116.09495 96.653216  L 116.09495 95.831536  L 116.267028 95.831536  L 116.312573 94.188175  L 116.38027 94.188175  L 116.38027 93.366495  L 116.521656 93.366495  L 116.542117 91.723135  L 116.711885 91.723135  L 116.788848 90.079775  L 116.966131 90.079775  L 116.966131 89.258095  L 117.201368 89.258095  L 117.201368 88.436415  L 117.789325 88.436415  L 117.837394 86.793054  L 118.517905 86.793054  L 118.517905 85.971374  L 120.012415 85.971374  L 120.012415 85.149694  L 120.556555 85.149694  L 120.566273 83.506334  L 120.730002 83.506334  L 120.730002 82.684654  L 121.273665 82.684654  L 121.273665 81.862973  L 122.274511 81.862973  L 122.274511 81.041293  L 122.490204 81.041293  L 122.500137 79.397933  L 123.194642 79.397933  L 123.237864 77.754573  L 123.503997 77.754573  L 123.589809 76.111212  L 123.836778 76.111212  L 123.836778 75.289532  L 124.019802 75.289532  L 124.019802 74.467852  L 124.503128 74.467852  L 124.503128 73.646172  L 125.080758 73.646172  L 125.080758 72.824492  L 127.099423 72.824492  L 127.099423 72.002812  L 127.327788 72.002812  L 127.436206 70.359451  L 127.856146 70.359451  L 127.856146 69.537771  L 128.215309 69.537771  L 128.29743 67.894411  L 128.658927 67.894411  L 128.658927 67.072731  L 129.003499 67.072731  L 129.003499 66.251051  L 129.28845 66.251051  L 129.28845 65.429371  L 129.435671 65.429371  L 129.435671 64.607691  L 130.238154 64.607691  L 130.238154 63.78601  L 131.264488 63.78601  L 131.264488 62.96433  L 131.559205 62.96433  L 131.633714 61.32097  L 132.114754 61.32097  L 132.190502 59.67761  L 132.238643 59.67761  L 132.238643 58.85593  L 132.570424 58.85593  L 132.570424 58.034249  L 132.757628 58.034249  L 132.859984 56.390889  L 134.778841 56.390889  L 134.827852 53.925849  L 135.130143 53.925849  L 135.213955 52.282488  L 135.388665 52.282488  L 135.388665 51.460808  L 135.810666 51.460808  L 135.810666 50.639128  L 135.975312 50.639128  L 135.975312 49.817448  L 136.724484 49.817448  L 136.724484 48.995768  L 137.449956 48.995768  L 137.449956 48.174088  L 138.130562 48.174088  L 138.130562 47.352408  L 138.736229 47.352408  L 138.736229 46.530727  L 139.415084 46.530727  L 139.415084 45.709047  L 139.869492 45.709047  L 139.869492 44.887367  L 141.087353 44.887367  L 141.087353 44.065687  L 142.646679 44.065687  L 142.646679 43.244007  L 142.912978 43.244007  L 143.01949 41.600647  L 143.110675 41.600647  L 143.110675 40.778966  L 143.299331 40.778966  L 143.299331 39.957286  L 146.541419 39.957286  L 146.541419 39.135606  L 146.689343 39.135606  L 146.689343 38.313926  L 147.175373 38.313926  L 147.175373 37.492246  L 149.160379 37.492246  L 149.160379 36.670566  L 149.567325 36.670566  L 149.609094 35.027206  L 149.699468 35.027206  L 149.699468 34.205525  L 150.922963 34.205525  L 150.922963 33.383845  L 151.073626 33.383845  L 151.089967 31.740485  L 151.708747 31.740485  L 151.708747 30.918805  L 152.467722 30.918805  L 152.567505 29.275445  L 154.316214 29.275445  L 154.316214 28.453764  L 154.684679 28.453764  L 154.733236 26.810404  L 155.040459 26.810404  L 155.125461 25.167044  L 156.639266 25.167044  L 156.639266 24.345364  L 156.821182 24.345364  L 156.821182 23.523684  L 161.006173 23.523684  L 161.006173 22.702003  L 162.454424 22.702003  L 162.454424 21.880323  L 164.472635 21.880323  L 164.472635 21.058643  L 167.320842 21.058643  L 167.320842 20.236963  L 169.762615 20.236963  L 169.762615 19.415283  L 169.923068 19.415283  L 169.923068 18.593603  L 170.114596 18.593603  L 170.208531 16.950242  L 171.106855 16.950242  L 171.106855 16.128562  L 174.54646 16.128562  L 174.54646 15.306882  L 176.083847 15.306882  L 176.083847 14.485202  L 181.156406 14.485202  L 181.156406 13.663522  L 182.760156 13.663522  L 182.760156 12.841842  L 186.217055 12.841842  L 186.217055 12.020162  L 195.048472 12.020162  L 195.048472 11.198482  L 198.490555 11.198482  L 198.490555 10.376801  L 200.635502 10.376801  L 200.635502 9.555121  L 201.861069 9.555121  L 201.861069 8.733441  L 224.239824 8.733441  L 224.239824 7.911761  L 230.097263 7.911761  L 230.097263 7.090081  L 234.6372 7.090081  L 234.6372 6.268401  L 242.77965 6.268401  L 242.77965 5.446721  L 242.77965 5.446721  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke-dasharray: 1.8,3.6; stroke-dashoffset: 0; stroke: #7a7a7a; stroke-width: 1.8" />
+    <defs>
+     <path id="m642202a5dc" d="M 0 -3.5  L -3.5 3.5  L 3.5 3.5  z " style="stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+    </defs>
+    <g clip-path="url(#pc57a67d40a)">
+     <use ns3:href="#m642202a5dc" x="54.504227" y="168.961068" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="64.955717" y="168.139388" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="65.498755" y="167.317708" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="67.768533" y="166.496028" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="68.017937" y="165.674348" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="71.829503" y="164.852667" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="74.272467" y="164.030987" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="74.536711" y="163.209307" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="77.892874" y="162.387627" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="77.956177" y="161.565947" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="78.062981" y="160.744267" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="78.755521" y="159.922587" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="80.25395" y="159.100906" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="80.989598" y="158.279226" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="81.084421" y="157.457546" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="81.48967" y="156.635866" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="82.35985" y="155.814186" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="82.584904" y="154.992506" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="82.796077" y="154.170826" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="85.030208" y="153.349145" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="85.950131" y="152.527465" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="86.19832" y="151.705785" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="86.948779" y="150.884105" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="87.240179" y="150.062425" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="87.344911" y="149.240745" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="88.099503" y="148.419065" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="88.177907" y="147.597384" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="88.475584" y="146.775704" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="88.519253" y="145.954024" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="88.610347" y="145.132344" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="88.649728" y="144.310664" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="89.430195" y="143.488984" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="90.194672" y="142.667304" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="90.338243" y="141.845623" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="90.652558" y="141.023943" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="90.724019" y="140.202263" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="91.307605" y="139.380583" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="91.371384" y="138.558903" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="91.663188" y="137.737223" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="92.004712" y="136.915543" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="92.040026" y="136.093863" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="92.604424" y="135.272182" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="93.02418" y="134.450502" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="93.781219" y="133.628822" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="93.841461" y="132.807142" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="94.683717" y="131.985462" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="94.735675" y="131.163782" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="95.545554" y="130.342102" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="96.835114" y="129.520421" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="96.945563" y="128.698741" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="97.008877" y="127.877061" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="97.644522" y="127.055381" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="98.441735" y="126.233701" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="98.859096" y="125.412021" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="98.872513" y="124.590341" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="99.922661" y="123.76866" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="100.279394" y="122.94698" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="100.3232" y="122.1253" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="100.611956" y="121.30362" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="101.214175" y="120.48194" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="101.864958" y="119.66026" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="102.909526" y="118.83858" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="103.292033" y="118.016899" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="103.526544" y="117.195219" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="103.555914" y="116.373539" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="104.688368" y="115.551859" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="106.140966" y="114.730179" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="106.145265" y="113.908499" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="106.471163" y="113.086819" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="106.59915" y="112.265139" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="106.825705" y="111.443458" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="106.976856" y="110.621778" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="107.168288" y="109.800098" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="107.370737" y="108.978418" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="107.653294" y="108.156738" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="108.190192" y="107.335058" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="108.895392" y="106.513378" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="110.295074" y="105.691697" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="110.708809" y="104.870017" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="111.365011" y="104.048337" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="112.096306" y="103.226657" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="112.376278" y="102.404977" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="112.669065" y="101.583297" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="113.115923" y="100.761617" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="113.137301" y="99.939936" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="113.692731" y="99.118256" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="114.018712" y="98.296576" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="114.741171" y="97.474896" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="114.928958" y="96.653216" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.09495" y="95.831536" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.267028" y="95.009856" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.312573" y="94.188175" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.38027" y="93.366495" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.521656" y="92.544815" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.542117" y="91.723135" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.711885" y="90.901455" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.788848" y="90.079775" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="116.966131" y="89.258095" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="117.201368" y="88.436415" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="117.789325" y="87.614734" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="117.837394" y="86.793054" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="118.517905" y="85.971374" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="120.012415" y="85.149694" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="120.556555" y="84.328014" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="120.566273" y="83.506334" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="120.730002" y="82.684654" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="121.273665" y="81.862973" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="122.274511" y="81.041293" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="122.490204" y="80.219613" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="122.500137" y="79.397933" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="123.194642" y="78.576253" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="123.237864" y="77.754573" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="123.503997" y="76.932893" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="123.589809" y="76.111212" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="123.836778" y="75.289532" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="124.019802" y="74.467852" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="124.503128" y="73.646172" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="125.080758" y="72.824492" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="127.099423" y="72.002812" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="127.327788" y="71.181132" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="127.436206" y="70.359451" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="127.856146" y="69.537771" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="128.215309" y="68.716091" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="128.29743" y="67.894411" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="128.658927" y="67.072731" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="129.003499" y="66.251051" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="129.28845" y="65.429371" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="129.435671" y="64.607691" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="130.238154" y="63.78601" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="131.264488" y="62.96433" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="131.559205" y="62.14265" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="131.633714" y="61.32097" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="132.114754" y="60.49929" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="132.190502" y="59.67761" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="132.238643" y="58.85593" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="132.570424" y="58.034249" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="132.757628" y="57.212569" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="132.859984" y="56.390889" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="134.778841" y="55.569209" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="134.782248" y="54.747529" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="134.827852" y="53.925849" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="135.130143" y="53.104169" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="135.213955" y="52.282488" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="135.388665" y="51.460808" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="135.810666" y="50.639128" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="135.975312" y="49.817448" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="136.724484" y="48.995768" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="137.449956" y="48.174088" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="138.130562" y="47.352408" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="138.736229" y="46.530727" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="139.415084" y="45.709047" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="139.869492" y="44.887367" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="141.087353" y="44.065687" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="142.646679" y="43.244007" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="142.912978" y="42.422327" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="143.01949" y="41.600647" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="143.110675" y="40.778966" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="143.299331" y="39.957286" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="146.541419" y="39.135606" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="146.689343" y="38.313926" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="147.175373" y="37.492246" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="149.160379" y="36.670566" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="149.567325" y="35.848886" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="149.609094" y="35.027206" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="149.699468" y="34.205525" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="150.922963" y="33.383845" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="151.073626" y="32.562165" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="151.089967" y="31.740485" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="151.708747" y="30.918805" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="152.467722" y="30.097125" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="152.567505" y="29.275445" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="154.316214" y="28.453764" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="154.684679" y="27.632084" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="154.733236" y="26.810404" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="155.040459" y="25.988724" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="155.125461" y="25.167044" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="156.639266" y="24.345364" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="156.821182" y="23.523684" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="161.006173" y="22.702003" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="162.454424" y="21.880323" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="164.472635" y="21.058643" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="167.320842" y="20.236963" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="169.762615" y="19.415283" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="169.923068" y="18.593603" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="170.114596" y="17.771923" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="170.208531" y="16.950242" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="171.106855" y="16.128562" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="174.54646" y="15.306882" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="176.083847" y="14.485202" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="181.156406" y="13.663522" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="182.760156" y="12.841842" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="186.217055" y="12.020162" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="195.048472" y="11.198482" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="198.490555" y="10.376801" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="200.635502" y="9.555121" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="201.861069" y="8.733441" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="224.239824" y="7.911761" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="230.097263" y="7.090081" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="234.6372" y="6.268401" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m642202a5dc" x="242.77965" y="5.446721" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+    </g>
+   </g>
+   <g id="line2d_46">
+    <path d="M 51.494704 168.961068  L 61.42226 168.961068  L 61.42226 168.139388  L 61.7353 168.139388  L 61.7353 167.317708  L 64.005215 167.317708  L 64.005215 166.496028  L 64.208051 166.496028  L 64.208051 165.674348  L 67.948769 165.674348  L 67.948769 164.852667  L 70.35446 164.852667  L 70.35446 164.030987  L 70.483995 164.030987  L 70.483995 163.209307  L 73.781762 163.209307  L 73.781762 162.387627  L 73.985211 162.387627  L 74.009907 160.744267  L 74.732473 160.744267  L 74.732473 159.922587  L 75.778518 159.922587  L 75.778518 159.100906  L 76.498826 159.100906  L 76.498826 158.279226  L 76.620024 158.279226  L 76.620024 157.457546  L 77.207671 157.457546  L 77.207671 156.635866  L 77.883257 156.635866  L 77.886836 154.992506  L 78.143589 154.992506  L 78.143589 154.170826  L 80.487728 154.170826  L 80.487728 153.349145  L 81.453284 153.349145  L 81.453284 152.527465  L 81.57263 152.527465  L 81.57263 151.705785  L 82.469256 151.705785  L 82.530737 149.240745  L 83.33812 149.240745  L 83.33812 148.419065  L 83.472014 148.419065  L 83.472014 147.597384  L 83.727928 147.597384  L 83.773579 145.954024  L 83.883361 145.954024  L 83.883361 145.132344  L 84.021519 145.132344  L 84.021519 144.310664  L 84.518732 144.310664  L 84.518732 143.488984  L 85.325961 143.488984  L 85.325961 142.667304  L 85.503982 142.667304  L 85.503982 141.845623  L 85.827045 141.845623  L 85.870208 140.202263  L 86.221444 140.202263  L 86.304386 138.558903  L 86.810437 138.558903  L 86.810437 137.737223  L 87.113056 137.737223  L 87.166372 136.093863  L 87.6489 136.093863  L 87.70134 134.450502  L 87.945338 134.450502  L 87.945338 133.628822  L 88.981396 133.628822  L 88.981396 132.807142  L 89.731319 132.807142  L 89.797605 131.163782  L 90.447501 131.163782  L 90.447501 130.342102  L 91.94562 130.342102  L 91.947925 128.698741  L 92.084349 128.698741  L 92.084349 127.877061  L 92.213467 127.877061  L 92.213467 127.055381  L 92.922634 127.055381  L 92.922634 126.233701  L 93.585339 126.233701  L 93.585339 125.412021  L 93.884176 125.412021  L 93.884176 124.590341  L 94.627156 124.590341  L 94.627156 123.76866  L 94.853907 123.76866  L 94.853907 122.94698  L 94.99939 122.94698  L 94.99939 122.1253  L 95.432413 122.1253  L 95.434801 120.48194  L 96.558191 120.48194  L 96.558191 119.66026  L 97.507055 119.66026  L 97.507055 118.83858  L 97.674125 118.83858  L 97.674125 118.016899  L 97.80812 118.016899  L 97.80812 117.195219  L 98.231282 117.195219  L 98.231282 116.373539  L 99.441598 116.373539  L 99.441598 115.551859  L 100.283599 115.551859  L 100.283599 114.730179  L 100.575648 114.730179  L 100.617059 113.086819  L 100.833818 113.086819  L 100.833818 112.265139  L 101.264996 112.265139  L 101.264996 111.443458  L 101.532593 111.443458  L 101.555365 109.800098  L 101.884502 109.800098  L 101.884502 108.978418  L 102.004628 108.978418  L 102.004628 108.156738  L 102.566001 108.156738  L 102.566001 107.335058  L 103.251121 107.335058  L 103.251121 106.513378  L 104.300632 106.513378  L 104.300632 105.691697  L 105.330063 105.691697  L 105.330063 104.870017  L 105.485264 104.870017  L 105.485264 104.048337  L 106.128091 104.048337  L 106.128091 103.226657  L 106.447629 103.226657  L 106.447629 102.404977  L 106.92095 102.404977  L 106.92095 101.583297  L 107.169015 101.583297  L 107.169015 100.761617  L 107.455919 100.761617  L 107.527308 99.118256  L 108.122959 99.118256  L 108.122959 98.296576  L 108.67004 98.296576  L 108.67004 97.474896  L 108.934171 97.474896  L 108.934171 96.653216  L 109.666158 96.653216  L 109.666158 95.831536  L 109.992448 95.831536  L 109.992448 95.009856  L 110.240215 95.009856  L 110.276351 93.366495  L 110.398382 93.366495  L 110.438067 91.723135  L 110.513291 91.723135  L 110.589338 90.079775  L 111.089529 90.079775  L 111.199769 88.436415  L 111.568817 88.436415  L 111.568817 87.614734  L 112.021963 87.614734  L 112.021963 86.793054  L 112.306747 86.793054  L 112.306747 85.971374  L 113.71286 85.971374  L 113.71286 85.149694  L 114.138148 85.149694  L 114.138148 84.328014  L 114.527014 84.328014  L 114.635015 82.684654  L 114.717624 82.684654  L 114.717624 81.862973  L 115.951552 81.862973  L 115.951552 81.041293  L 116.187576 81.041293  L 116.212432 79.397933  L 116.889108 79.397933  L 116.967107 77.754573  L 117.192054 77.754573  L 117.268196 74.467852  L 118.177918 74.467852  L 118.177918 73.646172  L 118.491834 73.646172  L 118.491834 72.824492  L 120.593297 72.824492  L 120.593297 72.002812  L 120.766483 72.002812  L 120.766483 71.181132  L 121.020979 71.181132  L 121.082793 69.537771  L 121.480378 69.537771  L 121.480378 68.716091  L 121.621775 68.716091  L 121.674787 67.072731  L 122.366493 67.072731  L 122.366493 66.251051  L 122.608329 66.251051  L 122.608329 65.429371  L 122.857204 65.429371  L 122.857204 64.607691  L 123.575839 64.607691  L 123.575839 63.78601  L 124.511084 63.78601  L 124.511084 62.96433  L 124.832229 62.96433  L 124.832229 62.14265  L 125.083188 62.14265  L 125.126398 60.49929  L 125.233077 60.49929  L 125.316365 58.85593  L 125.43293 58.85593  L 125.43293 58.034249  L 126.036477 58.034249  L 126.133711 56.390889  L 127.374416 56.390889  L 127.374416 55.569209  L 128.023234 55.569209  L 128.107129 53.104169  L 128.29101 53.104169  L 128.29101 52.282488  L 128.428358 52.282488  L 128.428358 51.460808  L 128.590217 51.460808  L 128.610393 49.817448  L 129.745764 49.817448  L 129.745764 48.995768  L 130.886102 48.995768  L 130.908577 47.352408  L 131.542006 47.352408  L 131.542006 46.530727  L 131.907053 46.530727  L 131.907053 45.709047  L 132.397406 45.709047  L 132.397406 44.887367  L 133.9518 44.887367  L 133.9518 44.065687  L 135.236882 44.065687  L 135.236882 43.244007  L 135.528288 43.244007  L 135.528288 42.422327  L 135.964366 42.422327  L 135.991081 40.778966  L 136.262537 40.778966  L 136.262537 39.957286  L 138.681954 39.957286  L 138.681954 39.135606  L 139.147189 39.135606  L 139.147189 38.313926  L 139.735991 38.313926  L 139.735991 37.492246  L 141.529458 37.492246  L 141.529458 36.670566  L 142.034246 36.670566  L 142.034246 35.848886  L 142.192663 35.848886  L 142.269508 34.205525  L 142.922601 34.205525  L 142.922601 33.383845  L 143.198143 33.383845  L 143.198143 32.562165  L 143.353141 32.562165  L 143.353141 31.740485  L 144.054566 31.740485  L 144.054566 30.918805  L 144.81135 30.918805  L 144.905809 29.275445  L 146.293819 29.275445  L 146.397282 27.632084  L 146.769725 27.632084  L 146.769725 26.810404  L 147.101434 26.810404  L 147.101434 25.988724  L 147.340638 25.988724  L 147.340638 25.167044  L 148.459919 25.167044  L 148.459919 24.345364  L 149.214332 24.345364  L 149.214332 23.523684  L 153.142313 23.523684  L 153.142313 22.702003  L 154.806198 22.702003  L 154.806198 21.880323  L 155.76306 21.880323  L 155.76306 21.058643  L 158.907401 21.058643  L 158.907401 20.236963  L 161.012223 20.236963  L 161.012223 19.415283  L 161.156538 19.415283  L 161.156538 18.593603  L 162.253166 18.593603  L 162.344362 16.950242  L 162.432164 16.950242  L 162.432164 16.128562  L 165.492395 16.128562  L 165.492395 15.306882  L 167.463145 15.306882  L 167.463145 14.485202  L 172.192156 14.485202  L 172.192156 13.663522  L 174.016053 13.663522  L 174.016053 12.841842  L 176.584502 12.841842  L 176.584502 12.020162  L 185.570477 12.020162  L 185.570477 11.198482  L 188.883203 11.198482  L 188.883203 10.376801  L 190.693631 10.376801  L 190.693631 9.555121  L 191.354323 9.555121  L 191.354323 8.733441  L 213.299012 8.733441  L 213.299012 7.911761  L 218.716918 7.911761  L 218.716918 7.090081  L 222.800101 7.090081  L 222.800101 6.268401  L 230.955842 6.268401  L 230.955842 5.446721  L 230.955842 5.446721  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke-dasharray: 7.2,1.8,1.8,1.8; stroke-dashoffset: 0; stroke: #9e9e9e; stroke-width: 1.8" />
+    <defs>
+     <path id="m9be2e8929a" d="M 0 4.949747  L 4.949747 0  L 0 -4.949747  L -4.949747 0  z " style="stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+    </defs>
+    <g clip-path="url(#pc57a67d40a)">
+     <use ns3:href="#m9be2e8929a" x="51.494704" y="168.961068" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="61.42226" y="168.139388" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="61.7353" y="167.317708" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="64.005215" y="166.496028" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="64.208051" y="165.674348" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="67.948769" y="164.852667" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="70.35446" y="164.030987" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="70.483995" y="163.209307" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="73.781762" y="162.387627" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="73.985211" y="161.565947" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="74.009907" y="160.744267" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="74.732473" y="159.922587" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="75.778518" y="159.100906" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="76.498826" y="158.279226" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="76.620024" y="157.457546" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="77.207671" y="156.635866" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="77.883257" y="155.814186" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="77.886836" y="154.992506" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="78.143589" y="154.170826" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="80.487728" y="153.349145" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="81.453284" y="152.527465" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="81.57263" y="151.705785" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="82.469256" y="150.884105" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="82.527289" y="150.062425" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="82.530737" y="149.240745" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="83.33812" y="148.419065" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="83.472014" y="147.597384" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="83.727928" y="146.775704" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="83.773579" y="145.954024" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="83.883361" y="145.132344" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="84.021519" y="144.310664" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="84.518732" y="143.488984" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="85.325961" y="142.667304" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="85.503982" y="141.845623" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="85.827045" y="141.023943" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="85.870208" y="140.202263" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="86.221444" y="139.380583" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="86.304386" y="138.558903" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="86.810437" y="137.737223" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="87.113056" y="136.915543" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="87.166372" y="136.093863" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="87.6489" y="135.272182" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="87.70134" y="134.450502" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="87.945338" y="133.628822" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="88.981396" y="132.807142" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="89.731319" y="131.985462" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="89.797605" y="131.163782" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="90.447501" y="130.342102" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="91.94562" y="129.520421" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="91.947925" y="128.698741" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="92.084349" y="127.877061" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="92.213467" y="127.055381" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="92.922634" y="126.233701" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="93.585339" y="125.412021" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="93.884176" y="124.590341" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="94.627156" y="123.76866" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="94.853907" y="122.94698" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="94.99939" y="122.1253" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="95.432413" y="121.30362" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="95.434801" y="120.48194" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="96.558191" y="119.66026" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="97.507055" y="118.83858" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="97.674125" y="118.016899" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="97.80812" y="117.195219" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="98.231282" y="116.373539" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="99.441598" y="115.551859" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="100.283599" y="114.730179" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="100.575648" y="113.908499" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="100.617059" y="113.086819" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="100.833818" y="112.265139" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="101.264996" y="111.443458" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="101.532593" y="110.621778" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="101.555365" y="109.800098" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="101.884502" y="108.978418" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="102.004628" y="108.156738" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="102.566001" y="107.335058" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="103.251121" y="106.513378" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="104.300632" y="105.691697" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="105.330063" y="104.870017" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="105.485264" y="104.048337" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="106.128091" y="103.226657" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="106.447629" y="102.404977" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="106.92095" y="101.583297" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="107.169015" y="100.761617" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="107.455919" y="99.939936" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="107.527308" y="99.118256" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="108.122959" y="98.296576" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="108.67004" y="97.474896" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="108.934171" y="96.653216" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="109.666158" y="95.831536" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="109.992448" y="95.009856" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="110.240215" y="94.188175" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="110.276351" y="93.366495" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="110.398382" y="92.544815" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="110.438067" y="91.723135" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="110.513291" y="90.901455" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="110.589338" y="90.079775" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="111.089529" y="89.258095" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="111.199769" y="88.436415" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="111.568817" y="87.614734" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="112.021963" y="86.793054" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="112.306747" y="85.971374" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="113.71286" y="85.149694" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="114.138148" y="84.328014" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="114.527014" y="83.506334" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="114.635015" y="82.684654" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="114.717624" y="81.862973" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="115.951552" y="81.041293" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="116.187576" y="80.219613" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="116.212432" y="79.397933" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="116.889108" y="78.576253" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="116.967107" y="77.754573" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="117.192054" y="76.932893" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="117.221103" y="76.111212" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="117.264814" y="75.289532" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="117.268196" y="74.467852" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="118.177918" y="73.646172" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="118.491834" y="72.824492" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="120.593297" y="72.002812" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="120.766483" y="71.181132" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="121.020979" y="70.359451" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="121.082793" y="69.537771" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="121.480378" y="68.716091" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="121.621775" y="67.894411" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="121.674787" y="67.072731" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="122.366493" y="66.251051" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="122.608329" y="65.429371" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="122.857204" y="64.607691" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="123.575839" y="63.78601" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="124.511084" y="62.96433" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="124.832229" y="62.14265" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="125.083188" y="61.32097" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="125.126398" y="60.49929" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="125.233077" y="59.67761" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="125.316365" y="58.85593" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="125.43293" y="58.034249" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="126.036477" y="57.212569" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="126.133711" y="56.390889" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="127.374416" y="55.569209" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="128.023234" y="54.747529" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="128.089431" y="53.925849" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="128.107129" y="53.104169" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="128.29101" y="52.282488" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="128.428358" y="51.460808" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="128.590217" y="50.639128" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="128.610393" y="49.817448" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="129.745764" y="48.995768" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="130.886102" y="48.174088" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="130.908577" y="47.352408" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="131.542006" y="46.530727" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="131.907053" y="45.709047" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="132.397406" y="44.887367" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="133.9518" y="44.065687" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="135.236882" y="43.244007" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="135.528288" y="42.422327" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="135.964366" y="41.600647" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="135.991081" y="40.778966" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="136.262537" y="39.957286" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="138.681954" y="39.135606" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="139.147189" y="38.313926" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="139.735991" y="37.492246" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="141.529458" y="36.670566" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="142.034246" y="35.848886" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="142.192663" y="35.027206" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="142.269508" y="34.205525" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="142.922601" y="33.383845" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="143.198143" y="32.562165" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="143.353141" y="31.740485" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="144.054566" y="30.918805" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="144.81135" y="30.097125" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="144.905809" y="29.275445" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="146.293819" y="28.453764" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="146.397282" y="27.632084" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="146.769725" y="26.810404" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="147.101434" y="25.988724" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="147.340638" y="25.167044" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="148.459919" y="24.345364" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="149.214332" y="23.523684" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="153.142313" y="22.702003" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="154.806198" y="21.880323" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="155.76306" y="21.058643" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="158.907401" y="20.236963" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="161.012223" y="19.415283" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="161.156538" y="18.593603" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="162.253166" y="17.771923" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="162.344362" y="16.950242" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="162.432164" y="16.128562" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="165.492395" y="15.306882" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="167.463145" y="14.485202" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="172.192156" y="13.663522" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="174.016053" y="12.841842" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="176.584502" y="12.020162" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="185.570477" y="11.198482" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="188.883203" y="10.376801" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="190.693631" y="9.555121" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="191.354323" y="8.733441" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="213.299012" y="7.911761" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="218.716918" y="7.090081" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="222.800101" y="6.268401" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     <use ns3:href="#m9be2e8929a" x="230.955842" y="5.446721" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+    </g>
+   </g>
+   <g id="line2d_47">
+    <path d="M 31.91 161.565947  L 245.34 161.565947  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke-dasharray: 0.5,1.5; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-width: 0.5" />
+   </g>
+   <g id="line2d_48">
+    <path d="M 31.91 13.663522  L 245.34 13.663522  " clip-path="url(#pc57a67d40a)" style="fill: none; stroke-dasharray: 0.5,1.5; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-width: 0.5" />
+   </g>
+   <g id="patch_3">
+    <path d="M 31.91 173.069469  L 31.91 2.16  " style="fill: none; stroke: #262626; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_4">
+    <path d="M 31.91 173.069469  L 245.34 173.069469  " style="fill: none; stroke: #262626; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="text_17">
+    <text style="font-size: 9px; font-family: 'Times New Roman', 'DejaVu Serif', 'Nimbus Roman', 'Liberation Serif', serif; text-anchor: start; fill: #666666" x="41.057" y="154.71071" transform="rotate(-0 41.057 154.71071)">p5</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9px; font-family: 'Times New Roman', 'DejaVu Serif', 'Nimbus Roman', 'Liberation Serif', serif; text-anchor: start; fill: #666666" x="41.057" y="24.842978" transform="rotate(-0 41.057 24.842978)">p95</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_49">
+     <path d="M 128.07 123.119469  L 136.17 123.119469  L 136.17 123.119469  L 144.27 123.119469  L 144.27 123.119469  " style="fill: none; stroke: #0f0f0f; stroke-width: 1.8; stroke-linecap: square" />
+     <g>
+      <use ns3:href="#m68baf1385e" x="136.17" y="123.119469" style="fill: #0f0f0f; stroke: #0f0f0f; stroke-width: 0.9" />
+     </g>
+    </g>
+    <g id="text_19">
+     
+     <g transform="translate(148.77 126.269469)">
+      <text>
+       <tspan x="0" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">S</tspan>
+       <tspan x="5.515137" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">=</tspan>
+       <tspan x="10.015137" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">D</tspan>
+       <tspan x="32.111719" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">:</tspan>
+       <tspan x="19.039746" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">=</tspan>
+       <tspan x="27.611719" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">0</tspan>
+       <tspan x="34.603418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">3</tspan>
+       <tspan x="39.103418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">1</tspan>
+       <tspan x="43.603418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">2</tspan>
+       <tspan x="48.103418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">5</tspan>
+       <tspan x="52.603418" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="54.853418" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">(</tspan>
+       <tspan x="57.850488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">n</tspan>
+       <tspan x="62.350488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="64.600488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">=</tspan>
+       <tspan x="69.676172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="71.926172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">2</tspan>
+       <tspan x="76.426172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">0</tspan>
+       <tspan x="80.926172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">0</tspan>
+       <tspan x="85.426172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">)</tspan>
+      </text>
+     </g>
+    </g>
+    <g id="line2d_50">
+     <path d="M 128.07 135.269469  L 136.17 135.269469  L 136.17 135.269469  L 144.27 135.269469  L 144.27 135.269469  " style="fill: none; stroke-dasharray: 7.2,3.6; stroke-dashoffset: 0; stroke: #4a4a4a; stroke-width: 1.8" />
+     <g>
+      <use ns3:href="#m36afda0fdb" x="136.17" y="135.269469" style="fill: #4a4a4a; stroke: #4a4a4a; stroke-width: 0.9; stroke-linejoin: miter" />
+     </g>
+    </g>
+    <g id="text_20">
+     
+     <g transform="translate(148.77 138.419469)">
+      <text>
+       <tspan x="0" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">S</tspan>
+       <tspan x="5.515137" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">=</tspan>
+       <tspan x="10.015137" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">D</tspan>
+       <tspan x="32.111719" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">:</tspan>
+       <tspan x="19.039746" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">=</tspan>
+       <tspan x="27.611719" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">0</tspan>
+       <tspan x="34.603418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">3</tspan>
+       <tspan x="39.103418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">7</tspan>
+       <tspan x="43.603418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">5</tspan>
+       <tspan x="48.103418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">0</tspan>
+       <tspan x="52.603418" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="54.853418" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">(</tspan>
+       <tspan x="57.850488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">n</tspan>
+       <tspan x="62.350488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="64.600488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">=</tspan>
+       <tspan x="69.676172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="71.926172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">2</tspan>
+       <tspan x="76.426172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">0</tspan>
+       <tspan x="80.926172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">0</tspan>
+       <tspan x="85.426172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">)</tspan>
+      </text>
+     </g>
+    </g>
+    <g id="line2d_51">
+     <path d="M 128.07 147.419469  L 136.17 147.419469  L 136.17 147.419469  L 144.27 147.419469  L 144.27 147.419469  " style="fill: none; stroke-dasharray: 1.8,3.6; stroke-dashoffset: 0; stroke: #7a7a7a; stroke-width: 1.8" />
+     <g>
+      <use ns3:href="#m642202a5dc" x="136.17" y="147.419469" style="fill: #7a7a7a; stroke: #7a7a7a; stroke-width: 0.9; stroke-linejoin: miter" />
+     </g>
+    </g>
+    <g id="text_21">
+     
+     <g transform="translate(148.77 150.569469)">
+      <text>
+       <tspan x="0" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">S</tspan>
+       <tspan x="5.515137" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">=</tspan>
+       <tspan x="10.015137" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">D</tspan>
+       <tspan x="32.111719" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">:</tspan>
+       <tspan x="19.039746" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">=</tspan>
+       <tspan x="27.611719" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">0</tspan>
+       <tspan x="34.603418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">4</tspan>
+       <tspan x="39.103418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">3</tspan>
+       <tspan x="43.603418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">7</tspan>
+       <tspan x="48.103418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">5</tspan>
+       <tspan x="52.603418" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="54.853418" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">(</tspan>
+       <tspan x="57.850488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">n</tspan>
+       <tspan x="62.350488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="64.600488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">=</tspan>
+       <tspan x="69.676172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="71.926172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">2</tspan>
+       <tspan x="76.426172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">0</tspan>
+       <tspan x="80.926172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">0</tspan>
+       <tspan x="85.426172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">)</tspan>
+      </text>
+     </g>
+    </g>
+    <g id="line2d_52">
+     <path d="M 128.07 159.569469  L 136.17 159.569469  L 136.17 159.569469  L 144.27 159.569469  L 144.27 159.569469  " style="fill: none; stroke-dasharray: 7.2,1.8,1.8,1.8; stroke-dashoffset: 0; stroke: #9e9e9e; stroke-width: 1.8" />
+     <g>
+      <use ns3:href="#m9be2e8929a" x="136.17" y="159.569469" style="fill: #9e9e9e; stroke: #9e9e9e; stroke-width: 0.9; stroke-linejoin: miter" />
+     </g>
+    </g>
+    <g id="text_22">
+     
+     <g transform="translate(148.77 162.719469)">
+      <text>
+       <tspan x="0" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">S</tspan>
+       <tspan x="5.515137" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">=</tspan>
+       <tspan x="10.015137" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">D</tspan>
+       <tspan x="32.111719" y="-0.25" style="font-size: 9px; font-family: 'cmmi10'">:</tspan>
+       <tspan x="19.039746" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">=</tspan>
+       <tspan x="27.611719" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">0</tspan>
+       <tspan x="34.603418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">5</tspan>
+       <tspan x="39.103418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">0</tspan>
+       <tspan x="43.603418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">0</tspan>
+       <tspan x="48.103418" y="-0.25" style="font-size: 9px; font-family: 'cmr10'">0</tspan>
+       <tspan x="52.603418" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="54.853418" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">(</tspan>
+       <tspan x="57.850488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">n</tspan>
+       <tspan x="62.350488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="64.600488" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">=</tspan>
+       <tspan x="69.676172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'"> </tspan>
+       <tspan x="71.926172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">2</tspan>
+       <tspan x="76.426172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">0</tspan>
+       <tspan x="80.926172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">0</tspan>
+       <tspan x="85.426172" y="-0.25" style="font-size: 9px; font-family: 'Times New Roman'">)</tspan>
+      </text>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc57a67d40a">
+   <rect x="31.91" y="2.16" width="213.43" height="170.909469" />
+  </clipPath>
+ </defs>
+</svg>

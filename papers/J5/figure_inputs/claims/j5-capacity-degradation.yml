@@ -1,0 +1,75 @@
+claim_id: j5-capacity-degradation
+paper: J5
+status: confirmed
+source: manuscript.qmd + @fig-degradation-curves
+origin_note: |
+  Population mean + quantile band of horizontal capacity Hmax across
+  800 Latin-Hypercube soil realisations at four scour depths
+  (S/D = 0.3125, 0.375, 0.4375, 0.5). PC3 covers the two shallower
+  stages; PC4 covers the two deeper. The committed dataset excludes
+  the PC1+PC2 intact/near-intact cases used for the manuscript's
+  population-mean 76% claim; this claim asserts what's verifiable
+  from the 800-realisation subset.
+
+headline: >
+  Population-mean Hmax falls from 21,645 kN at S/D=0.3125 to 18,739 kN
+  at S/D=0.5 (13% drop over a 0.19 S/D span); CoV stays ~ 0.27 at
+  every stage.
+
+primary_figure: figures/j5-capacity-degradation
+
+assertions:
+  - name: pc3_shallowest_mean_hmax
+    parquet: degradation-quantiles.parquet
+    compute: {op: mean, column: hmax_mean_kn, filter: {pc_id: PC3, s_over_d: 0.3125}}
+    op: near
+    value: 21644.5
+    tolerance: 1.0
+
+  - name: pc4_deepest_mean_hmax
+    parquet: degradation-quantiles.parquet
+    compute: {op: mean, column: hmax_mean_kn, filter: {pc_id: PC4, s_over_d: 0.5}}
+    op: near
+    value: 18738.7
+    tolerance: 1.0
+
+  - name: pc3_shallowest_p5
+    parquet: degradation-quantiles.parquet
+    compute: {op: mean, column: hmax_p5_kn, filter: {pc_id: PC3, s_over_d: 0.3125}}
+    op: near
+    value: 13847.5
+    tolerance: 2.0
+
+  - name: pc4_deepest_p95
+    parquet: degradation-quantiles.parquet
+    compute: {op: mean, column: hmax_p95_kn, filter: {pc_id: PC4, s_over_d: 0.5}}
+    op: near
+    value: 28019.6
+    tolerance: 2.0
+
+  - name: cov_stays_near_0_27
+    parquet: degradation-quantiles.parquet
+    compute: {op: mean, column: hmax_cov}
+    op: near
+    value: 0.273
+    tolerance: 0.01
+
+  - name: mean_drop_from_shallow_to_deep
+    parquet: mc-ensemble.parquet
+    compute: {op: mean, column: Hmax_ratio_to_ref, filter: {pc_id: PC4, S_D: 0.5}}
+    op: near
+    value: 0.866
+    tolerance: 0.01
+
+  - name: four_scour_stages_populated
+    parquet: degradation-quantiles.parquet
+    compute: {op: row_counts, column: s_over_d}
+    op: equal
+    value: 4
+
+  - name: n_200_per_stage
+    parquet: degradation-quantiles.parquet
+    compute: {op: mean, column: n, filter: {pc_id: PC3, s_over_d: 0.3125}}
+    op: near
+    value: 200
+    tolerance: 0.1

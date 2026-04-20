@@ -1,0 +1,31 @@
+figure_id: j5-capacity-degradation
+journal: ocean_engineering
+width: single
+paper: J5
+claim_id: j5-capacity-degradation
+tier: 2
+tier2_slug: degradation-quantiles
+
+description: >
+  Population-mean horizontal capacity Hmax vs normalised scour depth
+  S/D (manuscript @fig-degradation-curves). Shaded band spans p5-p95
+  quantiles across 200 LHS realisations per scour stage (PC3 covers
+  S/D = 0.3125, 0.375; PC4 covers S/D = 0.4375, 0.5). Mean drops
+  13.4% from the shallowest to the deepest stage in the committed
+  subset; CoV stays near 0.27 at every stage.
+
+data_sources:
+  - papers/J5/figure_inputs/degradation-quantiles.parquet
+
+required_columns:
+  - pc_id
+  - s_over_d
+  - n
+  - hmax_mean_kn
+  - hmax_p5_kn
+  - hmax_p50_kn
+  - hmax_p95_kn
+  - hmax_std_kn
+  - hmax_cov
+
+formats: [png, svg, pdf]

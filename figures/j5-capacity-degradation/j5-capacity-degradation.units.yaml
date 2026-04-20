@@ -1,0 +1,9 @@
+pc_id:         label
+s_over_d:      dimensionless
+n:             count
+hmax_mean_kn:  kilonewton
+hmax_p5_kn:    kilonewton
+hmax_p50_kn:   kilonewton
+hmax_p95_kn:   kilonewton
+hmax_std_kn:   kilonewton
+hmax_cov:      ratio

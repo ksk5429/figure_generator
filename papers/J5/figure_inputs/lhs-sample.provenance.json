@@ -1,0 +1,28 @@
+{
+  "tier": 2,
+  "paper": "J5",
+  "slug": "lhs-sample",
+  "generated_utc": "2026-04-20T03:06:48Z",
+  "primary_source": {
+    "kind": "monte_carlo_ensemble",
+    "csv_refs": [
+      "paperJ5_mc_optumgx/1_data/mc_production/mc_PC3.csv",
+      "paperJ5_mc_optumgx/1_data/mc_production/mc_PC4.csv"
+    ]
+  },
+  "rows": 800,
+  "columns": [
+    "run",
+    "pc_id",
+    "S_D",
+    "su0",
+    "k_su",
+    "gamma",
+    "alpha_int",
+    "cov_su0",
+    "cov_k_su",
+    "cov_gamma",
+    "cov_alpha_int",
+    "n_samples"
+  ]
+}
